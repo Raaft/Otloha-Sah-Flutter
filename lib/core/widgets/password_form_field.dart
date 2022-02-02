@@ -26,6 +26,8 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormFieldApp(
+      //color: Colors.blue,
+
       title: widget.title,
       keyType: TextInputType.visiblePassword,
       validator: widget.validator,
@@ -40,7 +42,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
           isPasswordMode
               ? Icons.visibility_rounded
               : Icons.visibility_off_rounded,
-          color: AppColor.txtColor1,
+          color: AppColor.blue,
         ),
       ),
     );

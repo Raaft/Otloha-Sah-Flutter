@@ -5,8 +5,8 @@ class TextView extends StatelessWidget {
   TextView({
     Key? key,
     required this.text,
-    this.textAlign = TextAlign.center,
     this.action,
+    this.textAlign,
     this.padding = const EdgeInsets.all(8),
     this.icon,
     this.colorText,
@@ -15,7 +15,7 @@ class TextView extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
   Function()? action;
   final EdgeInsetsGeometry padding;
   Icon? icon;
@@ -32,7 +32,9 @@ class TextView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: (textAlign == TextAlign.center)
               ? MainAxisAlignment.center
-              : MainAxisAlignment.start,
+              : (textAlign == TextAlign.start)
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.end,
           children: [
             if (icon != null) icon!,
             if (icon != null) const SizedBox(width: 8),

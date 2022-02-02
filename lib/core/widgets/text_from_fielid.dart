@@ -32,25 +32,28 @@ class TextFormFieldApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var borderSide =
-        BorderSide(width: 2, color: Theme.of(context).primaryColor);
+        BorderSide(width: 1, color: Theme.of(context).primaryColor);
 
     var border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
       borderSide: borderSide,
     );
-    color = color ?? AppColor.txtColor3;
+    color = color ?? AppColor.blue;
 
     var style = TextStyle(fontSize: 16, color: color);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        style: TextStyle(color: AppColor.blue),
         initialValue: value,
         enabled: isEnabled,
         obscureText: isPassword,
         controller: controller,
         key: ValueKey(key),
         decoration: InputDecoration(
+          //  color: Colors.blue,
+
           filled: true,
           enabledBorder: border,
           focusedBorder: border,
@@ -59,9 +62,10 @@ class TextFormFieldApp extends StatelessWidget {
           disabledBorder: border,
           labelStyle: style.copyWith(color: color),
           labelText: title,
-          hintStyle: style,
-          hintText: title,
-          fillColor: Theme.of(context).canvasColor,
+
+          //hintStyle: style,
+          // hintText: title,
+          fillColor: AppColor.white,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
         ),

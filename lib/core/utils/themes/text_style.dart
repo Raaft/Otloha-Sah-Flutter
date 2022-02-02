@@ -15,7 +15,7 @@ class AppStyle {
 
   TextStyle get textStyle2 => GoogleFonts.lato(
         textStyle: TextStyle(
-          color: AppColor.txtColor2,
+          color: AppColor.white,
           fontFamily: fontFamily1,
           fontSize: 20,
         ),

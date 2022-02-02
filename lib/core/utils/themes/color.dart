@@ -11,8 +11,11 @@ class AppColor {
 
   static Color transparent = Colors.transparent;
   ////Text Color
+  static Color blue = Colors.blue;
+  static Color grey = Colors.grey;
+  static Color black87 = Colors.black87;
   static Color txtColor1 = Colors.black;
-  static Color txtColor2 = Colors.white;
+  static Color white = Colors.white;
   static Color txtColor3 = const Color(0xff223c8c);
   static Color txtColor4 = const Color(0xff828282);
   static Color txtColor5 = const Color(0xffFF0000);

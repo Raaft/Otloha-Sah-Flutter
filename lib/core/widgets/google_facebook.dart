@@ -12,19 +12,17 @@ class GoogleAndFacebook extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconButtonApp(
-          bcolor: Colors.white,
-          action: () {},
+        IconButton(
           icon: Image.asset(AppIcons.googleIcon),
+          onPressed: () {},
         ),
-        IconButtonApp(
-          bcolor: Colors.blueAccent,
-          action: () {},
-          icon: const Icon(
-            Icons.facebook,
-            size: 34,
-            color: Colors.white,
-          ),
+        IconButton(
+          icon: Image.asset(AppIcons.facebookIcon),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: Image.asset(AppIcons.twitterIcon),
+          onPressed: () {},
         ),
       ],
     );

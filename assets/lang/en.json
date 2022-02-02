@@ -23,14 +23,16 @@
   "EnterConfirmPassword":"Enter Confirm Password",
   "LoginByEmail":"Login By Email",
   "Login":"Login",
+  "Log-in": "Log-in",
   "RegisterNow":"Register Now",
   "ResetNow":"Reset Now",
-  "Registernow":"Don't have an account yet? Register now",
+  "Registernow?":"Don't have an account yet? ",
   "Alreadyhavelogin":"Already have login and password? Sign in",
   "ForgotPassword":"Forgot Password",
   "ChangePassword":"Change Password",
   "Enteroldpassword":"Enter old password",
   "EnterNewpassword":"Enter New password",
+  "loginwith":"Or login with",
 
 
   "_comment3":"app values",

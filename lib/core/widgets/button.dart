@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ButtonApp extends StatelessWidget {
@@ -34,23 +35,21 @@ class ButtonApp extends StatelessWidget {
         ? const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0)
         : padding;
     return Container(
-      padding: padding,
-      // width: isFullWidth ? MediaQuery.of(context).size.width : null,
-      child: Center(
-        child: FloatingActionButton.extended(
-          backgroundColor: bcolor,
-          label: Text(
-            title,
-            style: style,
+        height: 40,
+        padding: padding,
+        // width: isFullWidth ? MediaQuery.of(context).size.width : null,
+        child: Center(
+            child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.teal,
+            onPrimary: Colors.white,
+            onSurface: Colors.grey,
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            textStyle:
+                const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-            side: BorderSide(color: borderColor!),
-          ),
-          icon: icon,
           onPressed: action,
-        ),
-      ),
-    );
+          child: Text(tr('Log-in')),
+        )));
   }
 }

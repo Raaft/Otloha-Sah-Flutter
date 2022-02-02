@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/main.dart';
+
+import 'modules/login/presentation/pages/login_page.dart';
+
 
 class AppRouter {
   AppRouter();
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case HomePage.routeName:
+      case LoginPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const HomePage(),
+          builder: (_) =>  LoginPage(),
           settings: settings,
         );
     }
