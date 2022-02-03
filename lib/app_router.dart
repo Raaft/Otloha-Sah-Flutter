@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'modules/login/presentation/pages/login_page.dart';
+import 'modules/auth_modules/presentation/pages/login_page.dart';
+
 
 
 class AppRouter {
