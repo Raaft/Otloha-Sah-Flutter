@@ -42,7 +42,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
           isPasswordMode
               ? Icons.visibility_rounded
               : Icons.visibility_off_rounded,
-          color: AppColor.blue,
+          color: AppColor.lightBlue,
         ),
       ),
     );

@@ -6,7 +6,7 @@ class ButtonApp extends StatelessWidget {
   final Function() action;
   Widget? icon;
   bool isFullWidth = false;
-  Color? bcolor;
+  Color? bColor;
   Color? borderColor;
   TextStyle style;
   final double radius;
@@ -18,7 +18,7 @@ class ButtonApp extends StatelessWidget {
     required this.action,
     this.icon,
     this.isFullWidth = false,
-    this.bcolor,
+    this.bColor,
     this.style = const TextStyle(fontSize: 20, color: Colors.white),
     this.radius = 12,
     this.borderColor,
@@ -27,7 +27,7 @@ class ButtonApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bcolor = (bcolor == null) ? Theme.of(context).primaryColor : bcolor;
+    bColor = (bColor == null) ? Theme.of(context).primaryColor : bColor;
     borderColor =
         (borderColor == null) ? Theme.of(context).primaryColor : borderColor;
 

@@ -27,13 +27,16 @@
   "ResetNow":"إعادة التعيين الآن",
   "RegisterNow":"سجل الان",
   "Registernow?":"لا تملك حسابا حتى الآن؟ ",
-  "Alreadyhavelogin":"لديك بالفعل تسجيل الدخول وكلمة المرور؟ تسجيل الدخول",
+  "Alreadyhavelogin":"لديك بالفعل تسجيل الدخول وكلمة المرور؟",
   "ForgotPassword":"هل نسيت كلمة المرور",
   "ChangePassword":"تغيير كلمة المرور",
   "Enteroldpassword":"أدخل كلمة المرور القديمة",
   "EnterNewpassword":"أدخل كلمة المرور جديدة",
-  "loginwith":"أو سجل الدخول بواسطه",
+  "loginwith":"أو سجل الدخول ب",
+  "signupWith":"أو سجل حساب ب",
+
   "Need help":"أحتاج مساعده ؟",
+  "Sign-up": "تسجيل حساب",
 
 
   "_comment3":"app values",

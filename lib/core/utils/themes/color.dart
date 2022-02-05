@@ -10,10 +10,13 @@ class AppColor {
   static Color deepsecondaryColor = const Color(0xff1597bb);
 
   static Color transparent = Colors.transparent;
+
   ////Text Color
-  static Color blue = Colors.blue;
+  static Color lightBlue = const Color(0xff01cffd);
+  static Color darkBlue = const Color(0xff397cd6);
   static Color silver = const Color(0xffb9b7b7);
   static Color darkSilver = const Color(0xff959394);
+  static Color headTextColor = const Color(0xff08226c);
 
   static Color grey = Colors.grey;
   static Color black87 = Colors.black87;
