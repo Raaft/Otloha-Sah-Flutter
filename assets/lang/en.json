@@ -24,15 +24,16 @@
   "LoginByEmail":"Login By Email",
   "Login":"Login",
   "Log-in": "Log-in",
-  "RegisterNow":"Register Now",
+  "RegisterNow":"Sign-up",
   "ResetNow":"Reset Now",
-  "Registernow?":"Don't have an account yet? ",
+  "Registernow?":"Don't have an account yet ?",
   "Alreadyhavelogin":"Already have login and password? Sign in",
   "ForgotPassword":"Forgot Password",
   "ChangePassword":"Change Password",
   "Enteroldpassword":"Enter old password",
   "EnterNewpassword":"Enter New password",
   "loginwith":"Or login with",
+  "Need help":"Need help ?",
 
 
   "_comment3":"app values",

@@ -12,6 +12,9 @@ class AppColor {
   static Color transparent = Colors.transparent;
   ////Text Color
   static Color blue = Colors.blue;
+  static Color silver = const Color(0xffb9b7b7);
+  static Color darkSilver = const Color(0xff959394);
+
   static Color grey = Colors.grey;
   static Color black87 = Colors.black87;
   static Color txtColor1 = Colors.black;

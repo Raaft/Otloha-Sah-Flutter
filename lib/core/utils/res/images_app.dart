@@ -1,3 +1,3 @@
 class AppImages {
-   static String backGroundImage = 'assets/images/login_backGround.jpg';
+  static String backGroundImage = 'assets/images/login_backGround.png';
 }

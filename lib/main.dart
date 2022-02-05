@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_base/app_router.dart';
-import 'package:flutter_base/core/widgets/tab_bar_view.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
