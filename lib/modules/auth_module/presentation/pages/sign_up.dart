@@ -9,7 +9,6 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.d
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
 
-
 class SignUpPage extends StatelessWidget {
   static const routeName = '/signUpPage';
 
@@ -24,13 +23,14 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(child: pageLayout(context, signupComponents(context))),
+      body: SingleChildScrollView(
+          child: pageLayout(context, signupComponents(context))),
     );
   }
 
   Widget signupComponents(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 35,right: 35,left: 35),
+      padding: const EdgeInsets.only(top: 35, right: 35, left: 35),
       height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child: Column(
@@ -39,7 +39,9 @@ class SignUpPage extends StatelessWidget {
           children: [
             pageLayOutTextHead(tr('Sign-up')),
             signUpForm(),
-            loginWith(tr('signupWith'),),
+            loginWith(
+              tr('signupWith'),
+            ),
             needHelpText(),
           ],
         ),
@@ -119,13 +121,18 @@ class SignUpPage extends StatelessWidget {
               onSaved: (val) {},
             ),
             AuthButton(
-                buttonText: tr('Login'),
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    debugPrint('validate');
-                  }
-                },
-                width: double.infinity),
+              buttonText: tr('Login'),
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  debugPrint('validate');
+                }
+              },
+              width: double.infinity,
+              colors: [
+                AppColor.darkBlue,
+                AppColor.lightBlue,
+              ],
+            ),
           ],
         ),
       ),

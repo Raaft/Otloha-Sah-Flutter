@@ -14,7 +14,7 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  static const routeName = '/';
+  static const routeName = '/loginPage';
 
   LoginPage({Key? key}) : super(key: key);
   var formKey = GlobalKey<FormState>();
@@ -39,7 +39,9 @@ class LoginPage extends StatelessWidget {
           children: [
             pageLayOutTextHead(tr('Log-in')),
             loginForm(),
-            loginWith(tr('loginwith'),),
+            loginWith(
+              tr('loginwith'),
+            ),
             needHelpText(),
           ],
         ),
@@ -83,13 +85,18 @@ class LoginPage extends StatelessWidget {
             colorText: AppColor.silver,
           ),
           AuthButton(
-              buttonText: tr('Login'),
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  debugPrint('validate');
-                }
-              },
-              width: double.infinity),
+            buttonText: tr('Login'),
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                debugPrint('validate');
+              }
+            },
+            width: double.infinity,
+            colors: [
+              AppColor.darkBlue,
+              AppColor.lightBlue,
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

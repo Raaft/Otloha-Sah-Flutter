@@ -16,6 +16,8 @@ class AppColor {
   static Color darkBlue = const Color(0xff397cd6);
   static Color silver = const Color(0xffb9b7b7);
   static Color darkSilver = const Color(0xff959394);
+  static Color lightYellow = const Color(0xfffede65);
+  static Color hidenBlue = const Color(0xffc1daf4);
   static Color headTextColor = const Color(0xff08226c);
 
   static Color grey = Colors.grey;

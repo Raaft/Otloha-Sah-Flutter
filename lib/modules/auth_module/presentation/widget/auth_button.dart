@@ -1,33 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 
-/* Widget authButton(String title, Function function) {
-  return SizedBox(
-    width: double.infinity,
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: AppColor.lightBlue,
-        onPrimary: Colors.white,
-        onSurface: Colors.grey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-      ),
-      child: Text(title),
-      onPressed: () {},
-    ),
-  );
-}
- */
 class AuthButton extends StatelessWidget {
   final String buttonText;
   final double width;
   final Function onPressed;
+  final List<Color> colors;
 
   const AuthButton({
     required this.buttonText,
     required this.width,
     required this.onPressed,
+    required this.colors,
   });
 
   @override
@@ -44,11 +28,7 @@ class AuthButton extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               stops: const [0.0, 1.0],
-              colors: [
-                AppColor.darkBlue,
-
-                AppColor.lightBlue,
-              ],
+              colors: colors,
             ),
             color: Colors.deepPurple.shade300,
             borderRadius: BorderRadius.circular(20),
