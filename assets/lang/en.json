@@ -42,10 +42,10 @@
   "_comment3":"app values",
 
   "SearchSubject":"Search for Subject ....",
-  "Search":"Search for ....",
+  "Search":"Search",
   "Done":"Done",
   "Home":"Home",
-  "History":"History",
+  "Quran":"Quran",
   "Menu":"Menu",
   "AccountSettings":"Account Settings",
   "SettingsApp":"Settings App",
@@ -53,7 +53,7 @@
   "Profile":"Profile",
   "EditProfile":"Edit Profile",
 
-  "YourLearning":"Your Learning",
+  "Hello":"Hello",
   "MyLearning":"My Learning",
   "Mycourses":"My courses",
   "Favoritecourses":"Favorite courses",

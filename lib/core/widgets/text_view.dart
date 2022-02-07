@@ -2,7 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/text_style.dart';
 
 class TextView extends StatelessWidget {
-  TextView({
+  TextView(
+      {Key? key,
+      required this.text,
+      this.textAlign = TextAlign.center,
+      this.action,
+      this.padding = const EdgeInsets.all(4),
+      this.icon,
+      this.colorText,
+      this.sizeText,
+      this.weightText,
+      this.overflow = TextOverflow.clip})
+      : super(key: key);
+
+  final String text;
+  final TextAlign textAlign;
+  Function()? action;
+  final EdgeInsetsGeometry padding;
+  Icon? icon;
+  Color? colorText;
+  double? sizeText;
+  FontWeight? weightText;
+
+  TextOverflow? overflow;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: action,
+      child: Padding(
+        padding: padding,
+        child: Text(
+          text,
+          style: AppStyle().textStyle1.copyWith(
+                fontSize: sizeText,
+                color: colorText,
+                fontWeight: weightText,
+              ),
+          textAlign: textAlign,
+          overflow: overflow,
+        ),
+      ),
+    );
+  }
+}
+
+class TextViewIcon extends StatelessWidget {
+  TextViewIcon({
     Key? key,
     required this.text,
     this.action,
@@ -18,7 +64,7 @@ class TextView extends StatelessWidget {
   final TextAlign? textAlign;
   Function()? action;
   final EdgeInsetsGeometry padding;
-  Icon? icon;
+  Widget? icon;
   Color? colorText;
   double? sizeText;
   FontWeight? weightText;
