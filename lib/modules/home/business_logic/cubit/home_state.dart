@@ -9,9 +9,8 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
-class HomeIndex extends HomeState {
-  final BottomBarData item;
+class HomeChangeIndex extends HomeState {
   final int index;
 
-  const HomeIndex(this.item, this.index);
+  const HomeChangeIndex(this.index);
 }

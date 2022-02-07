@@ -3,29 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 
-class ProgressIndicatorApp extends StatelessWidget {
-  const ProgressIndicatorApp({
+class UserProgressIndicator extends StatelessWidget {
+  UserProgressIndicator({
     Key? key,
     required this.name,
     required this.type,
     required this.value,
+    this.fontSize = 14,
+    this.width,
   }) : super(key: key);
 
   final String name;
   final String type;
   final double value;
+  final double fontSize;
+  double? width;
 
   @override
   Widget build(BuildContext context) {
+    width ??= MediaQuery.of(context).size.width * .25;
     return SizedBox(
-      width: MediaQuery.of(context).size.width * .25,
+      width: width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextView(
-            padding: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(1),
             text: name,
-            sizeText: 12,
+            sizeText: fontSize,
             colorText: AppColor.txtColor3,
             weightText: FontWeight.bold,
             textAlign: TextAlign.start,
@@ -34,16 +39,16 @@ class ProgressIndicatorApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextView(
-                padding: const EdgeInsets.all(2),
+                padding: const EdgeInsets.all(1),
                 text: type,
-                sizeText: 12,
+                sizeText: fontSize,
                 colorText: AppColor.txtColor3,
                 textAlign: TextAlign.start,
               ),
               TextView(
-                padding: const EdgeInsets.all(2),
+                padding: const EdgeInsets.all(1),
                 text: '${(value * 100).round()}%',
-                sizeText: 10,
+                sizeText: fontSize - 4,
                 textAlign: TextAlign.start,
                 colorText: AppColor.proogTxtColor1,
               ),
@@ -52,9 +57,9 @@ class ProgressIndicatorApp extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: SizedBox(
-              height: 8,
+              height: 4,
               child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
+                borderRadius: const BorderRadius.all(Radius.circular(2)),
                 child: LinearProgressIndicator(
                   value: value,
                   valueColor:

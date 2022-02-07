@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_base/core/utils/constant/utils.dart';
@@ -7,7 +6,12 @@ import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/indicator.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
+import 'package:flutter_base/modules/home/presentation/widget/ads_item_view.dart';
+import 'package:flutter_base/modules/home/presentation/widget/home_main_sction.dart';
+import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
+import 'package:flutter_base/modules/home/presentation/widget/user_progress_reading.dart';
 
 class HomeBNBPage extends StatefulWidget {
   const HomeBNBPage({Key? key}) : super(key: key);
@@ -17,29 +21,9 @@ class HomeBNBPage extends StatefulWidget {
 }
 
 class _HomeBNBPageState extends State<HomeBNBPage> {
-  final List<DataList> maps = [
-    DataList(title: 'Messages', image: AppIcons.mailIcon),
-    DataList(
-        title: 'Teachers',
-        image: AppIcons.teacherIcon,
-        subTitle: 'Ahmed Mohammed'),
-    DataList(title: 'Students', image: AppIcons.readingIcon),
-    DataList(title: 'Translation', image: AppIcons.languageIcon),
-    DataList(title: 'Tafsir', image: AppIcons.mailIcon),
-    DataList(title: 'Messages', image: AppIcons.quranIcon),
-  ];
-
   int postion = 0;
 
   final pageIndexNotifier = ValueNotifier<int>(0);
-
-  final List<String> data = [
-    AppImages.ads2Image,
-    AppImages.adsImage,
-    AppImages.ads2Image,
-    AppImages.adsImage,
-    AppImages.ads2Image,
-  ];
 
   var pageController = PageController();
 
@@ -50,9 +34,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
       child: Column(
         children: [
           _toolBarFun(),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
           _headerProgress(),
-          const SizedBox(height: 8),
+          const SizedBox(height: 32),
           _sectionMain(context),
           const SizedBox(height: 8),
           SizedBox(
@@ -67,6 +51,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             ),
           ),
           _subSections(context),
+          const SizedBox(height: 8),
           _adsConView(context),
         ],
       ),
@@ -75,7 +60,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
 
   Container _adsConView(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * .33,
+      height: MediaQuery.of(context).size.height * .2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -88,9 +73,8 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             });
             pageIndexNotifier.value = index;
           },
-          children: data
-              .map((dataModel) => _itemPageView(dataModel: dataModel))
-              .toList(),
+          children:
+              data.map((dataModel) => _itemPageView(image: dataModel)).toList(),
         ),
         Align(
           alignment: const Alignment(0, 0.65),
@@ -102,13 +86,14 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
 
   Widget _subSections(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 90,
       child: ListView.builder(
         padding: const EdgeInsets.all(4),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: maps.length,
-        itemBuilder: (ctx, index) => _subSectionsItems(context, maps[index]),
+        itemCount: subSectionData.length,
+        itemBuilder: (ctx, index) =>
+            HomeSubMainSection(item: subSectionData[index]),
       ),
     );
   }
@@ -121,14 +106,14 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           'Khatema',
           AppIcons.discussioncon,
           AppColor.gradient3,
-          AppColor.gradient4,
+          AppColor.gradient1,
         ),
         _sections(
           context,
           'Recitations',
           AppIcons.discussioncon,
+          AppColor.gradient3,
           AppColor.gradient4,
-          AppColor.gradient1,
         ),
         _sections(
           context,
@@ -141,57 +126,22 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  Expanded _sections(
+  _sections(
     BuildContext context,
     String title,
     String image,
     Color gradient1,
     Color gradient2,
   ) {
-    return Expanded(
-      child: Container(
-        height: 150,
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(3),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [gradient1, gradient2],
-          ),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  image,
-                  width: MediaQuery.of(context).size.width * .09,
-                  height: 50,
-                ),
-                GestureDetector(
-                    onTap: () {}, child: const Icon(Icons.arrow_forward))
-              ],
-            ),
-            Expanded(
-              child: TextView(
-                text: title,
-                colorText: AppColor.txtColor3,
-                sizeText: 16,
-                weightText: FontWeight.w700,
-                padding: const EdgeInsets.all(0),
-                textAlign: TextAlign.end,
-              ),
-            ),
-            const ProgressIndicatorApp(
-              name: 'Shady',
-              type: 'Juz1-3',
-              value: .57,
-            ),
-          ],
-        ),
+    return HomeMainSection(
+      title: title,
+      image: image,
+      gradient1: gradient1,
+      gradient2: gradient2,
+      userProgressIndicator: UserProgressIndicator(
+        name: 'Shady',
+        type: 'Juz1-3',
+        value: .57,
       ),
     );
   }
@@ -206,49 +156,34 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             TextView(
               text: translate('Hello'),
               colorText: AppColor.txtColor4,
-              sizeText: 20,
-              padding: const EdgeInsets.all(4),
+              sizeText: 18,
+              padding: const EdgeInsets.all(2),
               textAlign: TextAlign.start,
             ),
             TextView(
               text: 'Shady',
               colorText: AppColor.txtColor1,
-              sizeText: 28,
-              weightText: FontWeight.w700,
-              padding: const EdgeInsets.all(4),
+              sizeText: 20,
+              weightText: FontWeight.w900,
+              padding: const EdgeInsets.all(2),
               textAlign: TextAlign.start,
             ),
           ],
         ),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [AppColor.gradient1, AppColor.gradient2],
-            ),
-            borderRadius: BorderRadius.circular(16),
+        UserProgressReading(
+          userProgressIndicator: UserProgressIndicator(
+            name: 'Shady',
+            type: 'Juz1-3',
+            value: .57,
+            width: MediaQuery.of(context).size.width * .35,
+            fontSize: 16,
           ),
-          child: Row(
-            children: [
-              const ProgressIndicatorApp(
-                name: 'Shady',
-                type: 'Juz1-3',
-                value: .57,
-              ),
-              const SizedBox(width: 8),
-              Image.asset(
-                AppIcons.quranIcon,
-                width: 50,
-                height: 50,
-              )
-            ],
-          ),
-        )
+        ),
       ],
     );
   }
 
-  Row _toolBarFun() {
+  Widget _toolBarFun() {
     return Row(
       children: [
         CircleAvatar(
@@ -278,74 +213,10 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  _subSectionsItems(BuildContext context, DataList item) {
-    return Container(
-      height: 80,
-      width: 80,
-      padding: const EdgeInsets.all(4),
-      margin: const EdgeInsets.all(3),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColor.gradient3, AppColor.gradient4],
-        ),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(
-            item.image,
-            width: 32,
-            height: 32,
-          ),
-          TextView(
-            text: item.title,
-            colorText: AppColor.txtColor3,
-            sizeText: 12,
-            weightText: FontWeight.w700,
-            padding: const EdgeInsets.all(2),
-            textAlign: TextAlign.center,
-          ),
-          if (item.subTitle != null && item.subTitle!.isNotEmpty)
-            TextView(
-              text: item.subTitle ?? '',
-              colorText: AppColor.txtColor4,
-              sizeText: 8,
-              padding: const EdgeInsets.all(2),
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-            ),
-        ],
-      ),
+  Widget _itemPageView({required String image, Function()? action}) {
+    return AdsItemView(
+      image: image,
+      action: action,
     );
   }
-
-  Widget _itemPageView({required String dataModel}) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(16)),
-        child: SizedBox(
-            height: MediaQuery.of(context).size.height * .3,
-            child: Image.asset(
-              dataModel,
-              fit: BoxFit.cover,
-            )),
-      ),
-    );
-  }
-}
-
-class DataList extends Equatable {
-  final String? subTitle;
-  final String title;
-  final String image;
-  const DataList({
-    this.subTitle,
-    required this.title,
-    required this.image,
-  });
-
-  @override
-  List<Object?> get props => [title, image, subTitle];
 }

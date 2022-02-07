@@ -1,5 +1,6 @@
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/data/models/utils/bottom_bar_item.dart';
 
 class BubbleBottomBarApp extends StatelessWidget {
@@ -21,10 +22,10 @@ class BubbleBottomBarApp extends StatelessWidget {
       currentIndex: selectedIndex,
       onTap: onItemTapped,
       borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-      elevation: 8,
+      elevation: 0,
       hasNotch: true,
       hasInk: true,
-      inkColor: Colors.black12,
+      inkColor: AppColor.bottomBar,
       items: <BubbleBottomBarItem>[...items.map((e) => _getItem(e)).toList()],
     );
   }
@@ -39,7 +40,7 @@ class BubbleBottomBarApp extends StatelessWidget {
             )
           : Container(),
       badgeColor: Colors.grey.shade600,
-      backgroundColor: Colors.red,
+      backgroundColor: AppColor.bottom2Bar,
       icon: ImageIcon(
         AssetImage(e.iconData),
         color: Colors.grey.shade800,

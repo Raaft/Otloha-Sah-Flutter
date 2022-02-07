@@ -7,12 +7,12 @@ class TextView extends StatelessWidget {
       required this.text,
       this.textAlign = TextAlign.center,
       this.action,
-      this.padding = const EdgeInsets.all(8),
+      this.padding = const EdgeInsets.all(4),
       this.icon,
       this.colorText,
       this.sizeText,
       this.weightText,
-      this.overflow})
+      this.overflow = TextOverflow.clip})
       : super(key: key);
 
   final String text;
@@ -64,7 +64,7 @@ class TextViewIcon extends StatelessWidget {
   final TextAlign textAlign;
   Function()? action;
   final EdgeInsetsGeometry padding;
-  Icon? icon;
+  Widget? icon;
   Color? colorText;
   double? sizeText;
   FontWeight? weightText;
