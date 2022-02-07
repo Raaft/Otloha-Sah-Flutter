@@ -12,7 +12,7 @@ class DownloadCenterPage extends StatefulWidget {
 
 class _DownloadCenterPageState extends State<DownloadCenterPage> {
   int _selected = -1;
-  List<int> _downloaded = [];
+  final List<int> _downloaded = [];
 
   @override
   Widget build(BuildContext context) {

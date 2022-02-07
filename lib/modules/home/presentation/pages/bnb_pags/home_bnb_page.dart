@@ -6,12 +6,14 @@ import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/indicator.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/widget/ads_item_view.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
 import 'package:flutter_base/modules/home/presentation/widget/user_progress_reading.dart';
+import 'package:get/get.dart';
 
 class HomeBNBPage extends StatefulWidget {
   const HomeBNBPage({Key? key}) : super(key: key);
@@ -186,10 +188,15 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
   Widget _toolBarFun() {
     return Row(
       children: [
-        CircleAvatar(
-          radius: 24,
-          backgroundColor: AppColor.conColor3,
-          foregroundImage: AssetImage(AppImages.duserImage),
+        GestureDetector(
+          onTap: () {
+            Get.to(const OnBoardPage());
+          },
+          child: CircleAvatar(
+            radius: 24,
+            backgroundColor: AppColor.conColor3,
+            foregroundImage: AssetImage(AppImages.duserImage),
+          ),
         ),
         const Expanded(child: SizedBox()),
         GestureDetector(

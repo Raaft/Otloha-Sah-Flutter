@@ -70,4 +70,57 @@ class AppColor {
   ///// extra
   static Color read = const Color(0xff290280);
   static Color colorRouteLine = const Color(0xffFF4081);
+
+
+  ///gradient
+  static Color gradient1 = const Color(0xffacf1ff);
+  static Color gradient2 = const Color(0xFF03d2ff);
+  static Color gradient3 = const Color(0xFFd9f8ff);
+  static Color gradient4 = const Color(0xFF81e9ff);
+  static Color gradient5 = const Color(0xFF03d2ff);
+  static Color gradient6 = const Color(0xFF0084A1);
+
+  ///
+  static Color backItem = const Color(0xFFDBF8FD);
+  static Color backItem2 = const Color(0xFFBEF1FC);
+
+  ///
+  static Color waveColor = const Color(0xFFfbe174);
+
+  ///
+  static const Color selectColor1 = Color(0x93E2F1F5);
+  static Color selectColor2 = const Color(0xFFF5F7F8);
+
+  /// Text Color
+  static Color txtColor2 = Colors.white;
+  static Color txtColor4d = const Color(0xFF4B4A4A);
+
+  /// icons
+  static Color iconColor = const Color(0xFF949496);
+  static Color iconColor2 = const Color(0xFF142f75);
+  static Color iconColor3 = const Color(0xFFf6d955);
+  static Color iconColor4 = const Color(0xFFbabdbe);
+  static Color iconColor5 = const Color(0xFF27c1f5);
+
+  /// proogess
+  static Color proogessColor1 = const Color(0xD5FFD76B);
+  static Color proogTxtColor1 = const Color(0xD5D1AA3F);
+  static Color proogessColor2 = const Color(0xFFFFFEFE);
+
+  /// container
+
+
+
+  static Color bottomHome = const Color(0xED03d2ff);
+  static Color bottomSaved = const Color(0xED03d2ff);
+  static Color bottomMenu = const Color(0xED03d2ff);
+
+
+
+
+  ///
+
+  static Color bottom2Bar = const Color(0xFF01D0FF);
+
+
 }
