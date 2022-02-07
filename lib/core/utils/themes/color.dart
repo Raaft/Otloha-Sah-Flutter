@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static Color borderColor = const Color(0xfffeeeee);
+  static Color borderColor = const Color(0xFF7EDAF8);
   static Color defaultColor = const Color(0xfffbedee);
   static Color primaryColor = const Color(0xff0d758e);
   static Color accentColor = const Color(0x0ffab01c);
@@ -71,7 +71,6 @@ class AppColor {
   static Color read = const Color(0xff290280);
   static Color colorRouteLine = const Color(0xffFF4081);
 
-
   ///gradient
   static Color gradient1 = const Color(0xffacf1ff);
   static Color gradient2 = const Color(0xFF03d2ff);
@@ -109,18 +108,11 @@ class AppColor {
 
   /// container
 
-
-
   static Color bottomHome = const Color(0xED03d2ff);
   static Color bottomSaved = const Color(0xED03d2ff);
   static Color bottomMenu = const Color(0xED03d2ff);
 
-
-
-
   ///
 
   static Color bottom2Bar = const Color(0xFF01D0FF);
-
-
 }
