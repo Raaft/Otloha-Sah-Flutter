@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/Quran/presentation/widget/item_download.dart';
-import 'package:flutter_base/modules/Quran/presentation/widget/item_surah.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
 
 class DownloadCenterPage extends StatefulWidget {
   const DownloadCenterPage({Key? key}) : super(key: key);

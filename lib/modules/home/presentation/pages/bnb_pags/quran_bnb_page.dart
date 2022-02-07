@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/Quran/presentation/page/index_surah_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 
 class QuranBNBPage extends StatelessWidget {
   const QuranBNBPage({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/Quran/presentation/page/download_center_page.dart';
-import 'package:flutter_base/modules/Quran/presentation/page/index_surah_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
