@@ -1,13 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ButtonApp extends StatelessWidget {
   final String title;
   final Function() action;
-  final Widget? icon;
-  final bool isFullWidth;
-  Color? bcolor;
+  Widget? icon;
+  bool isFullWidth = false;
+  Color? bColor;
   Color? borderColor;
-  final TextStyle style;
+  TextStyle style;
   final double radius;
   EdgeInsetsGeometry? padding;
 
@@ -17,7 +18,7 @@ class ButtonApp extends StatelessWidget {
     required this.action,
     this.icon,
     this.isFullWidth = false,
-    this.bcolor,
+    this.bColor,
     this.style = const TextStyle(fontSize: 20, color: Colors.white),
     this.radius = 12,
     this.borderColor,
@@ -26,7 +27,7 @@ class ButtonApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bcolor = (bcolor == null) ? Theme.of(context).primaryColor : bcolor;
+    bColor = (bColor == null) ? Theme.of(context).primaryColor : bColor;
     borderColor =
         (borderColor == null) ? Theme.of(context).primaryColor : borderColor;
 
@@ -34,23 +35,21 @@ class ButtonApp extends StatelessWidget {
         ? const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0)
         : padding;
     return Container(
-      padding: padding,
-      // width: isFullWidth ? MediaQuery.of(context).size.width : null,
-      child: Center(
-        child: FloatingActionButton.extended(
-          backgroundColor: bcolor,
-          label: Text(
-            title,
-            style: style,
+        height: 40,
+        padding: padding,
+        // width: isFullWidth ? MediaQuery.of(context).size.width : null,
+        child: Center(
+            child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.teal,
+            onPrimary: Colors.white,
+            onSurface: Colors.grey,
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            textStyle:
+                const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-            side: BorderSide(color: borderColor!),
-          ),
-          icon: icon,
           onPressed: action,
-        ),
-      ),
-    );
+          child: Text(tr('Log-in')),
+        )));
   }
 }

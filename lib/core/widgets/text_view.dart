@@ -51,8 +51,8 @@ class TextViewIcon extends StatelessWidget {
   TextViewIcon({
     Key? key,
     required this.text,
-    this.textAlign = TextAlign.center,
     this.action,
+    this.textAlign,
     this.padding = const EdgeInsets.all(8),
     this.icon,
     this.colorText,
@@ -61,7 +61,7 @@ class TextViewIcon extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
   Function()? action;
   final EdgeInsetsGeometry padding;
   Widget? icon;

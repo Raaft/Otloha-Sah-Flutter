@@ -23,14 +23,20 @@
   "EnterConfirmPassword":"أدخل تأكيد كلمة المرور",
   "LoginByEmail":"تسجيل الدخول بالبريد الإلكتروني",
   "Login":"تسجيل الدخول",
+  "Log-in":"تسجيل الدخول",
   "ResetNow":"إعادة التعيين الآن",
   "RegisterNow":"سجل الان",
-  "Registernow":"لا تملك حسابا حتى الآن؟ سجل الان",
-  "Alreadyhavelogin":"لديك بالفعل تسجيل الدخول وكلمة المرور؟ تسجيل الدخول",
+  "Registernow?":"لا تملك حسابا حتى الآن؟ ",
+  "Alreadyhavelogin":"لديك بالفعل تسجيل الدخول وكلمة المرور؟",
   "ForgotPassword":"هل نسيت كلمة المرور",
   "ChangePassword":"تغيير كلمة المرور",
   "Enteroldpassword":"أدخل كلمة المرور القديمة",
   "EnterNewpassword":"أدخل كلمة المرور جديدة",
+  "loginwith":"أو سجل الدخول ب",
+  "signupWith":"أو سجل حساب ب",
+
+  "Need help":"أحتاج مساعده ؟",
+  "Sign-up": "تسجيل حساب",
 
 
   "_comment3":"app values",

@@ -1,57 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
-import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
-import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
-import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
+
+import 'modules/auth_module/presentation/pages/login_page.dart';
+import 'modules/auth_module/presentation/pages/sign_up.dart';
 
 class AppRouter {
   AppRouter();
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case HomePage.routeName:
+      case OnBoardPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => HomeCubit(),
-            child: const HomePage(),
-          ),
+          builder: (_) => const OnBoardPage(),
           settings: settings,
         );
-      case MessagesPage.routeName:
+      case LoginPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => MessageTapCubit(),
-            child: const MessagesPage(),
-          ),
+          builder: (_) => LoginPage(),
           settings: settings,
         );
-      case TeacherPage.routeName:
+      case SignUpPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => TeacherviewtypeCubit(),
-            child: const TeacherPage(),
-          ),
-          settings: settings,
-        );
-      case IndexSurahPage.routeName:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => TeacherviewtypeCubit(),
-            child: const IndexSurahPage(),
-          ),
-          settings: settings,
-        );
-      case DownloadCenterPage.routeName:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => TeacherviewtypeCubit(),
-            child: const DownloadCenterPage(),
-          ),
+          builder: (_) => SignUpPage(),
           settings: settings,
         );
     }
