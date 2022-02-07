@@ -21,10 +21,10 @@ class Indicator extends StatelessWidget {
     return isActive
         ? Container(
             margin: const EdgeInsets.all(2),
-            width: 12,
+            width: 8,
             height: 8,
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: Colors.blue,
               borderRadius: BorderRadius.circular(4),
             ),
           )
@@ -33,7 +33,7 @@ class Indicator extends StatelessWidget {
             width: 8,
             height: 8,
             decoration: const BoxDecoration(
-              color: Colors.black,
+              color: Colors.grey,
               shape: BoxShape.circle,
             ),
           );

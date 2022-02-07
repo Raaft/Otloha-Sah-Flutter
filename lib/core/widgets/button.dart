@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class ButtonApp extends StatelessWidget {
   final String title;
   final Function() action;
-  Widget? icon;
-  bool isFullWidth = false;
+  final Widget? icon;
+  final bool isFullWidth;
   Color? bcolor;
   Color? borderColor;
-  TextStyle style;
+  final TextStyle style;
   final double radius;
   EdgeInsetsGeometry? padding;
 

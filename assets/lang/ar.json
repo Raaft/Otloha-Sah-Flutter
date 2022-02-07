@@ -36,10 +36,10 @@
   "_comment3":"app values",
 
   "SearchSubject":"ابحث عن موضوع ...",
-  "Search":"ابحث عن  ...",
+  "Search":"البحث",
   "Done":"تمت الإضافة",
   "Home":"الصفحة الرئيسية",
-  "History":"سجل العمليات",
+  "Quran":"القرآن",
   "Menu":"الإعدادات",
   "AccountSettings":"إعدادات الحساب",
   "SettingsApp":"إعدادات التطبيق",
@@ -47,7 +47,7 @@
   "Profile":"الصفحة الشخصية",
   "EditProfile":"تحرير البيانات الشخصية",
 
-  "YourLearning":"التعلم الخاص بك",
+  "Hello":"مرحبا",
   "MyLearning":"تعليمي",
   "Mycourses":"دوراتي",
   "Favoritecourses":"الدورات المفضلة",
