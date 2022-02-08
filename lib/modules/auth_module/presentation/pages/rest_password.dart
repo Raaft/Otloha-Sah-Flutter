@@ -28,7 +28,7 @@ padding: const EdgeInsets.all(20),
             print(val);
           },
         ),
-        AuthButton(buttonText: "Submit", width: MediaQuery.of(context).size.width*.5, onPressed: (){}, colors: [AppColor.darkBlue,AppColor.lightBlue])
+        AuthButton(buttonText: 'Submit', width: MediaQuery.of(context).size.width*.5, onPressed: (){}, colors: [AppColor.darkBlue,AppColor.lightBlue])
       ],
     ),
   );

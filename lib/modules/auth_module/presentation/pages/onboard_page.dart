@@ -5,7 +5,6 @@ import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.d
 import 'package:flutter_base/modules/auth_module/presentation/pages/sign_up.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/background_image.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/rounded_button.dart';
 import 'package:get/get.dart';
 
 class OnBoardPage extends StatelessWidget {
