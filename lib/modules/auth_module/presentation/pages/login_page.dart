@@ -4,7 +4,6 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/password_form_field.dart';
 import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/rest_password.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/sign_up.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/login_with.dart';
@@ -18,9 +17,10 @@ class LoginPage extends StatelessWidget {
   static const routeName = '/loginPage';
 
   LoginPage({Key? key}) : super(key: key);
-  var formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +65,7 @@ class LoginPage extends StatelessWidget {
                 if (value!.isEmpty) {
                   return 'please enter your email address';
                 }
+                return null;
               },
               onSaved: (value) {}),
           PasswordFormField(
@@ -74,6 +75,7 @@ class LoginPage extends StatelessWidget {
               if (value!.isEmpty) {
                 return 'please enter your email address';
               }
+              return null;
             },
             onSaved: (val) {},
           ),
@@ -81,7 +83,6 @@ class LoginPage extends StatelessWidget {
             text: tr('ForgotPassword') + ' ?',
             sizeText: 13,
             action: () {
-              Get.to( PinPutTest());
             },
             weightText: FontWeight.w500,
             textAlign: TextAlign.end,
