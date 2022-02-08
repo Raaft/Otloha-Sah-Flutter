@@ -13,6 +13,7 @@ import 'package:flutter_base/modules/home/presentation/widget/home_main_sction.d
 import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
 import 'package:flutter_base/modules/home/presentation/widget/user_progress_reading.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:get/get.dart';
 
 class HomeBNBPage extends StatefulWidget {
@@ -44,7 +45,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           SizedBox(
             width: double.infinity,
             child: TextView(
-              text: 'Popular Actions',
+              text: translate('PopularActions'),
               colorText: AppColor.txtColor3,
               sizeText: 16,
               weightText: FontWeight.w700,
@@ -105,21 +106,21 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
       children: [
         _sections(
           context,
-          'Khatema',
+          translate('Khatema'),
           AppIcons.discussioncon,
           AppColor.gradient3,
           AppColor.gradient1,
         ),
         _sections(
           context,
-          'Recitations',
+          translate('Recitations'),
           AppIcons.discussioncon,
           AppColor.gradient3,
           AppColor.gradient4,
         ),
         _sections(
           context,
-          'Tajweed',
+          translate('Tajweed'),
           AppIcons.quran2Icon,
           AppColor.gradient1,
           AppColor.gradient2,
@@ -209,7 +210,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         ),
         const SizedBox(width: 8),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed(SettingsPage.routeName);
+          },
           child: Icon(
             Icons.settings_outlined,
             size: 28,

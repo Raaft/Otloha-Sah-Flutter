@@ -23,10 +23,12 @@ class ToolBarApp extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           backIcon,
-          TextView(
-            text: title,
-            colorText: AppColor.txtColor3,
-            weightText: FontWeight.bold,
+          Expanded(
+            child: TextView(
+              text: title,
+              colorText: AppColor.txtColor3,
+              weightText: FontWeight.bold,
+            ),
           ),
           actionIcon,
         ],

@@ -14,18 +14,18 @@ import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dar
 
 final List<SubSectionItem> subSectionData = [
   SubSectionItem(
-    title: 'Messages',
+    title: translate('Messages'),
     image: AppIcons.mailIcon,
     action: MessagesPage.routeName,
   ),
   SubSectionItem(
-    title: 'Teachers',
+    title: translate('Teachers'),
     image: AppIcons.teacherIcon,
     subTitle: 'Ahmed Mohammed',
     action: TeacherPage.routeName,
   ),
   SubSectionItem(
-    title: 'Students',
+    title: translate('Students'),
     image: AppIcons.readingIcon,
     action: DownloadCenterPage.routeName,
   ),

@@ -38,7 +38,7 @@ class AppColor {
   static Color conColor5 = const Color(0xff066ab2);
 
   /////
-  static Color btnColor1 = const Color(0xff2147BD);
+  static const Color btnColor1 = Color(0xff2147BD);
   static Color btnColor2 = const Color(0xffffffff);
   static Color btnColor3 = const Color(0xffd5d5d5);
   static Color btnColor4 = const Color(0xED13AE0C);
@@ -60,7 +60,7 @@ class AppColor {
   static Color startColor = const Color(0xBAB7E7FF);
 
   /////
-  static Color statusBarColor = const Color(0xff43B0E6);
+  static Color statusBarColor = Colors.transparent;
   static Color appBarColor = const Color(0xDA43B0E6);
   static Color bottomBar = const Color(0xff066ab2);
 

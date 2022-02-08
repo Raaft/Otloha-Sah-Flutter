@@ -1,39 +1,33 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
 
 class ButtonApp extends StatelessWidget {
   final String title;
   final Function() action;
-  Widget? icon;
-  bool isFullWidth = false;
-  Color? bColor;
-  Color? borderColor;
-  TextStyle style;
+  final Widget? icon;
+  final bool isFullWidth;
+  final Color? bColor;
+  final Color? borderColor;
+  final TextStyle style;
   final double radius;
-  EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? padding;
 
-  ButtonApp({
+  const ButtonApp({
     Key? key,
     required this.title,
     required this.action,
     this.icon,
     this.isFullWidth = false,
-    this.bColor,
+    this.bColor = AppColor.btnColor1,
     this.style = const TextStyle(fontSize: 20, color: Colors.white),
     this.radius = 12,
-    this.borderColor,
-    this.padding,
+    this.borderColor = AppColor.btnColor1,
+    this.padding = const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bColor = (bColor == null) ? Theme.of(context).primaryColor : bColor;
-    borderColor =
-        (borderColor == null) ? Theme.of(context).primaryColor : borderColor;
-
-    padding = (padding != null)
-        ? const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0)
-        : padding;
     return Container(
         height: 40,
         padding: padding,
