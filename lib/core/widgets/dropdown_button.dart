@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 
 class DropdownButtonApp extends StatelessWidget {
-  DropdownButtonApp({
+  const DropdownButtonApp({
     Key? key,
     required this.list,
     required this.onChanged,
@@ -11,7 +11,7 @@ class DropdownButtonApp extends StatelessWidget {
   }) : super(key: key);
 
   final List<String> list;
-  String? title;
+  final String? title;
   final Function(String?) onChanged;
 
   @override

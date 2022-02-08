@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
@@ -139,7 +140,7 @@ class _MessagesPageState extends State<MessagesPage> {
               )
             : null,
         child: TextView(
-          text: title,
+          text: translate(title),
           colorText: isSelect ? AppColor.txtColor2 : AppColor.txtColor4,
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           sizeText: 16,
@@ -158,7 +159,7 @@ class _MessagesPageState extends State<MessagesPage> {
         },
       ),
       actionIcon: const Icon(Icons.filter_alt_outlined),
-      title: 'Messages',
+      title: translate('Messages'),
     );
   }
 

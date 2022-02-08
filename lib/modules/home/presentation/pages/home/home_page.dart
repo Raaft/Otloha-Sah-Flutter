@@ -25,26 +25,36 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          if (state is HomeChangeIndex) {
-            _index = state.index;
-          }
-          return SafeArea(child: homeMenuItems[_index].page);
-        },
-      ),
-      bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          if (state is HomeChangeIndex) {
-            _index = state.index;
-          }
-          return BubbleBottomBarApp(
-            onItemTapped: _changePage,
-            selectedIndex: _index,
-            items: homeMenuItems,
-          );
-        },
+    return WillPopScope(
+      onWillPop: () async {
+        if (_index > 0) {
+          BlocProvider.of<HomeCubit>(context).changeIndex(0);
+          return false;
+        } else {
+          return true;
+        }
+      },
+      child: Scaffold(
+        body: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state is HomeChangeIndex) {
+              _index = state.index;
+            }
+            return SafeArea(child: homeMenuItems[_index].page);
+          },
+        ),
+        bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state is HomeChangeIndex) {
+              _index = state.index;
+            }
+            return BubbleBottomBarApp(
+              onItemTapped: _changePage,
+              selectedIndex: _index,
+              items: homeMenuItems,
+            );
+          },
+        ),
       ),
     );
   }

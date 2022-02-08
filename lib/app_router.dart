@@ -5,7 +5,13 @@ import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/languages_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/quran_translation_language_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/reciters_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/tafseer_page.dart';
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +60,47 @@ class AppRouter {
           builder: (_) => const SettingsPage(),
           settings: settings,
         );
+      case NarrationPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const NarrationPage(),
+          settings: settings,
+        );
+      case RecitersPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const RecitersPage(),
+          settings: settings,
+        );
+      case LanguagesPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const LanguagesPage(),
+          settings: settings,
+        );
+      case QuranTranslationLanguagePage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const QuranTranslationLanguagePage(),
+          settings: settings,
+        );
+      case TafseerPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const TafseerPage(),
+          settings: settings,
+        );
+
+      case BooksPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const BooksPage(),
+          settings: settings,
+        );
+
+      ///default
+      default:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => HomeCubit(),
+            child: const HomePage(),
+          ),
+          settings: settings,
+        );
     }
-    return null;
   }
 }

@@ -12,7 +12,7 @@ class ItemDownload extends StatelessWidget {
     required this.isDownloaded,
     required this.isSelect,
     required this.onLongPress,
-    required this.onDownload,
+    this.onDownload,
     this.action,
   }) : super(key: key);
 
@@ -21,7 +21,7 @@ class ItemDownload extends StatelessWidget {
   final bool isDownloaded;
   final bool isSelect;
   final Function() onLongPress;
-  final Function() onDownload;
+  final Function()? onDownload;
   final Function()? action;
 
   @override
@@ -36,7 +36,7 @@ class ItemDownload extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelect ? AppColor.borderColor : AppColor.transparent,
-            width: 1,
+            width: 2,
           ),
           color: isDownloaded ? AppColor.backItem2 : AppColor.backItem,
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/utils.dart';
 
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
@@ -59,12 +60,13 @@ class ItemSurah extends StatelessWidget {
               weightText: FontWeight.bold,
             ),
             TextView(
-              text: 'Pages $pageFrom to $pageTO',
+              text:
+                  '${translate('Pages')} $pageFrom ${translate('to')} $pageTO',
               colorText: AppColor.txtColor4,
               sizeText: 12,
             ),
             TextView(
-              text: 'Verses # $verses',
+              text: '${translate('Verses')}  $verses',
               colorText: AppColor.txtColor4,
               sizeText: 12,
             ),
