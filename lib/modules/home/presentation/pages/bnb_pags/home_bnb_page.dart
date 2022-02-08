@@ -13,6 +13,7 @@ import 'package:flutter_base/modules/home/presentation/widget/home_main_sction.d
 import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
 import 'package:flutter_base/modules/home/presentation/widget/user_progress_reading.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:get/get.dart';
 
 class HomeBNBPage extends StatefulWidget {
@@ -209,7 +210,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         ),
         const SizedBox(width: 8),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed(SettingsPage.routeName);
+          },
           child: Icon(
             Icons.settings_outlined,
             size: 28,
