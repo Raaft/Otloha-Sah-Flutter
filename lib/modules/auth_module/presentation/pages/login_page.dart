@@ -81,7 +81,7 @@ class LoginPage extends StatelessWidget {
             text: tr('ForgotPassword') + ' ?',
             sizeText: 13,
             action: () {
-              Get.to(const RestPasswordPage());
+              Get.to( PinPutTest());
             },
             weightText: FontWeight.w500,
             textAlign: TextAlign.end,
