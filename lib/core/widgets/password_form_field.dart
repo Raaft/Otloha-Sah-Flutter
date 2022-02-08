@@ -6,9 +6,9 @@ class PasswordFormField extends StatefulWidget {
   final String title;
   final String? Function(String?) validator;
   final Function(String?) onSaved;
-  TextEditingController? controller;
+  final TextEditingController? controller;
 
-  PasswordFormField(
+  const PasswordFormField(
       {Key? key,
       required this.title,
       required this.validator,

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AdsItemView extends StatelessWidget {
-  AdsItemView({Key? key, required this.image, this.action}) : super(key: key);
+  const AdsItemView({
+    Key? key,
+    required this.image,
+    this.action,
+  }) : super(key: key);
   final String image;
-  Function()? action;
+  final Function()? action;
 
   @override
   Widget build(BuildContext context) {

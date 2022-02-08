@@ -7,12 +7,12 @@ class ToolBarApp extends StatelessWidget {
   const ToolBarApp({
     Key? key,
     required this.backIcon,
-    required this.actionIcon,
+    this.actionIcon,
     required this.title,
   }) : super(key: key);
 
   final Widget backIcon;
-  final Widget actionIcon;
+  final Widget? actionIcon;
   final String title;
 
   @override
@@ -30,7 +30,7 @@ class ToolBarApp extends StatelessWidget {
               weightText: FontWeight.bold,
             ),
           ),
-          actionIcon,
+          actionIcon ?? Container(),
         ],
       ),
     );

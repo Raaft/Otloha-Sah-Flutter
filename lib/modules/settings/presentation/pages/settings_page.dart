@@ -37,10 +37,6 @@ class SettingsPage extends StatelessWidget {
           Navigator.of(context).pop();
         },
       ),
-      actionIcon: IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {},
-      ),
       title: translate('Settings'),
     );
   }

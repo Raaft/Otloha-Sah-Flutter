@@ -85,7 +85,6 @@ class AppRouter {
           builder: (_) => const TafseerPage(),
           settings: settings,
         );
-
       case BooksPage.routeName:
         return MaterialPageRoute(
           builder: (_) => const BooksPage(),
