@@ -3,7 +3,6 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:pinput/pin_put/pin_put.dart';
-
 class PinPutTest extends StatefulWidget {
   @override
   PinPutTestState createState() => PinPutTestState();
@@ -97,7 +96,7 @@ class PinPutTestState extends State<PinPutTest> {
  void _showSnackBar(String pin, BuildContext context) {
     final snackBar = SnackBar(
       duration: const Duration(seconds: 3),
-      content: Container(
+      content: SizedBox(
         height: 80.0,
         child: Center(
           child: Text(
