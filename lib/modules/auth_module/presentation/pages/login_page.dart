@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
     return Form(
       key: formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           TextFormFieldApp(
               color: AppColor.lightBlue,
