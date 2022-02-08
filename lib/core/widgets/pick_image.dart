@@ -5,7 +5,7 @@ import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PickImage extends StatefulWidget {
-  PickImage({
+  const PickImage({
     Key? key,
     required this.action,
     this.isEnabled = true,
@@ -15,7 +15,7 @@ class PickImage extends StatefulWidget {
   final Function(File?) action;
 
   final bool isEnabled;
-  String? imageLink;
+  final String? imageLink;
 
   @override
   _PickImageState createState() => _PickImageState();

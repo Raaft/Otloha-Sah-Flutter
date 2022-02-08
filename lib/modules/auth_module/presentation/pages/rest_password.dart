@@ -14,22 +14,27 @@ class RestPasswordPage extends StatelessWidget {
     );
   }
 }
- Widget restPasswordComponents(context){
+
+Widget restPasswordComponents(context) {
   return Container(
     height: MediaQuery.of(context).size.height,
-alignment: Alignment.center,
-padding: const EdgeInsets.all(20),
+    alignment: Alignment.center,
+    padding: const EdgeInsets.all(20),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         PinFieldAutoFill(
           codeLength: 4,
-          onCodeChanged: (val){
+          onCodeChanged: (val) {
             print(val);
           },
         ),
-        AuthButton(buttonText: "Submit", width: MediaQuery.of(context).size.width*.5, onPressed: (){}, colors: [AppColor.darkBlue,AppColor.lightBlue])
+        AuthButton(
+            buttonText: 'Submit',
+            width: MediaQuery.of(context).size.width * .5,
+            onPressed: () {},
+            colors: [AppColor.darkBlue, AppColor.lightBlue])
       ],
     ),
   );
- }
+}

@@ -141,7 +141,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
       image: image,
       gradient1: gradient1,
       gradient2: gradient2,
-      userProgressIndicator: UserProgressIndicator(
+      userProgressIndicator: const UserProgressIndicator(
         name: 'Shady',
         type: 'Juz1-3',
         value: .57,

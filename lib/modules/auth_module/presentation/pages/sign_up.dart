@@ -13,12 +13,14 @@ class SignUpPage extends StatelessWidget {
   static const routeName = '/signUpPage';
 
   SignUpPage({Key? key}) : super(key: key);
-  var formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var fullNameController = TextEditingController();
-  var userNameController = TextEditingController();
-  var confirmPasswordController = TextEditingController();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class SignUpPage extends StatelessWidget {
                   if (value!.isEmpty) {
                     return 'please enter your Full Name';
                   }
+                  return null;
                 },
                 onSaved: (value) {}),
             TextFormFieldApp(
@@ -76,6 +79,7 @@ class SignUpPage extends StatelessWidget {
                   if (value!.isEmpty) {
                     return 'please enter your User Name';
                   }
+                  return null;
                 },
                 onSaved: (value) {}),
             TextFormFieldApp(
@@ -87,6 +91,7 @@ class SignUpPage extends StatelessWidget {
                   if (value!.isEmpty) {
                     return 'please enter your email address';
                   }
+                  return null;
                 },
                 onSaved: (value) {}),
             TextFormFieldApp(
@@ -98,6 +103,7 @@ class SignUpPage extends StatelessWidget {
                   if (value!.isEmpty) {
                     return 'please enter your Mobile';
                   }
+                  return null;
                 },
                 onSaved: (value) {}),
             PasswordFormField(
@@ -107,6 +113,7 @@ class SignUpPage extends StatelessWidget {
                 if (value!.isEmpty) {
                   return 'please enter your Password';
                 }
+                return null;
               },
               onSaved: (val) {},
             ),
@@ -117,6 +124,7 @@ class SignUpPage extends StatelessWidget {
                 if (value!.isEmpty) {
                   return 'please enter your Confirm Password';
                 }
+                return null;
               },
               onSaved: (val) {},
             ),

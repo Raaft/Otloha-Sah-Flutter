@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/text_style.dart';
 
 class TextView extends StatelessWidget {
-  TextView(
+  const TextView(
       {Key? key,
       required this.text,
       this.textAlign = TextAlign.center,
@@ -17,14 +17,14 @@ class TextView extends StatelessWidget {
 
   final String text;
   final TextAlign textAlign;
-  Function()? action;
+  final Function()? action;
   final EdgeInsetsGeometry padding;
-  Icon? icon;
-  Color? colorText;
-  double? sizeText;
-  FontWeight? weightText;
+  final Icon? icon;
+  final Color? colorText;
+  final double? sizeText;
+  final FontWeight? weightText;
 
-  TextOverflow? overflow;
+  final TextOverflow? overflow;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class TextView extends StatelessWidget {
 }
 
 class TextViewIcon extends StatelessWidget {
-  TextViewIcon({
+  const TextViewIcon({
     Key? key,
     required this.text,
     this.action,
@@ -62,12 +62,12 @@ class TextViewIcon extends StatelessWidget {
 
   final String text;
   final TextAlign? textAlign;
-  Function()? action;
+  final Function()? action;
   final EdgeInsetsGeometry padding;
-  Widget? icon;
-  Color? colorText;
-  double? sizeText;
-  FontWeight? weightText;
+  final Widget? icon;
+  final Color? colorText;
+  final double? sizeText;
+  final FontWeight? weightText;
 
   @override
   Widget build(BuildContext context) {

@@ -18,9 +18,10 @@ class LoginPage extends StatelessWidget {
   static const routeName = '/loginPage';
 
   LoginPage({Key? key}) : super(key: key);
-  var formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +66,7 @@ class LoginPage extends StatelessWidget {
                 if (value!.isEmpty) {
                   return 'please enter your email address';
                 }
+                return null;
               },
               onSaved: (value) {}),
           PasswordFormField(
@@ -74,6 +76,7 @@ class LoginPage extends StatelessWidget {
               if (value!.isEmpty) {
                 return 'please enter your email address';
               }
+              return null;
             },
             onSaved: (val) {},
           ),
