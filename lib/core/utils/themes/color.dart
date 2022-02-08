@@ -12,7 +12,7 @@ class AppColor {
   static Color transparent = Colors.transparent;
 
   ////Text Color
-  static Color lightBlue = const Color(0xff01cffd);
+  static const Color lightBlue = Color(0xff01cffd);
   static Color darkBlue = const Color(0xff397cd6);
   static Color silver = const Color(0xffb9b7b7);
   static Color darkSilver = const Color(0xff959394);
@@ -38,7 +38,7 @@ class AppColor {
   static Color conColor5 = const Color(0xff066ab2);
 
   /////
-  static Color btnColor1 = const Color(0xff2147BD);
+  static const Color btnColor1 = Color(0xff2147BD);
   static Color btnColor2 = const Color(0xffffffff);
   static Color btnColor3 = const Color(0xffd5d5d5);
   static Color btnColor4 = const Color(0xED13AE0C);

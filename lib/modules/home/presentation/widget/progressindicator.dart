@@ -4,7 +4,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 
 class UserProgressIndicator extends StatelessWidget {
-  UserProgressIndicator({
+  const UserProgressIndicator({
     Key? key,
     required this.name,
     required this.type,
@@ -17,13 +17,12 @@ class UserProgressIndicator extends StatelessWidget {
   final String type;
   final double value;
   final double fontSize;
-  double? width;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    width ??= MediaQuery.of(context).size.width * .25;
     return SizedBox(
-      width: width,
+      width: width ?? MediaQuery.of(context).size.width * .25,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

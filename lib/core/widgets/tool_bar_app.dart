@@ -7,12 +7,12 @@ class ToolBarApp extends StatelessWidget {
   const ToolBarApp({
     Key? key,
     required this.backIcon,
-    required this.actionIcon,
+    this.actionIcon,
     required this.title,
   }) : super(key: key);
 
   final Widget backIcon;
-  final Widget actionIcon;
+  final Widget? actionIcon;
   final String title;
 
   @override
@@ -23,12 +23,14 @@ class ToolBarApp extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           backIcon,
-          TextView(
-            text: title,
-            colorText: AppColor.txtColor3,
-            weightText: FontWeight.bold,
+          Expanded(
+            child: TextView(
+              text: title,
+              colorText: AppColor.txtColor3,
+              weightText: FontWeight.bold,
+            ),
           ),
-          actionIcon,
+          actionIcon ?? Container(),
         ],
       ),
     );

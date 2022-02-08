@@ -45,7 +45,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           SizedBox(
             width: double.infinity,
             child: TextView(
-              text: 'Popular Actions',
+              text: translate('PopularActions'),
               colorText: AppColor.txtColor3,
               sizeText: 16,
               weightText: FontWeight.w700,
@@ -106,21 +106,21 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
       children: [
         _sections(
           context,
-          'Khatema',
+          translate('Khatema'),
           AppIcons.discussioncon,
           AppColor.gradient3,
           AppColor.gradient1,
         ),
         _sections(
           context,
-          'Recitations',
+          translate('Recitations'),
           AppIcons.discussioncon,
           AppColor.gradient3,
           AppColor.gradient4,
         ),
         _sections(
           context,
-          'Tajweed',
+          translate('Tajweed'),
           AppIcons.quran2Icon,
           AppColor.gradient1,
           AppColor.gradient2,
@@ -141,7 +141,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
       image: image,
       gradient1: gradient1,
       gradient2: gradient2,
-      userProgressIndicator: UserProgressIndicator(
+      userProgressIndicator: const UserProgressIndicator(
         name: 'Shady',
         type: 'Juz1-3',
         value: .57,
