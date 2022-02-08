@@ -29,15 +29,11 @@ Widget restPasswordComponents(context) {
             print(val);
           },
         ),
-<<<<<<< HEAD
         AuthButton(
             buttonText: 'Submit',
             width: MediaQuery.of(context).size.width * .5,
             onPressed: () {},
             colors: [AppColor.darkBlue, AppColor.lightBlue])
-=======
-        AuthButton(buttonText: 'Submit', width: MediaQuery.of(context).size.width*.5, onPressed: (){}, colors: [AppColor.darkBlue,AppColor.lightBlue])
->>>>>>> 2b6e9ade6a45c2c1f7ca2e7069885e648350bae9
       ],
     ),
   );

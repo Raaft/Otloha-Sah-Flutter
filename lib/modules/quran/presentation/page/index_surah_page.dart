@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/res/images_app.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
+import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_surah.dart';
 
 class IndexSurahPage extends StatefulWidget {
@@ -17,10 +23,66 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [_topView(), _viewItems()],
+          child: Stack(
+        children: [
+          _pageView(),
+          _viewTop(context),
+        ],
+      )),
+      bottomNavigationBar: BubbleBottomBarApp(
+        onItemTapped: _changePage,
+        selectedIndex: 1,
+        items: homeMenuItems,
+      ),
+    );
+  }
+
+  Widget _viewTop(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Hero(
+        tag: 'ToChooseSurah',
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          //margin: const EdgeInsets.only(top: 4),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+            image: DecorationImage(
+              image: AssetImage(AppImages.back2Image),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: GestureDetector(
+            onTap: () {
+              _changePage(1);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextView(
+                  text: '2. Al-Baqarah',
+                  textAlign: TextAlign.center,
+                  colorText: AppColor.txtColor2,
+                  sizeText: 17,
+                ),
+                Icon(
+                  Icons.expand_less,
+                  color: AppColor.txtColor2,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
+    );
+  }
+
+  Column _pageView() {
+    return Column(
+      children: [_topView(), _viewItems()],
     );
   }
 
@@ -65,5 +127,10 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
         ),
       ),
     );
+  }
+
+  _changePage(int? index) {
+    Navigator.of(context)
+        .pushReplacementNamed(HomePage.routeName, arguments: index);
   }
 }

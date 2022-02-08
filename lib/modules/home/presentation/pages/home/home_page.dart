@@ -19,8 +19,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    BlocProvider.of<HomeCubit>(context).changeIndex(0);
+    Future.delayed(
+      Duration.zero,
+      () {
+        BlocProvider.of<HomeCubit>(context).changeIndex(
+            (ModalRoute.of(context)!.settings.arguments as int?) ?? 0);
+      },
+    );
   }
 
   @override
