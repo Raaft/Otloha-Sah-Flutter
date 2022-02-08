@@ -5,6 +5,7 @@ import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,20 +41,20 @@ class AppRouter {
         );
       case IndexSurahPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => TeacherviewtypeCubit(),
-            child: const IndexSurahPage(),
-          ),
+          builder: (_) => const IndexSurahPage(),
           settings: settings,
         );
       case DownloadCenterPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => TeacherviewtypeCubit(),
-            child: const DownloadCenterPage(),
-          ),
+          builder: (_) => const DownloadCenterPage(),
+          settings: settings,
+        );
+      case SettingsPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const SettingsPage(),
           settings: settings,
         );
     }
+    return null;
   }
 }

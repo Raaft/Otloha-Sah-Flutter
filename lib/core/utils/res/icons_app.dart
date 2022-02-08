@@ -21,5 +21,5 @@ class AppIcons {
   static String makkahIcon = 'assets/icons/makkah.png';
   static String medinaIcon = 'assets/icons/medina.png';
   static String helalIcon = 'assets/icons/helal.png';
-
+  static String downloadIcon = 'assets/icons/download.png';
 }
