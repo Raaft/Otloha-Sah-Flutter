@@ -3,6 +3,7 @@ import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
@@ -94,6 +95,11 @@ class AppRouter {
       case ComingSoonPage.routeName:
         return MaterialPageRoute(
           builder: (_) => const ComingSoonPage(),
+          settings: settings,
+        );
+      case LikedPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => LikedPage(arg: (settings.arguments as int)),
           settings: settings,
         );
     }

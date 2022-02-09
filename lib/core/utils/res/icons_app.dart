@@ -17,6 +17,7 @@ class AppIcons {
   static String languageIcon = 'assets/icons/language.png';
   static String qualityIcon = 'assets/icons/quality.png';
   static String likeIcon = 'assets/icons/like.png';
+  static String like2Icon = 'assets/icons/like2.png';
   static String bubbleIcon = 'assets/icons/bubble.png';
   static String quality2Icon = 'assets/icons/quality2.png';
   static String makkahIcon = 'assets/icons/makkah.png';
