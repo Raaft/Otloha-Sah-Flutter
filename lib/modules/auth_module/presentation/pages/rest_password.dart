@@ -96,7 +96,7 @@ class PinPutTestState extends State<PinPutTest> {
   }
 
   void _showSnackBar(String pin, BuildContext context) {
-    final snackBar = SnackBar(
+    final SnackBar snackBar = SnackBar(
       duration: const Duration(seconds: 3),
       content: SizedBox(
         height: 40,
@@ -106,5 +106,8 @@ class PinPutTestState extends State<PinPutTest> {
             style: const TextStyle(fontSize: 25.0),
           ),
         ),
-
-    ));}}
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+}

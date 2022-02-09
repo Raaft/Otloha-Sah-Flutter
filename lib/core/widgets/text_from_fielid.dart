@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 
 class TextFormFieldApp extends StatelessWidget {
-  const TextFormFieldApp({
-    Key? key,
-    required this.title,
-    this.keyType = TextInputType.name,
-    required this.validator,
-    required this.onSaved,
-    this.controller,
-    this.isPassword = false,
-    this.isEnabled = true,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.value,
-    this.color 
-  }) : super(key: key);
+  const TextFormFieldApp(
+      {Key? key,
+      required this.title,
+      this.keyType = TextInputType.name,
+      required this.validator,
+      required this.onSaved,
+      this.controller,
+      this.isPassword = false,
+      this.isEnabled = true,
+      this.suffixIcon,
+      this.prefixIcon,
+      this.value,
+      this.color})
+      : super(key: key);
 
   final bool isPassword;
   final bool isEnabled;
@@ -31,7 +31,7 @@ class TextFormFieldApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderSide =   BorderSide(width: 1, color: AppColor.lightBlue);
+    var borderSide = const BorderSide(width: 1, color: AppColor.lightBlue);
 
     var border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
@@ -43,7 +43,7 @@ class TextFormFieldApp extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
-        style:   TextStyle(color: AppColor.lightBlue),
+        style: const TextStyle(color: AppColor.lightBlue),
         initialValue: value,
         enabled: isEnabled,
         obscureText: isPassword,
