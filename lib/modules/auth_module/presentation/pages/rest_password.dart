@@ -99,18 +99,12 @@ class PinPutTestState extends State<PinPutTest> {
     final snackBar = SnackBar(
       duration: const Duration(seconds: 3),
       content: SizedBox(
-        height: 80.0,
+        height: 40,
         child: Center(
           child: Text(
             'Pin Submitted. Value: $pin',
             style: const TextStyle(fontSize: 25.0),
           ),
         ),
-      ),
-      backgroundColor: Colors.deepPurpleAccent,
-    );
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
-  }
-}
+
+    ));}}
