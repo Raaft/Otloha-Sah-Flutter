@@ -35,7 +35,7 @@ class AlertDialogFullScreen extends StatelessWidget {
           );
         },
         //  blendMode: BlendMode.dstIn,
-        child: Expanded(
+        child: Flexible(
           child: Icon(
             Icons.library_add_check_outlined,
             color: AppColor.btnColor2,

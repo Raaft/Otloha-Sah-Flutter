@@ -29,7 +29,7 @@ class HomeMainSection extends StatelessWidget {
       child: GestureDetector(
         onTap: action,
         child: Container(
-          height: 175,
+          height: MediaQuery.of(context).size.height * .23,
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.all(3),
           decoration: BoxDecoration(

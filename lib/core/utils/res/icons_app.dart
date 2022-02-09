@@ -23,4 +23,5 @@ class AppIcons {
   static String helalIcon = 'assets/icons/helal.png';
   static String downloadIcon = 'assets/icons/download.png';
   static String doneIcon = 'assets/icons/done.png';
+  static String comingSoonIcon = 'assets/icons/coming_soon.png';
 }

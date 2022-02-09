@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
@@ -88,6 +89,11 @@ class AppRouter {
       case TafseerPage.routeName:
         return MaterialPageRoute(
           builder: (_) => const TafseerPage(),
+          settings: settings,
+        );
+      case ComingSoonPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const ComingSoonPage(),
           settings: settings,
         );
     }

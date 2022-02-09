@@ -15,8 +15,8 @@ class HomeSubMainSection extends StatelessWidget {
         Navigator.of(context).pushNamed(item.action ?? '');
       },
       child: Container(
-        height: 80,
-        width: 80,
+        height: MediaQuery.of(context).size.height * .12,
+        width: MediaQuery.of(context).size.height * .11,
         padding: const EdgeInsets.all(4),
         margin: const EdgeInsets.all(3),
         decoration: BoxDecoration(
