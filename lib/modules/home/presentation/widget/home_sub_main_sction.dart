@@ -26,7 +26,7 @@ class HomeSubMainSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
-          //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
               item.image,

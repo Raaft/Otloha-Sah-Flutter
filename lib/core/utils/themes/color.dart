@@ -83,6 +83,8 @@ class AppColor {
   static Color backItem = const Color(0xFFDBF8FD);
   static Color backItem2 = const Color(0xFFBEF1FC);
 
+  static Color backdone = const Color.fromARGB(167, 0, 0, 0);
+
   ///
   static Color waveColor = const Color(0xFFfbe174);
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
-import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/languages_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
@@ -60,14 +60,9 @@ class AppRouter {
           builder: (_) => const SettingsPage(),
           settings: settings,
         );
-      case NarrationPage.routeName:
+      case BooksPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const NarrationPage(),
-          settings: settings,
-        );
-      case RecitersPage.routeName:
-        return MaterialPageRoute(
-          builder: (_) => const RecitersPage(),
+          builder: (_) => const BooksPage(),
           settings: settings,
         );
       case LanguagesPage.routeName:
@@ -75,9 +70,19 @@ class AppRouter {
           builder: (_) => const LanguagesPage(),
           settings: settings,
         );
+      case NarrationPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const NarrationPage(),
+          settings: settings,
+        );
       case QuranTranslationLanguagePage.routeName:
         return MaterialPageRoute(
           builder: (_) => const QuranTranslationLanguagePage(),
+          settings: settings,
+        );
+      case RecitersPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const RecitersPage(),
           settings: settings,
         );
       case TafseerPage.routeName:
@@ -85,21 +90,7 @@ class AppRouter {
           builder: (_) => const TafseerPage(),
           settings: settings,
         );
-      case BooksPage.routeName:
-        return MaterialPageRoute(
-          builder: (_) => const BooksPage(),
-          settings: settings,
-        );
-
-      ///default
-      default:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => HomeCubit(),
-            child: const HomePage(),
-          ),
-          settings: settings,
-        );
     }
+    return null;
   }
 }

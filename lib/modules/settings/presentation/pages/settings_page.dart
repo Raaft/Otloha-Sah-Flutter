@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/item_seeting.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_sub.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -49,8 +49,8 @@ class SettingsPage extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: settings.length,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 2 / 1.65,
+          maxCrossAxisExtent: 150,
+          childAspectRatio: 2 / 2,
           mainAxisSpacing: 2,
         ),
         itemBuilder: (context, index) {

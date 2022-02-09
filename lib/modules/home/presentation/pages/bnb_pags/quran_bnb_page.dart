@@ -61,37 +61,40 @@ class QuranBNBPage extends StatelessWidget {
   }
 
   Widget _viewTop(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(bottom: 40, top: 8),
-      //margin: const EdgeInsets.only(top: 4),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
+    return Hero(
+      tag: 'ToChooseSurah',
+      child: Container(
+        padding: const EdgeInsets.only(bottom: 40, top: 8),
+        //margin: const EdgeInsets.only(top: 4),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+          image: DecorationImage(
+            image: AssetImage(AppImages.back2Image),
+            fit: BoxFit.cover,
+          ),
         ),
-        image: DecorationImage(
-          image: AssetImage(AppImages.back2Image),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed(IndexSurahPage.routeName);
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextView(
-              text: '2. Al-Baqarah',
-              textAlign: TextAlign.center,
-              colorText: AppColor.txtColor2,
-              sizeText: 17,
-            ),
-            Icon(
-              Icons.expand_more,
-              color: AppColor.txtColor2,
-            ),
-          ],
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(IndexSurahPage.routeName);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextView(
+                text: '2. Al-Baqarah',
+                textAlign: TextAlign.center,
+                colorText: AppColor.txtColor2,
+                sizeText: 17,
+              ),
+              Icon(
+                Icons.expand_more,
+                color: AppColor.txtColor2,
+              ),
+            ],
+          ),
         ),
       ),
     );

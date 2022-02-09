@@ -4,6 +4,7 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/indicator.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
@@ -201,7 +202,12 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         ),
         const Expanded(child: SizedBox()),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Get.dialog(
+              const AlertDialogFullScreen(),
+              barrierColor: AppColor.backdone,
+            );
+          },
           child: Icon(
             Icons.notifications_active_outlined,
             size: 28,

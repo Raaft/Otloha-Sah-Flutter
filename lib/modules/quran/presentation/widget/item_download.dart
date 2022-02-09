@@ -11,7 +11,7 @@ class ItemDownload extends StatelessWidget {
     required this.surah,
     required this.isDownloaded,
     required this.isSelect,
-    required this.onLongPress,
+    this.onLongPress,
     this.onDownload,
     this.action,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class ItemDownload extends StatelessWidget {
   final String surah;
   final bool isDownloaded;
   final bool isSelect;
-  final Function() onLongPress;
+  final Function()? onLongPress;
   final Function()? onDownload;
   final Function()? action;
 

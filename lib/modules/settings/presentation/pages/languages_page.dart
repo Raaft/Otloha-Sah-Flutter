@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
+import 'package:get/get.dart';
 
 class LanguagesPage extends StatefulWidget {
   const LanguagesPage({Key? key}) : super(key: key);
@@ -52,10 +55,21 @@ class _LanguagesPageState extends State<LanguagesPage> {
               surah: 'surah',
               isDownloaded: true,
               isSelect: _selected == index,
-              onLongPress: () {
+              action: () {
+                Get.dialog(
+                  const AlertDialogFullScreen(),
+                  barrierColor: AppColor.backdone,
+                );
                 setState(() {
                   _selected = index;
                 });
+
+                Future.delayed(
+                  const Duration(seconds: 2),
+                  () {
+                    Navigator.of(context).pop();
+                  },
+                );
               },
             );
           },

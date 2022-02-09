@@ -14,7 +14,7 @@ class TextFormFieldApp extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.value,
-    this.color = AppColor.lightBlue,
+    this.color 
   }) : super(key: key);
 
   final bool isPassword;
@@ -31,7 +31,7 @@ class TextFormFieldApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var borderSide = const BorderSide(width: 1, color: AppColor.lightBlue);
+    var borderSide =   BorderSide(width: 1, color: AppColor.lightBlue);
 
     var border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
@@ -43,7 +43,7 @@ class TextFormFieldApp extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
-        style: const TextStyle(color: AppColor.lightBlue),
+        style:   TextStyle(color: AppColor.lightBlue),
         initialValue: value,
         enabled: isEnabled,
         obscureText: isPassword,
