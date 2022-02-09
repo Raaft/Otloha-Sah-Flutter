@@ -19,7 +19,7 @@ class SettingsPage extends StatelessWidget {
           children: [
             _topView(context),
             _mainSettings(context),
-            setting(context),
+            //  setting(context),
             const SizedBox(
               height: 24,
             ),

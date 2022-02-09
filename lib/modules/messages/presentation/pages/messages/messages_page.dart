@@ -8,6 +8,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/item_user_messages.dart';
@@ -28,6 +29,7 @@ class MessagesPage extends StatefulWidget {
 
 class _MessagesPageState extends State<MessagesPage> {
   int _selected = 0;
+  final List<int> _liked = [];
 
   final BehaviorSubject<WaveformProgress> progressStream =
       BehaviorSubject<WaveformProgress>();
@@ -197,6 +199,19 @@ class _MessagesPageState extends State<MessagesPage> {
         ),
         progressStream: progressStream,
         //  waveform: waveform,
+        isLike: _liked.contains(index),
+        liked: () {
+          setState(() {
+            _liked.add(index);
+          });
+        },
+        goLike: () =>
+            Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 0),
+        goNote: () =>
+            Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 1),
+        goReMraker: () =>
+            Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 2),
+        likeCount: 20 + (_liked.contains(index) ? 1 : 0),
       );
     } else {
       return BoxMessageItem(

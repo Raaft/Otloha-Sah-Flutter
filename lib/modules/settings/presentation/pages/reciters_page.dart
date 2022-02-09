@@ -63,13 +63,6 @@ class _RecitersPageState extends State<RecitersPage> {
                 setState(() {
                   _selected = index;
                 });
-
-                Future.delayed(
-                  const Duration(seconds: 2),
-                  () {
-                    Navigator.of(context).pop();
-                  },
-                );
               },
             );
           },
