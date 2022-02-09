@@ -29,8 +29,8 @@ dependencies:
   rxdart: ^0.27.3
   shared_preferences: ^2.0.12
   sqflite: ^2.0.2
-  sms_autofill: ^2.2.0
   flutter_native_splash: ^2.0.2
+  pinput: ^1.2.2
 
 flutter_native_splash:
   image: assets/images/splash.png
