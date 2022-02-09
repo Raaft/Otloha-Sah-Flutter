@@ -22,7 +22,7 @@ void main() async {
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/lang', // <- change the path of the translation files
       fallbackLocale: const Locale('en'),
-      startLocale: const Locale('en'),
+      startLocale: const Locale('ar'),
       useOnlyLangCode: true,
       child: MyApp(
         appRouter: AppRouter(),

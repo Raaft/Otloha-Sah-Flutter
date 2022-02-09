@@ -9,6 +9,7 @@ import 'package:flutter_base/core/widgets/indicator.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
+import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/ads_item_view.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';
@@ -33,17 +34,14 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _toolBarFun(),
-          const SizedBox(height: 4),
           _headerProgress(),
-          const SizedBox(height: 32),
           _sectionMain(context),
-          const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
             child: TextView(
@@ -56,7 +54,6 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             ),
           ),
           _subSections(context),
-          const SizedBox(height: 8),
           _adsConView(context),
         ],
       ),
@@ -65,7 +62,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
 
   Container _adsConView(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.width * .5,
+      height: MediaQuery.of(context).size.height * .2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -91,7 +88,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
 
   Widget _subSections(BuildContext context) {
     return SizedBox(
-      height: 90,
+      height: MediaQuery.of(context).size.height * .14,
       child: ListView.builder(
         padding: const EdgeInsets.all(4),
         shrinkWrap: true,
@@ -112,6 +109,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppIcons.discussioncon,
           AppColor.gradient3,
           AppColor.gradient1,
+          actionTo: ComingSoonPage.routeName,
         ),
         _sections(
           context,
@@ -119,6 +117,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppIcons.discussioncon,
           AppColor.gradient3,
           AppColor.gradient4,
+          actionTo: ComingSoonPage.routeName,
         ),
         _sections(
           context,
@@ -126,6 +125,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppIcons.quran2Icon,
           AppColor.gradient1,
           AppColor.gradient2,
+          actionTo: ComingSoonPage.routeName,
         ),
       ],
     );
@@ -136,8 +136,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     String title,
     String image,
     Color gradient1,
-    Color gradient2,
-  ) {
+    Color gradient2, {
+    String? actionTo,
+  }) {
     return HomeMainSection(
       title: title,
       image: image,
@@ -148,6 +149,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         type: 'Juz1-3',
         value: .57,
       ),
+      action: () {
+        Navigator.of(context).pushNamed(actionTo ?? '');
+      },
     );
   }
 
