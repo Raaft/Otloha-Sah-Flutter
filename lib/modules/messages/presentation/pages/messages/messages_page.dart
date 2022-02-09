@@ -187,7 +187,7 @@ class _MessagesPageState extends State<MessagesPage> {
     } else if (_selected == 0) {
       return GeneralMessageItem(
         boxMessageItem: BoxMessageItem(
-          isActive: ((index % 3) == 0),
+          isActive: false,
           ayah: 'أن الذين كفروا سواء عليهم',
           ayahInfo: 'Juz-1  6-Ayah البقرة',
           userImage: AppImages.duserImage,
