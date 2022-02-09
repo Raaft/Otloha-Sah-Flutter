@@ -64,13 +64,6 @@ class _BooksPageState extends State<BooksPage> {
                 setState(() {
                   _selected = index;
                 });
-
-                Future.delayed(
-                  const Duration(seconds: 2),
-                  () {
-                    Navigator.of(context).pop();
-                  },
-                );
               },
             );
           },

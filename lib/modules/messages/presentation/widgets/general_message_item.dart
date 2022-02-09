@@ -14,13 +14,26 @@ class GeneralMessageItem extends StatelessWidget {
     Key? key,
     required this.boxMessageItem,
     required this.progressStream,
+    required this.isLike,
+    required this.likeCount,
     this.waveForm,
+    this.liked,
+    this.goLike,
+    this.goNote,
+    this.goReMraker,
   }) : super(key: key);
 
   final BoxMessageItem boxMessageItem;
 
   final BehaviorSubject<WaveformProgress> progressStream;
   final Waveform? waveForm;
+
+  final bool isLike;
+  final Function()? liked;
+  final Function()? goLike;
+  final Function()? goNote;
+  final Function()? goReMraker;
+  final int likeCount;
 
   @override
   Widget build(BuildContext context) {
@@ -54,89 +67,113 @@ class GeneralMessageItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      AppIcons.likeIcon,
-                      color: AppColor.iconColor,
-                      width: 20,
-                      height: 20,
+                    GestureDetector(
+                      child: Image.asset(
+                        isLike ? AppIcons.like2Icon : AppIcons.likeIcon,
+                        color: isLike ? AppColor.darkBlue : AppColor.txtColor4d,
+                        width: 20,
+                        height: 20,
+                      ),
+                      onTap: liked,
                     ),
                     TextView(
-                      text: '20',
+                      text: likeCount.toString(),
                       colorText: AppColor.txtColor4d,
                       sizeText: 20,
                       weightText: FontWeight.bold,
+                      action: goLike,
                     ),
                     const SizedBox(width: 8),
-                    Image.asset(
-                      AppIcons.bubbleIcon,
-                      color: AppColor.iconColor,
-                      width: 20,
-                      height: 20,
-                    ),
-                    TextView(
-                      text: '20',
-                      colorText: AppColor.txtColor4d,
-                      sizeText: 20,
-                      weightText: FontWeight.bold,
+                    GestureDetector(
+                      onTap: goNote,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            AppIcons.bubbleIcon,
+                            color: AppColor.iconColor,
+                            width: 20,
+                            height: 20,
+                          ),
+                          TextView(
+                            text: '20',
+                            colorText: AppColor.txtColor4d,
+                            sizeText: 20,
+                            weightText: FontWeight.bold,
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Image.asset(
-                      AppIcons.quality2Icon,
-                      color: AppColor.iconColor,
-                      width: 20,
-                      height: 20,
-                    ),
-                    TextView(
-                      text: '20',
-                      colorText: AppColor.txtColor4d,
-                      sizeText: 20,
-                      weightText: FontWeight.bold,
+                    GestureDetector(
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            AppIcons.quality2Icon,
+                            color: AppColor.iconColor,
+                            width: 20,
+                            height: 20,
+                          ),
+                          TextView(
+                            text: '20',
+                            colorText: AppColor.txtColor4d,
+                            sizeText: 20,
+                            weightText: FontWeight.bold,
+                          ),
+                        ],
+                      ),
+                      onTap: goReMraker,
                     ),
                   ],
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .25,
-                  child: Stack(
-                    children: [
-                      Align(
-                        alignment: const Alignment(-1, 0),
-                        child: _circalUser(),
-                      ),
-                      Align(
-                        alignment: const Alignment(-.62, 0),
-                        child: _circalUser(),
-                      ),
-                      Align(
-                        alignment: const Alignment(-.24, 0),
-                        child: _circalUser(),
-                      ),
-                      Align(
-                        alignment: const Alignment(.14, 0),
-                        child: _circalUser(),
-                      ),
-                      Align(
-                        alignment: const Alignment(.52, 0),
-                        child: _circalUser(),
-                      ),
-                      Align(
-                        alignment: const Alignment(.95, 0),
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(
-                              colors: [AppColor.gradient6, AppColor.gradient3],
+                GestureDetector(
+                  onTap: goLike,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * .25,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: const Alignment(-1, 0),
+                          child: _circalUser(),
+                        ),
+                        Align(
+                          alignment: const Alignment(-.62, 0),
+                          child: _circalUser(),
+                        ),
+                        Align(
+                          alignment: const Alignment(-.24, 0),
+                          child: _circalUser(),
+                        ),
+                        Align(
+                          alignment: const Alignment(.14, 0),
+                          child: _circalUser(),
+                        ),
+                        Align(
+                          alignment: const Alignment(.52, 0),
+                          child: _circalUser(),
+                        ),
+                        Align(
+                          alignment: const Alignment(.95, 0),
+                          child: Container(
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                colors: [
+                                  AppColor.gradient6,
+                                  AppColor.gradient3
+                                ],
+                              ),
+                            ),
+                            child: TextView(
+                              text: '+9',
+                              colorText: AppColor.txtColor2,
+                              sizeText: 10,
                             ),
                           ),
-                          child: TextView(
-                            text: '20',
-                            colorText: AppColor.txtColor2,
-                            sizeText: 10,
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 )
               ],
