@@ -10,13 +10,17 @@ import 'package:just_waveform/just_waveform.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GeneralMessageItem extends StatelessWidget {
-  const GeneralMessageItem(
-      {Key? key, required this.boxMessageItem, required this.progressStream})
-      : super(key: key);
+  const GeneralMessageItem({
+    Key? key,
+    required this.boxMessageItem,
+    required this.progressStream,
+    this.waveForm,
+  }) : super(key: key);
 
   final BoxMessageItem boxMessageItem;
 
   final BehaviorSubject<WaveformProgress> progressStream;
+  final Waveform? waveForm;
 
   @override
   Widget build(BuildContext context) {

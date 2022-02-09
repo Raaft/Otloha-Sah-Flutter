@@ -19,14 +19,15 @@ class ItemSubSetting extends StatelessWidget {
         Navigator.of(context).pushNamed(settings.actionTo ?? '');
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(16),
           child: Card(
+            margin: EdgeInsets.zero,
             color: AppColor.gradient3,
             elevation: 0,
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 //  crossAxisAlignment: CrossAxisAlignment.start,
