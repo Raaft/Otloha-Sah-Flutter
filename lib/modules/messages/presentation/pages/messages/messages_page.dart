@@ -32,6 +32,8 @@ class _MessagesPageState extends State<MessagesPage> {
   final BehaviorSubject<WaveformProgress> progressStream =
       BehaviorSubject<WaveformProgress>();
 
+  late Waveform waveform;
+
   @override
   void initState() {
     super.initState();
@@ -42,16 +44,27 @@ class _MessagesPageState extends State<MessagesPage> {
   Future<void> _init() async {
     final audioFile =
         File(p.join((await getTemporaryDirectory()).path, 'waveform.mp3'));
+    final waveFile2 =
+        File(p.join((await getTemporaryDirectory()).path, 'waveform.wave'));
     try {
       await audioFile.writeAsBytes(
           (await rootBundle.load('assets/audio/waveform.mp3'))
               .buffer
               .asUint8List());
+
+      await waveFile2.writeAsBytes(
+          (await rootBundle.load('assets/audio/waveform.wave'))
+              .buffer
+              .asUint8List());
       final waveFile =
           File(p.join((await getTemporaryDirectory()).path, 'waveform.wave'));
 
-      JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile)
-          .listen(progressStream.add, onError: progressStream.addError);
+      final Stream<WaveformProgress> progressStream2 =
+          JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile);
+      progressStream2.listen(progressStream.add,
+          onError: progressStream.addError);
+
+      waveform = await JustWaveform.parse(waveFile2);
 
       //    JustWaveform.parse(waveFile);
     } catch (e) {
@@ -183,6 +196,7 @@ class _MessagesPageState extends State<MessagesPage> {
           color: AppColor.transparent,
         ),
         progressStream: progressStream,
+        //  waveform: waveform,
       );
     } else {
       return BoxMessageItem(

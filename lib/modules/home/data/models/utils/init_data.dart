@@ -2,7 +2,6 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
 import 'package:flutter_base/modules/home/data/models/utils/bottom_bar_item.dart';
 import 'package:flutter_base/modules/home/data/models/utils/sub_section_item.dart';
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/home_bnb_page.dart';
@@ -27,7 +26,7 @@ final List<SubSectionItem> subSectionData = [
   SubSectionItem(
     title: translate('Students'),
     image: AppIcons.readingIcon,
-    action: DownloadCenterPage.routeName,
+    // action: DownloadCenterPage.routeName,
   ),
   SubSectionItem(
     title: 'Translation',

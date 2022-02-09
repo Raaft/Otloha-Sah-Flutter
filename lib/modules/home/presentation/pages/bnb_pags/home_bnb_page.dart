@@ -36,6 +36,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _toolBarFun(),
           const SizedBox(height: 4),
@@ -64,7 +65,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
 
   Container _adsConView(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * .2,
+      height: MediaQuery.of(context).size.width * .5,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
       ),
