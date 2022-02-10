@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
@@ -18,6 +19,12 @@ class _RecitersPageState extends State<RecitersPage> {
 
   @override
   Widget build(BuildContext context) {
+    try {
+      _selected = (CacheHelper.getData(key: 'ReciterSelected') as int?) ?? -1;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -60,6 +67,8 @@ class _RecitersPageState extends State<RecitersPage> {
                   const AlertDialogFullScreen(),
                   barrierColor: AppColor.backdone,
                 );
+                CacheHelper.saveData(key: 'ReciterSelected', value: index);
+
                 setState(() {
                   _selected = index;
                 });

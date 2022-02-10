@@ -2,6 +2,7 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/data/models/utils/bottom_bar_item.dart';
 import 'package:flutter_base/modules/home/data/models/utils/sub_section_item.dart';
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/home_bnb_page.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/quran_bnb_
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/search_bnb_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
+import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 final List<SubSectionItem> subSectionData = [
   SubSectionItem(
@@ -27,17 +30,28 @@ final List<SubSectionItem> subSectionData = [
   SubSectionItem(
     title: translate('Students'),
     image: AppIcons.readingIcon,
-    action: ComingSoonPage.routeName,
+    action: StudentsPage.routeName,
   ),
   SubSectionItem(
     title: translate('Translation'),
     image: AppIcons.languageIcon,
-    action: ComingSoonPage.routeName,
+    action2: (context) {
+      BlocProvider.of<HomeCubit>(context).changeIndex(1);
+    },
   ),
   SubSectionItem(
     title: translate('Tafsir'),
     image: AppIcons.mailIcon,
-    action: ComingSoonPage.routeName,
+    action2: (context) {
+      BlocProvider.of<HomeCubit>(context).changeIndex(1);
+    },
+  ),
+  SubSectionItem(
+    title: translate('Tajweed'),
+    image: AppIcons.mailIcon,
+    action2: (context) {
+      BlocProvider.of<HomeCubit>(context).changeIndex(1);
+    },
   ),
 ];
 

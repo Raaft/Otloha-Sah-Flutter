@@ -6,16 +6,16 @@ import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
 
-class TeacherPage extends StatefulWidget {
-  static const routeName = '/teacher';
+class StudentsPage extends StatefulWidget {
+  static const routeName = '/students';
 
-  const TeacherPage({Key? key}) : super(key: key);
+  const StudentsPage({Key? key}) : super(key: key);
 
   @override
-  State<TeacherPage> createState() => _TeacherPageState();
+  State<StudentsPage> createState() => _StudentsPageState();
 }
 
-class _TeacherPageState extends State<TeacherPage> {
+class _StudentsPageState extends State<StudentsPage> {
   bool _type = true;
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class _TeacherPageState extends State<TeacherPage> {
           ),
         ],
       ),
-      title: translate('Teachers'),
+      title: translate('Students'),
     );
   }
 }

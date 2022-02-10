@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
@@ -18,6 +19,12 @@ class _LanguagesPageState extends State<LanguagesPage> {
 
   @override
   Widget build(BuildContext context) {
+    try {
+      _selected = (CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? -1;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -60,6 +67,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
                   const AlertDialogFullScreen(),
                   barrierColor: AppColor.backdone,
                 );
+                CacheHelper.saveData(key: 'LanguagesSelected', value: index);
                 setState(() {
                   _selected = index;
                 });

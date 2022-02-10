@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import 'package:flutter_base/modules/home/presentation/pages/recitations/recitations_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
@@ -15,6 +17,7 @@ import 'package:flutter_base/modules/settings/presentation/pages/reciters_page.d
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/tafseer_page.dart';
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
+import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,6 +47,14 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => TeacherviewtypeCubit(),
             child: const TeacherPage(),
+          ),
+          settings: settings,
+        );
+      case StudentsPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => TeacherviewtypeCubit(),
+            child: const StudentsPage(),
           ),
           settings: settings,
         );
@@ -100,6 +111,16 @@ class AppRouter {
       case LikedPage.routeName:
         return MaterialPageRoute(
           builder: (_) => LikedPage(arg: (settings.arguments as int)),
+          settings: settings,
+        );
+      case RecitationsPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const RecitationsPage(),
+          settings: settings,
+        );
+      case NotifiactionsPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const NotifiactionsPage(),
           settings: settings,
         );
     }

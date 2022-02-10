@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base/app_router.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -16,6 +17,8 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
+
+  CacheHelper.init();
 
   runApp(
     EasyLocalization(
