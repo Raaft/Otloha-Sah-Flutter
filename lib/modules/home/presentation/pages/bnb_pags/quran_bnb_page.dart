@@ -11,7 +11,7 @@ import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuranBNBPage extends StatelessWidget {
-   QuranBNBPage({Key? key}) : super(key: key);
+  QuranBNBPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class QuranBNBPage extends StatelessWidget {
           // TODO: implement listener
         },
         builder: (context, state) {
-        var cubit =  HomeCubit.get(context);
+          var cubit = HomeCubit.get(context);
           return Stack(
             alignment: Alignment.center,
             children: [
@@ -55,40 +55,36 @@ class QuranBNBPage extends StatelessWidget {
               Positioned(
                 top: 50,
                 child: Row(
-                  children:  [
-                    if(cubit.isLiked)
-
+                  children: [
+                    if (cubit.isLiked)
                       const Icon(
-                      Icons.favorite,
-                      color: Colors.amber,
-                      size: 40,
-                    ),
-                    if(cubit.isBookmarked)
-
+                        Icons.favorite,
+                        color: Colors.amber,
+                        size: 40,
+                      ),
+                    if (cubit.isBookmarked)
                       const Icon(
-                      Icons.bookmark,
-                      color: Colors.amber,
-                      size: 40,
-                    ),
+                        Icons.bookmark,
+                        color: Colors.amber,
+                        size: 40,
+                      ),
                   ],
                 ),
               ),
-              if(cubit.isRecorded)
-
+              if (cubit.isRecorded)
                 const Positioned(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: RecordTool(),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: RecordTool(),
+                  ),
                 ),
-              ),
-              if(cubit.isOnBressed)
-
+              if (cubit.isOnBressed)
                 const Positioned(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ToolBotton(),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ToolBotton(),
+                  ),
                 ),
-              ),
 
 /*               Positioned(
             bottom: MediaQuery.of(context).size.width / -2,
@@ -109,43 +105,41 @@ class QuranBNBPage extends StatelessWidget {
   }
 
   Widget _viewPageReading(context) {
-    return Expanded(
-      child: Padding(
-        padding:  const EdgeInsets.only(top: 40),
-        child: Container(
-          decoration:  const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(24),
-                topRight: Radius.circular(24),
+    return Padding(
+      padding: const EdgeInsets.only(top: 40),
+      child: Container(
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+            color: Colors.white),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextView(
+                    text: 'سورة البقرة',
+                    textAlign: TextAlign.center,
+                    colorText: AppColor.txtColor1,
+                    sizeText: 17,
+                    padding: const EdgeInsets.only(top: 12),
+                  ),
+                  TextView(
+                    text: 'الجزء اﻷول',
+                    textAlign: TextAlign.center,
+                    colorText: AppColor.txtColor1,
+                    sizeText: 17,
+                    padding: const EdgeInsets.only(top: 12),
+                  ),
+                ],
               ),
-              color: Colors.white),
-          child: Column(
-            children: [
-              Padding(
-                padding:  const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextView(
-                      text: 'سورة البقرة',
-                      textAlign: TextAlign.center,
-                      colorText: AppColor.txtColor1,
-                      sizeText: 17,
-                      padding:  const EdgeInsets.only(top: 12),
-                    ),
-                    TextView(
-                      text: 'الجزء اﻷول',
-                      textAlign: TextAlign.center,
-                      colorText: AppColor.txtColor1,
-                      sizeText: 17,
-                      padding:  const EdgeInsets.only(top: 12),
-                    ),
-                  ],
-                ),
-              ),
-              Image.asset(AppImages.page016Image),
-            ],
-          ),
+            ),
+            Image.asset(AppImages.page016Image),
+          ],
         ),
       ),
     );
@@ -160,10 +154,10 @@ class QuranBNBPage extends StatelessWidget {
           Navigator.of(context).pushNamed(IndexSurahPage.routeName);
         },
         child: Container(
-          padding:  const EdgeInsets.only(bottom: 40, top: 8),
+          padding: const EdgeInsets.only(bottom: 40, top: 8),
           //margin:  EdgeInsets.only(top: 4),
           decoration: BoxDecoration(
-            borderRadius:  const BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(24),
               topRight: Radius.circular(24),
             ),

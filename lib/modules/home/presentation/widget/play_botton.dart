@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+
 class RecordTool extends StatelessWidget {
   const RecordTool({Key? key}) : super(key: key);
 
@@ -7,19 +8,13 @@ class RecordTool extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 0),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width / 1.15,
-
+      width: MediaQuery.of(context).size.width / 1.15,
       alignment: Alignment.center,
       height: 60,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 4),
-              blurRadius: 5.0)
+              color: Colors.black26, offset: Offset(0, 4), blurRadius: 5.0)
         ],
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -30,17 +25,14 @@ class RecordTool extends StatelessWidget {
         color: Colors.deepPurple.shade300,
         borderRadius: BorderRadius.circular(10),
       ),
-      child:Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            "00:3",
+            '00:3',
             textAlign: TextAlign.center,
-            style: TextStyle(
-                color: AppColor.lightYellow,
-                fontSize:20
-            ),
+            style: TextStyle(color: AppColor.lightYellow, fontSize: 20),
           ),
           GestureDetector(
               onTap: () {},
@@ -49,7 +41,6 @@ class RecordTool extends StatelessWidget {
                 color: AppColor.lightYellow,
                 size: 40,
               )),
-
           GestureDetector(
               onTap: () {},
               child: Icon(
@@ -64,9 +55,8 @@ class RecordTool extends StatelessWidget {
                 color: AppColor.white,
                 size: 40,
               )),
-
         ],
       ),
-    ) ;
+    );
   }
 }

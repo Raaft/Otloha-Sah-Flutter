@@ -1,2 +1,2 @@
-const String fontFamily1 = 'Lato';
-const String fontFamily2 = 'Anton';
+const String fontFamily1 = 'Cairo';
+const String fontFamily2 = 'ElMessiri';
