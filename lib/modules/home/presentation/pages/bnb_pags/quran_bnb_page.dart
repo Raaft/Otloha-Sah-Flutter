@@ -14,21 +14,23 @@ class QuranBNBPage extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: rowTools(context),
       floatingActionButton: DraggableFab(
-
-        child: CircleAvatar(radius: 20,backgroundColor:AppColor.darkBlue,
+        child: CircleAvatar(
+          radius: 20,
+          backgroundColor: AppColor.darkBlue,
         ),
       ),
       body: Stack(
         children: [
-
           _viewTop(context),
           _viewPageReading(context),
           Positioned(
-            bottom: MediaQuery.of(context).size.width/-2,
-            right: MediaQuery.of(context).size.width/-2,
+            bottom: MediaQuery.of(context).size.width / -2,
+            right: MediaQuery.of(context).size.width / -2,
             child: Align(
-              alignment:Alignment.bottomLeft,
-              child: CircleAvatar(radius: MediaQuery.of(context).size.width/2,),
+              alignment: Alignment.bottomLeft,
+              child: CircleAvatar(
+                radius: MediaQuery.of(context).size.width / 2,
+              ),
             ),
           )
         ],
@@ -105,20 +107,21 @@ class QuranBNBPage extends StatelessWidget {
   Widget _viewTop(BuildContext context) {
     return Hero(
       tag: 'ToChooseSurah',
-      child: Container(
-        padding: const EdgeInsets.only(bottom: 40, top: 8),
-        //margin: const EdgeInsets.only(top: 4),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
+      child: GestureDetector(
+        onTap: () => Navigator.of(context).pushNamed(IndexSurahPage.routeName),
+        onVerticalDragDown: (drag) {
+          Navigator.of(context).pushNamed(IndexSurahPage.routeName);
+        },
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 40, top: 8),
+          //margin: const EdgeInsets.only(top: 4),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+            color: AppColor.darkBlue,
           ),
-          color: AppColor.darkBlue,
-        ),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed(IndexSurahPage.routeName);
-          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -148,6 +151,7 @@ Widget rowTools(context) {
       Container(
         //margin: const EdgeInsets.symmetric(horizontal: 0),
         // width: MediaQuery.of(context).size.width/4,
+
         alignment: Alignment.center,
         height: 50,
         decoration: BoxDecoration(
