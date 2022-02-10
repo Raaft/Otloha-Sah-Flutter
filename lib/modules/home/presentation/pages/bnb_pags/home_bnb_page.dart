@@ -9,11 +9,13 @@ import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
+import 'package:flutter_base/modules/home/presentation/pages/recitations/recitations_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/ads_item_view.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
 import 'package:flutter_base/modules/home/presentation/widget/user_progress_reading.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:get/get.dart';
 
@@ -116,7 +118,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppIcons.discussioncon,
           AppColor.gradient3,
           AppColor.gradient4,
-          actionTo: ComingSoonPage.routeName,
+          actionTo: RecitationsPage.routeName,
         ),
         _sections(
           context,
@@ -207,7 +209,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         const Expanded(child: SizedBox()),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(ComingSoonPage.routeName);
+            Navigator.of(context).pushNamed(NotifiactionsPage.routeName);
           },
           child: Icon(
             Icons.notifications_active_outlined,

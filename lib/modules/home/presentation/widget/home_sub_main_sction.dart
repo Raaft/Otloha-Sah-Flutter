@@ -12,7 +12,11 @@ class HomeSubMainSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(item.action ?? '');
+        if (item.action2 != null) {
+          item.action2!(context);
+        } else {
+          Navigator.of(context).pushNamed(item.action ?? '');
+        }
       },
       child: Container(
         height: MediaQuery.of(context).size.height * .12,
