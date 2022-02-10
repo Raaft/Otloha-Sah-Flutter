@@ -5,7 +5,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppStyle {
-  TextStyle get textStyle1 => GoogleFonts.lato(
+  TextStyle get textStyle1 => GoogleFonts.cairo(
         textStyle: TextStyle(
           color: AppColor.txtColor1,
           fontFamily: fontFamily2,
@@ -13,21 +13,21 @@ class AppStyle {
         ),
       );
 
-  TextStyle get textStyle2 => GoogleFonts.lato(
+  TextStyle get textStyle2 => GoogleFonts.elMessiri(
         textStyle: TextStyle(
           color: AppColor.white,
           fontFamily: fontFamily1,
           fontSize: 20,
         ),
       );
-  TextStyle get textStyle3 => GoogleFonts.lato(
+  TextStyle get textStyle3 => GoogleFonts.cairo(
         textStyle: TextStyle(
           color: AppColor.txtColor3,
           fontFamily: fontFamily2,
           fontSize: 20,
         ),
       );
-  TextStyle get textStyle4 => GoogleFonts.lato(
+  TextStyle get textStyle4 => GoogleFonts.cairo(
         textStyle: TextStyle(
           color: AppColor.txtColor4,
           fontFamily: fontFamily2,
@@ -35,7 +35,7 @@ class AppStyle {
         ),
       );
 
-  TextStyle get textStyle5 => GoogleFonts.lato(
+  TextStyle get textStyle5 => GoogleFonts.cairo(
         textStyle: TextStyle(
           color: AppColor.txtColor5,
           fontFamily: fontFamily2,
