@@ -3,6 +3,7 @@ import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class ToolBotton extends StatefulWidget {
   const ToolBotton({Key? key}) : super(key: key);
@@ -49,7 +50,9 @@ class _ToolBottonState extends State<ToolBotton> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.snackbar('successfully', 'Text coped');
+                    },
                     child: Icon(
                       Icons.copy,
                       color: AppColor.white,

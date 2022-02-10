@@ -9,7 +9,6 @@ import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/home_bnb_p
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/profile_bnb_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/quran_bnb_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/search_bnb_page.dart';
-import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';

@@ -1,12 +1,11 @@
-import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
+
 import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
