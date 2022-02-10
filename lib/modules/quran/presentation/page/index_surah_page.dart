@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
@@ -42,23 +41,18 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
       alignment: Alignment.bottomCenter,
       child: Hero(
         tag: 'ToChooseSurah',
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          //margin: const EdgeInsets.only(top: 4),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(24),
-              topRight: Radius.circular(24),
+        child: GestureDetector(
+          onTap: () => _changePage(1),
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            //margin: const EdgeInsets.only(top: 4),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(24),
+              ),
+              color: AppColor.darkBlue,
             ),
-            image: DecorationImage(
-              image: AssetImage(AppImages.back2Image),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: GestureDetector(
-            onTap: () {
-              _changePage(1);
-            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
