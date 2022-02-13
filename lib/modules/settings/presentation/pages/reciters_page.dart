@@ -58,7 +58,7 @@ class _RecitersPageState extends State<RecitersPage> {
           itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: 'name of Reciter',
+              name: 'Reciter ${index + 1}',
               surah: 'surah',
               isDownloaded: true,
               isSelect: _selected == index,
@@ -68,6 +68,8 @@ class _RecitersPageState extends State<RecitersPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(key: 'ReciterSelected', value: index);
+                CacheHelper.saveData(
+                    key: 'ReciterSelectedName', value: 'Reciter ${index + 1}');
 
                 setState(() {
                   _selected = index;
