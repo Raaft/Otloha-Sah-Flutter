@@ -9,6 +9,7 @@ import 'package:flutter_base/modules/messages/presentation/pages/messages/messag
 import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/languages_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
@@ -111,6 +112,11 @@ class AppRouter {
       case LikedPage.routeName:
         return MaterialPageRoute(
           builder: (_) => LikedPage(arg: (settings.arguments as int)),
+          settings: settings,
+        );
+      case PagesLikedPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => PagesLikedPage(arg: (settings.arguments as int)),
           settings: settings,
         );
       case RecitationsPage.routeName:

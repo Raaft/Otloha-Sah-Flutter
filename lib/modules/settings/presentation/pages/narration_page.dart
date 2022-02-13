@@ -60,7 +60,7 @@ class _NarrationPageState extends State<NarrationPage> {
           itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: 'name of Narrations',
+              name: 'Narrations ${index + 1}',
               surah: 'surah',
               isDownloaded: true,
               isSelect: _selected == index,
@@ -70,7 +70,9 @@ class _NarrationPageState extends State<NarrationPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(key: 'NarrationsSelected', value: index);
-
+                CacheHelper.saveData(
+                    key: 'NarrationsSelectedName',
+                    value: 'Narrations ${index + 1}');
                 setState(() {
                   _selected = index;
                 });

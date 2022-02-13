@@ -64,7 +64,7 @@ class _QuranTranslationLanguagePageState
           itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: 'name of Quran Translation Language',
+              name: 'Quran Translation Language ${index + 1}',
               surah: 'surah',
               isDownloaded: true,
               isSelect: _selected == index,
@@ -76,6 +76,9 @@ class _QuranTranslationLanguagePageState
                 CacheHelper.saveData(
                     key: 'QuranTranslationLanguageSelected', value: index);
 
+                CacheHelper.saveData(
+                    key: 'QuranTranslationLanguageSelectedName',
+                    value: 'Quran Translation ${index + 1}');
                 setState(() {
                   _selected = index;
                 });

@@ -59,7 +59,7 @@ class _TafseerPageState extends State<TafseerPage> {
           itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: 'name of Tafseer',
+              name: 'Tafseer ${index + 1}',
               surah: 'surah',
               isDownloaded: true,
               isSelect: _selected == index,
@@ -69,6 +69,9 @@ class _TafseerPageState extends State<TafseerPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(key: 'TafseerSelected', value: index);
+
+                CacheHelper.saveData(
+                    key: 'TafseerSelectedName', value: 'Tafseer ${index + 1}');
 
                 setState(() {
                   _selected = index;

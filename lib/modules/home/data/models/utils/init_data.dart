@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/profile_bn
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/quran_bnb_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/search_bnb_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +37,7 @@ final List<SubSectionItem> subSectionData = [
   SubSectionItem(
     title: translate('Translation'),
     image: AppIcons.languageIcon,
+    subTitle: CacheHelper.getData(key: 'QuranTranslationLanguageSelectedName'),
     action2: (context) {
       BlocProvider.of<HomeCubit>(context).changeIndex(1);
     },
@@ -41,6 +45,7 @@ final List<SubSectionItem> subSectionData = [
   SubSectionItem(
     title: translate('Tafsir'),
     image: AppIcons.mailIcon,
+    subTitle: CacheHelper.getData(key: 'TafseerSelectedName'),
     action2: (context) {
       BlocProvider.of<HomeCubit>(context).changeIndex(1);
     },
@@ -50,6 +55,27 @@ final List<SubSectionItem> subSectionData = [
     image: AppIcons.mailIcon,
     action2: (context) {
       BlocProvider.of<HomeCubit>(context).changeIndex(1);
+    },
+  ),
+  SubSectionItem(
+    title: translate('Note'),
+    image: AppIcons.quran4Icon,
+    action2: (context) {
+      Navigator.of(context).pushNamed(PagesLikedPage.routeName, arguments: 1);
+    },
+  ),
+  SubSectionItem(
+    title: translate('Likes'),
+    image: AppIcons.likeIcon,
+    action2: (context) {
+      Navigator.of(context).pushNamed(PagesLikedPage.routeName, arguments: 3);
+    },
+  ),
+  SubSectionItem(
+    title: translate('BookMarks'),
+    image: AppIcons.bubbleIcon,
+    action2: (context) {
+      Navigator.of(context).pushNamed(PagesLikedPage.routeName, arguments: 2);
     },
   ),
 ];
@@ -73,7 +99,7 @@ List<BottomBarData> homeMenuItems = [
     title: translate('Quran'),
     iconData: AppIcons.quranIcon,
     badgeColor: AppColor.bottomSaved,
-    page:  QuranBNBPage(),
+    page: QuranBNBPage(),
   ),
   BottomBarData(
     title: translate('Search'),
