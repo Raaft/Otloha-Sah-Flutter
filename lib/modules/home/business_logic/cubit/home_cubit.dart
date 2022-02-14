@@ -57,14 +57,14 @@ class HomeCubit extends Cubit<HomeState> {
     emit(IsRecordedState());
   }
 
-  changeIsRecordedFile() {
+   changeIsRecordedFile() {
     isOnPressed = false;
     isRecorded = false;
     isRecordedFile = true;
     emit(IsRecordedFileState());
   }
 
-
+/*
   getHasRecord() async {
     bool hasPermission = await RecordPlatform.instance.hasPermission();
     emit(RecordHasPermission(hasPermission: hasPermission));
@@ -79,6 +79,6 @@ class HomeCubit extends Cubit<HomeState> {
     var isPlay = await RecordPlatform.instance.isRecording();
 
     emit(RecordIsRecord(isRecord: isPlay));
-  }
+  }*/
 
 }
