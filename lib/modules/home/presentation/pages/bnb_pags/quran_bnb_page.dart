@@ -44,13 +44,31 @@ class QuranBNBPage extends StatelessWidget {
                 top: 200,
                 child: Align(
                   alignment: Alignment.topCenter,
-                  child: AuthButton(
-                      buttonText: 'on press',
-                      width: MediaQuery.of(context).size.width / 2,
-                      onPressed: () {
-                        cubit.changeIsOnPressed();
-                      },
-                      colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                  child: Column(
+                    children: [
+                      AuthButton(
+                          buttonText: 'on press',
+                          width: MediaQuery.of(context).size.width / 2,
+                          onPressed: () {
+                            cubit.changeIsOnPressed();
+                          },
+                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                      AuthButton(
+                          buttonText: 'on long press',
+                          width: MediaQuery.of(context).size.width / 2,
+                          onPressed: () {
+                            cubit.changeIsOnPressed();
+                          },
+                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                      AuthButton(
+                          buttonText: 'on double press',
+                          width: MediaQuery.of(context).size.width / 2,
+                          onPressed: () {
+                            cubit.changeIsOnPressed();
+                          },
+                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                    ],
+                  ),
                 ),
               ),
               Positioned(
