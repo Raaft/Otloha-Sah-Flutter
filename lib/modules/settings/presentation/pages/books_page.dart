@@ -58,7 +58,7 @@ class _BooksPageState extends State<BooksPage> {
           itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: 'name of Books',
+              name: 'Books Name ${index + 1}',
               surah: 'surah',
               isDownloaded: true,
               isSelect: _selected == index,
@@ -68,6 +68,8 @@ class _BooksPageState extends State<BooksPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(key: 'BookSelected', value: index);
+                CacheHelper.saveData(
+                    key: 'BookSelectedName', value: 'Books Name ${index + 1}');
                 setState(() {
                   _selected = index;
                 });

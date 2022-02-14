@@ -58,7 +58,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
           itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: 'name of Languages',
+              name: 'Languages ${index + 1}',
               surah: 'surah',
               isDownloaded: true,
               isSelect: _selected == index,
@@ -68,6 +68,9 @@ class _LanguagesPageState extends State<LanguagesPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(key: 'LanguagesSelected', value: index);
+                CacheHelper.saveData(
+                    key: 'LanguagesSelectedName',
+                    value: 'Languages ${index + 1}');
                 setState(() {
                   _selected = index;
                 });
