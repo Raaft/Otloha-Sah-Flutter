@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:record/record.dart';
 
 part 'home_state.dart';
 
@@ -25,11 +27,9 @@ class HomeCubit extends Cubit<HomeState> {
     if (isLiked == false) {
       isLiked = true;
       emit(IsLikedTrueState());
-
     } else {
       isLiked = false;
       emit(IsLikedFalseState());
-
     }
   }
 
@@ -37,11 +37,9 @@ class HomeCubit extends Cubit<HomeState> {
     if (isBookmarked == false) {
       isBookmarked = true;
       emit(IsBookMarkTrueState());
-
     } else {
       isBookmarked = false;
       emit(IsBookMarkFalseState());
-
     }
   }
 
@@ -65,4 +63,22 @@ class HomeCubit extends Cubit<HomeState> {
     isRecordedFile = true;
     emit(IsRecordedFileState());
   }
+
+
+  getHasRecord() async {
+    bool hasPermission = await RecordPlatform.instance.hasPermission();
+    emit(RecordHasPermission(hasPermission: hasPermission));
+  }
+
+  getPlayRecord() async {
+    var root = await getTemporaryDirectory();
+    await RecordPlatform.instance.start(
+      path: root.path + '/record.m4a',
+      encoder: AudioEncoder.AAC,
+    );
+    var isPlay = await RecordPlatform.instance.isRecording();
+
+    emit(RecordIsRecord(isRecord: isPlay));
+  }
+
 }

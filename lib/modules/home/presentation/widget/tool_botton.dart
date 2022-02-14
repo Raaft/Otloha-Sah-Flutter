@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/note_item_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -77,7 +76,7 @@ class _ToolBottonState extends State<ToolBotton> {
                                 .of(context)
                                 .showBottomSheet(
                                     (context) =>
-                                    const NoteItemView(true,isAdd: true,),
+                                    const NoteItemView(true,isAdd: true,isQuranPage: true,),
                                 backgroundColor: AppColor.transparent,
                             );},
                           child: Container(

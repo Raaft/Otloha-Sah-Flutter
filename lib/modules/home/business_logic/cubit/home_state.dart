@@ -23,3 +23,27 @@ class HomeChangeIndex extends HomeState {
 
   const HomeChangeIndex(this.index);
 }
+
+
+
+class RecordHasPermission extends HomeState {
+  final bool hasPermission;
+  const RecordHasPermission({
+    required this.hasPermission,
+  });
+}
+
+class RecordIsPlay extends HomeState {
+  final bool isPlay;
+  const RecordIsPlay({
+    required this.isPlay,
+  });
+}
+
+class RecordIsRecord extends HomeState {
+  final bool isRecord;
+  const RecordIsRecord({
+    required this.isRecord,
+  });
+}
+

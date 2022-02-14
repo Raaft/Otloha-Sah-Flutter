@@ -3,12 +3,15 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:get/get.dart';
 
 class NoteItemView extends StatelessWidget {
-  const NoteItemView(this.isNote, {this.isAdd = false, Key? key})
+  const NoteItemView(this.isNote,
+      {this.isAdd = false, Key? key, this.isQuranPage = false})
       : super(key: key);
 
   final bool isNote;
+  final bool isQuranPage;
   final bool isAdd;
 
   @override
@@ -17,7 +20,11 @@ class NoteItemView extends StatelessWidget {
       margin: const EdgeInsets.only(top: 40),
       color: AppColor.transparent,
       child: Stack(
-        children: [_viewTop(context), _viewPage(context)],
+        children: [
+          if(isQuranPage==false)
+          _viewTop(context),
+          _viewPage(context),
+        ],
       ),
     );
   }
@@ -66,7 +73,9 @@ class NoteItemView extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.back();
+                      },
                       child: TextView(
                         text: isAdd ? translate('Save') : translate('SaveEdit'),
                         colorText: AppColor.txtColor2,

@@ -32,6 +32,9 @@ dependencies:
   pinput: ^1.2.0
   draggable_fab: ^0.1.4
   fab_circular_menu: ^1.0.0
+  record: ^3.0.2
+  path_provider: ^2.0.9
+
 
 flutter_icons:
   android: "launcher_icon"
