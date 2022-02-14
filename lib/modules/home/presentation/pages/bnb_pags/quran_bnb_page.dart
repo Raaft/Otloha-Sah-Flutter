@@ -5,13 +5,14 @@ import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
+import 'package:flutter_base/modules/home/presentation/widget/recorded_file_setting.dart';
 
 import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuranBNBPage extends StatelessWidget {
-  QuranBNBPage({Key? key}) : super(key: key);
+  const QuranBNBPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +44,31 @@ class QuranBNBPage extends StatelessWidget {
                 top: 200,
                 child: Align(
                   alignment: Alignment.topCenter,
-                  child: AuthButton(
-                      buttonText: 'on press',
-                      width: MediaQuery.of(context).size.width / 2,
-                      onPressed: () {
-                        cubit.changeIsOnBressed();
-                      },
-                      colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                  child: Column(
+                    children: [
+                      AuthButton(
+                          buttonText: 'on press',
+                          width: MediaQuery.of(context).size.width / 2,
+                          onPressed: () {
+                            cubit.changeIsOnPressed();
+                          },
+                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                      AuthButton(
+                          buttonText: 'on long press',
+                          width: MediaQuery.of(context).size.width / 2,
+                          onPressed: () {
+                            cubit.changeIsOnPressed();
+                          },
+                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                      AuthButton(
+                          buttonText: 'on double press',
+                          width: MediaQuery.of(context).size.width / 2,
+                          onPressed: () {
+                            cubit.changeIsOnPressed();
+                          },
+                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                    ],
+                  ),
                 ),
               ),
               Positioned(
@@ -71,20 +90,9 @@ class QuranBNBPage extends StatelessWidget {
                   ],
                 ),
               ),
-              if (cubit.isRecorded)
-                const Positioned(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: RecordTool(),
-                  ),
-                ),
-              if (cubit.isOnBressed)
-                const Positioned(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ToolBotton(),
-                  ),
-                ),
+              if (cubit.isRecorded) const RecordTool(),
+              if (cubit.isOnPressed) const ToolBotton(),
+              if (cubit.isRecordedFile) const RecordedFileTool(),
 
 /*               Positioned(
             bottom: MediaQuery.of(context).size.width / -2,

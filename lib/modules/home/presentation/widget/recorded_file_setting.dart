@@ -3,8 +3,8 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RecordTool extends StatelessWidget {
-  const RecordTool({Key? key}) : super(key: key);
+class RecordedFileTool extends StatelessWidget {
+  const RecordedFileTool({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +42,27 @@ class RecordTool extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    '00:3',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: AppColor.lightYellow, fontSize: 20),
-                  ),
                   GestureDetector(
                       onTap: () {},
                       child: Icon(
+                        Icons.play_arrow_outlined,
+                        color: AppColor.white,
+                        size: 40,
+                      )),
+
+                  GestureDetector(
+                      onTap: () {
+                        cubit.changeIsRecorded();
+                      },
+                      child: Icon(
                         Icons.mic_none,
-                        color: AppColor.lightYellow,
+                        color: AppColor.white,
                         size: 40,
                       )),
                   GestureDetector(
-                      onTap: () {
-                        cubit.changeIsRecordedFile();
-                      },
+                      onTap: () {},
                       child: Icon(
-                        Icons.pause_circle_outline,
+                        Icons.save_alt,
                         color: AppColor.white,
                         size: 40,
                       )),
@@ -76,5 +79,4 @@ class RecordTool extends StatelessWidget {
               ),
             )));
   }
-    );}
-}
+    );}}

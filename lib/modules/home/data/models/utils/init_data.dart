@@ -99,7 +99,7 @@ List<BottomBarData> homeMenuItems = [
     title: translate('Quran'),
     iconData: AppIcons.quranIcon,
     badgeColor: AppColor.bottomSaved,
-    page: QuranBNBPage(),
+    page: const QuranBNBPage(),
   ),
   BottomBarData(
     title: translate('Search'),
