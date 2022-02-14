@@ -10,10 +10,13 @@ abstract class HomeState extends Equatable {
 class HomeInitial extends HomeState {}
 
 
-class IsLikedState extends HomeState {}
+class IsLikedTrueState extends HomeState {}
+class IsLikedFalseState extends HomeState {}
 class IsOnPressState extends HomeState {}
-class IsBookMarkState extends HomeState {}
+class IsBookMarkTrueState extends HomeState {}
+class IsBookMarkFalseState extends HomeState {}
 class IsRecordedState extends HomeState {}
+class IsRecordedFileState extends HomeState {}
 
 class HomeChangeIndex extends HomeState {
   final int index;

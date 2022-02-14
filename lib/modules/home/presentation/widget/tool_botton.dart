@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -21,15 +21,18 @@ class _ToolBottonState extends State<ToolBotton> {
         },
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
-          return Container(
+          return Positioned(
+              child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 0),
             width: MediaQuery
                 .of(context)
                 .size
-                .width / 1.15,
+                .width / 1.3,
 
             alignment: Alignment.center,
-            height: 60,
+            height: 45,
             decoration: BoxDecoration(
               boxShadow: const [
                 BoxShadow(
@@ -66,15 +69,22 @@ class _ToolBottonState extends State<ToolBotton> {
                       size: 40,
                     )),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(const HomePage());
+                  },
                   child: Container(
                     padding: const EdgeInsets.only(right: 10, left: 5),
                     height: 50,
                     width: 50,
-                    child: Image.asset(
+                    child: Icon(
+                      Icons.comment,
+                      color: AppColor.white,
+                      size: 40,
+                    )
+                    /*Image.asset(
                       AppIcons.quran4Icon,
                       color: AppColor.white,
-                    ),
+                    ),*/
                   ),
                 ),
                 GestureDetector(
@@ -109,7 +119,7 @@ class _ToolBottonState extends State<ToolBotton> {
                     )),
               ],
             ),
-          );
+          )));
         }
     );
   }
