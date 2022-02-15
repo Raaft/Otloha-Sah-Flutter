@@ -12,7 +12,8 @@ class HomeInitial extends HomeState {}
 
 class IsLikedTrueState extends HomeState {}
 class IsLikedFalseState extends HomeState {}
-class IsOnPressState extends HomeState {}
+class IsOnPressFalseState extends HomeState {}
+class IsOnPressTrueState extends HomeState {}
 class IsBookMarkTrueState extends HomeState {}
 class IsBookMarkFalseState extends HomeState {}
 class IsRecordedState extends HomeState {}

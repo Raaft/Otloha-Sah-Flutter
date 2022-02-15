@@ -50,11 +50,18 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  changeIsOnPressed() {
+  changeIsOnTruePressed() {
     isOnPressed = true;
+    isRecorded = false;
     isRecordedFile = false;
-    isRecorded = true;
-    emit(IsOnPressState());
+
+    emit(IsOnPressFalseState());
+  }
+
+  changeIsOnFalsePressed() {
+    isOnPressed = false;
+
+    emit(IsOnPressTrueState());
   }
 
   changeIsRecorded() {
@@ -78,7 +85,7 @@ class HomeCubit extends Cubit<HomeState> {
   RecordingStatus _currentStatus = RecordingStatus.Unset;
   LocalFileSystem? localFileSystem;
 
-  init() async {
+  Future init() async {
     try {
       bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
 
@@ -115,7 +122,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  start() async {
+  Future start() async {
     try {
       await _recorder!.start();
       var recording = await _recorder!.current(channel: 0);
@@ -138,15 +145,15 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  resume() async {
+  Future resume() async {
     await _recorder!.resume();
   }
 
-  pause() async {
+  Future pause() async {
     await _recorder!.pause();
   }
 
-  stop() async {
+  Future stop() async {
     var result = await _recorder!.stop();
     print('Stop recording: ${result!.path}');
     print('Stop recording: ${result.duration}');

@@ -50,21 +50,25 @@ class QuranBNBPage extends StatelessWidget {
                           buttonText: 'on press',
                           width: MediaQuery.of(context).size.width / 2,
                           onPressed: () {
-                            cubit.changeIsOnPressed();
+                            cubit.changeIsOnTruePressed();
+                            Future.delayed(const Duration(seconds: 5),(){
+                              cubit.changeIsOnFalsePressed();
+
+                            });
                           },
                           colors: [AppColor.darkBlue, AppColor.lightBlue]),
                       AuthButton(
                           buttonText: 'on long press',
                           width: MediaQuery.of(context).size.width / 2,
                           onPressed: () {
-                            cubit.changeIsOnPressed();
+                            //cubit.changeIsOnPressed();
                           },
                           colors: [AppColor.darkBlue, AppColor.lightBlue]),
                       AuthButton(
                           buttonText: 'on double press',
                           width: MediaQuery.of(context).size.width / 2,
                           onPressed: () {
-                            cubit.changeIsOnPressed();
+                            //cubit.changeIsOnPressed();
                           },
                           colors: [AppColor.darkBlue, AppColor.lightBlue]),
                     ],

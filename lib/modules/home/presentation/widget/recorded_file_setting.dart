@@ -8,75 +8,75 @@ class RecordedFileTool extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {
+    return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
       // TODO: implement listener
-    },
-    builder: (context, state) {
-    var cubit = HomeCubit.get(context);
-    return Positioned(
-        child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 0),
-              width: MediaQuery.of(context).size.width / 1.3,
-              alignment: Alignment.center,
-              height: 45,
-              decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0, 4),
-                      blurRadius: 5.0)
-                ],
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: const [0.0, 1.1],
-                  colors: [AppColor.darkBlue, AppColor.lightBlue],
+    }, builder: (context, state) {
+      var cubit = HomeCubit.get(context);
+      return Positioned(
+          child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 0),
+                width: MediaQuery.of(context).size.width / 1.3,
+                alignment: Alignment.center,
+                height: 45,
+                decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0, 4),
+                        blurRadius: 5.0)
+                  ],
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0.0, 1.1],
+                    colors: [AppColor.darkBlue, AppColor.lightBlue],
+                  ),
+                  color: Colors.deepPurple.shade300,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                color: Colors.deepPurple.shade300,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.play_arrow_outlined,
-                        color: AppColor.white,
-                        size: 40,
-                      )),
-
-                  GestureDetector(
-                      onTap: () {
-                        cubit.changeIsRecorded();
-                      },
-                      child: Icon(
-                        Icons.mic_none,
-                        color: AppColor.white,
-                        size: 40,
-                      )),
-                  GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.save_alt,
-                        color: AppColor.white,
-                        size: 40,
-                      )),
-                  GestureDetector(
-                      onTap: () {
-                        cubit.changeIsOnPressed();
-                      },
-                      child: Icon(
-                        Icons.cancel_presentation,
-                        color: AppColor.white,
-                        size: 40,
-                      )),
-                ],
-              ),
-            )));
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          cubit.onPlayAudio();
+                        },
+                        child: Icon(
+                          Icons.play_arrow_outlined,
+                          color: AppColor.white,
+                          size: 40,
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          cubit.changeIsRecorded();
+                        },
+                        child: Icon(
+                          Icons.mic_none,
+                          color: AppColor.white,
+                          size: 40,
+                        )),
+                    GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.save_alt,
+                          color: AppColor.white,
+                          size: 40,
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          cubit.changeIsOnTruePressed();
+                        },
+                        child: Icon(
+                          Icons.cancel_presentation,
+                          color: AppColor.white,
+                          size: 40,
+                        )),
+                  ],
+                ),
+              )));
+    });
   }
-    );}}
+}
