@@ -8,73 +8,74 @@ class RecordTool extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {
+    return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
       // TODO: implement listener
-    },
-    builder: (context, state) {
-    var cubit = HomeCubit.get(context);
-    return Positioned(
-        child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 0),
-              width: MediaQuery.of(context).size.width / 1.3,
-              alignment: Alignment.center,
-              height: 45,
-              decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0, 4),
-                      blurRadius: 5.0)
-                ],
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: const [0.0, 1.1],
-                  colors: [AppColor.darkBlue, AppColor.lightBlue],
-                ),
-                color: Colors.deepPurple.shade300,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    '00:3',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: AppColor.lightYellow, fontSize: 20),
+    }, builder: (context, state) {
+      var cubit = HomeCubit.get(context);
+      return Positioned(
+          child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 0),
+                width: MediaQuery.of(context).size.width / 1.3,
+                alignment: Alignment.center,
+                height: 45,
+                decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0, 4),
+                        blurRadius: 5.0)
+                  ],
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0.0, 1.1],
+                    colors: [AppColor.darkBlue, AppColor.lightBlue],
                   ),
-                  GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.mic_none,
-                        color: AppColor.lightYellow,
-                        size: 40,
-                      )),
-                  GestureDetector(
-                      onTap: () {
-                        cubit.changeIsRecordedFile();
-                      },
-                      child: Icon(
-                        Icons.pause_circle_outline,
-                        color: AppColor.white,
-                        size: 40,
-                      )),
-                  GestureDetector(
-                      onTap: () {
-                        cubit.changeIsOnPressed();
-                      },
-                      child: Icon(
-                        Icons.cancel_presentation,
-                        color: AppColor.white,
-                        size: 40,
-                      )),
-                ],
-              ),
-            )));
+                  color: Colors.deepPurple.shade300,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      '00:3',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(color: AppColor.lightYellow, fontSize: 20),
+                    ),
+                    GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.mic_none,
+                          color: AppColor.lightYellow,
+                          size: 40,
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          cubit.stop();
+                          cubit.changeIsRecordedFile();
+
+                        },
+                        child: Icon(
+                          Icons.pause_circle_outline,
+                          color: AppColor.white,
+                          size: 40,
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                          cubit.changeIsOnTruePressed();
+                        },
+                        child: Icon(
+                          Icons.cancel_presentation,
+                          color: AppColor.white,
+                          size: 40,
+                        )),
+                  ],
+                ),
+              )));
+    });
   }
-    );}
 }
