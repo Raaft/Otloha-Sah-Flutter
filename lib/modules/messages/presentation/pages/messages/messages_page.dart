@@ -7,13 +7,13 @@ import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/item_user_messages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:just_waveform/just_waveform.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -32,6 +32,9 @@ class _MessagesPageState extends State<MessagesPage> {
   final List<int> _liked = [];
 
   final BehaviorSubject<WaveformProgress> progressStream =
+      BehaviorSubject<WaveformProgress>();
+
+  final BehaviorSubject<WaveformProgress> streamWave =
       BehaviorSubject<WaveformProgress>();
 
   late Waveform waveform;
@@ -69,6 +72,8 @@ class _MessagesPageState extends State<MessagesPage> {
       waveform = await JustWaveform.parse(waveFile2);
 
       //    JustWaveform.parse(waveFile);
+
+      streamWave.add(WaveformProgress(1, waveform));
     } catch (e) {
       debugPrint('Eror audio' + e.toString());
       progressStream.addError(e);
@@ -197,7 +202,7 @@ class _MessagesPageState extends State<MessagesPage> {
           dateStr: '9:30 15 Nov',
           color: AppColor.transparent,
         ),
-        progressStream: progressStream,
+        progressStream: streamWave,
         //  waveform: waveform,
         isLike: _liked.contains(index),
         liked: () {

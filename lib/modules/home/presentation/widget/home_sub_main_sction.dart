@@ -49,10 +49,10 @@ class HomeSubMainSection extends StatelessWidget {
             TextView(
               text: item.subTitle ?? '',
               colorText: AppColor.txtColor4,
-              sizeText: 8,
+              sizeText: 10,
               padding: const EdgeInsets.all(2),
               textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
+              overflow: TextOverflow.fade,
             ),
           ],
         ),

@@ -46,11 +46,12 @@ class AppColor {
   ///
   static Color lineColor = const Color(0xffd5d5d5);
 
-  ////
+  //
+
   static Color background1 = const Color(0xffffffff);
   static Color background = const Color(0xfff1f1f1);
 
-  /////
+  ///
 
   static Color spinner = const Color(0xffBFBFBF);
 
@@ -86,7 +87,8 @@ class AppColor {
   static Color backdone = const Color.fromARGB(167, 0, 0, 0);
 
   ///
-  static Color waveColor = const Color(0xFFfbe174);
+  static Color waveColor = const Color.fromARGB(255, 255, 236, 158);
+  static Color waveColor2 = const Color.fromARGB(255, 255, 204, 0);
 
   ///
   static const Color selectColor1 = Color(0x93E2F1F5);

@@ -47,6 +47,13 @@ class ItemSubSetting extends StatelessWidget {
                     padding: const EdgeInsets.all(2),
                     textAlign: TextAlign.start,
                   ),
+                  TextView(
+                    text: settings.subTitle ?? '',
+                    colorText: AppColor.txtColor4,
+                    sizeText: 14,
+                    padding: const EdgeInsets.all(2),
+                    textAlign: TextAlign.start,
+                  ),
                 ],
               ),
             ),
