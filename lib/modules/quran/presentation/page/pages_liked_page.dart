@@ -67,7 +67,6 @@ class PagesLikedPage extends StatelessWidget {
                 Scaffold.of(context).showBottomSheet(
                   (context) => NoteItemView(
                     arg == 1,
-                    isAdd: true,
                   ),
                   backgroundColor: AppColor.transparent,
                 );

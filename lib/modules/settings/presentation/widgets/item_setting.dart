@@ -17,10 +17,10 @@ class ItemSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return HomeSubMainSection(
       item: SubSectionItem(
-        title: settings.name,
-        image: settings.image,
-        action: settings.actionTo,
-      ),
+          title: settings.name,
+          image: settings.image,
+          action: settings.actionTo,
+          subTitle: settings.subTitle),
     );
   }
 }

@@ -21,8 +21,7 @@ class NoteItemView extends StatelessWidget {
       color: AppColor.transparent,
       child: Stack(
         children: [
-          if(isQuranPage==false)
-          _viewTop(context),
+          if (isQuranPage == false) _viewTop(context),
           _viewPage(context),
         ],
       ),
@@ -52,9 +51,15 @@ class NoteItemView extends StatelessWidget {
                   size: 40,
                 ),
               ),
-            const TextView(
-              text: 'Ayaha',
-              textAlign: TextAlign.start,
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: AppColor.background,
+                  borderRadius: BorderRadius.circular(12)),
+              child: const TextView(
+                text: 'Ayaha',
+                textAlign: TextAlign.start,
+              ),
             ),
             const SizedBox(height: 40),
             if (isNote)

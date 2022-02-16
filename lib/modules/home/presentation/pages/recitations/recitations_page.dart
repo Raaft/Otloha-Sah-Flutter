@@ -4,10 +4,10 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 
-import 'package:just_waveform/just_waveform.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -24,6 +24,9 @@ class RecitationsPage extends StatefulWidget {
 
 class _RecitationsPageState extends State<RecitationsPage> {
   final BehaviorSubject<WaveformProgress> progressStream =
+      BehaviorSubject<WaveformProgress>();
+
+  final BehaviorSubject<WaveformProgress> streamWave =
       BehaviorSubject<WaveformProgress>();
 
   late Waveform waveform;
@@ -61,6 +64,8 @@ class _RecitationsPageState extends State<RecitationsPage> {
       waveform = await JustWaveform.parse(waveFile2);
 
       //    JustWaveform.parse(waveFile);
+
+      streamWave.add(WaveformProgress(1, waveform));
     } catch (e) {
       debugPrint('Eror audio' + e.toString());
       progressStream.addError(e);
@@ -118,7 +123,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
         dateStr: '9:30 15 Nov',
         color: AppColor.transparent,
       ),
-      progressStream: progressStream,
+      progressStream: streamWave,
       likeCount: 20,
       isLike: (index % 2 == 0),
     );
