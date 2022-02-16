@@ -123,7 +123,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future start() async {
+  Future<Stream?> start() async {
     try {
       await _recorder!.start();
       var recording = await _recorder!.current(channel: 0);
@@ -140,21 +140,15 @@ class HomeCubit extends Cubit<HomeState> {
 
         this.current = current;
         _currentStatus = this.current!.status!;
+        emit(HomeInitial());
+        emit(GetDurationState());
+
       });
     } catch (e) {
       print(e);
     }
   }
 
-  Stream<Duration> getDuration() async* {
-    const tick = Duration(milliseconds: 500);
-    Timer.periodic(tick, (Timer t) async* {
-      if (_currentStatus == RecordingStatus.Stopped) {
-        t.cancel();
-      }
-      yield current!.duration;
-    });
-  }
 
   Future resume() async {
     await _recorder!.resume();
@@ -165,14 +159,16 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future stop() async {
-    var result = await _recorder!.stop();
-    print('Stop recording: ${result!.path}');
-    print('Stop recording: ${result.duration}');
-    File file = localFileSystem!.file(result.path);
-    print('File length: ${await file.length()}');
+   try{ var result = await _recorder!.stop();
+   print('Stop recording: ${result!.path}');
+   print('Stop recording: ${result.duration}');
+   File? file = localFileSystem!.file(result.path);
+   print('File length: ${await file.length()}');
 
-    current = result;
-    _currentStatus = current!.status!;
+   current = result;
+   _currentStatus = current!.status!;}catch(e){
+     print(e);
+   }
   }
 
   void onPlayAudio() async {
