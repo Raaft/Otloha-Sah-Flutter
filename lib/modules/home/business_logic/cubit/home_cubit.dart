@@ -81,9 +81,10 @@ class HomeCubit extends Cubit<HomeState> {
   /// to record
 
   FlutterAudioRecorder2? _recorder;
-  Recording? _current;
+  Recording? current;
   RecordingStatus _currentStatus = RecordingStatus.Unset;
   LocalFileSystem? localFileSystem;
+  Stream<Duration> duration = const Stream.empty();
 
   Future init() async {
     try {
@@ -111,7 +112,7 @@ class HomeCubit extends Cubit<HomeState> {
         var current = await _recorder!.current(channel: 0);
         print(current);
 
-        _current = current;
+        this.current = current;
         _currentStatus = current!.status!;
         print(_currentStatus);
       } else {
@@ -127,7 +128,7 @@ class HomeCubit extends Cubit<HomeState> {
       await _recorder!.start();
       var recording = await _recorder!.current(channel: 0);
 
-      _current = recording;
+      current = recording;
 
       const tick = Duration(milliseconds: 50);
       Timer.periodic(tick, (Timer t) async {
@@ -137,12 +138,22 @@ class HomeCubit extends Cubit<HomeState> {
 
         var current = await _recorder!.current(channel: 0);
 
-        _current = current;
-        _currentStatus = _current!.status!;
+        this.current = current;
+        _currentStatus = this.current!.status!;
       });
     } catch (e) {
       print(e);
     }
+  }
+
+  Stream<Duration> getDuration() async* {
+    const tick = Duration(milliseconds: 500);
+    Timer.periodic(tick, (Timer t) async* {
+      if (_currentStatus == RecordingStatus.Stopped) {
+        t.cancel();
+      }
+      yield current!.duration;
+    });
   }
 
   Future resume() async {
@@ -160,13 +171,13 @@ class HomeCubit extends Cubit<HomeState> {
     File file = localFileSystem!.file(result.path);
     print('File length: ${await file.length()}');
 
-    _current = result;
-    _currentStatus = _current!.status!;
+    current = result;
+    _currentStatus = current!.status!;
   }
 
   void onPlayAudio() async {
     AudioPlayer audioPlayer = AudioPlayer();
-    await audioPlayer.play(_current!.path!, isLocal: true);
+    await audioPlayer.play(current!.path!, isLocal: true);
   }
 
 /*

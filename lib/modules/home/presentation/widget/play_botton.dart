@@ -41,7 +41,7 @@ class RecordTool extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      '00:3',
+                      '${cubit.current!.duration!.inMinutes.remainder(60)}:${cubit.current!.duration!.inSeconds.remainder(60)}',
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(color: AppColor.lightYellow, fontSize: 20),
@@ -57,7 +57,6 @@ class RecordTool extends StatelessWidget {
                         onTap: () {
                           cubit.stop();
                           cubit.changeIsRecordedFile();
-
                         },
                         child: Icon(
                           Icons.pause_circle_outline,
