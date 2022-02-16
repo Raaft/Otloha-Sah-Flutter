@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
@@ -71,6 +72,7 @@ class QuranBNBPage extends StatelessWidget {
                             //cubit.changeIsOnPressed();
                           },
                           colors: [AppColor.darkBlue, AppColor.lightBlue]),
+
                     ],
                   ),
                 ),

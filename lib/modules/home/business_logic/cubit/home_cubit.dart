@@ -81,9 +81,10 @@ class HomeCubit extends Cubit<HomeState> {
   /// to record
 
   FlutterAudioRecorder2? _recorder;
-  Recording? _current;
+  Recording? current;
   RecordingStatus _currentStatus = RecordingStatus.Unset;
   LocalFileSystem? localFileSystem;
+  Stream<Duration> duration = const Stream.empty();
 
   Future init() async {
     try {
@@ -111,7 +112,7 @@ class HomeCubit extends Cubit<HomeState> {
         var current = await _recorder!.current(channel: 0);
         print(current);
 
-        _current = current;
+        this.current = current;
         _currentStatus = current!.status!;
         print(_currentStatus);
       } else {
@@ -122,12 +123,12 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future start() async {
+  Future<Stream?> start() async {
     try {
       await _recorder!.start();
       var recording = await _recorder!.current(channel: 0);
 
-      _current = recording;
+      current = recording;
 
       const tick = Duration(milliseconds: 50);
       Timer.periodic(tick, (Timer t) async {
@@ -137,13 +138,17 @@ class HomeCubit extends Cubit<HomeState> {
 
         var current = await _recorder!.current(channel: 0);
 
-        _current = current;
-        _currentStatus = _current!.status!;
+        this.current = current;
+        _currentStatus = this.current!.status!;
+        emit(HomeInitial());
+        emit(GetDurationState());
+
       });
     } catch (e) {
       print(e);
     }
   }
+
 
   Future resume() async {
     await _recorder!.resume();
@@ -154,19 +159,21 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future stop() async {
-    var result = await _recorder!.stop();
-    print('Stop recording: ${result!.path}');
-    print('Stop recording: ${result.duration}');
-    File file = localFileSystem!.file(result.path);
-    print('File length: ${await file.length()}');
+   try{ var result = await _recorder!.stop();
+   print('Stop recording: ${result!.path}');
+   print('Stop recording: ${result.duration}');
+   File? file = localFileSystem!.file(result.path);
+   print('File length: ${await file.length()}');
 
-    _current = result;
-    _currentStatus = _current!.status!;
+   current = result;
+   _currentStatus = current!.status!;}catch(e){
+     print(e);
+   }
   }
 
   void onPlayAudio() async {
     AudioPlayer audioPlayer = AudioPlayer();
-    await audioPlayer.play(_current!.path!, isLocal: true);
+    await audioPlayer.play(current!.path!, isLocal: true);
   }
 
 /*

@@ -28,10 +28,10 @@ class RecordedFileTool extends StatelessWidget {
                         blurRadius: 5.0)
                   ],
                   gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                     stops: const [0.0, 1.1],
-                    colors: [AppColor.darkBlue, AppColor.lightBlue],
+                    colors: [AppColor.lightBlue, AppColor.darkBlue],
                   ),
                   color: Colors.deepPurple.shade300,
                   borderRadius: BorderRadius.circular(10),
@@ -47,32 +47,40 @@ class RecordedFileTool extends StatelessWidget {
                         child: Icon(
                           Icons.play_arrow_outlined,
                           color: AppColor.white,
-                          size: 40,
+                          //  size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
-                          cubit.changeIsRecorded();
+                          cubit.init().then((value) {
+                            cubit.start();
+                            cubit.changeIsRecorded();
+                          });
                         },
                         child: Icon(
                           Icons.mic_none,
                           color: AppColor.white,
-                          size: 40,
+                          //  size: 40,
                         )),
                     GestureDetector(
                         onTap: () {},
                         child: Icon(
                           Icons.save_alt,
                           color: AppColor.white,
-                          size: 40,
+                          //size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
+                          cubit.stop();
+
                           cubit.changeIsOnTruePressed();
+                          Future.delayed(const Duration(seconds: 5), () {
+                            cubit.changeIsOnFalsePressed();
+                          });
                         },
                         child: Icon(
                           Icons.cancel_presentation,
                           color: AppColor.white,
-                          size: 40,
+                          //  size: 40,
                         )),
                   ],
                 ),

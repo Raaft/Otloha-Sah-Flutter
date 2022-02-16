@@ -18,6 +18,7 @@ class IsBookMarkTrueState extends HomeState {}
 class IsBookMarkFalseState extends HomeState {}
 class IsRecordedState extends HomeState {}
 class IsRecordedFileState extends HomeState {}
+class GetDurationState extends HomeState {}
 
 class HomeChangeIndex extends HomeState {
   final int index;

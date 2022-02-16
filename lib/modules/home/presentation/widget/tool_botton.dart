@@ -35,16 +35,16 @@ class _ToolBottonState extends State<ToolBotton> {
                         blurRadius: 5.0)
                   ],
                   gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                     stops: const [0.0, 1.1],
-                    colors: [AppColor.darkBlue, AppColor.lightBlue],
+                    colors: [ AppColor.lightBlue,AppColor.darkBlue],
                   ),
                   color: Colors.deepPurple.shade300,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
                         onTap: () {
@@ -53,7 +53,7 @@ class _ToolBottonState extends State<ToolBotton> {
                         child: Icon(
                           Icons.copy,
                           color: AppColor.white,
-                          size: 40,
+                        //  size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
@@ -62,7 +62,7 @@ class _ToolBottonState extends State<ToolBotton> {
                         child: Icon(
                           Icons.favorite_border_outlined,
                           color: AppColor.white,
-                          size: 40,
+                     //     size: 40,
                         )),
                     GestureDetector(
                       onTap: () {
@@ -82,7 +82,7 @@ class _ToolBottonState extends State<ToolBotton> {
                           child: Icon(
                             Icons.comment,
                             color: AppColor.white,
-                            size: 40,
+                          //  size: 40,
                           )
                           /*Image.asset(
                       AppIcons.quran4Icon,
@@ -97,14 +97,14 @@ class _ToolBottonState extends State<ToolBotton> {
                         child: Icon(
                           Icons.bookmark,
                           color: AppColor.white,
-                          size: 40,
+                         // size: 40,
                         )),
                     GestureDetector(
                         onTap: () {},
                         child: Icon(
                           Icons.restart_alt_outlined,
                           color: AppColor.white,
-                          size: 40,
+                       //   size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
@@ -117,14 +117,14 @@ class _ToolBottonState extends State<ToolBotton> {
                         child: const Icon(
                           Icons.mic_none_outlined,
                           color: Colors.white,
-                          size: 40,
+                          //size: 40,
                         )),
                     GestureDetector(
                         onTap: () {},
                         child: Icon(
                           Icons.play_arrow_outlined,
                           color: AppColor.white,
-                          size: 40,
+                      //    size: 40,
                         )),
                   ],
                 ),
