@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
@@ -27,7 +28,15 @@ class AppRouter {
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case HomePage.routeName:
+      case OnBoardPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => HomeCubit(),
+            child: const OnBoardPage(),
+          ),
+          settings: settings,
+        );
+        case HomePage.routeName:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => HomeCubit(),

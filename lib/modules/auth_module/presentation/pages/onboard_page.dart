@@ -6,6 +6,9 @@ import 'package:flutter_base/modules/auth_module/presentation/pages/sign_up.dart
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/back_button.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/background_image.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class OnBoardPage extends StatelessWidget {
@@ -50,7 +53,12 @@ class OnBoardPage extends StatelessWidget {
                   AuthButton(
                     buttonText: 'Guest',
                     width: MediaQuery.of(context).size.height * 0.5,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(  BlocProvider(
+                        create: (_) => HomeCubit(),
+                        child: const HomePage(),
+                      ),);
+                    },
                     colors: [
                       AppColor.hidenBlue,
                       AppColor.hidenBlue,
