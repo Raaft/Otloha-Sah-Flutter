@@ -15,6 +15,8 @@ dependencies:
   cupertino_icons: ^1.0.4
   dio: ^4.0.4
   draggable_fab: ^0.1.4
+  draggable_floating_button: ^0.1.1
+  draggable_widget: ^2.0.0
   easy_localization: ^3.0.0
   equatable: ^2.0.3
   fab_circular_menu: ^1.0.0
@@ -37,6 +39,8 @@ dependencies:
   rxdart: ^0.27.3
   shared_preferences: ^2.0.12
   sqflite: ^2.0.2
+
+
 
 flutter_icons:
   android: "launcher_icon"

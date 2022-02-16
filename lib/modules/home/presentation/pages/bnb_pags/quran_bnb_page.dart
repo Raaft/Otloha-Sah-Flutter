@@ -1,3 +1,5 @@
+import 'package:draggable_fab/draggable_fab.dart';
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/presentation/widget/floating_button.dart';
 import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
 import 'package:flutter_base/modules/home/presentation/widget/recorded_file_setting.dart';
 
@@ -25,7 +28,8 @@ class QuranBNBPage extends StatelessWidget {
           backgroundColor: AppColor.darkBlue,
         ),
       ),
-  */
+   */
+
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -39,6 +43,20 @@ class QuranBNBPage extends StatelessWidget {
                 children: [
                   _viewTop(context),
                   _viewPageReading(context),
+                  DraggableCard(
+                    child: FabCircularMenu(children: <Widget>[
+                      IconButton(
+                          icon: const Icon(Icons.home),
+                          onPressed: () {
+                            print('Home');
+                          }),
+                      IconButton(
+                          icon: const Icon(Icons.favorite),
+                          onPressed: () {
+                            print('Favorite');
+                          })
+                    ]),
+                  ),
                 ],
               ),
               Positioned(
@@ -52,9 +70,8 @@ class QuranBNBPage extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 2,
                           onPressed: () {
                             cubit.changeIsOnTruePressed();
-                            Future.delayed(const Duration(seconds: 5),(){
+                            Future.delayed(const Duration(seconds: 5), () {
                               cubit.changeIsOnFalsePressed();
-
                             });
                           },
                           colors: [AppColor.darkBlue, AppColor.lightBlue]),
@@ -72,7 +89,6 @@ class QuranBNBPage extends StatelessWidget {
                             //cubit.changeIsOnPressed();
                           },
                           colors: [AppColor.darkBlue, AppColor.lightBlue]),
-
                     ],
                   ),
                 ),
