@@ -5,7 +5,7 @@ import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  static const routeName = '/';
+  static const routeName = '/home';
 
   const HomePage({Key? key}) : super(key: key);
 
