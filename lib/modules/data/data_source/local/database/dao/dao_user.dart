@@ -3,7 +3,7 @@ part of '../database/database.dart';
 class UserDao {
   Future<List<User>?> findAllUsers() async {
     List<Map<String, dynamic>> maps =
-        await AppDatabase._db!.query(AppDatabase.userName);
+        await AppDatabase._db!.query(RunQueries.userName);
     List<User> items = [];
     if (maps.isNotEmpty) {
       for (var item in maps) {
@@ -17,7 +17,7 @@ class UserDao {
 
   Future<User?> findUser(int id) async {
     List<Map<String, dynamic>> maps = await AppDatabase._db!
-        .query(AppDatabase.userName, where: 'uid = ?', whereArgs: [id]);
+        .query(RunQueries.userName, where: 'uid = ?', whereArgs: [id]);
     List<User> items = [];
     if (maps.isNotEmpty) {
       for (var item in maps) {
@@ -29,18 +29,17 @@ class UserDao {
   }
 
   Future<User?> insert(User user) async {
-    user.uid =
-        await AppDatabase._db!.insert(AppDatabase.userName, user.toMap());
+    user.uid = await AppDatabase._db!.insert(RunQueries.userName, user.toMap());
     return user;
   }
 
   Future<int> delete(int id) async {
     return await AppDatabase._db!
-        .delete(AppDatabase.userName, where: 'uid = ?', whereArgs: [id]);
+        .delete(RunQueries.userName, where: 'uid = ?', whereArgs: [id]);
   }
 
   Future<int> update(User user) async {
-    return await AppDatabase._db!.update(AppDatabase.userName, user.toMap(),
+    return await AppDatabase._db!.update(RunQueries.userName, user.toMap(),
         where: 'uid = ?', whereArgs: [user.uid]);
   }
 }

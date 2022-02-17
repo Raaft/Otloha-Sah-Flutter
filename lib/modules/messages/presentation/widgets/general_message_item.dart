@@ -286,18 +286,23 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
                 ),
               );
             }
-            return AudioWaveformWidget(
-              waveform: waveform,
-              start: Duration.zero,
-              current: position,
-              strokeWidth: 2,
-              duration: Duration(seconds: waveform.duration.inSeconds),
-              waveColor: AppColor.waveColor,
-              pixelsPerStep: 4,
-            );
+
+            return _audioWave(waveform);
           },
         ),
       ),
+    );
+  }
+
+  AudioWaveformWidget _audioWave(Waveform waveform) {
+    return AudioWaveformWidget(
+      waveform: waveform,
+      start: Duration.zero,
+      current: position,
+      strokeWidth: 2,
+      duration: Duration(seconds: waveform.duration.inSeconds),
+      waveColor: AppColor.waveColor,
+      pixelsPerStep: 4,
     );
   }
 

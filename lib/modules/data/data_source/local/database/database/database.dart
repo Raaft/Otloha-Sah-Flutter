@@ -1,16 +1,18 @@
+import 'package:flutter_base/modules/data/model/page_marked.dart';
 import 'package:flutter_base/modules/data/model/user.dart';
+import 'package:flutter_base/modules/data/model/verse_like.dart';
+import 'package:flutter_base/modules/data/model/verse_note.dart';
 import 'package:sqflite/sqflite.dart';
 
+part 'run_query.dart';
 part '../dao/dao_user.dart';
+part '../dao/dao_verse_note.dart';
+part '../dao/dao_verse_liked.dart';
+part '../dao/dao_page_marked.dart';
 
 class AppDatabase {
   static Database? _db;
   String? _path;
-
-  static String chiarName = 'chiars';
-  static String chiarDeletedName = 'chiarsDeleted';
-  static String userName = 'useruser';
-  static String historyName = 'history';
 
   Future get database async {
     if (_db == null) {
@@ -32,6 +34,7 @@ class AppDatabase {
       version: 1,
       onCreate: (Database db, int version) async {
         /// run create tables
+        RunQueries().runQueries(db);
       },
     );
 
@@ -40,7 +43,9 @@ class AppDatabase {
 
   Future close() async => _db!.close();
 
-  UserDao get userDao => UserDao();
+  VerseNoteDao get verseNoteDao => VerseNoteDao();
+  VerseLikedDao get verseLikedDao => VerseLikedDao();
+  PageMarkedDao get pageMarkedDao => PageMarkedDao();
 
   String join(String databasesPath, String databasesName) {
     return '$databasesPath/$databasesName';
