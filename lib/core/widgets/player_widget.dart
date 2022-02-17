@@ -113,9 +113,8 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                       if (duration == null) {
                         return;
                       }
-                      final Position = v * duration.inMilliseconds;
-                      _audioPlayer
-                          .seek(Duration(milliseconds: Position.round()));
+                      _audioPlayer.seek(Duration(
+                          milliseconds: (v * duration.inMilliseconds).round()));
                     },
                     value: (_position != null &&
                             _duration != null &&

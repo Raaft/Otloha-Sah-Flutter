@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
+import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranaction_cubit.dart';
@@ -112,8 +114,18 @@ class PagesLikedPage extends StatelessWidget {
                 },
               );
             } else {
-              return const Center(
-                child: Text('No Data'),
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      AppIcons.addIcon,
+                      height: 150,
+                      width: 150,
+                    ),
+                    const TextView(text: 'No Data go to Add First!'),
+                  ],
+                ),
               );
             }
           },
@@ -134,20 +146,3 @@ class PagesLikedPage extends StatelessWidget {
         action: action);
   }
 }
-
-
-/*
-() {
-                  if (arg == 2) {
-                    Navigator.of(context).pushReplacementNamed(
-                        HomePage.routeName,
-                        arguments: 1);
-                  } else {}
-                  Scaffold.of(context).showBottomSheet(
-                    (context) => NoteItemView(
-                      arg == 1,
-                    ),
-                    backgroundColor: AppColor.transparent,
-                  );
-                },
-                 */

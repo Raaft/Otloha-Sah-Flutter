@@ -75,8 +75,10 @@ class WaveformProgress {
 
   /// The finished [Waveform] when extraction is complete.
   final Waveform? waveform;
+  final Duration position;
 
-  WaveformProgress(this.progress, this.waveform);
+  WaveformProgress(this.progress, this.waveform,
+      {this.position = Duration.zero});
 }
 
 /// Audio waveform data in the
