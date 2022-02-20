@@ -29,6 +29,7 @@ class MessagesPage extends StatefulWidget {
 
 class _MessagesPageState extends State<MessagesPage> {
   int _selected = 0;
+  int _selectedPlay = -1;
   final List<int> _liked = [];
 
   final BehaviorSubject<WaveformProgress> progressStream =
@@ -217,6 +218,12 @@ class _MessagesPageState extends State<MessagesPage> {
         goReMraker: () =>
             Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 2),
         likeCount: 20 + (_liked.contains(index) ? 1 : 0),
+        trggelPlay: () {
+          setState(() {
+            _selectedPlay = index;
+          });
+        },
+        isPlay: index == _selectedPlay,
       );
     } else {
       return BoxMessageItem(

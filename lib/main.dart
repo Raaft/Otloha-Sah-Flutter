@@ -4,11 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_base/app_router.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/data/data_source/repository/database_repository.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
+//init DateBase
+  DatabaseRepository().initDb();
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

@@ -35,7 +35,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     await audioCache!.play(path);
     Timer.periodic(const Duration(seconds: 1), (timer) async {
       print('object');
-      if (_isPlay) {
+      if (isPlay) {
         timer.cancel();
       }
       var time = await advancedPlayer!.getCurrentPosition();
@@ -43,7 +43,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
   }
 
-  bool _isPlay = false;
+  bool isPlay = false;
 
   void startNewRoute() async {
     await playSound('waveform.mp3');

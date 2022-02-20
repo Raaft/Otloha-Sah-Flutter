@@ -23,6 +23,7 @@ class RecitationsPage extends StatefulWidget {
 }
 
 class _RecitationsPageState extends State<RecitationsPage> {
+  int _selectedPlay = -1;
   final BehaviorSubject<WaveformProgress> progressStream =
       BehaviorSubject<WaveformProgress>();
 
@@ -126,6 +127,10 @@ class _RecitationsPageState extends State<RecitationsPage> {
       progressStream: streamWave,
       likeCount: 20,
       isLike: (index % 2 == 0),
+      trggelPlay: () {
+        _selectedPlay = index;
+      },
+      isPlay: index == _selectedPlay,
     );
   }
 }

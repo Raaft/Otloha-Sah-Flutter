@@ -19,17 +19,17 @@ class GeneralMessageItem extends StatefulWidget {
     required this.progressStream,
     required this.isLike,
     required this.likeCount,
-    this.waveForm,
     this.liked,
     this.goLike,
     this.goNote,
     this.goReMraker,
+    this.isPlay = false,
+    required this.trggelPlay,
   }) : super(key: key);
 
   final BoxMessageItem boxMessageItem;
 
   final BehaviorSubject<WaveformProgress> progressStream;
-  final Waveform? waveForm;
 
   final bool isLike;
   final Function()? liked;
@@ -38,15 +38,20 @@ class GeneralMessageItem extends StatefulWidget {
   final Function()? goReMraker;
   final int likeCount;
 
+  final bool isPlay;
+  final Function() trggelPlay;
+
   @override
   State<GeneralMessageItem> createState() => _GeneralMessageItemState();
 }
 
 class _GeneralMessageItemState extends State<GeneralMessageItem> {
   Duration position = const Duration();
-
+  Waveform? waveForm;
   AudioPlayer? advancedPlayer;
   AudioCache? audioCache;
+
+  bool _isPlay = false;
 
   @override
   void initState() {
@@ -54,36 +59,45 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
     initPlayer();
   }
 
+  @override
+  void didUpdateWidget(GeneralMessageItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      _isPlay = widget.isPlay;
+      if (!_isPlay) {
+        advancedPlayer!.pause();
+      }
+    });
+  }
+
   void initPlayer() {
     advancedPlayer = AudioPlayer();
     audioCache =
         AudioCache(fixedPlayer: advancedPlayer, prefix: 'assets/audio/');
 
+    advancedPlayer!.onPlayerStateChanged.listen((event) {
+      setState(() {
+        if (event == PlayerState.COMPLETED) {
+          _isPlay = false;
+        }
+      });
+    });
+
     advancedPlayer!.onAudioPositionChanged.listen((Duration current) {
-      print('position ' + current.toString());
-      setState(() => position = current);
+      if (position.inSeconds + 1 < current.inSeconds) {
+        setState(() {
+          position = current;
+        });
+      }
     });
   }
 
   Future<void> playSound(String path) async {
     await audioCache!.play(path);
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      print('object');
-      if (_isPlay) {
-        timer.cancel();
-      }
-      setState(() async {
-        var time = await advancedPlayer!.getCurrentPosition();
-        position = Duration(microseconds: time);
-      });
-    });
   }
-
-  bool _isPlay = false;
 
   void startNewRoute() async {
     await playSound('waveform.mp3');
-    // more code here
   }
 
   @override
@@ -286,18 +300,25 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
                 ),
               );
             }
-            return AudioWaveformWidget(
-              waveform: waveform,
-              start: Duration.zero,
-              current: position,
-              strokeWidth: 2,
-              duration: Duration(seconds: waveform.duration.inSeconds),
-              waveColor: AppColor.waveColor,
-              pixelsPerStep: 4,
-            );
+
+            waveForm = waveform;
+            return _audioWave(waveform, position);
           },
         ),
       ),
+    );
+  }
+
+  Widget _audioWave(Waveform waveform, Duration? position) {
+    print('position _audioWave ' + position.toString());
+    return AudioWaveformWidget(
+      waveform: waveform,
+      start: Duration.zero,
+      current: position ?? Duration.zero,
+      strokeWidth: 2,
+      duration: Duration(seconds: waveform.duration.inSeconds),
+      waveColor: AppColor.waveColor,
+      pixelsPerStep: 4,
     );
   }
 
@@ -309,6 +330,7 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
 
   void _playPause() {
     if (!_isPlay) {
+      widget.trggelPlay();
       startNewRoute();
       setState(() {
         _isPlay = true;
@@ -322,7 +344,7 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
   }
 }
 
-class AudioWaveformWidget extends StatefulWidget {
+class AudioWaveformWidget extends StatelessWidget {
   final Color waveColor;
   final double scale;
   final double strokeWidth;
@@ -345,23 +367,19 @@ class AudioWaveformWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AudioWaveformState createState() => _AudioWaveformState();
-}
-
-class _AudioWaveformState extends State<AudioWaveformWidget> {
-  @override
   Widget build(BuildContext context) {
+    print('position build ' + current.toString());
     return ClipRect(
       child: CustomPaint(
         painter: AudioWaveformPainter(
-          waveColor: widget.waveColor,
-          waveform: widget.waveform,
-          start: widget.start,
-          duration: widget.duration,
-          current: widget.current,
-          scale: widget.scale,
-          strokeWidth: widget.strokeWidth,
-          pixelsPerStep: widget.pixelsPerStep,
+          waveColor: waveColor,
+          waveform: waveform,
+          start: start,
+          duration: duration,
+          current: current,
+          scale: scale,
+          strokeWidth: strokeWidth,
+          pixelsPerStep: pixelsPerStep,
         ),
       ),
     );
@@ -398,6 +416,8 @@ class AudioWaveformPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (duration == Duration.zero) return;
 
+    print('position paint ' + current.toString());
+
     double width = size.width;
     double height = size.height;
 
@@ -427,7 +447,7 @@ class AudioWaveformPainter extends CustomPainter {
       canvas.drawLine(
         Offset(x + strokeWidth / 2, max(strokeWidth * 0.75, minY)),
         Offset(x + strokeWidth / 2, min(height - strokeWidth * 0.75, maxY)),
-        (i > (waveformPixelsPerWindow - samplecurrent))
+        (i > (waveformPixelsPerWindow + 1 - samplecurrent))
             ? wavePaint2
             : wavePaint,
       );
@@ -436,7 +456,7 @@ class AudioWaveformPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant AudioWaveformPainter oldDelegate) {
-    return false;
+    return true;
   }
 
   double normalise(int s, double height) {
