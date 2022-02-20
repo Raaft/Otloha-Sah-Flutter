@@ -50,7 +50,7 @@ class _TeacherPageState extends State<TeacherPage> {
                 itemCount: 20,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
-                  childAspectRatio: 2 / 2.2,
+                  childAspectRatio: 2 / 2.4,
                 ),
                 itemBuilder: (context, index) {
                   return _itemView(index);

@@ -38,6 +38,7 @@ class TextView extends StatelessWidget {
                 fontSize: sizeText,
                 color: colorText,
                 fontWeight: weightText,
+                wordSpacing: .5,
               ),
           textAlign: textAlign,
           overflow: overflow,
