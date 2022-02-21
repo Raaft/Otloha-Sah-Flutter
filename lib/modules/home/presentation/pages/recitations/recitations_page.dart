@@ -134,7 +134,9 @@ class _RecitationsPageState extends State<RecitationsPage> {
       likeCount: 20,
       isLike: (index % 2 == 0),
       trggelPlay: () {
-        _selectedPlay = index;
+        setState(() {
+          _selectedPlay = index;
+        });
       },
       isPlay: index == _selectedPlay,
     );
