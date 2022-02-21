@@ -14,6 +14,8 @@ import 'package:flutter_base/modules/home/presentation/widget/recorded_file_sett
 import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class QuranBNBPage extends StatelessWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
@@ -22,14 +24,9 @@ class QuranBNBPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       /// bottomNavigationBar: rowTools(context),
-/*           floatingActionButton: DraggableFab(
-        child: CircleAvatar(
-          radius: 20,
-          backgroundColor: AppColor.darkBlue,
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
       ),
-   */
-
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -43,20 +40,28 @@ class QuranBNBPage extends StatelessWidget {
                 children: [
                   _viewTop(context),
                   _viewPageReading(context),
-                  DraggableCard(
-                    child: FabCircularMenu(children: <Widget>[
-                      IconButton(
-                          icon: const Icon(Icons.home),
-                          onPressed: () {
-                            print('Home');
-                          }),
-                      IconButton(
-                          icon: const Icon(Icons.favorite),
-                          onPressed: () {
-                            print('Favorite');
-                          })
-                    ]),
-                  ),
+                  /* FabCircularMenu(children: <Widget>[
+                    IconButton(
+                        icon: const Icon(Icons.home),
+                        onPressed: () {
+                          print('Home');
+                        }),
+                    IconButton(
+                        icon: const Icon(Icons.home),
+                        onPressed: () {
+                          print('Home');
+                        }),
+                    IconButton(
+                        icon: const Icon(Icons.home),
+                        onPressed: () {
+                          print('Home');
+                        }),
+                    IconButton(
+                        icon: const Icon(Icons.favorite),
+                        onPressed: () {
+                          print('Favorite');
+                        })
+                  ]), */
                 ],
               ),
               Positioned(
@@ -115,18 +120,56 @@ class QuranBNBPage extends StatelessWidget {
               if (cubit.isRecorded) const RecordTool(),
               if (cubit.isOnPressed) const ToolBotton(),
               if (cubit.isRecordedFile) const RecordedFileTool(),
+              Positioned(
+                bottom: MediaQuery.of(context).size.width / -2,
+                right: MediaQuery.of(context).size.width / -2,
+                child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                                colors: [
+                                  AppColor.lightBlue.withOpacity(.5),
+                                  AppColor.darkBlue.withOpacity(.9),
+                                ],
+                                begin: Alignment.bottomLeft,
+                                end: Alignment.topRight)),
+                        child: CircleAvatar(
+                          backgroundColor: AppColor.transparent,
+                          radius: MediaQuery.of(context).size.width / 2,
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                         // Get.snackbar('successfully', 'Text coped');
+                                        },
+                                        child: Icon(
+                                          Icons.copy,
+                                          color: AppColor.white,
+                                          //  size: 40,
+                                        )),
+                                    GestureDetector(
+                                        onTap: () {
+                                          cubit.changeIsLiked();
+                                        },
+                                        child: Icon(
+                                          Icons.favorite_border_outlined,
+                                          color: AppColor.white,
+                                          //     size: 40,
+                                        )),
 
-/*               Positioned(
-            bottom: MediaQuery.of(context).size.width / -2,
-            right: MediaQuery.of(context).size.width / -2,
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: CircleAvatar(
-                radius: MediaQuery.of(context).size.width / 2,
-              ),
-            ),
-          )
- */
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ))),
+              )
             ],
           );
         },
