@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
+import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,9 @@ class _NarrationPageState extends State<NarrationPage> {
       ),
       actionIcon: IconButton(
         icon: const Icon(Icons.search),
-        onPressed: () {},
+        onPressed: () {
+          show(context);
+        },
       ),
       title: 'Narrations Center',
     );

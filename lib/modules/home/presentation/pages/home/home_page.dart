@@ -1,4 +1,3 @@
-import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
@@ -61,9 +60,7 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-
       ),
-
     );
   }
 

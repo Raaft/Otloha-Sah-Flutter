@@ -1,21 +1,15 @@
-import 'package:draggable_fab/draggable_fab.dart';
-import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/widget/floating_button.dart';
 import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
 import 'package:flutter_base/modules/home/presentation/widget/recorded_file_setting.dart';
 
 import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 
 class QuranBNBPage extends StatelessWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
@@ -29,7 +23,7 @@ class QuranBNBPage extends StatelessWidget {
       ),
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
-          // TODO: implement listener
+          // TO DO: implement listener
         },
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
@@ -138,35 +132,33 @@ class QuranBNBPage extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: AppColor.transparent,
                           radius: MediaQuery.of(context).size.width / 2,
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                         // Get.snackbar('successfully', 'Text coped');
-                                        },
-                                        child: Icon(
-                                          Icons.copy,
-                                          color: AppColor.white,
-                                          //  size: 40,
-                                        )),
-                                    GestureDetector(
-                                        onTap: () {
-                                          cubit.changeIsLiked();
-                                        },
-                                        child: Icon(
-                                          Icons.favorite_border_outlined,
-                                          color: AppColor.white,
-                                          //     size: 40,
-                                        )),
-
-                                  ],
-                                ),
-                              ],
-                            ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                      onTap: () {
+                                        // Get.snackbar('successfully', 'Text coped');
+                                      },
+                                      child: Icon(
+                                        Icons.copy,
+                                        color: AppColor.white,
+                                        //  size: 40,
+                                      )),
+                                  GestureDetector(
+                                      onTap: () {
+                                        cubit.changeIsLiked();
+                                      },
+                                      child: Icon(
+                                        Icons.favorite_border_outlined,
+                                        color: AppColor.white,
+                                        //     size: 40,
+                                      )),
+                                ],
+                              ),
+                            ],
                           ),
                         ))),
               )

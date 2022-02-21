@@ -17,7 +17,7 @@ class RunQueries {
   }
 
   final queries = '''
-CREATE TABLE IF NOT EXISTS "$verseNoteName" (
+CREATE TABLE IF NOT EXISTS "VerseNote" (
 	"id"	INTEGER NOT NULL,
 	"idFromVerse"	INTEGER,
 	"idToVerse"	INTEGER,
@@ -25,30 +25,30 @@ CREATE TABLE IF NOT EXISTS "$verseNoteName" (
 	"pageNumber"	INTEGER,
 	"textFristVerse"	TEXT,
 	"noteText"	TEXT,
-	PRIMARY KEY("id")
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
-CREATE TABLE IF NOT EXISTS "$pageMarkedName" (
+CREATE TABLE IF NOT EXISTS "PageMarked" (
 	"id"	INTEGER NOT NULL,
 	"idPage"	INTEGER NOT NULL,
 	"idBook"	INTEGER,
 	"pageNumber"	INTEGER,
 	"textVerse"	TEXT,
-	PRIMARY KEY("id")
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
-CREATE TABLE IF NOT EXISTS "$verseLikedName" (
+CREATE TABLE IF NOT EXISTS "VerseLiked" (
 	"id"	INTEGER NOT NULL,
 	"idFromVerse"	INTEGER NOT NULL,
 	"idToVerse"	INTEGER,
 	"idPage"	INTEGER,
 	"pageNumber"	INTEGER,
 	"textFristVerse"	TEXT,
-	PRIMARY KEY("id")
+	PRIMARY KEY("id" AUTOINCREMENT)
 );''';
 
 //// old
   final queries2 = '''
 CREATE TABLE IF NOT EXISTS "$verseName" (
-	"id"	INTEGER NOT NULL,
+	"id"	INTEGER NOT NULL AUTOINCREMENT,
 	"text"	TEXT,
 	"uthmanicText"	TEXT,
 	"lineStart"	INTEGER,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS "$verseName" (
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "$verseNoteName" (
-	"id"	INTEGER NOT NULL,
+	"id"	INTEGER NOT NULL AUTOINCREMENT,
 	"idVerse"	INTEGER,
 	"noteText"	TEXT,
 	"textVerse"	TEXT,
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS "$verseLikedName" (
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "$pageName" (
-	"id"	INTEGER NOT NULL,
+	"id"	INTEGER NOT NULL AUTOINCREMENT,
 	"pageNumber"	INTEGER NOT NULL,
 	"chapterId"	INTEGER,
 	"bookId"	INTEGER,
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS "$pageName" (
 	PRIMARY KEY("id")
 );
 CREATE TABLE IF NOT EXISTS "$pageMarkedName" (
-	"id"	INTEGER NOT NULL,
+	"id"	INTEGER NOT NULL AUTOINCREMENT,
 	"idPage"	INTEGER NOT NULL,
 	"pageNumber"	INTEGER,
 	"text"	TEXT,

@@ -147,6 +147,7 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
 
