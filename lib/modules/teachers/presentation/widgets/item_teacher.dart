@@ -96,49 +96,48 @@ class ItemTeacher extends StatelessWidget {
         ],
       );
     } else {
-      view = Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _userImage(),
-            TextView(
-              text: userName,
-              weightText: FontWeight.bold,
-              padding: const EdgeInsets.all(2),
-              sizeText: 18,
-              colorText: AppColor.txtColor4,
-            ),
-            Row(
-              children: [
-                TextView(
-                  text: userId,
-                  padding: const EdgeInsets.all(2),
-                  sizeText: 14,
-                  colorText: AppColor.txtColor4,
-                  textAlign: TextAlign.start,
-                ),
-                TextView(
-                  text: rate,
-                  weightText: FontWeight.bold,
-                  padding: const EdgeInsets.all(2),
-                  sizeText: 14,
-                  colorText: AppColor.txtColor4,
-                  textAlign: TextAlign.start,
-                ),
-                ..._iconsView(16),
-              ],
-            ),
-            // const SizedBox(height: 4),
-            TextView(
-              text: userbio,
-              padding: const EdgeInsets.all(0),
-              sizeText: 10,
-              colorText: AppColor.txtColor4,
-              textAlign: TextAlign.start,
-              //overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
+      view = Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _userImage(),
+          TextView(
+            text: userName,
+            weightText: FontWeight.bold,
+            padding: const EdgeInsets.all(2),
+            sizeText: 18,
+            colorText: AppColor.txtColor4,
+          ),
+          Row(
+            children: [
+              TextView(
+                text: userId,
+                padding: const EdgeInsets.all(2),
+                sizeText: 14,
+                colorText: AppColor.txtColor4,
+                textAlign: TextAlign.start,
+              ),
+              TextView(
+                text: rate,
+                weightText: FontWeight.bold,
+                padding: const EdgeInsets.all(2),
+                sizeText: 14,
+                colorText: AppColor.txtColor4,
+                textAlign: TextAlign.start,
+              ),
+              ..._iconsView(16),
+            ],
+          ),
+          // const SizedBox(height: 4),
+          TextView(
+            text: userbio,
+            padding: const EdgeInsets.all(0),
+            sizeText: 12,
+            colorText: AppColor.txtColor4,
+            weightText: FontWeight.w600,
+            textAlign: TextAlign.start,
+            //overflow: TextOverflow.ellipsis,
+          ),
+        ],
       );
     }
 
