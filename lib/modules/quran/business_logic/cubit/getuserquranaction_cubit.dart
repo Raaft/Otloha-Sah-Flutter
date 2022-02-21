@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:flutter_base/modules/data/data_source/repository/database_repository.dart';
+import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/data/model/page_marked.dart';
 import 'package:flutter_base/modules/data/model/verse_like.dart';
 import 'package:flutter_base/modules/data/model/verse_note.dart';
