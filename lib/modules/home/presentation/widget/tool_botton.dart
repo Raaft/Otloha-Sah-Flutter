@@ -16,7 +16,7 @@ class _ToolBottonState extends State<ToolBotton> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
-      // TODO: implement listener
+      // TO DO: implement listener
     }, builder: (context, state) {
       var cubit = HomeCubit.get(context);
       return Positioned(
@@ -38,7 +38,7 @@ class _ToolBottonState extends State<ToolBotton> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     stops: const [0.0, 1.1],
-                    colors: [ AppColor.lightBlue,AppColor.darkBlue],
+                    colors: [AppColor.lightBlue, AppColor.darkBlue],
                   ),
                   color: Colors.deepPurple.shade300,
                   borderRadius: BorderRadius.circular(10),
@@ -53,7 +53,7 @@ class _ToolBottonState extends State<ToolBotton> {
                         child: Icon(
                           Icons.copy,
                           color: AppColor.white,
-                        //  size: 40,
+                          //  size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
@@ -62,7 +62,7 @@ class _ToolBottonState extends State<ToolBotton> {
                         child: Icon(
                           Icons.favorite_border_outlined,
                           color: AppColor.white,
-                     //     size: 40,
+                          //     size: 40,
                         )),
                     GestureDetector(
                       onTap: () {
@@ -82,7 +82,7 @@ class _ToolBottonState extends State<ToolBotton> {
                           child: Icon(
                             Icons.comment,
                             color: AppColor.white,
-                          //  size: 40,
+                            //  size: 40,
                           )
                           /*Image.asset(
                       AppIcons.quran4Icon,
@@ -97,21 +97,20 @@ class _ToolBottonState extends State<ToolBotton> {
                         child: Icon(
                           Icons.bookmark,
                           color: AppColor.white,
-                         // size: 40,
+                          // size: 40,
                         )),
                     GestureDetector(
                         onTap: () {},
                         child: Icon(
                           Icons.restart_alt_outlined,
                           color: AppColor.white,
-                       //   size: 40,
+                          //   size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
                           cubit.init().then((value) {
                             cubit.start();
                             cubit.changeIsRecorded();
-
                           });
                         },
                         child: const Icon(
@@ -124,7 +123,7 @@ class _ToolBottonState extends State<ToolBotton> {
                         child: Icon(
                           Icons.play_arrow_outlined,
                           color: AppColor.white,
-                      //    size: 40,
+                          //    size: 40,
                         )),
                   ],
                 ),

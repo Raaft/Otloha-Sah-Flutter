@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
+import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 
 import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
@@ -50,7 +51,9 @@ class _QuranTranslationLanguagePageState
       ),
       actionIcon: IconButton(
         icon: const Icon(Icons.search),
-        onPressed: () {},
+        onPressed: () {
+          show(context);
+        },
       ),
       title: 'Quran Translation Language Center',
     );

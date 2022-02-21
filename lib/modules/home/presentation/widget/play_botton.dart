@@ -9,7 +9,7 @@ class RecordTool extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
-      // TODO: implement listener
+      // TO DO: implement listener
     }, builder: (context, state) {
       var cubit = HomeCubit.get(context);
       return Positioned(
@@ -31,7 +31,7 @@ class RecordTool extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     stops: const [0.0, 1.1],
-                    colors: [ AppColor.lightBlue,AppColor.darkBlue],
+                    colors: [AppColor.lightBlue, AppColor.darkBlue],
                   ),
                   color: Colors.deepPurple.shade300,
                   borderRadius: BorderRadius.circular(10),
@@ -51,7 +51,7 @@ class RecordTool extends StatelessWidget {
                         child: Icon(
                           Icons.mic_none,
                           color: AppColor.lightYellow,
-                       //   size: 40,
+                          //   size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
@@ -61,20 +61,20 @@ class RecordTool extends StatelessWidget {
                         child: Icon(
                           Icons.pause_circle_outline,
                           color: AppColor.white,
-                      //    size: 40,
+                          //    size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
                           cubit.stop();
                           cubit.changeIsOnTruePressed();
-                          Future.delayed(const Duration(seconds: 5),(){
+                          Future.delayed(const Duration(seconds: 5), () {
                             cubit.changeIsOnFalsePressed();
-
-                          });                        },
+                          });
+                        },
                         child: Icon(
                           Icons.cancel_presentation,
                           color: AppColor.white,
-                      //    size: 40,
+                          //    size: 40,
                         )),
                   ],
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
 
@@ -35,7 +36,9 @@ class _DownloadCenterPageState extends State<DownloadCenterPage> {
       ),
       actionIcon: IconButton(
         icon: const Icon(Icons.search),
-        onPressed: () {},
+        onPressed: () {
+          show(context);
+        },
       ),
       title: 'Downlod Center',
     );

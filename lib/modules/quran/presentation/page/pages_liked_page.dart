@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
@@ -51,7 +51,9 @@ class PagesLikedPage extends StatelessWidget {
       ),
       actionIcon: IconButton(
         icon: const Icon(Icons.search),
-        onPressed: () {},
+        onPressed: () {
+          show(context);
+        },
       ),
       title: (arg == 2)
           ? translate('BookMarks')
@@ -93,6 +95,7 @@ class PagesLikedPage extends StatelessWidget {
                     Scaffold.of(context).showBottomSheet(
                       (context) => NoteItemView(
                         arg == 1,
+                        note: verse.noteText ?? '',
                       ),
                       backgroundColor: AppColor.transparent,
                     );

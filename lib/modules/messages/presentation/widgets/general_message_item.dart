@@ -84,7 +84,7 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
     });
 
     advancedPlayer!.onAudioPositionChanged.listen((Duration current) {
-      if (position.inSeconds + 1 < current.inSeconds) {
+      if (position.inSeconds < current.inSeconds) {
         setState(() {
           position = current;
         });

@@ -12,7 +12,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
 //init DateBase
-  DatabaseRepository().initDb();
+  await DatabaseRepository().initDb;
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

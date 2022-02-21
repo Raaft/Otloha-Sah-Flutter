@@ -16,15 +16,15 @@ class AppDatabase {
 
   Future get database async {
     if (_db == null) {
-      open(await path);
+      await open(await path);
     }
 
-    ///return _db!;
+    return _db!;
   }
 
   Future<String> get path async {
     var databasesPath = await getDatabasesPath();
-    _path = join(databasesPath, 'chairs.db');
+    _path = join(databasesPath, 'quran.db');
     return _path ?? '';
   }
 
