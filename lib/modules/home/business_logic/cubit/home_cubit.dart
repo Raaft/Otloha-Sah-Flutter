@@ -30,6 +30,14 @@ class HomeCubit extends Cubit<HomeState> {
   bool isRecorded = false;
   bool isRecordedFile = false;
   bool isFloatingMenu = false;
+  bool isSelectedVerse = false;
+  double opacity = 0.4;
+
+  changeIsSelectedVerse() {
+    isSelectedVerse = true;
+
+    emit(ChangeIsSelectedVerseState());
+  }
 
   changeTrueFloating() {
     isOnPressed = false;
@@ -38,10 +46,17 @@ class HomeCubit extends Cubit<HomeState> {
     emit(IsFloatingTrueMenuState());
   }
 
-  changeFalseFloating(){isOnPressed = false;
-  isFloatingMenu = false;
+  changeOpacity(double myOpacity) {
+    opacity = myOpacity;
+    emit(ChangeOpacityState());
+  }
 
-  emit(IsFloatingFalseMenuState());}
+  changeFalseFloating() {
+    isOnPressed = false;
+    isFloatingMenu = false;
+
+    emit(IsFloatingFalseMenuState());
+  }
 
   changeIsLiked() {
     if (isLiked == false) {
@@ -65,22 +80,25 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeIsOnTruePressed() {
     isOnPressed = true;
+    isSelectedVerse = false;
+
     isRecorded = false;
     isRecordedFile = false;
-    isFloatingMenu=false;
+    isFloatingMenu = false;
 
     emit(IsOnPressFalseState());
   }
 
   changeIsOnFalsePressed() {
     isOnPressed = false;
-    isFloatingMenu=false;
+    isFloatingMenu = false;
 
     emit(IsOnPressTrueState());
   }
 
   changeIsRecorded() {
     isOnPressed = false;
+    isSelectedVerse=false;
     isRecordedFile = false;
     isRecorded = true;
     emit(IsRecordedState());
@@ -88,6 +106,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeIsRecordedFile() {
     isOnPressed = false;
+    isSelectedVerse=false;
+
     isRecorded = false;
     isRecordedFile = true;
     emit(IsRecordedFileState());
@@ -155,7 +175,7 @@ class HomeCubit extends Cubit<HomeState> {
 
         this.current = current;
         _currentStatus = this.current!.status!;
-        emit(HomeInitial());
+        emit(ChangeDurationState());
         emit(GetDurationState());
       });
     } catch (e) {

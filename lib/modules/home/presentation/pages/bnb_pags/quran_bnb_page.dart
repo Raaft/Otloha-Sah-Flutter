@@ -56,14 +56,7 @@ class QuranBNBPage extends StatelessWidget {
                             buttonText: 'on long press',
                             width: MediaQuery.of(context).size.width / 2,
                             onPressed: () {
-                              //cubit.changeIsOnPressed();
-                            },
-                            colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                        AuthButton(
-                            buttonText: 'on double press',
-                            width: MediaQuery.of(context).size.width / 2,
-                            onPressed: () {
-                              //cubit.changeIsOnPressed();
+                              cubit.changeIsSelectedVerse();
                             },
                             colors: [AppColor.darkBlue, AppColor.lightBlue]),
                       ],
@@ -90,10 +83,10 @@ class QuranBNBPage extends StatelessWidget {
                   ),
                 ),
                 if (cubit.isRecorded) const RecordTool(),
-                if (cubit.isOnPressed) const ToolBotton(),
+                if (cubit.isOnPressed||cubit.isSelectedVerse) const ToolBotton(),
                 if (cubit.isRecordedFile) const RecordedFileTool(),
                 if (cubit.isFloatingMenu) floatMenu(context, cubit),
-                if(cubit.isOnPressed)floatingButton( cubit)
+                if (cubit.opacity!=0) floatingButton( cubit: cubit,isPressed: cubit.isOnPressed)
               ],
             ));
       },
