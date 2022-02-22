@@ -2,7 +2,7 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/data/models/utils/bottom_bar_item.dart';
-
+///////////commit proplem
 class BubbleBottomBarApp extends StatelessWidget {
   final Function(int? val) onItemTapped;
   final int selectedIndex;

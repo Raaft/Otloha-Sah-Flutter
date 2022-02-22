@@ -5,6 +5,9 @@ import 'package:flutter_base/modules/quran/presentation/widget/note_item_view.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/widgets/alert_dialog_full_screen.dart';
+
 class ToolBotton extends StatefulWidget {
   const ToolBotton({Key? key}) : super(key: key);
 
@@ -16,7 +19,7 @@ class _ToolBottonState extends State<ToolBotton> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
-      // TO DO: implement listener
+      // TODO: implement listener
     }, builder: (context, state) {
       var cubit = HomeCubit.get(context);
       return Positioned(
@@ -48,8 +51,10 @@ class _ToolBottonState extends State<ToolBotton> {
                   children: [
                     GestureDetector(
                         onTap: () {
-                          Get.snackbar('successfully', 'Text coped');
-                        },
+                          Get.dialog(
+                            const AlertDialogFullScreen(),
+                            barrierColor: AppColor.backdone,
+                          );                        },
                         child: Icon(
                           Icons.copy,
                           color: AppColor.white,
@@ -60,7 +65,9 @@ class _ToolBottonState extends State<ToolBotton> {
                           cubit.changeIsLiked();
                         },
                         child: Icon(
-                          Icons.favorite_border_outlined,
+                          cubit.isLiked
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
                           color: AppColor.white,
                           //     size: 40,
                         )),
@@ -95,7 +102,9 @@ class _ToolBottonState extends State<ToolBotton> {
                           cubit.changeIsBookmarked();
                         },
                         child: Icon(
-                          Icons.bookmark,
+                          cubit.isBookmarked
+                              ? Icons.bookmark
+                              : Icons.bookmark_border,
                           color: AppColor.white,
                           // size: 40,
                         )),
@@ -119,12 +128,10 @@ class _ToolBottonState extends State<ToolBotton> {
                           //size: 40,
                         )),
                     GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.play_arrow_outlined,
-                          color: AppColor.white,
-                          //    size: 40,
-                        )),
+                      onTap: () {},
+                      child: Image.asset(AppIcons.quran2Icon,
+                          color: AppColor.white, width: 30),
+                    ),
                   ],
                 ),
               )));
