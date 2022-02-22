@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
-
+///////////commit
 class HomeMainSection extends StatelessWidget {
   const HomeMainSection({
     Key? key,

@@ -19,6 +19,13 @@ class IsBookMarkFalseState extends HomeState {}
 class IsRecordedState extends HomeState {}
 class IsRecordedFileState extends HomeState {}
 class GetDurationState extends HomeState {}
+class ChangeDurationState extends HomeState {}
+class IsFloatingTrueMenuState extends HomeState {}
+class IsFloatingFalseMenuState extends HomeState {}
+class ChangeOpacityState extends HomeState {}
+class ChangeIsSelectedVerseState extends HomeState {}
+class ChangeIsPlayingState extends HomeState {}
+class ChangePlayPauseState extends HomeState {}
 
 class HomeChangeIndex extends HomeState {
   final int index;

@@ -4,8 +4,8 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RecordedFileTool extends StatelessWidget {
-  const RecordedFileTool({Key? key}) : super(key: key);
+class PlayPauseTools extends StatelessWidget {
+  const PlayPauseTools({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,8 @@ class RecordedFileTool extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 0),
-                width: MediaQuery.of(context).size.width / 1.3,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: MediaQuery.of(context).size.width / 2,
                 alignment: Alignment.center,
                 height: 45,
                 decoration: BoxDecoration(
@@ -39,52 +40,42 @@ class RecordedFileTool extends StatelessWidget {
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                         onTap: () {
-                          cubit.onPlayAudio();
-                        },
-                        child:Image.asset(AppIcons.playIcon,
-                            color: AppColor.white, width: 30),),
-                    GestureDetector(
-                        onTap: () {
-                          cubit.init().then((value) {
-                            cubit.start();
-                            cubit.changeIsRecorded();
-                          });
                         },
                         child: Icon(
-                          Icons.mic_none,
+                          Icons.arrow_back_ios,
+                          color: AppColor.white,
+                           size: 30,
+                        )),
+
+                    GestureDetector(
+                      onTap: () {
+                        cubit.changePlayPause();
+                      },
+                      child:cubit.playPause? Image.asset(AppIcons.playIcon,
+                          color: AppColor.white, width: 30): Icon(Icons.pause,size: 40,color: AppColor.white),
+                    ),
+
+                    GestureDetector(
+                        onTap: () {
+                          cubit.changeIsOnFalsePressed();
+                        },
+                        child: Icon(
+                          Icons.stop,
+                          color: AppColor.white,
+                            size: 40,
+                        )),
+                    GestureDetector(
+                        onTap: () {
+                        },
+                        child: Icon(
+                          Icons.arrow_forward_ios,
                           color: AppColor.white,
                             size: 30,
                         )),
-                    GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.save_alt,
-                          color: AppColor.white,
-                          size: 30,
-                        )),
-                    GestureDetector(
-                        onTap: () {
-                          cubit.stop();
-
-                          cubit.changeIsOnTruePressed();
-                          Future.delayed(const Duration(seconds: 5), () {
-                            cubit.changeIsOnFalsePressed();
-                          });
-                        },
-                        child: Icon(
-                          Icons.cancel_presentation,
-                          color: AppColor.white,
-                          //  size: 40,
-                        )),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(AppIcons.shareIcon,
-                          color: AppColor.white, width: 30),
-                    ),
 
                   ],
                 ),

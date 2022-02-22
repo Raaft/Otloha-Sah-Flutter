@@ -29,6 +29,54 @@ class HomeCubit extends Cubit<HomeState> {
   bool isOnPressed = false;
   bool isRecorded = false;
   bool isRecordedFile = false;
+  bool isFloatingMenu = false;
+  bool isSelectedVerse = false;
+  bool isPlaying = false;
+  bool playPause = true;
+
+  double opacity = 0.4;
+
+
+  changePlayPause() {
+    playPause =!playPause;
+
+    emit(ChangePlayPauseState());
+  }
+  changeIsPlaying() {
+    isOnPressed = false;
+    isSelectedVerse = false;
+    isRecorded = false;
+    isRecordedFile = false;
+    isFloatingMenu = false;
+    isPlaying=true;
+    emit(ChangeIsPlayingState());
+  }
+  changeIsSelectedVerse() {
+    isSelectedVerse = true;
+
+    emit(ChangeIsSelectedVerseState());
+  }
+
+  changeTrueFloating() {
+    isOnPressed = false;
+    isRecorded = false;
+    isRecordedFile = false;
+    isFloatingMenu = true;
+
+    emit(IsFloatingTrueMenuState());
+  }
+
+  changeOpacity(double myOpacity) {
+    opacity = myOpacity;
+    emit(ChangeOpacityState());
+  }
+
+  changeFalseFloating() {
+    isOnPressed = false;
+    isFloatingMenu = false;
+
+    emit(IsFloatingFalseMenuState());
+  }
 
   changeIsLiked() {
     if (isLiked == false) {
@@ -52,20 +100,26 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeIsOnTruePressed() {
     isOnPressed = true;
+    isSelectedVerse = false;
+    isPlaying=false;
     isRecorded = false;
     isRecordedFile = false;
+    isFloatingMenu = false;
 
     emit(IsOnPressFalseState());
   }
 
   changeIsOnFalsePressed() {
     isOnPressed = false;
+    isFloatingMenu = false;
+    isPlaying=false;
 
     emit(IsOnPressTrueState());
   }
 
   changeIsRecorded() {
     isOnPressed = false;
+    isSelectedVerse=false;
     isRecordedFile = false;
     isRecorded = true;
     emit(IsRecordedState());
@@ -73,6 +127,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeIsRecordedFile() {
     isOnPressed = false;
+    isSelectedVerse=false;
+
     isRecorded = false;
     isRecordedFile = true;
     emit(IsRecordedFileState());
@@ -140,16 +196,14 @@ class HomeCubit extends Cubit<HomeState> {
 
         this.current = current;
         _currentStatus = this.current!.status!;
-        emit(HomeInitial());
+        emit(ChangeDurationState());
         emit(GetDurationState());
-
       });
     } catch (e) {
       print(e);
     }
     return null;
   }
-
 
   Future resume() async {
     await _recorder!.resume();
@@ -160,16 +214,18 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future stop() async {
-   try{ var result = await _recorder!.stop();
-   print('Stop recording: ${result!.path}');
-   print('Stop recording: ${result.duration}');
-   File? file = localFileSystem!.file(result.path);
-   print('File length: ${await file.length()}');
+    try {
+      var result = await _recorder!.stop();
+      print('Stop recording: ${result!.path}');
+      print('Stop recording: ${result.duration}');
+      File? file = localFileSystem!.file(result.path);
+      print('File length: ${await file.length()}');
 
-   current = result;
-   _currentStatus = current!.status!;}catch(e){
-     print(e);
-   }
+      current = result;
+      _currentStatus = current!.status!;
+    } catch (e) {
+      print(e);
+    }
   }
 
   void onPlayAudio() async {
@@ -190,6 +246,8 @@ class HomeCubit extends Cubit<HomeState> {
       encoder: AudioEncoder.AAC,
     );
     var isPlay = await RecordPlatform.instance.isRecording();
+
+
 
     emit(RecordIsRecord(isRecord: isPlay));
   }*/
