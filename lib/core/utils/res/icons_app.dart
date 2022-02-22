@@ -28,4 +28,5 @@ class AppIcons {
   static String doneIcon = 'assets/icons/done.png';
   static String comingSoonIcon = 'assets/icons/coming_soon.png';
   static String addIcon = 'assets/icons/add.png';
+  static String filterIcon = 'assets/icons/filter.png';
 }

@@ -1,13 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+
 import 'package:flutter_base/app_router.dart';
 import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+
+import 'core/utils/constant/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,16 +27,26 @@ void main() async {
     ),
   );
 
-  CacheHelper.init();
+  await CacheHelper.init();
+
+  var index = (CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? 0;
+
+  if (index == 0) {
+    isEn = true;
+  } else {
+    isEn = false;
+  }
 
   BlocOverrides.runZoned(
     () => runApp(
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/lang', // <- change the path of the translation files
-        fallbackLocale: const Locale('en'),
-        startLocale: const Locale('ar'),
+        //fallbackLocale: const Locale('en'),
+        ///startLocale: Locale(isEn ? 'en' : 'ar'),
         useOnlyLangCode: true,
+        //useFallbackTranslations: true,
+        saveLocale: true,
         child: MyApp(
           appRouter: AppRouter(),
         ),

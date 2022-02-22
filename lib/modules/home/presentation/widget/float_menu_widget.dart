@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/data/data_source/repository/database_repository.dart';
 import 'package:flutter_base/modules/data/model/page_marked.dart';
 import 'package:flutter_base/modules/data/model/verse_like.dart';
 import 'package:flutter_base/modules/data/model/verse_note.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
-import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.dart';
+import 'package:flutter_base/modules/data/repository/database_repository.dart';
+
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:get/get.dart';
 
@@ -15,14 +14,8 @@ import '../../business_logic/cubit/home_cubit.dart';
 
 Widget floatMenu(BuildContext context, HomeCubit cubit) {
   return Positioned(
-    bottom: MediaQuery
-        .of(context)
-        .size
-        .width / -2,
-    right: MediaQuery
-        .of(context)
-        .size
-        .width / -2,
+    bottom: MediaQuery.of(context).size.width / -2,
+    right: MediaQuery.of(context).size.width / -2,
     child: Align(
         alignment: Alignment.bottomLeft,
         child: Container(
@@ -36,10 +29,7 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
               children: [
                 CircleAvatar(
                   backgroundColor: AppColor.transparent,
-                  radius: MediaQuery
-                      .of(context)
-                      .size
-                      .width / 2,
+                  radius: MediaQuery.of(context).size.width / 2,
                 ),
                 Positioned(
                   top: 40,
@@ -70,7 +60,10 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                                     barrierColor: AppColor.backdone,
                                   );
                                 },
-                                child: const Icon(Icons.copy,color: Colors.white,),
+                                child: const Icon(
+                                  Icons.copy,
+                                  color: Colors.white,
+                                ),
                               ),
                               const SizedBox(
                                 width: 20,
@@ -100,11 +93,13 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                               GestureDetector(
                                   onTap: () {
                                     cubit.changeIsBookmarked();
-                                    DatabaseRepository().insertPageMarked(
-                                        PageMarked(idBook: 2,
-                                          pageNumber: 20,
-                                          text: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
-                                          idPage: 20,));
+                                    DatabaseRepository()
+                                        .insertPageMarked(PageMarked(
+                                      idBook: 2,
+                                      pageNumber: 20,
+                                      text: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                                      idPage: 20,
+                                    ));
                                   },
                                   child: Icon(
                                     cubit.isBookmarked
@@ -121,16 +116,15 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                               GestureDetector(
                                   onTap: () {
                                     cubit.changeIsLiked();
-                                    DatabaseRepository().insertVerseLiked(
-                                        VerseLiked(
-                                          idFromVerse: 1,
-                                          pageNumber: 20,
-                                          textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
-                                          idToVerse: 2,
-
-                                          idPage: 20,
-
-                                        ));
+                                    DatabaseRepository()
+                                        .insertVerseLiked(VerseLiked(
+                                      idFromVerse: 1,
+                                      pageNumber: 20,
+                                      textFristVerse:
+                                          'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                                      idToVerse: 2,
+                                      idPage: 20,
+                                    ));
                                   },
                                   child: Icon(
                                     cubit.isLiked
@@ -159,16 +153,16 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                                   )),
                               GestureDetector(
                                   onTap: () {
-                                    DatabaseRepository().insertVerseNote(
-                                        VerseNote(
-                                          idFromVerse: 1,
-                                          pageNumber: 20,
-                                          textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
-                                          idToVerse: 2,
-                                          noteText: 'My Note',
-
-                                          idPage: 20,));
-
+                                    DatabaseRepository()
+                                        .insertVerseNote(VerseNote(
+                                      idFromVerse: 1,
+                                      pageNumber: 20,
+                                      textFristVerse:
+                                          'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                                      idToVerse: 2,
+                                      noteText: 'My Note',
+                                      idPage: 20,
+                                    ));
                                   },
                                   child: Icon(
                                     Icons.comment,
@@ -176,9 +170,7 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                                     size: 30,
                                   )),
                               GestureDetector(
-                                  onTap: () {
-
-                                  },
+                                  onTap: () {},
                                   child: Icon(
                                     Icons.outbox,
                                     color: AppColor.white,
@@ -206,4 +198,4 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
 }
 
 
-////proplr in commit
+////proplr in commits

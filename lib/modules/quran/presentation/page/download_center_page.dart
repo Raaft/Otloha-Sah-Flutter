@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/widgets/show_search.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 
 class DownloadCenterPage extends StatefulWidget {
   const DownloadCenterPage({Key? key}) : super(key: key);
@@ -27,20 +26,14 @@ class _DownloadCenterPageState extends State<DownloadCenterPage> {
   }
 
   Widget _topView() {
-    return ToolBarApp(
+    return SearchBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
         },
       ),
-      actionIcon: IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {
-          show(context);
-        },
-      ),
-      title: 'Downlod Center',
+      title: 'Download Center',
     );
   }
 

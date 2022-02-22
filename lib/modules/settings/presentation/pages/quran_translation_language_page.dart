@@ -6,6 +6,7 @@ import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 
 import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:get/get.dart';
 
 class QuranTranslationLanguagePage extends StatefulWidget {
@@ -42,17 +43,11 @@ class _QuranTranslationLanguagePageState
   }
 
   Widget _topView() {
-    return ToolBarApp(
+    return SearchBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
-        },
-      ),
-      actionIcon: IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {
-          show(context);
         },
       ),
       title: 'Quran Translation Language Center',

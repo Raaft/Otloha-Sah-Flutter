@@ -5,6 +5,7 @@ import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:get/get.dart';
 
 class RecitersPage extends StatefulWidget {
@@ -36,17 +37,11 @@ class _RecitersPageState extends State<RecitersPage> {
   }
 
   Widget _topView() {
-    return ToolBarApp(
+    return SearchBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
-        },
-      ),
-      actionIcon: IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {
-          show(context);
         },
       ),
       title: 'Reciters Center',
