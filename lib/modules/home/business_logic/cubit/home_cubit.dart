@@ -31,8 +31,26 @@ class HomeCubit extends Cubit<HomeState> {
   bool isRecordedFile = false;
   bool isFloatingMenu = false;
   bool isSelectedVerse = false;
+  bool isPlaying = false;
+  bool playPause = true;
+
   double opacity = 0.4;
 
+
+  changePlayPause() {
+    playPause =!playPause;
+
+    emit(ChangePlayPauseState());
+  }
+  changeIsPlaying() {
+    isOnPressed = false;
+    isSelectedVerse = false;
+    isRecorded = false;
+    isRecordedFile = false;
+    isFloatingMenu = false;
+    isPlaying=true;
+    emit(ChangeIsPlayingState());
+  }
   changeIsSelectedVerse() {
     isSelectedVerse = true;
 
@@ -83,7 +101,7 @@ class HomeCubit extends Cubit<HomeState> {
   changeIsOnTruePressed() {
     isOnPressed = true;
     isSelectedVerse = false;
-
+    isPlaying=false;
     isRecorded = false;
     isRecordedFile = false;
     isFloatingMenu = false;

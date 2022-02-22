@@ -51,10 +51,7 @@ class _ToolBottonState extends State<ToolBotton> {
                   children: [
                     GestureDetector(
                         onTap: () {
-                          Get.dialog(
-                            const AlertDialogFullScreen(),
-                            barrierColor: AppColor.backdone,
-                          );
+                         cubit.changeIsPlaying();
                         },
                         child: Image.asset(
                           AppIcons.playIcon,

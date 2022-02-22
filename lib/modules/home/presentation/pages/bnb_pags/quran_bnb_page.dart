@@ -6,6 +6,7 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/floatin_button_widget.dart';
 import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
+import 'package:flutter_base/modules/home/presentation/widget/play_puse_tools.dart';
 import 'package:flutter_base/modules/home/presentation/widget/recorded_file_setting.dart';
 
 import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
@@ -88,6 +89,7 @@ class QuranBNBPage extends StatelessWidget {
             if (cubit.isOnPressed || cubit.isSelectedVerse) const ToolBotton(),
             if (cubit.isRecordedFile) const RecordedFileTool(),
             if (cubit.isFloatingMenu) floatMenu(context, cubit),
+            if (cubit.isPlaying) const PlayPauseTools(),
             if (cubit.opacity != 0)
               floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
           ],

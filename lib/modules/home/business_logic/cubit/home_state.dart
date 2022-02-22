@@ -24,6 +24,8 @@ class IsFloatingTrueMenuState extends HomeState {}
 class IsFloatingFalseMenuState extends HomeState {}
 class ChangeOpacityState extends HomeState {}
 class ChangeIsSelectedVerseState extends HomeState {}
+class ChangeIsPlayingState extends HomeState {}
+class ChangePlayPauseState extends HomeState {}
 
 class HomeChangeIndex extends HomeState {
   final int index;
