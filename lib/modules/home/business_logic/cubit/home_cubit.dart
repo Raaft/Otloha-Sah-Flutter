@@ -41,6 +41,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeTrueFloating() {
     isOnPressed = false;
+    isRecorded = false;
+    isRecordedFile = false;
     isFloatingMenu = true;
 
     emit(IsFloatingTrueMenuState());

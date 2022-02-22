@@ -26,69 +26,72 @@ class QuranBNBPage extends StatelessWidget {
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
         return Scaffold(
-          //  floatingActionButton: cubit.isOnPressed ? floatingButton( cubit) : null,
+            //  floatingActionButton: cubit.isOnPressed ? floatingButton( cubit) : null,
             body: Stack(
-              alignment: Alignment.center,
+          alignment: Alignment.center,
+          children: [
+            Stack(
               children: [
-                Stack(
+                _viewTop(context),
+                _viewPageReading(context),
+              ],
+            ),
+            Positioned(
+              top: 200,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Column(
                   children: [
-                    _viewTop(context),
-                    _viewPageReading(context),
+                    AuthButton(
+                        buttonText: 'on press',
+                        width: MediaQuery.of(context).size.width / 2,
+                        onPressed: () {
+                          cubit.changeIsOnTruePressed();
+                          cubit.changeOpacity(1);
+                          Future.delayed(const Duration(seconds: 5), () {
+                            cubit.changeIsOnFalsePressed();
+                            cubit.changeOpacity(.4);
+                          });
+                        },
+                        colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                    AuthButton(
+                        buttonText: 'on long press',
+                        width: MediaQuery.of(context).size.width / 2,
+                        onPressed: () {
+                          cubit.changeIsSelectedVerse();
+                        },
+                        colors: [AppColor.darkBlue, AppColor.lightBlue]),
                   ],
                 ),
-                Positioned(
-                  top: 200,
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Column(
-                      children: [
-                        AuthButton(
-                            buttonText: 'on press',
-                            width: MediaQuery.of(context).size.width / 2,
-                            onPressed: () {
-                              cubit.changeIsOnTruePressed();
-                              Future.delayed(const Duration(seconds: 5), () {
-                                cubit.changeIsOnFalsePressed();
-                              });
-                            },
-                            colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                        AuthButton(
-                            buttonText: 'on long press',
-                            width: MediaQuery.of(context).size.width / 2,
-                            onPressed: () {
-                              cubit.changeIsSelectedVerse();
-                            },
-                            colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                      ],
+              ),
+            ),
+            Positioned(
+              top: 50,
+              child: Row(
+                children: [
+                  if (cubit.isLiked)
+                    const Icon(
+                      Icons.favorite,
+                      color: Colors.amber,
+                      size: 40,
                     ),
-                  ),
-                ),
-                Positioned(
-                  top: 50,
-                  child: Row(
-                    children: [
-                      if (cubit.isLiked)
-                        const Icon(
-                          Icons.favorite,
-                          color: Colors.amber,
-                          size: 40,
-                        ),
-                      if (cubit.isBookmarked)
-                        const Icon(
-                          Icons.bookmark,
-                          color: Colors.amber,
-                          size: 40,
-                        ),
-                    ],
-                  ),
-                ),
-                if (cubit.isRecorded) const RecordTool(),
-                if (cubit.isOnPressed||cubit.isSelectedVerse) const ToolBotton(),
-                if (cubit.isRecordedFile) const RecordedFileTool(),
-                if (cubit.isFloatingMenu) floatMenu(context, cubit),
-                if (cubit.opacity!=0) floatingButton( cubit: cubit,isPressed: cubit.isOnPressed)
-              ],
-            ));
+                  if (cubit.isBookmarked)
+                    const Icon(
+                      Icons.bookmark,
+                      color: Colors.amber,
+                      size: 40,
+                    ),
+                ],
+              ),
+            ),
+            if (cubit.isRecorded) const RecordTool(),
+            if (cubit.isOnPressed || cubit.isSelectedVerse) const ToolBotton(),
+            if (cubit.isRecordedFile) const RecordedFileTool(),
+            if (cubit.isFloatingMenu) floatMenu(context, cubit),
+            if (cubit.opacity != 0)
+              floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
+          ],
+        ));
       },
     );
   }
@@ -172,4 +175,4 @@ class QuranBNBPage extends StatelessWidget {
     );
   }
 }
-  ///////////commit proplem
+///////////commit proplem

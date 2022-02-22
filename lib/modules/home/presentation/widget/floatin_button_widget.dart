@@ -22,11 +22,7 @@ Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
           cubit.changeTrueFloating();
           cubit.changeOpacity(.0);
 
-          Future.delayed(const Duration(seconds: 7), () {
-            cubit.changeFalseFloating();
-            cubit.changeOpacity(.4);
-
-          });
+          
         },
         ///////////commit proplem
         child: CircleAvatar(

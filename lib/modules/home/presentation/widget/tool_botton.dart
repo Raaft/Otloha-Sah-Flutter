@@ -110,22 +110,21 @@ class _ToolBottonState extends State<ToolBotton> {
                             ),
                       ),
                     GestureDetector(
+                      onTap: () {
+                        Get.dialog(
+                          const AlertDialogFullScreen(),
+                          barrierColor: AppColor.backdone,
+                        );
+                      },
+                      child: const Icon(Icons.copy,color: Colors.white,size: 30,),
+                    ),
+
+                    GestureDetector(
                       onTap: () {},
                       child: Image.asset(AppIcons.shareIcon,
                           color: AppColor.white, width: 30),
                     ),
 
-                    GestureDetector(
-                        onTap: () {
-                          cubit.changeIsBookmarked();
-                        },
-                        child: Icon(
-                          cubit.isBookmarked
-                              ? Icons.bookmark
-                              : Icons.bookmark_border,
-                          color: AppColor.white,
-                          size: 30,
-                        )),
                     GestureDetector(
                       onTap: () {},
                       child: Image.asset(AppIcons.quran2Icon,
