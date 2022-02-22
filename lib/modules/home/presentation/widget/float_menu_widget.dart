@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/data/data_source/repository/database_repository.dart';
 import 'package:flutter_base/modules/data/model/page_marked.dart';
 import 'package:flutter_base/modules/data/model/verse_like.dart';
 import 'package:flutter_base/modules/data/model/verse_note.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
-import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.dart';
+import 'package:flutter_base/modules/data/repository/database_repository.dart';
+
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:get/get.dart';
 

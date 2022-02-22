@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/res/icons_app.dart';
 import '../../widget/float_menu_widget.dart';
 
 class QuranBNBPage extends StatelessWidget {

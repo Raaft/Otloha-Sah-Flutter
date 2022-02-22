@@ -16,26 +16,23 @@ Widget floatingButton(HomeCubit cubit) {
         });
       },
       ///////////commit proplem
-      child: Container(
-
+      child: CircleAvatar(
+        radius: 30,
+        backgroundColor: AppColor.darkBlue,
         child: CircleAvatar(
-          radius: 30,
-          backgroundColor: AppColor.darkBlue,
+          radius: 25,
+          backgroundColor: AppColor.lightBlue,
           child: CircleAvatar(
-            radius: 25,
-            backgroundColor: AppColor.lightBlue,
-            child: CircleAvatar(
-              radius: 20,
-              backgroundColor: AppColor.darkBlue,
+            radius: 20,
+            backgroundColor: AppColor.darkBlue,
+            child:  CircleAvatar(
+              radius: 15,
+              backgroundColor: AppColor.lightBlue,
               child:  CircleAvatar(
-                radius: 15,
-                backgroundColor: AppColor.lightBlue,
-                child:  CircleAvatar(
-                  radius: 10,
-                  backgroundColor: AppColor.darkBlue,
-                ),
-
+                radius: 10,
+                backgroundColor: AppColor.darkBlue,
               ),
+
             ),
           ),
         ),
