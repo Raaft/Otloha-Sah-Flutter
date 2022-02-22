@@ -51,82 +51,77 @@ class _ToolBottonState extends State<ToolBotton> {
                   children: [
                     GestureDetector(
                         onTap: () {
-                          Get.dialog(
-                            const AlertDialogFullScreen(),
-                            barrierColor: AppColor.backdone,
-                          );                        },
-                        child: Icon(
-                          Icons.copy,
-                          color: AppColor.white,
-                          //  size: 40,
-                        )),
-                    GestureDetector(
-                        onTap: () {
-                          cubit.changeIsLiked();
+                         cubit.changeIsPlaying();
                         },
-                        child: Icon(
-                          cubit.isLiked
-                              ? Icons.favorite
-                              : Icons.favorite_border_outlined,
+                        child: Image.asset(
+                          AppIcons.playIcon,
                           color: AppColor.white,
-                          //     size: 40,
+                          height: 30,
                         )),
-                    GestureDetector(
-                      onTap: () {
-                        Scaffold.of(context).showBottomSheet(
-                          (context) => const NoteItemView(
-                            true,
-                            isAdd: true,
-                            isQuranPage: true,
-                          ),
-                          backgroundColor: AppColor.transparent,
-                        );
-                      },
-                      child: Container(
-                          padding: const EdgeInsets.only(right: 10, left: 5),
-                          height: 50,
-                          width: 50,
+                    if (cubit.isSelectedVerse)
+                      GestureDetector(
+                          onTap: () {
+                            cubit.init().then((value) {
+                              cubit.start();
+                              cubit.changeIsRecorded();
+                            });
+                          },
+                          child: const Icon(
+                            Icons.mic_none_outlined,
+                            color: Colors.red,
+                            size: 30,
+                          )),
+                    if (cubit.isSelectedVerse)
+                      GestureDetector(
+                          onTap: () {},
                           child: Icon(
-                            Icons.comment,
+                            Icons.restart_alt_outlined,
                             color: AppColor.white,
-                            //  size: 40,
-                          )
-                          /*Image.asset(
+                            size: 30,
+                          )),
+                    if (cubit.isSelectedVerse)
+                      GestureDetector(
+                        onTap: () {
+                          Scaffold.of(context).showBottomSheet(
+                            (context) => const NoteItemView(
+                              true,
+                              isAdd: true,
+                              isQuranPage: true,
+                            ),
+                            backgroundColor: AppColor.transparent,
+                          );
+                        },
+                        child: Container(
+                            padding: const EdgeInsets.only(right: 10, left: 5),
+                            height: 50,
+                            width: 50,
+                            child: Icon(
+                              Icons.comment,
+                              color: AppColor.white,
+                              //  size: 40,
+                            )
+                            /*Image.asset(
                       AppIcons.quran4Icon,
                       color: AppColor.white,
                     ),*/
-                          ),
+                            ),
+                      ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.dialog(
+                          const AlertDialogFullScreen(),
+                          barrierColor: AppColor.backdone,
+                        );
+                      },
+                      child: const Icon(Icons.copy,color: Colors.white,size: 30,),
                     ),
+
                     GestureDetector(
-                        onTap: () {
-                          cubit.changeIsBookmarked();
-                        },
-                        child: Icon(
-                          cubit.isBookmarked
-                              ? Icons.bookmark
-                              : Icons.bookmark_border,
-                          color: AppColor.white,
-                          // size: 40,
-                        )),
-                    GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.restart_alt_outlined,
-                          color: AppColor.white,
-                          //   size: 40,
-                        )),
-                    GestureDetector(
-                        onTap: () {
-                          cubit.init().then((value) {
-                            cubit.start();
-                            cubit.changeIsRecorded();
-                          });
-                        },
-                        child: const Icon(
-                          Icons.mic_none_outlined,
-                          color: Colors.white,
-                          //size: 40,
-                        )),
+                      onTap: () {},
+                      child: Image.asset(AppIcons.shareIcon,
+                          color: AppColor.white, width: 30),
+                    ),
+
                     GestureDetector(
                       onTap: () {},
                       child: Image.asset(AppIcons.quran2Icon,
