@@ -3,36 +3,45 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/themes/color.dart';
 import '../../business_logic/cubit/home_cubit.dart';
 
-Widget floatingButton(HomeCubit cubit) {
+Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
+  if (isPressed) {
+    cubit.changeOpacity(1);
+  } else {
+    cubit.changeOpacity(.4);
+  }
+
   return Positioned(
     bottom: 50,
     right: 20,
-    child: GestureDetector(
+    child: Opacity(
+      ///opacity: (isBressed)?1:.4,
+      opacity: cubit.opacity,
+      child: GestureDetector(
+        onTap: () async {
 
-      onTap: () async {
-        cubit.changeTrueFloating();
-        Future.delayed(const Duration(seconds: 7), () {
-          cubit.changeFalseFloating();
-        });
-      },
-      ///////////commit proplem
-      child: CircleAvatar(
-        radius: 30,
-        backgroundColor: AppColor.darkBlue,
+          cubit.changeTrueFloating();
+          cubit.changeOpacity(.0);
+
+          
+        },
+        ///////////commit proplem
         child: CircleAvatar(
-          radius: 25,
-          backgroundColor: AppColor.lightBlue,
+          radius: 30,
+          backgroundColor: AppColor.darkBlue,
           child: CircleAvatar(
-            radius: 20,
-            backgroundColor: AppColor.darkBlue,
-            child:  CircleAvatar(
-              radius: 15,
-              backgroundColor: AppColor.lightBlue,
-              child:  CircleAvatar(
-                radius: 10,
-                backgroundColor: AppColor.darkBlue,
+            radius: 25,
+            backgroundColor: AppColor.lightBlue,
+            child: CircleAvatar(
+              radius: 20,
+              backgroundColor: AppColor.darkBlue,
+              child: CircleAvatar(
+                radius: 15,
+                backgroundColor: AppColor.lightBlue,
+                child: CircleAvatar(
+                  radius: 10,
+                  backgroundColor: AppColor.darkBlue,
+                ),
               ),
-
             ),
           ),
         ),

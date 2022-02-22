@@ -22,6 +22,7 @@ class AppIcons {
   static String bubbleIcon = 'assets/icons/bubble.png';
   static String quality2Icon = 'assets/icons/quality2.png';
   static String makkahIcon = 'assets/icons/makkah.png';
+  static String shareIcon = 'assets/icons/share.png';
   static String medinaIcon = 'assets/icons/medina.png';
   static String helalIcon = 'assets/icons/helal.png';
   static String downloadIcon = 'assets/icons/download.png';
