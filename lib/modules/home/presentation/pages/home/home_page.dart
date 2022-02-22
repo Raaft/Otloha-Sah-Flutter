@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
 
-
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -22,12 +21,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     Future.delayed(
       Duration.zero,
-          () {
+      () {
         BlocProvider.of<HomeCubit>(context).changeIndex(
-            (ModalRoute
-                .of(context)!
-                .settings
-                .arguments as int?) ?? 0);
+            (ModalRoute.of(context)!.settings.arguments as int?) ?? 0);
       },
     );
   }
@@ -60,11 +56,15 @@ class _HomePageState extends State<HomePage> {
                 if (state is HomeChangeIndex) {
                   _index = state.index;
                 }
-                return (!cubit.isFloatingMenu) ?BubbleBottomBarApp(
-                  onItemTapped: _changePage,
-                  selectedIndex: _index,
-                  items: homeMenuItems,
-                ):Container(height: 0,);
+                return (!cubit.isFloatingMenu)
+                    ? BubbleBottomBarApp(
+                        onItemTapped: _changePage,
+                        selectedIndex: _index,
+                        items: homeMenuItems,
+                      )
+                    : Container(
+                        height: 0,
+                      );
               },
             ),
           );

@@ -1,10 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
+import 'package:flutter_base/modules/settings/business_logic/cubit/language_cubit.dart';
+import 'package:flutter_base/modules/settings/data/models/init_data.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class LanguagesPage extends StatefulWidget {
@@ -36,17 +42,11 @@ class _LanguagesPageState extends State<LanguagesPage> {
   }
 
   Widget _topView() {
-    return ToolBarApp(
+    return SearchBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
-        },
-      ),
-      actionIcon: IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {
-          show(context);
         },
       ),
       title: 'Languages Center',
@@ -58,30 +58,48 @@ class _LanguagesPageState extends State<LanguagesPage> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: 15,
-          itemBuilder: (context, index) {
-            return ItemDownload(
-              name: 'Languages ${index + 1}',
-              surah: 'surah',
-              isDownloaded: true,
-              isSelect: _selected == index,
-              action: () {
-                Get.dialog(
-                  const AlertDialogFullScreen(),
-                  barrierColor: AppColor.backdone,
-                );
-                CacheHelper.saveData(key: 'LanguagesSelected', value: index);
-                CacheHelper.saveData(
-                    key: 'LanguagesSelectedName',
-                    value: 'Languages ${index + 1}');
-                setState(() {
-                  _selected = index;
-                });
-              },
-            );
+          itemCount: lang.length,
+          itemBuilder: (ctx, index) {
+            return _builder(index);
           },
         ),
       ),
+    );
+  }
+
+  Widget _builder(int index) {
+    return ItemDownload(
+      name: lang[index].langName,
+      surah: '',
+      isDownloaded: true,
+      isSelect: _selected == index,
+      action: () {
+        try {
+          CacheHelper.saveData(key: 'LanguagesSelected', value: index);
+          CacheHelper.saveData(
+              key: 'LanguagesSelectedName', value: lang[index].langName);
+          setState(() {
+            _selected = index;
+
+            if (index == 0) {
+              isEn = true;
+            } else {
+              isEn = false;
+            }
+          });
+
+          BlocProvider.of<LanguageCubit>(context).changeLan(isEn, context);
+
+          print(index.toString() + '  ' + (isEn ? 'en' : 'ar'));
+
+          Get.dialog(
+            const AlertDialogFullScreen(),
+            barrierColor: AppColor.backdone,
+          );
+        } catch (e) {
+          printError(info: e.toString());
+        }
+      },
     );
   }
 }

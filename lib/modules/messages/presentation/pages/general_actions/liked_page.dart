@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
-import 'package:flutter_base/core/widgets/show_search.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/user_like.dart';
 
 class LikedPage extends StatelessWidget {
@@ -28,17 +27,11 @@ class LikedPage extends StatelessWidget {
   }
 
   Widget _topView(BuildContext context) {
-    return ToolBarApp(
+    return SearchBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
-        },
-      ),
-      actionIcon: IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {
-          show(context);
         },
       ),
       title: translate('Users'),

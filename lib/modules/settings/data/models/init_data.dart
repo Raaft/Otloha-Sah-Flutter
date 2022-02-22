@@ -2,6 +2,7 @@ import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
+import 'package:flutter_base/modules/settings/data/models/language.dart';
 import 'package:flutter_base/modules/settings/data/models/setting.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/languages_page.dart';
@@ -52,4 +53,9 @@ final List<Settings> settings = [
     image: AppIcons.downloadIcon,
     actionTo: DownloadCenterPage.routeName,
   ),
+];
+
+List<Language> lang = [
+  Language(langName: 'English', langCode: 'en'),
+  Language(langName: 'العربية', langCode: 'ar'),
 ];
