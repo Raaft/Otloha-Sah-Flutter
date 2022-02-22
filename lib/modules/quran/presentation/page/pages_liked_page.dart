@@ -8,6 +8,7 @@ import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranaction_cubit.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/note_item_view.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/user_like.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,17 +43,11 @@ class PagesLikedPage extends StatelessWidget {
   }
 
   Widget _topView(BuildContext context) {
-    return ToolBarApp(
+    return SearchBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
-        },
-      ),
-      actionIcon: IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {
-          show(context);
         },
       ),
       title: (arg == 2)

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/widgets/show_search.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
@@ -75,28 +76,18 @@ class _TeacherPageState extends State<TeacherPage> {
   }
 
   Widget _topView() {
-    return ToolBarApp(
+    return SearchBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
         },
       ),
-      actionIcon: Row(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              show(context);
-            },
-          ),
-          IconButton(
-            icon: Icon(_type ? Icons.grid_view : Icons.list),
-            onPressed: () {
-              BlocProvider.of<TeacherviewtypeCubit>(context).changeType(!_type);
-            },
-          ),
-        ],
+      actionIcon: IconButton(
+        icon: Icon(_type ? Icons.grid_view : Icons.list),
+        onPressed: () {
+          BlocProvider.of<TeacherviewtypeCubit>(context).changeType(!_type);
+        },
       ),
       title: translate('Teachers'),
     );

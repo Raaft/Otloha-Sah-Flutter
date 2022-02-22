@@ -5,7 +5,7 @@ import 'package:flutter_base/core/utils/themes/text_style.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:search_page/search_page.dart';
 
-show(BuildContext context) {
+shoow(BuildContext context) {
   showSearch(
     context: context,
     delegate: SearchPage<Object>(

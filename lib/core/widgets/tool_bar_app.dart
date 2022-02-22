@@ -6,12 +6,12 @@ import 'package:flutter_base/core/widgets/text_view.dart';
 class ToolBarApp extends StatelessWidget {
   const ToolBarApp({
     Key? key,
-    required this.backIcon,
+    this.backIcon,
     this.actionIcon,
     required this.title,
   }) : super(key: key);
 
-  final Widget backIcon;
+  final Widget? backIcon;
   final Widget? actionIcon;
   final String title;
 
@@ -22,7 +22,7 @@ class ToolBarApp extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          backIcon,
+          backIcon ?? Container(),
           Expanded(
             child: TextView(
               text: title,
