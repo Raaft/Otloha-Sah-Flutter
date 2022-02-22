@@ -28,7 +28,6 @@ void main() async {
 
   BlocOverrides.runZoned(
     () => runApp(
-
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/lang', // <- change the path of the translation files
@@ -57,7 +56,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

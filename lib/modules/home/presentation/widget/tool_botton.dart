@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/data/model/verse_like.dart';
+import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/note_item_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +29,7 @@ class _ToolBottonState extends State<ToolBotton> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 0),
-                width: MediaQuery.of(context).size.width / 1.3,
+                width: MediaQuery.of(context).size.width / 1.09,
                 alignment: Alignment.center,
                 height: 45,
                 decoration: BoxDecoration(
@@ -68,7 +70,7 @@ class _ToolBottonState extends State<ToolBotton> {
                           },
                           child: const Icon(
                             Icons.mic_none_outlined,
-                            color: Colors.red,
+                            color: Colors.white,
                             size: 30,
                           )),
                     if (cubit.isSelectedVerse)
@@ -115,6 +117,26 @@ class _ToolBottonState extends State<ToolBotton> {
                       },
                       child: const Icon(Icons.copy,color: Colors.white,size: 30,),
                     ),
+                    GestureDetector(
+                        onTap: () {
+                          cubit.changeIsLiked();
+                          DatabaseRepository()
+                              .insertVerseLiked(VerseLiked(
+                            idFromVerse: 1,
+                            pageNumber: 20,
+                            textFristVerse:
+                            'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                            idToVerse: 2,
+                            idPage: 20,
+                          ));
+                        },
+                        child: Icon(
+                          cubit.isLiked
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
+                          color: AppColor.white,
+                          size: 30,
+                        )),
 
                     GestureDetector(
                       onTap: () {},

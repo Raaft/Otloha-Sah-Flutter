@@ -112,6 +112,7 @@ class HomeCubit extends Cubit<HomeState> {
   changeIsOnFalsePressed() {
     isOnPressed = false;
     isFloatingMenu = false;
+    isPlaying=false;
 
     emit(IsOnPressTrueState());
   }

@@ -8,7 +8,6 @@ class HomePage extends StatefulWidget {
   static const routeName = '/home';
 
 
-
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -23,9 +22,12 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     Future.delayed(
       Duration.zero,
-      () {
+          () {
         BlocProvider.of<HomeCubit>(context).changeIndex(
-            (ModalRoute.of(context)!.settings.arguments as int?) ?? 0);
+            (ModalRoute
+                .of(context)!
+                .settings
+                .arguments as int?) ?? 0);
       },
     );
   }
@@ -41,27 +43,32 @@ class _HomePageState extends State<HomePage> {
           return true;
         }
       },
-      child: Scaffold(
-        body: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            if (state is HomeChangeIndex) {
-              _index = state.index;
-            }
-            return SafeArea(child: homeMenuItems[_index].page);
-          },
-        ),
-        bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            if (state is HomeChangeIndex) {
-              _index = state.index;
-            }
-            return BubbleBottomBarApp(
-              onItemTapped: _changePage,
-              selectedIndex: _index,
-              items: homeMenuItems,
-            );
-          },
-        ),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          var cubit = HomeCubit.get(context);
+          return Scaffold(
+            body: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                if (state is HomeChangeIndex) {
+                  _index = state.index;
+                }
+                return SafeArea(child: homeMenuItems[_index].page);
+              },
+            ),
+            bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                if (state is HomeChangeIndex) {
+                  _index = state.index;
+                }
+                return (!cubit.isFloatingMenu) ?BubbleBottomBarApp(
+                  onItemTapped: _changePage,
+                  selectedIndex: _index,
+                  items: homeMenuItems,
+                ):Container(height: 0,);
+              },
+            ),
+          );
+        },
       ),
     );
   }
