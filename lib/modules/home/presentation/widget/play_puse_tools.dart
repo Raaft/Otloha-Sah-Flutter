@@ -18,7 +18,8 @@ class PlayPauseTools extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 0),
-                width: MediaQuery.of(context).size.width / 1.3,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: MediaQuery.of(context).size.width / 2,
                 alignment: Alignment.center,
                 height: 45,
                 decoration: BoxDecoration(
@@ -39,7 +40,7 @@ class PlayPauseTools extends StatelessWidget {
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                         onTap: () {
