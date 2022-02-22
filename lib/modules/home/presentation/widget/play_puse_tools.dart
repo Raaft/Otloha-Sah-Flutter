@@ -61,6 +61,7 @@ class PlayPauseTools extends StatelessWidget {
 
                     GestureDetector(
                         onTap: () {
+                          cubit.changeIsOnFalsePressed();
                         },
                         child: Icon(
                           Icons.stop,

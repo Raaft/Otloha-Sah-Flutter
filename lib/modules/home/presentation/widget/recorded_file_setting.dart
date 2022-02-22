@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,11 +45,8 @@ class RecordedFileTool extends StatelessWidget {
                         onTap: () {
                           cubit.onPlayAudio();
                         },
-                        child: Icon(
-                          Icons.play_arrow_outlined,
-                          color: AppColor.white,
-                          //  size: 40,
-                        )),
+                        child:Image.asset(AppIcons.playIcon,
+                            color: AppColor.white, width: 30),),
                     GestureDetector(
                         onTap: () {
                           cubit.init().then((value) {
@@ -59,14 +57,14 @@ class RecordedFileTool extends StatelessWidget {
                         child: Icon(
                           Icons.mic_none,
                           color: AppColor.white,
-                          //  size: 40,
+                            size: 30,
                         )),
                     GestureDetector(
                         onTap: () {},
                         child: Icon(
                           Icons.save_alt,
                           color: AppColor.white,
-                          //size: 40,
+                          size: 30,
                         )),
                     GestureDetector(
                         onTap: () {
@@ -82,6 +80,12 @@ class RecordedFileTool extends StatelessWidget {
                           color: AppColor.white,
                           //  size: 40,
                         )),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Image.asset(AppIcons.shareIcon,
+                          color: AppColor.white, width: 30),
+                    ),
+
                   ],
                 ),
               )));
