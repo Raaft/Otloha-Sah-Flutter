@@ -15,6 +15,7 @@ Widget floatingButton(HomeCubit cubit) {
           cubit.changeFalseFloating();
         });
       },
+      ///////////commit proplem
       child: Container(
 
         child: CircleAvatar(
