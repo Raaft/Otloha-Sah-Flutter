@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:get/get.dart';
 
 class NoteItemView extends StatelessWidget {
   const NoteItemView(this.isNote,
-      {this.isAdd = false, Key? key, this.isQuranPage = false})
+      {this.isAdd = false, Key? key, this.isQuranPage = false, this.note})
       : super(key: key);
 
   final bool isNote;
+  final String? note;
   final bool isQuranPage;
   final bool isAdd;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      color: AppColor.transparent,
-      child: Stack(
-        children: [
-          if (isQuranPage == false) _viewTop(context),
-          _viewPage(context),
-        ],
+    return Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * .75),
+      child: Container(
+        margin: const EdgeInsets.only(top: 40),
+        color: AppColor.transparent,
+        child: Stack(
+          children: [
+            if (isQuranPage == false) _viewTop(context),
+            _viewPage(context),
+          ],
+        ),
       ),
     );
   }
@@ -63,32 +64,11 @@ class NoteItemView extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             if (isNote)
-              TextFormFieldApp(
-                title: 'Note',
-                validator: (val) {
-                  return null;
-                },
-                onSaved: (val) {},
+              TextView(
+                text: note ?? '',
+                textAlign: TextAlign.start,
               ),
             const SizedBox(height: 40),
-            if (isNote)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: TextView(
-                        text: isAdd ? translate('Save') : translate('SaveEdit'),
-                        colorText: AppColor.txtColor2,
-                      ),
-                    ),
-                  ),
-                ],
-              )
           ],
         ),
       ),

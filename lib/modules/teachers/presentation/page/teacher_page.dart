@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
@@ -50,7 +51,7 @@ class _TeacherPageState extends State<TeacherPage> {
                 itemCount: 20,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
-                  childAspectRatio: 2 / 2.4,
+                  childAspectRatio: 2 / 2.45,
                 ),
                 itemBuilder: (context, index) {
                   return _itemView(index);
@@ -85,7 +86,9 @@ class _TeacherPageState extends State<TeacherPage> {
         children: [
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              show(context);
+            },
           ),
           IconButton(
             icon: Icon(_type ? Icons.grid_view : Icons.list),

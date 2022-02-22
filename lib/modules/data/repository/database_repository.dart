@@ -9,11 +9,13 @@ class DatabaseRepository {
   static VerseNoteDao? verseNoteDao;
   static VerseLikedDao? verseLikedDao;
 
-  initDb() async {
+  Future<DatabaseRepository> get initDb async {
     await _database.database;
     pageMarkedDao = _database.pageMarkedDao;
     verseNoteDao = _database.verseNoteDao;
     verseLikedDao = _database.verseLikedDao;
+
+    return this;
   }
 
   // Verse Liked

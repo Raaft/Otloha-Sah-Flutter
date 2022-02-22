@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base/app_router.dart';
+import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/data/data_source/repository/database_repository.dart';
+import 'package:flutter_base/modules/data/repository/database_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() async {
@@ -12,7 +14,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
 //init DateBase
-  DatabaseRepository().initDb();
+  await DatabaseRepository().initDb;
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -24,17 +26,20 @@ void main() async {
 
   CacheHelper.init();
 
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ar')],
-      path: 'assets/lang', // <- change the path of the translation files
-      fallbackLocale: const Locale('en'),
-      startLocale: const Locale('ar'),
-      useOnlyLangCode: true,
-      child: MyApp(
-        appRouter: AppRouter(),
+  BlocOverrides.runZoned(
+    () => runApp(
+      EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('ar')],
+        path: 'assets/lang', // <- change the path of the translation files
+        fallbackLocale: const Locale('en'),
+        startLocale: const Locale('ar'),
+        useOnlyLangCode: true,
+        child: MyApp(
+          appRouter: AppRouter(),
+        ),
       ),
     ),
+    blocObserver: AppBlocObserver(),
   );
 }
 

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_surah.dart';
+import 'package:get/get.dart';
 
 class IndexSurahPage extends StatefulWidget {
   const IndexSurahPage({Key? key}) : super(key: key);
@@ -90,7 +92,9 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
       ),
       actionIcon: IconButton(
         icon: const Icon(Icons.search),
-        onPressed: () {},
+        onPressed: () {
+          show(context);
+        },
       ),
       title: 'Index',
     );
@@ -115,6 +119,9 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
                 setState(() {
                   _selected = index;
                 });
+              },
+              action: () {
+                Get.back();
               },
             );
           },

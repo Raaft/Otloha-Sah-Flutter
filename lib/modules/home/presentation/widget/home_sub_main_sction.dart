@@ -21,7 +21,7 @@ class HomeSubMainSection extends StatelessWidget {
       },
       child: Container(
         height: MediaQuery.of(context).size.height * .12,
-        width: MediaQuery.of(context).size.height * .11,
+        width: MediaQuery.of(context).size.height * .125,
         padding: const EdgeInsets.all(4),
         margin: const EdgeInsets.all(3),
         decoration: BoxDecoration(
@@ -43,17 +43,17 @@ class HomeSubMainSection extends StatelessWidget {
               colorText: AppColor.txtColor3,
               sizeText: 12,
               weightText: FontWeight.w700,
-              padding: const EdgeInsets.all(2),
+              padding: const EdgeInsets.all(0),
               textAlign: TextAlign.center,
             ),
             //if (item.subTitle != null && item.subTitle!.isNotEmpty)
             TextView(
               text: item.subTitle ?? '',
               colorText: AppColor.txtColor4,
-              sizeText: 8,
-              padding: const EdgeInsets.all(2),
+              sizeText: 12,
+              padding: const EdgeInsets.all(0),
               textAlign: TextAlign.center,
-              overflow: TextOverflow.fade,
+              //overflow: TextOverflow.fade,
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
@@ -85,7 +86,9 @@ class _StudentsPageState extends State<StudentsPage> {
         children: [
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              show(context);
+            },
           ),
           IconButton(
             icon: Icon(_type ? Icons.grid_view : Icons.list),

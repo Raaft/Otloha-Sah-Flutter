@@ -32,7 +32,7 @@ class OnBoardPage extends StatelessWidget {
                     buttonText: 'Login',
                     width: MediaQuery.of(context).size.height * 0.5,
                     onPressed: () {
-                      Get.to(LoginPage());
+                      Get.to(() => LoginPage());
                     },
                     colors: [
                       AppColor.lightYellow,
@@ -43,7 +43,7 @@ class OnBoardPage extends StatelessWidget {
                     buttonText: 'Sign up',
                     width: MediaQuery.of(context).size.height * 0.5,
                     onPressed: () {
-                      Get.to(SignUpPage());
+                      Get.to(() => SignUpPage());
                     },
                     colors: [
                       AppColor.darkBlue,
@@ -54,10 +54,12 @@ class OnBoardPage extends StatelessWidget {
                     buttonText: 'Guest',
                     width: MediaQuery.of(context).size.height * 0.5,
                     onPressed: () {
-                      Get.to(  BlocProvider(
-                        create: (_) => HomeCubit(),
-                        child: const HomePage(),
-                      ),);
+                      Get.to(
+                        () => BlocProvider(
+                          create: (_) => HomeCubit(),
+                          child: const HomePage(),
+                        ),
+                      );
                     },
                     colors: [
                       AppColor.hidenBlue,

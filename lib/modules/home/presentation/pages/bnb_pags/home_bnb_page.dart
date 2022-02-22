@@ -89,7 +89,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
 
   Widget _subSections(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * .14,
+      height: MediaQuery.of(context).size.height * .15,
       child: ListView.builder(
         padding: const EdgeInsets.all(4),
         shrinkWrap: true,
