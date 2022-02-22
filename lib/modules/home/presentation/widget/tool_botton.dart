@@ -5,6 +5,9 @@ import 'package:flutter_base/modules/quran/presentation/widget/note_item_view.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/widgets/alert_dialog_full_screen.dart';
+
 class ToolBotton extends StatefulWidget {
   const ToolBotton({Key? key}) : super(key: key);
 
@@ -38,7 +41,7 @@ class _ToolBottonState extends State<ToolBotton> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     stops: const [0.0, 1.1],
-                    colors: [ AppColor.lightBlue,AppColor.darkBlue],
+                    colors: [AppColor.lightBlue, AppColor.darkBlue],
                   ),
                   color: Colors.deepPurple.shade300,
                   borderRadius: BorderRadius.circular(10),
@@ -48,21 +51,25 @@ class _ToolBottonState extends State<ToolBotton> {
                   children: [
                     GestureDetector(
                         onTap: () {
-                          Get.snackbar('successfully', 'Text coped');
-                        },
+                          Get.dialog(
+                            const AlertDialogFullScreen(),
+                            barrierColor: AppColor.backdone,
+                          );                        },
                         child: Icon(
                           Icons.copy,
                           color: AppColor.white,
-                        //  size: 40,
+                          //  size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
                           cubit.changeIsLiked();
                         },
                         child: Icon(
-                          Icons.favorite_border_outlined,
+                          cubit.isLiked
+                              ? Icons.favorite
+                              : Icons.favorite_border_outlined,
                           color: AppColor.white,
-                     //     size: 40,
+                          //     size: 40,
                         )),
                     GestureDetector(
                       onTap: () {
@@ -82,7 +89,7 @@ class _ToolBottonState extends State<ToolBotton> {
                           child: Icon(
                             Icons.comment,
                             color: AppColor.white,
-                          //  size: 40,
+                            //  size: 40,
                           )
                           /*Image.asset(
                       AppIcons.quran4Icon,
@@ -95,23 +102,24 @@ class _ToolBottonState extends State<ToolBotton> {
                           cubit.changeIsBookmarked();
                         },
                         child: Icon(
-                          Icons.bookmark,
+                          cubit.isBookmarked
+                              ? Icons.bookmark
+                              : Icons.bookmark_border,
                           color: AppColor.white,
-                         // size: 40,
+                          // size: 40,
                         )),
                     GestureDetector(
                         onTap: () {},
                         child: Icon(
                           Icons.restart_alt_outlined,
                           color: AppColor.white,
-                       //   size: 40,
+                          //   size: 40,
                         )),
                     GestureDetector(
                         onTap: () {
                           cubit.init().then((value) {
                             cubit.start();
                             cubit.changeIsRecorded();
-
                           });
                         },
                         child: const Icon(
@@ -120,12 +128,10 @@ class _ToolBottonState extends State<ToolBotton> {
                           //size: 40,
                         )),
                     GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.play_arrow_outlined,
-                          color: AppColor.white,
-                      //    size: 40,
-                        )),
+                      onTap: () {},
+                      child: Image.asset(AppIcons.quran2Icon,
+                          color: AppColor.white, width: 30),
+                    ),
                   ],
                 ),
               )));

@@ -36,8 +36,11 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   StreamSubscription<PlayerControlCommand>? _playerControlCommandSubscription;
 
   bool get _isPlaying => _playerState == PlayerState.PLAYING;
+
   bool get _isPaused => _playerState == PlayerState.PAUSED;
+
   String get _durationText => _duration?.toString().split('.').first ?? '';
+
   String get _positionText => _position?.toString().split('.').first ?? '';
 
   bool get _isPlayingThroughEarpiece =>
@@ -158,8 +161,10 @@ class _PlayerWidgetState extends State<PlayerWidget> {
           artist: 'Artist or blank',
           albumTitle: 'Name or blank',
           imageUrl: 'Image URL or blank',
-          forwardSkipInterval: const Duration(seconds: 30), // default is 30s
-          backwardSkipInterval: const Duration(seconds: 30), // default is 30s
+          forwardSkipInterval: const Duration(seconds: 30),
+          // default is 30s
+          backwardSkipInterval: const Duration(seconds: 30),
+          // default is 30s
           duration: duration,
           enableNextTrackButton: true,
           enablePreviousTrackButton: true,

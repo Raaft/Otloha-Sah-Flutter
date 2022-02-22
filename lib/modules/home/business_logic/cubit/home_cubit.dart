@@ -29,6 +29,19 @@ class HomeCubit extends Cubit<HomeState> {
   bool isOnPressed = false;
   bool isRecorded = false;
   bool isRecordedFile = false;
+  bool isFloatingMenu = false;
+
+  changeTrueFloating() {
+    isOnPressed = false;
+    isFloatingMenu = true;
+
+    emit(IsFloatingTrueMenuState());
+  }
+
+  changeFalseFloating(){isOnPressed = false;
+  isFloatingMenu = false;
+
+  emit(IsFloatingFalseMenuState());}
 
   changeIsLiked() {
     if (isLiked == false) {
@@ -54,12 +67,14 @@ class HomeCubit extends Cubit<HomeState> {
     isOnPressed = true;
     isRecorded = false;
     isRecordedFile = false;
+    isFloatingMenu=false;
 
     emit(IsOnPressFalseState());
   }
 
   changeIsOnFalsePressed() {
     isOnPressed = false;
+    isFloatingMenu=false;
 
     emit(IsOnPressTrueState());
   }
@@ -142,13 +157,12 @@ class HomeCubit extends Cubit<HomeState> {
         _currentStatus = this.current!.status!;
         emit(HomeInitial());
         emit(GetDurationState());
-
       });
     } catch (e) {
       print(e);
     }
+    return null;
   }
-
 
   Future resume() async {
     await _recorder!.resume();
@@ -159,16 +173,18 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future stop() async {
-   try{ var result = await _recorder!.stop();
-   print('Stop recording: ${result!.path}');
-   print('Stop recording: ${result.duration}');
-   File? file = localFileSystem!.file(result.path);
-   print('File length: ${await file.length()}');
+    try {
+      var result = await _recorder!.stop();
+      print('Stop recording: ${result!.path}');
+      print('Stop recording: ${result.duration}');
+      File? file = localFileSystem!.file(result.path);
+      print('File length: ${await file.length()}');
 
-   current = result;
-   _currentStatus = current!.status!;}catch(e){
-     print(e);
-   }
+      current = result;
+      _currentStatus = current!.status!;
+    } catch (e) {
+      print(e);
+    }
   }
 
   void onPlayAudio() async {
@@ -189,6 +205,8 @@ class HomeCubit extends Cubit<HomeState> {
       encoder: AudioEncoder.AAC,
     );
     var isPlay = await RecordPlatform.instance.isRecording();
+
+
 
     emit(RecordIsRecord(isRecord: isPlay));
   }*/

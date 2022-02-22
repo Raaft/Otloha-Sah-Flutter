@@ -1,179 +1,104 @@
-import 'package:draggable_fab/draggable_fab.dart';
-import 'package:fab_circular_menu/fab_circular_menu.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/widget/floating_button.dart';
+import 'package:flutter_base/modules/home/presentation/widget/floatin_button_widget.dart';
 import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
 import 'package:flutter_base/modules/home/presentation/widget/recorded_file_setting.dart';
 
 import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+
+import '../../../../../core/utils/res/icons_app.dart';
+import '../../widget/float_menu_widget.dart';
 
 class QuranBNBPage extends StatelessWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      /// bottomNavigationBar: rowTools(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-      ),
-      body: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          var cubit = HomeCubit.get(context);
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              Stack(
-                children: [
-                  _viewTop(context),
-                  _viewPageReading(context),
-                  /* FabCircularMenu(children: <Widget>[
-                    IconButton(
-                        icon: const Icon(Icons.home),
-                        onPressed: () {
-                          print('Home');
-                        }),
-                    IconButton(
-                        icon: const Icon(Icons.home),
-                        onPressed: () {
-                          print('Home');
-                        }),
-                    IconButton(
-                        icon: const Icon(Icons.home),
-                        onPressed: () {
-                          print('Home');
-                        }),
-                    IconButton(
-                        icon: const Icon(Icons.favorite),
-                        onPressed: () {
-                          print('Favorite');
-                        })
-                  ]), */
-                ],
-              ),
-              Positioned(
-                top: 200,
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Column(
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        var cubit = HomeCubit.get(context);
+        return Scaffold(
+          //  floatingActionButton: cubit.isOnPressed ? floatingButton( cubit) : null,
+            body: Stack(
+              alignment: Alignment.center,
+              children: [
+                Stack(
+                  children: [
+                    _viewTop(context),
+                    _viewPageReading(context),
+                  ],
+                ),
+                Positioned(
+                  top: 200,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      children: [
+                        AuthButton(
+                            buttonText: 'on press',
+                            width: MediaQuery.of(context).size.width / 2,
+                            onPressed: () {
+                              cubit.changeIsOnTruePressed();
+                              Future.delayed(const Duration(seconds: 5), () {
+                                cubit.changeIsOnFalsePressed();
+                              });
+                            },
+                            colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                        AuthButton(
+                            buttonText: 'on long press',
+                            width: MediaQuery.of(context).size.width / 2,
+                            onPressed: () {
+                              //cubit.changeIsOnPressed();
+                            },
+                            colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                        AuthButton(
+                            buttonText: 'on double press',
+                            width: MediaQuery.of(context).size.width / 2,
+                            onPressed: () {
+                              //cubit.changeIsOnPressed();
+                            },
+                            colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 50,
+                  child: Row(
                     children: [
-                      AuthButton(
-                          buttonText: 'on press',
-                          width: MediaQuery.of(context).size.width / 2,
-                          onPressed: () {
-                            cubit.changeIsOnTruePressed();
-                            Future.delayed(const Duration(seconds: 5), () {
-                              cubit.changeIsOnFalsePressed();
-                            });
-                          },
-                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                      AuthButton(
-                          buttonText: 'on long press',
-                          width: MediaQuery.of(context).size.width / 2,
-                          onPressed: () {
-                            //cubit.changeIsOnPressed();
-                          },
-                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                      AuthButton(
-                          buttonText: 'on double press',
-                          width: MediaQuery.of(context).size.width / 2,
-                          onPressed: () {
-                            //cubit.changeIsOnPressed();
-                          },
-                          colors: [AppColor.darkBlue, AppColor.lightBlue]),
+                      if (cubit.isLiked)
+                        const Icon(
+                          Icons.favorite,
+                          color: Colors.amber,
+                          size: 40,
+                        ),
+                      if (cubit.isBookmarked)
+                        const Icon(
+                          Icons.bookmark,
+                          color: Colors.amber,
+                          size: 40,
+                        ),
                     ],
                   ),
                 ),
-              ),
-              Positioned(
-                top: 50,
-                child: Row(
-                  children: [
-                    if (cubit.isLiked)
-                      const Icon(
-                        Icons.favorite,
-                        color: Colors.amber,
-                        size: 40,
-                      ),
-                    if (cubit.isBookmarked)
-                      const Icon(
-                        Icons.bookmark,
-                        color: Colors.amber,
-                        size: 40,
-                      ),
-                  ],
-                ),
-              ),
-              if (cubit.isRecorded) const RecordTool(),
-              if (cubit.isOnPressed) const ToolBotton(),
-              if (cubit.isRecordedFile) const RecordedFileTool(),
-              Positioned(
-                bottom: MediaQuery.of(context).size.width / -2,
-                right: MediaQuery.of(context).size.width / -2,
-                child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                                colors: [
-                                  AppColor.lightBlue.withOpacity(.5),
-                                  AppColor.darkBlue.withOpacity(.9),
-                                ],
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight)),
-                        child: CircleAvatar(
-                          backgroundColor: AppColor.transparent,
-                          radius: MediaQuery.of(context).size.width / 2,
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                         // Get.snackbar('successfully', 'Text coped');
-                                        },
-                                        child: Icon(
-                                          Icons.copy,
-                                          color: AppColor.white,
-                                          //  size: 40,
-                                        )),
-                                    GestureDetector(
-                                        onTap: () {
-                                          cubit.changeIsLiked();
-                                        },
-                                        child: Icon(
-                                          Icons.favorite_border_outlined,
-                                          color: AppColor.white,
-                                          //     size: 40,
-                                        )),
-
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ))),
-              )
-            ],
-          );
-        },
-      ),
+                if (cubit.isRecorded) const RecordTool(),
+                if (cubit.isOnPressed) const ToolBotton(),
+                if (cubit.isRecordedFile) const RecordedFileTool(),
+                if (cubit.isFloatingMenu) floatMenu(context, cubit),
+                if(cubit.isOnPressed)floatingButton( cubit)
+              ],
+            ));
+      },
     );
   }
 

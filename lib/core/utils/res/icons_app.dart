@@ -6,6 +6,7 @@ class AppIcons {
   static String homeIcon = 'assets/icons/home.png';
   static String searchIcon = 'assets/icons/search.png';
   static String quranIcon = 'assets/icons/quran.png';
+  static String playIcon = 'assets/icons/play.png';
   static String quran4Icon = 'assets/icons/quran4.png';
   static String quran2Icon = 'assets/icons/quran2.png';
   static String quran3Icon = 'assets/icons/quran3.png';
