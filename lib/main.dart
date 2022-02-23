@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/plugin_aut/plugin_auth.dart';
+import 'package:flutter_base/plugin_aut/plugin_web_servise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -37,6 +39,8 @@ void main() async {
     isEn = false;
   }
 
+  DioHelper.init();
+
   BlocOverrides.runZoned(
     () => runApp(
       EasyLocalization(
@@ -56,7 +60,7 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final AppRouter appRouter;
 
   const MyApp({
@@ -64,8 +68,20 @@ class MyApp extends StatelessWidget {
     required this.appRouter,
   }) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    PluginAuth().pluginAuth(
+      url: '/o/token/',
+    );
+  }
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -76,7 +92,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      onGenerateRoute: appRouter.generateRoute,
+      onGenerateRoute: widget.appRouter.generateRoute,
     );
   }
 }

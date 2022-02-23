@@ -8,12 +8,12 @@ class DioHelper {
   static String clientId = 'VFvrohediCdsx7mcmoEeud09ANiIP4QyPK5IHI87';
   static String clientSecret = 'VFvrohediCdsx7mcmoEeud09ANiIP4QyPK5IHI87';
   static String auth = '$clientId:$clientSecret';
-  static String encoded =
-      base64.encode(utf8.encode(auth));
+  static String encoded = base64.encode(utf8.encode(auth));
 
   static init() {
+    print('code is $encoded');
     dio = Dio(BaseOptions(
-      baseUrl: '165.232.114.22',
+      baseUrl: 'http://165.232.114.22',
       receiveDataWhenStatusError: true,
       headers: {
         'Authorization': 'Basic $encoded',
@@ -25,10 +25,8 @@ class DioHelper {
 
   static Future<Response> postData({
     required String url,
-    data,
-    required Map<String, dynamic> query,
   }) async {
     //dio.options.headers = {};
-    return await dio.post(url, data: data, queryParameters: query);
+    return await dio.post(url, data: 'grant_type=client_credentials');
   }
 }
