@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 class DioHelper {
   static Dio dio = Dio();
   static String clientId = 'VFvrohediCdsx7mcmoEeud09ANiIP4QyPK5IHI87';
-  static String clientSecret = 'VFvrohediCdsx7mcmoEeud09ANiIP4QyPK5IHI87';
+  static String clientSecret = 'leAfUoFYWFs6WnD3akwCAyWPglqVdOmR2FuMMGCRZGb3lPz4Yanr2F9ow3IRyQnc07nqBvrIibnwakOZTfbKz0CDGqicNfycaqPwsJyXyyyjV5JKsPQHc809MbYYfWY9';
   static String auth = '$clientId:$clientSecret';
   static String encoded = base64.encode(utf8.encode(auth));
 
