@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
