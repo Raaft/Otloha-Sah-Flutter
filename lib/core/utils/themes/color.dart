@@ -12,7 +12,7 @@ class AppColor {
   static Color transparent = Colors.transparent;
 
   ////Text Color
-  static const Color lightBlue = Color(0xff01cffd);
+  static  Color lightBlue = const Color(0xff01cffd);
   static Color darkBlue = const Color(0xff397cd6);
   static Color silver = const Color(0xffb9b7b7);
   static Color darkSilver = const Color(0xff959394);
