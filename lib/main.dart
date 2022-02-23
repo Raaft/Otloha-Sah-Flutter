@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_base/plugin_aut/plugin_auth.dart';
-import 'package:flutter_base/plugin_aut/plugin_web_servise.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -11,8 +10,7 @@ import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
-
-import 'core/utils/constant/constants.dart';
+import 'package:quran_widget_flutter/plugin_aut/plugin_web_servise.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +37,7 @@ void main() async {
     isEn = false;
   }
 
-  DioHelper.init();
+  QuranWidgetInit.init(clientId: clientId, clientSecret: clientSecret);
 
   BlocOverrides.runZoned(
     () => runApp(
@@ -60,26 +58,13 @@ void main() async {
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   final AppRouter appRouter;
 
   const MyApp({
     Key? key,
     required this.appRouter,
   }) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    PluginAuth().pluginAuth(
-      url: '/o/token/',
-    );
-  }
 
   // This widget is the root of your application.
   @override
@@ -92,7 +77,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      onGenerateRoute: widget.appRouter.generateRoute,
+      onGenerateRoute: appRouter.generateRoute,
     );
   }
 }

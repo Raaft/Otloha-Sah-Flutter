@@ -62,22 +62,29 @@ class _NarrationPageState extends State<NarrationPage> {
         } else if (state is NarrationInitial) {
           return const LoadingWidget();
         } else {
-          return _viewError(state);
+          return _viewData(
+            null,
+            isDemo: true,
+          );
         }
       },
     );
   }
 
-  Expanded _viewData(List<Narration> narrations) {
+  Expanded _viewData(List<Narration>? narrations, {bool isDemo = false}) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: narrations.length,
+          itemCount: isDemo ? 15 : narrations!.length,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: narrations[index].name.toString(),
-              surah: narrations[index].description.toString(),
+              name: isDemo
+                  ? 'narrations name'
+                  : narrations![index].name.toString(),
+              surah: isDemo
+                  ? 'narrations description'
+                  : narrations![index].description.toString(),
               isDownloaded: true,
               isSelect: _selected == index,
               action: () {
@@ -86,10 +93,12 @@ class _NarrationPageState extends State<NarrationPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(
-                    key: 'NarrationsSelected', value: narrations[index].id);
+                    key: 'NarrationsSelected',
+                    value: isDemo ? index : narrations![index].id);
                 CacheHelper.saveData(
                     key: 'NarrationsSelectedName',
-                    value: narrations[index].name);
+                    value:
+                        isDemo ? 'narrations name' : narrations![index].name);
                 setState(() {
                   _selected = index;
                 });
