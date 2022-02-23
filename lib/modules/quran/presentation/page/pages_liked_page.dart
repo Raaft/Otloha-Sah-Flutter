@@ -88,7 +88,6 @@ class PagesLikedPage extends StatelessWidget {
                     Scaffold.of(context).showBottomSheet(
                       (context) => NoteItemView(
                         arg == 1,
-                        note: verse.noteText ?? '',
                       ),
                       backgroundColor: AppColor.transparent,
                     );
@@ -101,7 +100,7 @@ class PagesLikedPage extends StatelessWidget {
                 itemCount: state.pages.length,
                 itemBuilder: (context, index) {
                   var page = state.pages[index];
-                  return _itemBuild(page.text ?? '', null, () {
+                  return _itemBuild(page.textVerse ?? '', null, () {
                     Navigator.of(context).pushReplacementNamed(
                       HomePage.routeName,
                       arguments: 1,

@@ -14,7 +14,7 @@ dependencies:
   bubble_bottom_bar: ^2.0.0
   cupertino_icons: ^1.0.4
   dio: ^4.0.4
-  dio_cache_interceptor: ^3.2.5
+  #dio_cache_interceptor: ^3.2.4
   draggable_fab: ^0.1.4
   draggable_floating_button: ^0.1.1
   draggable_widget: ^2.0.0
@@ -22,7 +22,6 @@ dependencies:
   equatable: ^2.0.3
   fab_circular_menu: ^1.0.0
   file: ^6.1.2
-  floor: ^1.2.0
   flutter:
     sdk: flutter
   flutter_audio_recorder2: ^0.0.2
@@ -37,12 +36,13 @@ dependencies:
   just_waveform: ^0.0.2
   path_provider: ^2.0.9
   pinput: ^1.2.0
-  quran_widget_flutter: ^0.0.1
+  quran_widget_flutter: ^0.0.2
   record: ^3.0.2
   rxdart: ^0.27.3
   search_page: ^2.0.0+1
   shared_preferences: ^2.0.12
   sqflite: ^2.0.2
+  toast: ^0.1.5
 
 flutter_icons:
   android: "launcher_icon"

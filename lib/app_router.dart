@@ -14,6 +14,7 @@ import 'package:flutter_base/modules/quran/presentation/page/download_center_pag
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.dart';
 import 'package:flutter_base/modules/settings/business_logic/cubit/language_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/cubit/narration_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/languages_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
@@ -105,7 +106,10 @@ class AppRouter {
         );
       case NarrationPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const NarrationPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => NarrationCubit(),
+            child: const NarrationPage(),
+          ),
           settings: settings,
         );
       case QuranTranslationLanguagePage.routeName:

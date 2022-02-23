@@ -64,23 +64,29 @@ class ItemDownload extends StatelessWidget {
                     color: AppColor.txtColor2,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TextView(
-                      text: name,
-                      colorText: AppColor.txtColor3,
-                      sizeText: 16,
-                      weightText: FontWeight.bold,
-                      textAlign: TextAlign.start,
-                    ),
-                    TextView(
-                      text: surah,
-                      colorText: AppColor.txtColor4,
-                      sizeText: 12,
-                    ),
-                  ],
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      TextView(
+                        text: name,
+                        colorText: AppColor.txtColor3,
+                        sizeText: 16,
+                        weightText: FontWeight.bold,
+                        textAlign: TextAlign.start,
+                        padding: const EdgeInsets.all(0),
+                      ),
+                      TextView(
+                        text: surah,
+                        colorText: AppColor.txtColor4,
+                        sizeText: 12,
+                        padding: const EdgeInsets.all(0),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
