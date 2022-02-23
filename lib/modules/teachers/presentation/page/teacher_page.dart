@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/widgets/show_search.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
 
