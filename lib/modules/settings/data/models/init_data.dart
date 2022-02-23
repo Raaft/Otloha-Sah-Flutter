@@ -42,6 +42,8 @@ final List<Settings> settings = [
     actionTo: TafseerPage.routeName,
     subTitle: CacheHelper.getData(key: 'TafseerSelectedName'),
   ),
+];
+final List<Settings> dawnLoadSettings = [
   Settings(
     name: translate('Books'),
     image: AppIcons.languageIcon,
@@ -49,7 +51,7 @@ final List<Settings> settings = [
     subTitle: CacheHelper.getData(key: 'BookSelectedName'),
   ),
   Settings(
-    name: translate('ChapterDownloadCenter'),
+    name: translate('Chapter'),
     image: AppIcons.downloadIcon,
     actionTo: DownloadCenterPage.routeName,
   ),
