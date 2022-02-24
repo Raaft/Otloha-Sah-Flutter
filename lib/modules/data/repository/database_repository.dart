@@ -30,7 +30,7 @@ class DatabaseRepository {
   // Verse Note
   findAllVerseNotes() async => await verseNoteDao!.findAll();
   findVerseNoteById(int id) async => await verseNoteDao!.findById(id);
-  insertVerseNote(VerseNote verseNote) async =>
+  Future<VerseNote?>? insertVerseNote(VerseNote verseNote) async =>
       await verseNoteDao!.insert(verseNote);
   updateVerseNote(VerseNote verseNote) async =>
       await verseNoteDao!.update(verseNote);

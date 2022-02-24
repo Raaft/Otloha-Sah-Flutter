@@ -20,7 +20,7 @@ class SearchBarApp extends StatefulWidget {
 class _SearchBarAppState extends State<SearchBarApp> {
   TextEditingController con = TextEditingController();
 
-  var borderSide = const BorderSide(width: 1, color: AppColor.lightBlue);
+  var borderSide =  BorderSide(width: 1, color: AppColor.lightBlue);
 
   var border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(8.0),

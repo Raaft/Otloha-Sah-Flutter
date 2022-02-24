@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -9,8 +10,6 @@ import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
-
-import 'core/utils/constant/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +40,8 @@ void main() async {
     () => runApp(
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
-        path: 'assets/lang', // <- change the path of the translation files
+        path: 'assets/lang',
+        // <- change the path of the translation files
         //fallbackLocale: const Locale('en'),
         startLocale: Locale(isEn ? 'en' : 'ar'),
         useOnlyLangCode: true,
@@ -65,7 +65,6 @@ class MyApp extends StatelessWidget {
   }) : super(key: key);
 
   // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

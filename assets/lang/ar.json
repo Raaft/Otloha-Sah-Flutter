@@ -1,7 +1,7 @@
 {
   
   "_comment1":"any appp",
-  "appName":"قاعدة التطبيقات",
+  "appName":"اتلوها صح",
   "appDesc":"يمكن للمفتش تتبع عيوب التصنيع لمصنع الكراسي. نتتبع المعلومات التالية لكل عنصر ملاحظة مرئية",
  
   "Loading":"جاري تحميل",
@@ -55,7 +55,7 @@
   "EditProfile":"تحرير البيانات الشخصية",
 
   "Hello":"مرحبا",
-  "Khatema":"خاتمة",
+  "Khatema":"الخاتمة",
   "Recitations":"التلاوات",
   "Tajweed":"التجويد",
   "PopularActions":"االإجراءات الهامة",
@@ -79,12 +79,12 @@
   "Reciters":"القراء",
   "Languages":"اللغات",
   "Tafsir":"التفسير",
-  "Books":"الكتب",
+  "Books":"المصاحف",
   "Note":"ملاحظاتي",
-  "Likes":"الأعجابات",
-  "BookMarks":"علامات الكتاب",
+  "Likes":"اﻷيات امفضلة",
+  "BookMarks":"فصلات الكتاب",
   "Notifiactions":"اﻷشعارات",
-  "ChapterDownloadCenter":"مركز تحميل الفصول",
+  "ChapterDownloadCenter":"مركز تحميل السور",
   "QuranTranslationLanguage":"لغات ترجمة القران الكريم",
 
   "Users":"المستخدمون",

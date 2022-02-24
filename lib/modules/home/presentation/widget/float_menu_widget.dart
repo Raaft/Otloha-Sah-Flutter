@@ -34,6 +34,7 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
         child: Align(
             alignment: Alignment.bottomLeft,
             child: Container(
+              padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: LinearGradient(colors: [
@@ -44,7 +45,9 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                   children: [
                     CircleAvatar(
                       backgroundColor: AppColor.transparent,
-                      radius: MediaQuery.of(context).size.width / 2,
+                      radius: (MediaQuery.of(context).size.width / 2 < 200)
+                          ? 200
+                          : MediaQuery.of(context).size.width / 2,
                     ),
                     Positioned(
                       top: 40,
@@ -59,30 +62,32 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                           children: [
                             SizedBox(
                               height: 30,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Image.asset(AppIcons.quran2Icon,
-                                        color: AppColor.white, width: 30),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.dialog(
-                                        const AlertDialogFullScreen(),
-                                        barrierColor: AppColor.backdone,
-                                      );
-                                    },
-                                    child: Image.asset(AppIcons.discussioncon,
-                                        color: AppColor.white, width: 30),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  )
-                                ],
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Image.asset(AppIcons.quran2Icon,
+                                          color: AppColor.white, width: 30),
+                                    ),
+                                    const SizedBox(width: 15),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.dialog(
+                                          const AlertDialogFullScreen(),
+                                          barrierColor: AppColor.backdone,
+                                        );
+                                      },
+                                      child: Image.asset(AppIcons.discussioncon,
+                                          color: AppColor.white, width: 30),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -112,7 +117,7 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                                             .insertPageMarked(PageMarked(
                                           idBook: 2,
                                           pageNumber: 20,
-                                          text: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                                          textVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
                                           idPage: 20,
                                         ));
                                       },
@@ -212,6 +217,5 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
     ],
   );
 }
-
 
 ////proplr in commits
