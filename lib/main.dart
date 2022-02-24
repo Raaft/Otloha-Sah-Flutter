@@ -10,7 +10,7 @@ import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
-import 'package:quran_widget_flutter/plugin_aut/plugin_web_servise.dart';
+import 'package:quran_widget_flutter/plugin_aut/quran_widget_init.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

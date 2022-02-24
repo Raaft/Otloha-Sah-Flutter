@@ -21,24 +21,27 @@ class SettingsPage extends StatelessWidget {
           shrinkWrap: true,
           children: [
             _topView(context),
+            _titleSection('Main Section'),
             _mainSettings(context),
-            //  setting(context),
-            Divider(),
-            SizedBox(
-              width: double.infinity,
-              child: TextView(
-                text: translate('Download Center'),
-                colorText: AppColor.txtColor3,
-                sizeText: 16,
-                weightText: FontWeight.w700,
-                padding: const EdgeInsets.all(4),
-                textAlign: TextAlign.start,
-              ),
-            ),
+            const Divider(),
+            _titleSection('Download Center'),
             _downloadSettings(context),
-
           ],
         ),
+      ),
+    );
+  }
+
+  SizedBox _titleSection(String title) {
+    return SizedBox(
+      width: double.infinity,
+      child: TextView(
+        text: translate(title),
+        colorText: AppColor.txtColor3,
+        sizeText: 16,
+        weightText: FontWeight.w700,
+        padding: const EdgeInsets.all(4),
+        textAlign: TextAlign.start,
       ),
     );
   }
@@ -73,6 +76,7 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
+
   _downloadSettings(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),

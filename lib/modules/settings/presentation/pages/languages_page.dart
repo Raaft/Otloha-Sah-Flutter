@@ -3,8 +3,8 @@ import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
-import 'package:flutter_base/modules/settings/business_logic/cubit/language_cubit.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
+import 'package:flutter_base/modules/settings/business_logic/language/language_cubit.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,12 +67,14 @@ class _LanguagesPageState extends State<LanguagesPage> {
   Widget _builder(int index) {
     return ItemDownload(
       name: lang[index].langName,
-      surah: '',
       isDownloaded: true,
       isSelect: _selected == index,
       action: () {
         try {
           CacheHelper.saveData(key: 'LanguagesSelected', value: index);
+          setState(() {
+            settings[2].subTitle = lang[index].langName;
+          });
           CacheHelper.saveData(
               key: 'LanguagesSelectedName', value: lang[index].langName);
           setState(() {

@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
+import 'package:flutter_base/core/widgets/loading.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
+import 'package:flutter_base/modules/settings/business_logic/book/book_cubit.dart';
+import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:quran_widget_flutter/model/book.dart';
 
 class BooksPage extends StatefulWidget {
   const BooksPage({Key? key}) : super(key: key);
@@ -17,6 +22,14 @@ class BooksPage extends StatefulWidget {
 
 class _BooksPageState extends State<BooksPage> {
   int _selected = -1;
+
+  final List<int> _downloaded = [];
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<BookCubit>(context).fetchBooksList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,26 +59,60 @@ class _BooksPageState extends State<BooksPage> {
     );
   }
 
-  Expanded _viewItems() {
+  Widget _viewItems() {
+    return BlocBuilder<BookCubit, BookState>(
+      builder: (context, state) {
+        if (state is BookFetched) {
+          _selected = state.selected;
+          return _viewData(state.books);
+        } else if (state is BookInitial) {
+          return const LoadingWidget();
+        } else {
+          return _viewData(
+            null,
+            isDemo: true,
+          );
+        }
+      },
+    );
+  }
+
+  Expanded _viewData(List<Book>? books, {bool isDemo = false}) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: 15,
+          itemCount: isDemo ? 15 : books!.length,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: 'Books Name ${index + 1}',
-              surah: 'surah',
-              isDownloaded: true,
+              name: isDemo ? 'books name' : books![index].name.toString(),
+              isDownloaded: _downloaded.contains(index),
               isSelect: _selected == index,
+              onLongPress: () {
+                setState(() {
+                  _selected = index;
+                });
+              },
+              onDownload: () {
+                setState(() {
+                  _downloaded.add(index);
+                });
+              },
               action: () {
                 Get.dialog(
                   const AlertDialogFullScreen(),
                   barrierColor: AppColor.backdone,
                 );
-                CacheHelper.saveData(key: 'BookSelected', value: index);
                 CacheHelper.saveData(
-                    key: 'BookSelectedName', value: 'Books Name ${index + 1}');
+                  key: 'BookSelected',
+                  value: isDemo ? index : books![index].id,
+                );
+                dawnLoadSettings[0].subTitle =
+                    isDemo ? 'narrations name' : books![index].name;
+                CacheHelper.saveData(
+                  key: 'BookSelectedName',
+                  value: isDemo ? 'narrations name' : books![index].name,
+                );
                 setState(() {
                   _selected = index;
                 });

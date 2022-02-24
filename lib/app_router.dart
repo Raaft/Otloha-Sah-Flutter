@@ -10,11 +10,15 @@ import 'package:flutter_base/modules/messages/presentation/pages/general_actions
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranaction_cubit.dart';
-import 'package:flutter_base/modules/quran/presentation/page/download_center_page.dart';
+import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/reciter/reciter_cubit.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/chapter_download_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.dart';
-import 'package:flutter_base/modules/settings/business_logic/cubit/language_cubit.dart';
-import 'package:flutter_base/modules/settings/business_logic/cubit/narration_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/book/book_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/language/language_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/narration/narration_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/tajweed/tajweed_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/languages_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
@@ -22,6 +26,7 @@ import 'package:flutter_base/modules/settings/presentation/pages/quran_translati
 import 'package:flutter_base/modules/settings/presentation/pages/reciters_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/tafseer_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/tajweed_page.dart';
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
@@ -81,9 +86,12 @@ class AppRouter {
           builder: (_) => const IndexSurahPage(),
           settings: settings,
         );
-      case DownloadCenterPage.routeName:
+      case ChapterDownloadPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const DownloadCenterPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => ChapterCubit(),
+            child: const ChapterDownloadPage(),
+          ),
           settings: settings,
         );
       case SettingsPage.routeName:
@@ -93,7 +101,10 @@ class AppRouter {
         );
       case BooksPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const BooksPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => BookCubit(),
+            child: const BooksPage(),
+          ),
           settings: settings,
         );
       case LanguagesPage.routeName:
@@ -119,7 +130,10 @@ class AppRouter {
         );
       case RecitersPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const RecitersPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => ReciterCubit(),
+            child: const RecitersPage(),
+          ),
           settings: settings,
         );
       case TafseerPage.routeName:
@@ -148,6 +162,14 @@ class AppRouter {
       case RecitationsPage.routeName:
         return MaterialPageRoute(
           builder: (_) => const RecitationsPage(),
+          settings: settings,
+        );
+      case TajweedPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => TajweedCubit(),
+            child: const TajweedPage(),
+          ),
           settings: settings,
         );
       case NotifiactionsPage.routeName:

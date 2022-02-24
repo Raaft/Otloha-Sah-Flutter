@@ -8,7 +8,7 @@ class ItemDownload extends StatelessWidget {
   const ItemDownload({
     Key? key,
     required this.name,
-    required this.surah,
+    this.description,
     required this.isDownloaded,
     required this.isSelect,
     this.onLongPress,
@@ -17,7 +17,7 @@ class ItemDownload extends StatelessWidget {
   }) : super(key: key);
 
   final String name;
-  final String surah;
+  final String? description;
   final bool isDownloaded;
   final bool isSelect;
   final Function()? onLongPress;
@@ -79,12 +79,13 @@ class ItemDownload extends StatelessWidget {
                         textAlign: TextAlign.start,
                         padding: const EdgeInsets.all(0),
                       ),
-                      TextView(
-                        text: surah,
-                        colorText: AppColor.txtColor4,
-                        sizeText: 12,
-                        padding: const EdgeInsets.all(0),
-                      ),
+                      if (description != null)
+                        TextView(
+                          text: description ?? '',
+                          colorText: AppColor.txtColor4,
+                          sizeText: 12,
+                          padding: const EdgeInsets.all(0),
+                        ),
                     ],
                   ),
                 ),

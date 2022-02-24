@@ -5,8 +5,9 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/item_download.dart';
-import 'package:flutter_base/modules/settings/business_logic/cubit/narration_cubit.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
+import 'package:flutter_base/modules/settings/business_logic/narration/narration_cubit.dart';
+import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,12 @@ class _NarrationPageState extends State<NarrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    try {
+      _selected =
+          (CacheHelper.getData(key: 'NarrationsSelected') as int?) ?? -1;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -82,7 +89,7 @@ class _NarrationPageState extends State<NarrationPage> {
               name: isDemo
                   ? 'narrations name'
                   : narrations![index].name.toString(),
-              surah: isDemo
+              description: isDemo
                   ? 'narrations description'
                   : narrations![index].description.toString(),
               isDownloaded: true,
@@ -93,12 +100,16 @@ class _NarrationPageState extends State<NarrationPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(
-                    key: 'NarrationsSelected',
-                    value: isDemo ? index : narrations![index].id);
+                  key: 'NarrationsSelected',
+                  value: isDemo ? index : narrations![index].id,
+                );
+
+                settings[0].subTitle =
+                    isDemo ? 'narrations name' : narrations![index].name;
                 CacheHelper.saveData(
-                    key: 'NarrationsSelectedName',
-                    value:
-                        isDemo ? 'narrations name' : narrations![index].name);
+                  key: 'NarrationsSelectedName',
+                  value: isDemo ? 'narrations name' : narrations![index].name,
+                );
                 setState(() {
                   _selected = index;
                 });
@@ -110,7 +121,7 @@ class _NarrationPageState extends State<NarrationPage> {
     );
   }
 
-  Widget _viewError(NarrationState state) {
+  Widget viewError(NarrationState state) {
     return Expanded(
       child: Center(
         child: Column(
