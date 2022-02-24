@@ -36,7 +36,8 @@ dependencies:
   just_waveform: ^0.0.2
   path_provider: ^2.0.9
   pinput: ^1.2.0
-  quran_widget_flutter: ^0.0.2
+  quran_widget_flutter:
+    path: package/quran_widget_flutter
   record: ^3.0.2
   rxdart: ^0.27.3
   search_page: ^2.0.0+1

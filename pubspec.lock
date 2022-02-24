@@ -598,10 +598,10 @@ packages:
   quran_widget_flutter:
     dependency: "direct main"
     description:
-      name: quran_widget_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
+      path: "package/quran_widget_flutter"
+      relative: true
+    source: path
+    version: "0.0.1"
   record:
     dependency: "direct main"
     description:

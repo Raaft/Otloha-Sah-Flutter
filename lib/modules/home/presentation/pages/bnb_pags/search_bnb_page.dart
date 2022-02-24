@@ -7,6 +7,9 @@ import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_surah.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/chapter_download_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
 
 class SearchBNBPage extends StatefulWidget {
@@ -51,7 +54,9 @@ class _SearchBNBPageState extends State<SearchBNBPage> {
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _showFilter();
+                  },
                   child: Image.asset(
                     AppIcons.filterIcon,
                     height: 30,
@@ -163,5 +168,43 @@ class _SearchBNBPageState extends State<SearchBNBPage> {
         ),
       ),
     );
+  }
+
+  void _showFilter() {
+    Scaffold.of(context).showBottomSheet((context) {
+      return SizedBox(
+        height: 250,
+        width: double.infinity,
+        child: Column(
+          children: [
+            const SizedBox(
+              child: Divider(thickness: 3),
+              width: 200,
+            ),
+            const TextView(text: 'Setect Filter'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(ChapterDownloadPage.routeName);
+              },
+              child: const TextView(text: 'By Chapter'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(NarrationPage.routeName);
+              },
+              child: const TextView(text: 'By Narration'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(BooksPage.routeName);
+              },
+              child: const TextView(text: 'By Book'),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:quran_widget_flutter/model/book.dart';
+
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/business_logic/book/book_cubit.dart';
-import 'package:flutter_base/modules/settings/data/models/init_data.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:quran_widget_flutter/model/book.dart';
 
 class BooksPage extends StatefulWidget {
   const BooksPage({Key? key}) : super(key: key);
@@ -99,23 +99,16 @@ class _BooksPageState extends State<BooksPage> {
                 });
               },
               action: () {
-                Get.dialog(
-                  const AlertDialogFullScreen(),
-                  barrierColor: AppColor.backdone,
-                );
-                CacheHelper.saveData(
-                  key: 'BookSelected',
-                  value: isDemo ? index : books![index].id,
-                );
-                dawnLoadSettings[0].subTitle =
-                    isDemo ? 'narrations name' : books![index].name;
-                CacheHelper.saveData(
-                  key: 'BookSelectedName',
-                  value: isDemo ? 'narrations name' : books![index].name,
-                );
-                setState(() {
-                  _selected = index;
-                });
+                if (_selected == index) {
+                  Get.dialog(
+                    const AlertDialogFullScreen(),
+                    barrierColor: AppColor.backdone,
+                  );
+
+                  setState(() {
+                    _selected = index;
+                  });
+                }
               },
             );
           },

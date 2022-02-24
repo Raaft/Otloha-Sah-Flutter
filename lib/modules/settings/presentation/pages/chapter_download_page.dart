@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:quran_widget_flutter/model/chapter.dart';
 
 class ChapterDownloadPage extends StatefulWidget {
@@ -84,6 +87,18 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
                 setState(() {
                   _downloaded.add(index);
                 });
+              },
+              action: () {
+                if (_selected == index) {
+                  Get.dialog(
+                    const AlertDialogFullScreen(),
+                    barrierColor: AppColor.backdone,
+                  );
+
+                  setState(() {
+                    _selected = index;
+                  });
+                }
               },
             );
           },
