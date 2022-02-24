@@ -7,6 +7,7 @@ import 'package:flutter_base/core/network/network_info.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ApiBaseHelper {
+
   static const String url = 'http://kalamy.dev.itqadem.com/api/v1/';
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
