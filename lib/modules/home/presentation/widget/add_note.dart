@@ -27,11 +27,7 @@ class AddNote extends StatelessWidget {
 
   final TextEditingController con = TextEditingController();
 
-<<<<<<< HEAD
   get borderSide => BorderSide(width: 1, color: AppColor.lightBlue);
-=======
-  get borderSide =>  BorderSide(width: 1, color: AppColor.lightBlue);
->>>>>>> 8b5d8132d68e841d6c517cc0b9c0d4bbe0707998
 
   final OutlineInputBorder border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(8.0),
