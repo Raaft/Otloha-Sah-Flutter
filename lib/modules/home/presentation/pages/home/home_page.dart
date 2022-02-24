@@ -56,7 +56,8 @@ class _HomePageState extends State<HomePage> {
                 if (state is HomeChangeIndex) {
                   _index = state.index;
                 }
-                return (!cubit.isFloatingMenu)
+                ///
+                return (!cubit.isFloatingMenu||state is HomeChangeIndex )
                     ? BubbleBottomBarApp(
                         onItemTapped: _changePage,
                         selectedIndex: _index,
