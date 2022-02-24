@@ -2,35 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
-
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:get/get.dart';
 
-class QuranTranslationLanguagePage extends StatefulWidget {
-  const QuranTranslationLanguagePage({Key? key}) : super(key: key);
-
-  static const routeName = '/settings/quranTranslationLanguage';
+class TajweedPage extends StatefulWidget {
+  const TajweedPage({Key? key}) : super(key: key);
+  static const routeName = '/settings/tajweed';
 
   @override
-  _QuranTranslationLanguagePageState createState() =>
-      _QuranTranslationLanguagePageState();
+  State<TajweedPage> createState() => _TajweedPageState();
 }
 
-class _QuranTranslationLanguagePageState
-    extends State<QuranTranslationLanguagePage> {
+class _TajweedPageState extends State<TajweedPage> {
   int _selected = -1;
 
   @override
   Widget build(BuildContext context) {
     try {
-      _selected = (CacheHelper.getData(key: 'QuranTranslationLanguageSelected')
-              as int?) ??
-          -1;
+      _selected = (CacheHelper.getData(key: 'TajweedSelected') as int?) ?? -1;
     } catch (e) {
       debugPrint(e.toString());
     }
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -48,7 +41,7 @@ class _QuranTranslationLanguagePageState
           Navigator.of(context).pop();
         },
       ),
-      title: 'Quran Translation Language Center',
+      title: 'Books Center',
     );
   }
 
@@ -60,7 +53,7 @@ class _QuranTranslationLanguagePageState
           itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: 'Quran Translation Language ${index + 1}',
+              name: 'Tajweed Name ${index + 1}',
               description: 'surah',
               isDownloaded: true,
               isSelect: _selected == index,
@@ -69,12 +62,10 @@ class _QuranTranslationLanguagePageState
                   const AlertDialogFullScreen(),
                   barrierColor: AppColor.backdone,
                 );
+                CacheHelper.saveData(key: 'TajweedSelected', value: index);
                 CacheHelper.saveData(
-                    key: 'QuranTranslationLanguageSelected', value: index);
-
-                CacheHelper.saveData(
-                    key: 'QuranTranslationLanguageSelectedName',
-                    value: 'Quran Translation ${index + 1}');
+                    key: 'TajweedSelectedName',
+                    value: 'Books Name ${index + 1}');
                 setState(() {
                   _selected = index;
                 });

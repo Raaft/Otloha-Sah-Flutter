@@ -117,7 +117,7 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                                             .insertPageMarked(PageMarked(
                                           idBook: 2,
                                           pageNumber: 20,
-                                          text: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                                          textVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
                                           idPage: 20,
                                         ));
                                       },

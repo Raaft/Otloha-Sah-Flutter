@@ -5,6 +5,9 @@ import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_sub.dart';
 
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
   static const routeName = '/settings';
@@ -18,13 +21,27 @@ class SettingsPage extends StatelessWidget {
           shrinkWrap: true,
           children: [
             _topView(context),
+            _titleSection('Main Section'),
             _mainSettings(context),
-            //  setting(context),
-            const SizedBox(
-              height: 24,
-            ),
+            const Divider(),
+            _titleSection('Download Center'),
+            _downloadSettings(context),
           ],
         ),
+      ),
+    );
+  }
+
+  SizedBox _titleSection(String title) {
+    return SizedBox(
+      width: double.infinity,
+      child: TextView(
+        text: translate(title),
+        colorText: AppColor.txtColor3,
+        sizeText: 16,
+        weightText: FontWeight.w700,
+        padding: const EdgeInsets.all(4),
+        textAlign: TextAlign.start,
       ),
     );
   }
@@ -55,6 +72,25 @@ class SettingsPage extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return ItemSetting(settings: settings[index]);
+        },
+      ),
+    );
+  }
+
+  _downloadSettings(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: dawnLoadSettings.length,
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 150,
+          childAspectRatio: 2 / 2,
+          mainAxisSpacing: 2,
+        ),
+        itemBuilder: (context, index) {
+          return ItemSetting(settings: dawnLoadSettings[index]);
         },
       ),
     );
