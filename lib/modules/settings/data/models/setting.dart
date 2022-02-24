@@ -1,6 +1,6 @@
 class Settings {
   final String name;
-  final String? subTitle;
+  String? subTitle;
   final String image;
   final String? actionTo;
 

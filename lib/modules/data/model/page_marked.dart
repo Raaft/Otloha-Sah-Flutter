@@ -5,14 +5,14 @@ class PageMarked {
   int? idPage;
   int? idBook;
   int? pageNumber;
-  String? text;
+  String? textVerse;
 
   PageMarked({
     this.id,
     this.idPage,
     this.idBook,
     this.pageNumber,
-    this.text,
+    this.textVerse,
   });
 
   PageMarked copyWith({
@@ -20,14 +20,14 @@ class PageMarked {
     int? idPage,
     int? idBook,
     int? pageNumber,
-    String? text,
+    String? textVerse,
   }) {
     return PageMarked(
       id: id ?? this.id,
       idPage: idPage ?? this.idPage,
       idBook: idBook ?? this.idBook,
       pageNumber: pageNumber ?? this.pageNumber,
-      text: text ?? this.text,
+      textVerse: textVerse ?? this.textVerse,
     );
   }
 
@@ -37,7 +37,7 @@ class PageMarked {
       'idPage': idPage,
       'idBook': idBook,
       'pageNumber': pageNumber,
-      'text': text,
+      'textVerse': textVerse,
     };
   }
 
@@ -47,7 +47,7 @@ class PageMarked {
       idPage: map['idPage']?.toInt(),
       idBook: map['idBook']?.toInt(),
       pageNumber: map['pageNumber']?.toInt(),
-      text: map['text'],
+      textVerse: map['textVerse'],
     );
   }
 
@@ -58,7 +58,7 @@ class PageMarked {
 
   @override
   String toString() {
-    return 'PageMarked(id: $id, idPage: $idPage, idBook: $idBook, pageNumber: $pageNumber, text: $text)';
+    return 'PageMarked(id: $id, idPage: $idPage, idBook: $idBook, pageNumber: $pageNumber, textVerse: $textVerse)';
   }
 
   @override
@@ -70,7 +70,7 @@ class PageMarked {
         other.idPage == idPage &&
         other.idBook == idBook &&
         other.pageNumber == pageNumber &&
-        other.text == text;
+        other.textVerse == textVerse;
   }
 
   @override
@@ -79,6 +79,6 @@ class PageMarked {
         idPage.hashCode ^
         idBook.hashCode ^
         pageNumber.hashCode ^
-        text.hashCode;
+        textVerse.hashCode;
   }
 }

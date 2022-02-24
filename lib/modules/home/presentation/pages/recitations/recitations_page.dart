@@ -23,9 +23,6 @@ class RecitationsPage extends StatefulWidget {
 
 class _RecitationsPageState extends State<RecitationsPage> {
   int _selectedPlay = -1;
-  final BehaviorSubject<WaveformProgress> progressStream =
-      BehaviorSubject<WaveformProgress>();
-
   final BehaviorSubject<WaveformProgress> streamWave =
       BehaviorSubject<WaveformProgress>();
 
@@ -39,27 +36,13 @@ class _RecitationsPageState extends State<RecitationsPage> {
   }
 
   Future<void> _init() async {
-    final audioFile =
-        File(p.join((await getTemporaryDirectory()).path, 'waveform.mp3'));
     final waveFile2 =
         File(p.join((await getTemporaryDirectory()).path, 'waveform.wave'));
     try {
-      await audioFile.writeAsBytes(
-          (await rootBundle.load('assets/audio/waveform.mp3'))
-              .buffer
-              .asUint8List());
-
       await waveFile2.writeAsBytes(
           (await rootBundle.load('assets/audio/waveform.wave'))
               .buffer
               .asUint8List());
-      final waveFile =
-          File(p.join((await getTemporaryDirectory()).path, 'waveform.wave'));
-
-      final Stream<WaveformProgress> progressStream2 =
-          JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile);
-      progressStream2.listen(progressStream.add,
-          onError: progressStream.addError);
 
       waveform = await JustWaveform.parse(waveFile2);
 
@@ -68,7 +51,6 @@ class _RecitationsPageState extends State<RecitationsPage> {
       streamWave.add(WaveformProgress(1, waveform));
     } catch (e) {
       debugPrint('Eror audio' + e.toString());
-      progressStream.addError(e);
     }
   }
 

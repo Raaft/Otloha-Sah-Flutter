@@ -1,4 +1,4 @@
-part of 'language_cubit.dart';
+part of '../language/language_cubit.dart';
 
 abstract class LanguageState extends Equatable {
   const LanguageState();

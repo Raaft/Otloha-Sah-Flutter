@@ -1,43 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:quran_widget_flutter/model/book.dart';
-
-import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
-import 'package:flutter_base/modules/settings/business_logic/book/book_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
+import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:quran_widget_flutter/model/chapter.dart';
 
-class BooksPage extends StatefulWidget {
-  const BooksPage({Key? key}) : super(key: key);
-
-  static const routeName = '/settings/books';
+class ChapterDownloadPage extends StatefulWidget {
+  const ChapterDownloadPage({Key? key}) : super(key: key);
+  static const routeName = '/quran/download-center';
 
   @override
-  State<BooksPage> createState() => _BooksPageState();
+  State<ChapterDownloadPage> createState() => _ChapterDownloadPageState();
 }
 
-class _BooksPageState extends State<BooksPage> {
+class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
   int _selected = -1;
-
   final List<int> _downloaded = [];
 
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<BookCubit>(context).fetchBooksList();
+    BlocProvider.of<ChapterCubit>(context).fetchChaptersList();
   }
 
   @override
   Widget build(BuildContext context) {
-    try {
-      _selected = (CacheHelper.getData(key: 'BookSelected') as int?) ?? -1;
-    } catch (e) {
-      debugPrint(e.toString());
-    }
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -55,17 +46,16 @@ class _BooksPageState extends State<BooksPage> {
           Navigator.of(context).pop();
         },
       ),
-      title: 'Books Center',
+      title: 'Download Center',
     );
   }
 
   Widget _viewItems() {
-    return BlocBuilder<BookCubit, BookState>(
+    return BlocBuilder<ChapterCubit, ChapterState>(
       builder: (context, state) {
-        if (state is BookFetched) {
-          _selected = state.selected;
-          return _viewData(state.books);
-        } else if (state is BookInitial) {
+        if (state is ChapterFetched) {
+          return _viewData(state.chapters);
+        } else if (state is ChapterInitial) {
           return const LoadingWidget();
         } else {
           return _viewData(
@@ -77,15 +67,15 @@ class _BooksPageState extends State<BooksPage> {
     );
   }
 
-  Expanded _viewData(List<Book>? books, {bool isDemo = false}) {
+  Expanded _viewData(List<Chapter>? chapters, {bool isDemo = false}) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: isDemo ? 15 : books!.length,
+          itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
-              name: isDemo ? 'books name' : books![index].name.toString(),
+              name: isDemo ? 'chapters name' : chapters![index].name.toString(),
               isDownloaded: _downloaded.contains(index),
               isSelect: _selected == index,
               onLongPress: () {

@@ -3,7 +3,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/data/model/verse_like.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/note_item_view.dart';
+import 'package:flutter_base/modules/home/presentation/widget/add_note.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -85,11 +85,11 @@ class _ToolBottonState extends State<ToolBotton> {
                           GestureDetector(
                             onTap: () {
                               Scaffold.of(context).showBottomSheet(
-                                (context) => const NoteItemView(
-                                  true,
-                                  isAdd: true,
-                                  isQuranPage: true,
+                                (context) => AddNote(
+                                  title: '2. Al-Baqarah',
+                                  textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
                                 ),
+                                //TODO add parmeter to Add Note widget!!
                                 backgroundColor: AppColor.transparent,
                               );
                             },
