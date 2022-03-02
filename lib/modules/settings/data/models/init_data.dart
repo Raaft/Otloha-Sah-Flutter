@@ -20,6 +20,12 @@ final List<Settings> settings = [
     subTitle: CacheHelper.getData(key: 'NarrationsSelectedName'),
   ),
   Settings(
+    name: translate('Books'),
+    image: AppIcons.downloadIcon,
+    actionTo: BooksPage.routeName,
+    subTitle: CacheHelper.getData(key: 'BookSelectedName'),
+  ),
+  Settings(
     name: translate('Reciters'),
     image: AppIcons.languageIcon,
     actionTo: RecitersPage.routeName,
@@ -52,12 +58,6 @@ final List<Settings> settings = [
 ];
 
 final List<Settings> dawnLoadSettings = [
-  Settings(
-    name: translate('Books'),
-    image: AppIcons.downloadIcon,
-    actionTo: BooksPage.routeName,
-    subTitle: CacheHelper.getData(key: 'BookSelectedName'),
-  ),
   Settings(
     name: translate('Chapter'),
     image: AppIcons.downloadIcon,

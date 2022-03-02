@@ -10,6 +10,8 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+
 
 part 'home_state.dart';
 
@@ -17,6 +19,14 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   static HomeCubit get(context) => BlocProvider.of(context);
+
+  PageType pageType = PageType.quran;
+
+  void changePluginPage({required PageType page}) {
+    print('page type = $page');
+    pageType = page;
+    emit(ChangePageState());
+  }
 
   changeIndex(int? index) {
     emit(HomeInitial());
@@ -36,21 +46,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   double opacity = 0.4;
 
-
   changePlayPause() {
-    playPause =!playPause;
+    playPause = !playPause;
 
     emit(ChangePlayPauseState());
   }
+
   changeIsPlaying() {
     isOnPressed = false;
     isSelectedVerse = false;
     isRecorded = false;
     isRecordedFile = false;
     isFloatingMenu = false;
-    isPlaying=true;
+    isPlaying = true;
     emit(ChangeIsPlayingState());
   }
+
   changeIsSelectedVerse() {
     isSelectedVerse = true;
 
@@ -101,7 +112,7 @@ class HomeCubit extends Cubit<HomeState> {
   changeIsOnTruePressed() {
     isOnPressed = true;
     isSelectedVerse = false;
-    isPlaying=false;
+    isPlaying = false;
     isRecorded = false;
     isRecordedFile = false;
     isFloatingMenu = false;
@@ -112,14 +123,14 @@ class HomeCubit extends Cubit<HomeState> {
   changeIsOnFalsePressed() {
     isOnPressed = false;
     isFloatingMenu = false;
-    isPlaying=false;
+    isPlaying = false;
 
     emit(IsOnPressTrueState());
   }
 
   changeIsRecorded() {
     isOnPressed = false;
-    isSelectedVerse=false;
+    isSelectedVerse = false;
     isRecordedFile = false;
     isRecorded = true;
     emit(IsRecordedState());
@@ -127,7 +138,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeIsRecordedFile() {
     isOnPressed = false;
-    isSelectedVerse=false;
+    isSelectedVerse = false;
 
     isRecorded = false;
     isRecordedFile = true;

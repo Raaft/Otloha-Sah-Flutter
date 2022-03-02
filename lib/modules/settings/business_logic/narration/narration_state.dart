@@ -15,6 +15,12 @@ class NarrationFetched extends NarrationState {
   const NarrationFetched(this.narrations, this.selected);
 }
 
+class NarrationChangeSelected extends NarrationState {
+  final List<Narration> narrations;
+  final int selected;
+  const NarrationChangeSelected(this.narrations, this.selected);
+}
+
 class NarrationError extends NarrationState {
   final String error;
   const NarrationError(this.error);

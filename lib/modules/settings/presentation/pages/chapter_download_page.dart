@@ -21,6 +21,9 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
   int _selected = -1;
   final List<int> _downloaded = [];
 
+  String? narrationName;
+  String? bookName;
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +32,8 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () async {});
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -47,6 +52,10 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
         },
       ),
       title: 'Download Center',
+      onSearch: (val) {
+        BlocProvider.of<ChapterCubit>(context).fetchChaptersList(qurey: val);
+        _selected = -1;
+      },
     );
   }
 
@@ -79,9 +88,15 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
               isDownloaded: _downloaded.contains(index),
               isSelect: _selected == index,
               onLongPress: () {
-                setState(() {
-                  _selected = index;
-                });
+                if (_downloaded.contains(index)) {
+                  Get.dialog(
+                    const AlertDialogFullScreen(),
+                    barrierColor: AppColor.backdone,
+                  );
+                  setState(() {
+                    _selected = index;
+                  });
+                }
               },
               onDownload: () {
                 setState(() {
@@ -89,12 +104,11 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
                 });
               },
               action: () {
-                if (_selected == index) {
+                if (_downloaded.contains(index)) {
                   Get.dialog(
                     const AlertDialogFullScreen(),
                     barrierColor: AppColor.backdone,
                   );
-
                   setState(() {
                     _selected = index;
                   });

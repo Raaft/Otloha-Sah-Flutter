@@ -72,9 +72,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
       action: () {
         try {
           CacheHelper.saveData(key: 'LanguagesSelected', value: index);
-          setState(() {
-            settings[2].subTitle = lang[index].langName;
-          });
+
           CacheHelper.saveData(
               key: 'LanguagesSelectedName', value: lang[index].langName);
           setState(() {
@@ -86,7 +84,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
               isEn = false;
             }
           });
-
+          settings[3].subTitle = lang[index].langName;
           BlocProvider.of<LanguageCubit>(context).changeLan(isEn, context);
 
           print(index.toString() + '  ' + (isEn ? 'en' : 'ar'));

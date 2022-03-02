@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
@@ -12,8 +11,10 @@ import 'package:flutter_base/modules/home/presentation/widget/recorded_file_sett
 import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
-import '../../widget/float_menu_widget.dart';
+
+
 
 class QuranBNBPage extends StatelessWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
@@ -86,7 +87,6 @@ class QuranBNBPage extends StatelessWidget {
             if (cubit.isRecorded) const RecordTool(),
             if (cubit.isOnPressed || cubit.isSelectedVerse) const ToolBotton(),
             if (cubit.isRecordedFile) const RecordedFileTool(),
-            if (cubit.isFloatingMenu) floatMenu(context, cubit),
             if (cubit.isPlaying) const PlayPauseTools(),
             if (cubit.opacity != 0)
               floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
@@ -107,6 +107,7 @@ class QuranBNBPage extends StatelessWidget {
             ),
             color: Colors.white),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -130,7 +131,16 @@ class QuranBNBPage extends StatelessWidget {
                 ],
               ),
             ),
-            Image.asset(AppImages.page016Image),
+            //Image.asset(AppImages.page016Image),
+            Expanded(
+              child: BlocConsumer<HomeCubit, HomeState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  var cubit = HomeCubit.get(context);
+                  return QuranWidget(page: cubit.pageType);
+                },
+              ),
+            )
           ],
         ),
       ),
