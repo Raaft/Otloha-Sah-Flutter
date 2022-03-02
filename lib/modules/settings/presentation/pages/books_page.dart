@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/model/book.dart';
@@ -56,6 +58,9 @@ class _BooksPageState extends State<BooksPage> {
         },
       ),
       title: 'Books Center',
+      onSearch: (val) {
+        BlocProvider.of<BookCubit>(context).fetchBooksList(qurey: val);
+      },
     );
   }
 
@@ -90,31 +95,27 @@ class _BooksPageState extends State<BooksPage> {
           itemBuilder: (context, index) {
             return ItemDownload(
               name: isDemo ? 'books name' : books![index].name.toString(),
-              isDownloaded: _downloaded.contains(index),
+              isDownloaded: true,
               isSelect: _selected == index,
-              onLongPress: () {
-                if (_downloaded.contains(index)) {
-                  BlocProvider.of<BookCubit>(context).changeIndex(index);
-
-                  Get.dialog(
-                    const AlertDialogFullScreen(),
-                    barrierColor: AppColor.backdone,
-                  );
-                }
-              },
-              onDownload: () {
-                setState(() {
-                  _downloaded.add(index);
-                });
-              },
               action: () {
-                if (_downloaded.contains(index)) {
-                  BlocProvider.of<BookCubit>(context).changeIndex(index);
-                  Get.dialog(
-                    const AlertDialogFullScreen(),
-                    barrierColor: AppColor.backdone,
-                  );
-                }
+                Get.dialog(
+                  const AlertDialogFullScreen(),
+                  barrierColor: AppColor.backdone,
+                );
+                setState(() {
+                  _selected = index;
+                });
+
+                CacheHelper.saveData(
+                    key: 'BookSelected',
+                    value: isDemo ? index : books![index].id);
+
+                settings[1].subTitle =
+                    isDemo ? 'Book name $index' : books![index].name;
+                CacheHelper.saveData(
+                  key: 'BookSelectedName',
+                  value: isDemo ? 'Book name $index' : books![index].name,
+                );
               },
             );
           },

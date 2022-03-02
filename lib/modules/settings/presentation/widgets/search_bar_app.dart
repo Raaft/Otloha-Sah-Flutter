@@ -26,6 +26,8 @@ class SearchBarApp extends StatefulWidget {
 class _SearchBarAppState extends State<SearchBarApp> {
   final TextEditingController _controller = TextEditingController();
 
+  String valueSearch = '';
+
   var borderSide = BorderSide(width: 1, color: AppColor.lightBlue);
 
   var border = OutlineInputBorder(
@@ -113,17 +115,21 @@ class _SearchBarAppState extends State<SearchBarApp> {
                   fillColor: AppColor.white,
                 ),
                 onChanged: (val) {
+                  setState(() {
+                    valueSearch = val;
+                  });
                   widget.onSearch!(val);
                 },
               ),
             ),
-            if (_controller.text.isNotEmpty)
+            if (valueSearch.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: GestureDetector(
                     onTap: () {
                       setState(() {
                         _controller.text = '';
+                        valueSearch = '';
                       });
                     },
                     child: Icon(

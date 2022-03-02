@@ -8,10 +8,11 @@ part 'chapter_state.dart';
 class ChapterCubit extends Cubit<ChapterState> {
   ChapterCubit() : super(ChapterInitial());
 
-  fetchChaptersList() {
+  fetchChaptersList({String? qurey}) {
     try {
-      DataSource.instance.fetchChaptersList().then((value) async {
+      DataSource.instance.fetchChaptersList(qurey: qurey).then((value) async {
         if (value!.isNotEmpty) {
+          emit(ChapterInitial());
           emit(ChapterFetched(value));
         } else {
           emit(const ChapterError('Not Found Data'));

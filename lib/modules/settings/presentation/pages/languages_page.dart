@@ -84,7 +84,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
               isEn = false;
             }
           });
-          settings[2].subTitle = lang[index].langName;
+          settings[3].subTitle = lang[index].langName;
           BlocProvider.of<LanguageCubit>(context).changeLan(isEn, context);
 
           print(index.toString() + '  ' + (isEn ? 'en' : 'ar'));

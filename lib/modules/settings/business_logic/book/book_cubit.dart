@@ -19,9 +19,9 @@ class BookCubit extends Cubit<BookState> {
     emit(BookChangeIndex(books, index));
   }
 
-  fetchBooksList() {
+  fetchBooksList({String? qurey}) {
     try {
-      DataSource.instance.fetchBooksList().then((value) async {
+      DataSource.instance.fetchBooksList(qurey: qurey).then((value) async {
         print(value);
 
         if (value!.isNotEmpty) {
@@ -36,7 +36,7 @@ class BookCubit extends Cubit<BookState> {
 
           books = value;
           selected = val;
-
+          emit(BookInitial());
           emit(BookFetched(value, val));
         } else {
           emit(const BookError('Not Found Data'));

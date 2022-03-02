@@ -73,7 +73,7 @@ class _QuranTranslationLanguagePageState
                 CacheHelper.saveData(
                     key: 'QuranTranslationLanguageSelected', value: index);
 
-                settings[3].subTitle = 'Quran Translation ${index + 1}';
+                settings[4].subTitle = 'Quran Translation ${index + 1}';
                 CacheHelper.saveData(
                     key: 'QuranTranslationLanguageSelectedName',
                     value: 'Quran Translation ${index + 1}');
