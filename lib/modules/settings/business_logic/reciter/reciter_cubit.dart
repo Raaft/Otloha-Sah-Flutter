@@ -10,9 +10,9 @@ part 'reciter_state.dart';
 class ReciterCubit extends Cubit<ReciterState> {
   ReciterCubit() : super(ReciterInitial());
 
-  fetchReciter() {
+  fetchReciter({String? qurey}) {
     try {
-      DataSource.instance.fetchRecitersList().then((value) async {
+      DataSource.instance.fetchRecitersList(qurey :qurey).then((value) async {
         if (value!.isNotEmpty) {
           int val =
               (CacheHelper.getData(key: 'RecitersSelected') as int?) ?? -1;
@@ -29,6 +29,7 @@ class ReciterCubit extends Cubit<ReciterState> {
         }
       });
     } catch (e) {
+      print(e.toString());
       emit(ReciterError(e.toString()));
     }
   }
