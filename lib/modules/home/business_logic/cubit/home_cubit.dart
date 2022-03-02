@@ -10,6 +10,7 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 part 'home_state.dart';
 
@@ -17,6 +18,15 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   static HomeCubit get(context) => BlocProvider.of(context);
+
+
+  PageType pageType=PageType.quran;
+
+  void changePluginPage({required PageType page}) {
+    print('page type = $page');
+    pageType = page;
+    emit(ChangePageState());
+  }
 
   changeIndex(int? index) {
     emit(HomeInitial());
