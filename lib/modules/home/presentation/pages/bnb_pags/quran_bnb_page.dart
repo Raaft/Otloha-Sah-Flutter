@@ -14,6 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 
+
+
 class QuranBNBPage extends StatelessWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
 
