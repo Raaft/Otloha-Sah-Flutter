@@ -9,6 +9,7 @@ import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cu
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
+import 'package:flutter_base/modules/plugin_creation/domain/plugin_cubit/plugin_cubit.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranaction_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/reciter/reciter_cubit.dart';
@@ -51,8 +52,15 @@ class AppRouter {
         );
       case HomePage.routeName:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => HomeCubit(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<HomeCubit>(
+                create: (BuildContext context) => HomeCubit(),
+              ),
+              BlocProvider<PluginCubit>(
+                create: (BuildContext context) => PluginCubit(),
+              ),
+            ],
             child: const HomePage(),
           ),
           settings: settings,

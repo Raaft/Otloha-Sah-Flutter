@@ -4,6 +4,8 @@ import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../widget/float_menu_widget.dart';
+
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
 
@@ -42,32 +44,36 @@ class _HomePageState extends State<HomePage> {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
-          return Scaffold(
-            body: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                if (state is HomeChangeIndex) {
-                  _index = state.index;
-                }
-                return SafeArea(child: homeMenuItems[_index].page);
-              },
-            ),
-            bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                if (state is HomeChangeIndex) {
-                  _index = state.index;
-                }
-                ///
-                return (!cubit.isFloatingMenu||state is HomeChangeIndex )
-                    ? BubbleBottomBarApp(
-                        onItemTapped: _changePage,
-                        selectedIndex: _index,
-                        items: homeMenuItems,
-                      )
-                    : Container(
-                        height: 0,
-                      );
-              },
-            ),
+          return Stack(
+            children: [
+              Scaffold(
+                body: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    if (state is HomeChangeIndex) {
+                      _index = state.index;
+                    }
+                    return SafeArea(child: homeMenuItems[_index].page);
+                  },
+                ),
+                bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    if (state is HomeChangeIndex) {
+                      _index = state.index;
+                    }
+
+                    ///
+                    return  BubbleBottomBarApp(
+                            onItemTapped: _changePage,
+                            selectedIndex: _index,
+                            items: homeMenuItems,
+                          );
+
+                  },
+                ),
+              ),
+              if (cubit.isFloatingMenu) floatMenu(context, cubit),
+
+            ],
           );
         },
       ),

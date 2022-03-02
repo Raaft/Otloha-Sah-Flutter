@@ -6,6 +6,7 @@ import 'package:flutter_base/modules/data/repository/database_repository.dart';
 
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:get/get.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import '../../../../core/utils/res/icons_app.dart';
 import '../../../../core/utils/themes/color.dart';
@@ -165,7 +166,7 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
                                 children: [
                                   GestureDetector(
                                       onTap: () {
-                                        cubit.changeIsBookmarked();
+                                        cubit.changePluginPage(page: PageType.translation);
                                       },
                                       child: Icon(
                                         Icons.translate,
@@ -218,4 +219,3 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
   );
 }
 
-////proplr in commits
