@@ -19,8 +19,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-
-  PageType pageType=PageType.quran;
+  PageType pageType = PageType.quran;
 
   void changePluginPage({required PageType page}) {
     print('page type = $page');
@@ -46,21 +45,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   double opacity = 0.4;
 
-
   changePlayPause() {
-    playPause =!playPause;
+    playPause = !playPause;
 
     emit(ChangePlayPauseState());
   }
+
   changeIsPlaying() {
     isOnPressed = false;
     isSelectedVerse = false;
     isRecorded = false;
     isRecordedFile = false;
     isFloatingMenu = false;
-    isPlaying=true;
+    isPlaying = true;
     emit(ChangeIsPlayingState());
   }
+
   changeIsSelectedVerse() {
     isSelectedVerse = true;
 
@@ -111,7 +111,7 @@ class HomeCubit extends Cubit<HomeState> {
   changeIsOnTruePressed() {
     isOnPressed = true;
     isSelectedVerse = false;
-    isPlaying=false;
+    isPlaying = false;
     isRecorded = false;
     isRecordedFile = false;
     isFloatingMenu = false;
@@ -122,14 +122,14 @@ class HomeCubit extends Cubit<HomeState> {
   changeIsOnFalsePressed() {
     isOnPressed = false;
     isFloatingMenu = false;
-    isPlaying=false;
+    isPlaying = false;
 
     emit(IsOnPressTrueState());
   }
 
   changeIsRecorded() {
     isOnPressed = false;
-    isSelectedVerse=false;
+    isSelectedVerse = false;
     isRecordedFile = false;
     isRecorded = true;
     emit(IsRecordedState());
@@ -137,7 +137,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeIsRecordedFile() {
     isOnPressed = false;
-    isSelectedVerse=false;
+    isSelectedVerse = false;
 
     isRecorded = false;
     isRecordedFile = true;
