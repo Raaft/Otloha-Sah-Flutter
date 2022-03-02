@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
+import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:get/get.dart';
@@ -63,9 +64,11 @@ class _TajweedPageState extends State<TajweedPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(key: 'TajweedSelected', value: index);
+
+                settings[5].subTitle = 'Tajweed ${index + 1}';
                 CacheHelper.saveData(
                     key: 'TajweedSelectedName',
-                    value: 'Books Name ${index + 1}');
+                    value: 'Tajweed Name ${index + 1}');
                 setState(() {
                   _selected = index;
                 });

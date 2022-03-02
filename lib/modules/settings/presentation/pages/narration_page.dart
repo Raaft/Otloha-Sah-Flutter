@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:quran_widget_flutter/model/narration.dart';
+
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/business_logic/narration/narration_cubit.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:quran_widget_flutter/model/narration.dart';
 
 class NarrationPage extends StatefulWidget {
   const NarrationPage({Key? key}) : super(key: key);
@@ -57,6 +58,9 @@ class _NarrationPageState extends State<NarrationPage> {
         },
       ),
       title: 'Narrations Center',
+      onSearch: (val) {
+        BlocProvider.of<NarrationCubit>(context).fetchNarration(qurey: val);
+      },
     );
   }
 
@@ -64,6 +68,10 @@ class _NarrationPageState extends State<NarrationPage> {
     return BlocBuilder<NarrationCubit, NarrationState>(
       builder: (context, state) {
         if (state is NarrationFetched) {
+          _selected = state.selected;
+          return _viewData(state.narrations);
+        }
+        if (state is NarrationChangeSelected) {
           _selected = state.selected;
           return _viewData(state.narrations);
         } else if (state is NarrationInitial) {
@@ -95,6 +103,8 @@ class _NarrationPageState extends State<NarrationPage> {
               isDownloaded: true,
               isSelect: _selected == index,
               action: () {
+                BlocProvider.of<NarrationCubit>(context).changeIndex(index);
+
                 Get.dialog(
                   const AlertDialogFullScreen(),
                   barrierColor: AppColor.backdone,
@@ -105,14 +115,11 @@ class _NarrationPageState extends State<NarrationPage> {
                 );
 
                 settings[0].subTitle =
-                    isDemo ? 'narrations name' : narrations![index].name;
+                    isDemo ? 'narrations name $index' : narrations![index].name;
                 CacheHelper.saveData(
                   key: 'NarrationsSelectedName',
                   value: isDemo ? 'narrations name' : narrations![index].name,
                 );
-                setState(() {
-                  _selected = index;
-                });
               },
             );
           },

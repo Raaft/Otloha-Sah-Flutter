@@ -5,22 +5,28 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 
 class SearchBarApp extends StatefulWidget {
-  const SearchBarApp(
-      {Key? key, this.backIcon, required this.title, this.actionIcon})
-      : super(key: key);
+  const SearchBarApp({
+    Key? key,
+    this.backIcon,
+    required this.title,
+    this.actionIcon,
+    this.onSearch,
+  }) : super(key: key);
 
   final Widget? backIcon;
   final Widget? actionIcon;
   final String title;
+
+  final Function(String val)? onSearch;
 
   @override
   State<SearchBarApp> createState() => _SearchBarAppState();
 }
 
 class _SearchBarAppState extends State<SearchBarApp> {
-  TextEditingController con = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
-  var borderSide =  BorderSide(width: 1, color: AppColor.lightBlue);
+  var borderSide = BorderSide(width: 1, color: AppColor.lightBlue);
 
   var border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(8.0),
@@ -90,8 +96,8 @@ class _SearchBarAppState extends State<SearchBarApp> {
                   )),
             ),
             Expanded(
-              child: TextFormField(
-                controller: con,
+              child: TextField(
+                controller: _controller,
                 decoration: InputDecoration(
                   //  color: Colors.blue,
                   isDense: true,
@@ -107,19 +113,17 @@ class _SearchBarAppState extends State<SearchBarApp> {
                   fillColor: AppColor.white,
                 ),
                 onChanged: (val) {
-                  setState(() {
-                    con.text = val;
-                  });
+                  widget.onSearch!(val);
                 },
               ),
             ),
-            if (con.text.isNotEmpty)
+            if (_controller.text.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        con.text = '';
+                        _controller.text = '';
                       });
                     },
                     child: Icon(

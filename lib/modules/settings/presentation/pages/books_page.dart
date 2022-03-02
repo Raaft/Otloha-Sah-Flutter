@@ -65,13 +65,17 @@ class _BooksPageState extends State<BooksPage> {
         if (state is BookFetched) {
           _selected = state.selected;
           return _viewData(state.books);
+        } else if (state is BookChangeIndex) {
+          _selected = state.selected;
+          if (state.books != null && state.books!.isNotEmpty) {
+            return _viewData(state.books);
+          } else {
+            return _viewData(null, isDemo: true);
+          }
         } else if (state is BookInitial) {
           return const LoadingWidget();
         } else {
-          return _viewData(
-            null,
-            isDemo: true,
-          );
+          return _viewData(null, isDemo: true);
         }
       },
     );
@@ -89,9 +93,14 @@ class _BooksPageState extends State<BooksPage> {
               isDownloaded: _downloaded.contains(index),
               isSelect: _selected == index,
               onLongPress: () {
-                setState(() {
-                  _selected = index;
-                });
+                if (_downloaded.contains(index)) {
+                  BlocProvider.of<BookCubit>(context).changeIndex(index);
+
+                  Get.dialog(
+                    const AlertDialogFullScreen(),
+                    barrierColor: AppColor.backdone,
+                  );
+                }
               },
               onDownload: () {
                 setState(() {
@@ -99,15 +108,12 @@ class _BooksPageState extends State<BooksPage> {
                 });
               },
               action: () {
-                if (_selected == index) {
+                if (_downloaded.contains(index)) {
+                  BlocProvider.of<BookCubit>(context).changeIndex(index);
                   Get.dialog(
                     const AlertDialogFullScreen(),
                     barrierColor: AppColor.backdone,
                   );
-
-                  setState(() {
-                    _selected = index;
-                  });
                 }
               },
             );

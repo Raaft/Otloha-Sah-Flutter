@@ -10,8 +10,13 @@ class LanguageCubit extends Cubit<LanguageState> {
   LanguageCubit() : super(LanguageInitial());
 
   changeLan(bool isEnC, BuildContext context) {
-    EasyLocalization.of(context)!.setLocale(Locale(isEnC ? 'en' : 'ar'));
+    context.setLocale(Locale(isEnC ? 'en' : 'ar'));
     isEn = isEnC;
+    if (isEn) {
+      EasyLocalization.of(context)!.setLocale(const Locale('en'));
+    } else {
+      EasyLocalization.of(context)!.setLocale(const Locale('ar'));
+    }
     emit(LanguageChange());
   }
 }

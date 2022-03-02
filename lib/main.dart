@@ -1,14 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+
+import 'package:quran_widget_flutter/plugin_auth/quran_widget_init.dart';
 
 import 'package:flutter_base/app_router.dart';
 import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
 
 void main() async {
@@ -28,7 +31,7 @@ void main() async {
 
   await CacheHelper.init();
 
-  var index = (CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? 0;
+  var index = (CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? 1;
 
   if (index == 0) {
     isEn = true;
@@ -36,20 +39,33 @@ void main() async {
     isEn = false;
   }
 
+  await QuranWidgetInit.init(clientId: clientId, clientSecret: clientSecret);
+
   BlocOverrides.runZoned(
     () => runApp(
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/lang',
-        // <- change the path of the translation files
-        //fallbackLocale: const Locale('en'),
         startLocale: Locale(isEn ? 'en' : 'ar'),
         useOnlyLangCode: true,
-        //useFallbackTranslations: true,
         saveLocale: true,
+        fallbackLocale: const Locale('ar'),
+        useFallbackTranslations: true,
         child: MyApp(
           appRouter: AppRouter(),
         ),
+        errorWidget: (message) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: TextView(
+                  padding: const EdgeInsets.all(32),
+                  text: message!.message.toString(),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     ),
     blocObserver: AppBlocObserver(),

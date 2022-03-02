@@ -8,10 +8,15 @@ import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
   static const routeName = '/settings';
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,10 +76,20 @@ class SettingsPage extends StatelessWidget {
           mainAxisSpacing: 2,
         ),
         itemBuilder: (context, index) {
-          return ItemSetting(settings: settings[index]);
+          return ItemSetting(
+            settings: settings[index],
+            change: _change,
+          );
         },
       ),
     );
+  }
+
+  _change() {
+    setState(() {
+      settings;
+      dawnLoadSettings;
+    });
   }
 
   _downloadSettings(BuildContext context) {
@@ -90,7 +105,10 @@ class SettingsPage extends StatelessWidget {
           mainAxisSpacing: 2,
         ),
         itemBuilder: (context, index) {
-          return ItemSetting(settings: dawnLoadSettings[index]);
+          return ItemSetting(
+            settings: dawnLoadSettings[index],
+            change: _change,
+          );
         },
       ),
     );

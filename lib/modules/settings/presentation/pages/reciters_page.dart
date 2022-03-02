@@ -95,10 +95,9 @@ class _RecitersPageState extends State<RecitersPage> {
                   key: 'ReciterSelected',
                   value: isDemo ? index : reciters![index].id,
                 );
-                setState(() {
-                  settings[1].subTitle =
-                      isDemo ? 'reciters name' : reciters![index].name;
-                });
+                settings[1].subTitle =
+                    isDemo ? 'reciters name $index' : reciters![index].name;
+
                 CacheHelper.saveData(
                   key: 'ReciterSelectedName',
                   value: isDemo ? 'reciters name' : reciters![index].name,

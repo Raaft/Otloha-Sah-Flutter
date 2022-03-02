@@ -101,13 +101,7 @@ class _ToolBottonState extends State<ToolBotton> {
                                 child: Icon(
                                   Icons.comment,
                                   color: AppColor.white,
-                                  //  size: 40,
-                                )
-                                /*Image.asset(
-                      AppIcons.quran4Icon,
-                      color: AppColor.white,
-                    ),*/
-                                ),
+                                )),
                           ),
                         GestureDetector(
                           onTap: () {

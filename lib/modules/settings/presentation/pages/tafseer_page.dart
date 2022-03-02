@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
+import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:get/get.dart';
@@ -66,6 +67,7 @@ class _TafseerPageState extends State<TafseerPage> {
                 );
                 CacheHelper.saveData(key: 'TafseerSelected', value: index);
 
+                settings[4].subTitle = 'Tafseer ${index + 1}';
                 CacheHelper.saveData(
                     key: 'TafseerSelectedName', value: 'Tafseer ${index + 1}');
 

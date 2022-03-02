@@ -6,12 +6,11 @@ import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_scti
 import 'package:flutter_base/modules/settings/data/models/setting.dart';
 
 class ItemSetting extends StatelessWidget {
-  const ItemSetting({
-    Key? key,
-    required this.settings,
-  }) : super(key: key);
+  const ItemSetting({Key? key, required this.settings, required this.change})
+      : super(key: key);
 
   final Settings settings;
+  final Function() change;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,11 @@ class ItemSetting extends StatelessWidget {
       item: SubSectionItem(
           title: settings.name,
           image: settings.image,
-          action: settings.actionTo,
+          action2: (context) {
+            Navigator.of(context)
+                .pushNamed(settings.actionTo ?? '')
+                .then((_) => change());
+          },
           subTitle: settings.subTitle),
     );
   }
