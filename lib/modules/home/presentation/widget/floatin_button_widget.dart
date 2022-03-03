@@ -7,14 +7,13 @@ Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
   if (isPressed) {
     cubit.changeOpacity(1);
   } else {
-    cubit.changeOpacity(.4);
+    cubit.changeOpacity(.2);
   }
 
   return Positioned(
     bottom: 50,
     right: 20,
     child: Opacity(
-      ///opacity: (isBressed)?1:.4,
       opacity: cubit.opacity,
       child: GestureDetector(
         onTap: () async {
@@ -24,28 +23,31 @@ Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
 
           
         },
-        ///////////commit proplem
+        child: ball(),
+      ),
+    ),
+  );
+}
+
+ ball() {
+  return CircleAvatar(
+        radius: 30,
+        backgroundColor: AppColor.darkBlue,
         child: CircleAvatar(
-          radius: 30,
-          backgroundColor: AppColor.darkBlue,
+          radius: 25,
+          backgroundColor: AppColor.lightBlue,
           child: CircleAvatar(
-            radius: 25,
-            backgroundColor: AppColor.lightBlue,
+            radius: 20,
+            backgroundColor: AppColor.darkBlue,
             child: CircleAvatar(
-              radius: 20,
-              backgroundColor: AppColor.darkBlue,
+              radius: 15,
+              backgroundColor: AppColor.lightBlue,
               child: CircleAvatar(
-                radius: 15,
-                backgroundColor: AppColor.lightBlue,
-                child: CircleAvatar(
-                  radius: 10,
-                  backgroundColor: AppColor.darkBlue,
-                ),
+                radius: 10,
+                backgroundColor: AppColor.darkBlue,
               ),
             ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 }

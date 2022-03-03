@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-import 'package:quran_widget_flutter/plugin_auth/quran_widget_init.dart';
 
 import 'package:flutter_base/app_router.dart';
 import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
+import 'package:quran_widget_flutter/plugin_auth/quran_widget_init.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
