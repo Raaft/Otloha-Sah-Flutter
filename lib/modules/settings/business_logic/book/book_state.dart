@@ -10,15 +10,9 @@ abstract class BookState extends Equatable {
 class BookInitial extends BookState {}
 
 class BookFetched extends BookState {
-  final List<Book> books;
-  final int selected;
-  const BookFetched(this.books, this.selected);
-}
-
-class BookChangeIndex extends BookState {
   final List<Book>? books;
   final int selected;
-  const BookChangeIndex(this.books, this.selected);
+  const BookFetched(this.books, this.selected);
 }
 
 class BookError extends BookState {

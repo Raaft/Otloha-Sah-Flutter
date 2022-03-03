@@ -67,7 +67,7 @@ class _TafseerPageState extends State<TafseerPage> {
                 );
                 CacheHelper.saveData(key: 'TafseerSelected', value: index);
 
-                settings[5].subTitle = 'Tafseer ${index + 1}';
+                settings[4].subTitle = 'Tafseer ${index + 1}';
                 CacheHelper.saveData(
                     key: 'TafseerSelectedName', value: 'Tafseer ${index + 1}');
 

@@ -65,7 +65,7 @@ class _TajweedPageState extends State<TajweedPage> {
                 );
                 CacheHelper.saveData(key: 'TajweedSelected', value: index);
 
-                settings[6].subTitle = 'Tajweed ${index + 1}';
+                settings[5].subTitle = 'Tajweed ${index + 1}';
                 CacheHelper.saveData(
                     key: 'TajweedSelectedName',
                     value: 'Tajweed Name ${index + 1}');

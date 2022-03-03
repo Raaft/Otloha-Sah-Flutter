@@ -2,8 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
-import 'package:quran_widget_flutter/data_source/data_source.dart';
-import 'package:quran_widget_flutter/model/reciter.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 part 'reciter_state.dart';
 
@@ -12,7 +11,7 @@ class ReciterCubit extends Cubit<ReciterState> {
 
   fetchReciter({String? qurey}) {
     try {
-      DataSource.instance.fetchRecitersList(qurey :qurey).then((value) async {
+      DataSource.instance.fetchRecitersList(qurey: qurey).then((value) async {
         if (value!.isNotEmpty) {
           int val =
               (CacheHelper.getData(key: 'RecitersSelected') as int?) ?? -1;

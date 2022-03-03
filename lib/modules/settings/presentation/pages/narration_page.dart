@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:quran_widget_flutter/model/narration.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
@@ -113,7 +113,12 @@ class _NarrationPageState extends State<NarrationPage> {
                   key: 'NarrationsSelected',
                   value: isDemo ? index : narrations![index].id,
                 );
-
+                CacheHelper.clearData(key: 'BookSelected');
+                CacheHelper.clearData(key: 'ReciterSelected');
+                CacheHelper.clearData(key: 'BookSelectedName');
+                CacheHelper.clearData(key: 'ReciterSelectedName');
+                settings[1].subTitle = '';
+                downLoadSettings[0].subTitle = '';
                 settings[0].subTitle =
                     isDemo ? 'narrations name $index' : narrations![index].name;
                 CacheHelper.saveData(

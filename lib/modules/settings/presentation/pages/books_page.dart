@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/settings/data/models/init_data.dart';
+import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:quran_widget_flutter/model/book.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
-import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_base/modules/settings/business_logic/book/book_cubit.dart';
+import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 
@@ -24,7 +24,7 @@ class BooksPage extends StatefulWidget {
 class _BooksPageState extends State<BooksPage> {
   int _selected = -1;
 
-  final List<int> _downloaded = [];
+  //final List<int> _downloaded = [];
 
   @override
   void initState() {
@@ -68,16 +68,13 @@ class _BooksPageState extends State<BooksPage> {
       builder: (context, state) {
         if (state is BookFetched) {
           _selected = state.selected;
-          return _viewData(state.books);
-        } else if (state is BookChangeIndex) {
-          _selected = state.selected;
           if (state.books != null && state.books!.isNotEmpty) {
-            return _viewData(state.books);
+            return _viewData(state);
           } else {
-            return _viewData(null, isDemo: true);
+            return const LoadingWidget();
           }
         } else if (state is BookInitial) {
-          return const LoadingWidget();
+          return _viewData(null, isDemo: true);
         } else {
           return _viewData(null, isDemo: true);
         }
@@ -85,41 +82,95 @@ class _BooksPageState extends State<BooksPage> {
     );
   }
 
-  Expanded _viewData(List<Book>? books, {bool isDemo = false}) {
+  Expanded _viewData(BookFetched? state, {bool isDemo = false}) {
+    // var books = (state as BookFetched).books;
     return Expanded(
-      child: Padding(
+      child: ListView(
+        shrinkWrap: true,
         padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: isDemo ? 15 : books!.length,
-          itemBuilder: (context, index) {
-            return ItemDownload(
-              name: isDemo ? 'books name' : books![index].name.toString(),
-              isDownloaded: true,
-              isSelect: _selected == index,
-              action: () {
-                Get.dialog(
-                  const AlertDialogFullScreen(),
-                  barrierColor: AppColor.backdone,
-                );
-                setState(() {
-                  _selected = index;
-                });
+        children: [
+          _downloadedBooks(
+            isDemo,
+            isDemo ? null : state!.books!,
+          ),
+          Divider(
+            thickness: 1,
+            color: AppColor.lineColor,
+          ),
+          _downloadBooks(
+            isDemo,
+            isDemo ? null : state!.books!,
+          )
+        ],
+      ),
+    );
+  }
 
-                CacheHelper.saveData(
-                    key: 'BookSelected',
-                    value: isDemo ? index : books![index].id);
+  ListView _downloadedBooks(bool isDemo, List<Book>? books) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: isDemo ? 15 : books!.length,
+      itemBuilder: (context, index) {
+        return ItemDownload(
+          name: isDemo ? 'books name' : books![index].name.toString(),
+          isDownloaded: true,
+          isSelect: _selected == index,
+          action: () {
+            Get.dialog(
+              const AlertDialogFullScreen(),
+              barrierColor: AppColor.backdone,
+            );
+            setState(() {
+              _selected = index;
+            });
 
-                settings[1].subTitle =
-                    isDemo ? 'Book name $index' : books![index].name;
-                CacheHelper.saveData(
-                  key: 'BookSelectedName',
-                  value: isDemo ? 'Book name $index' : books![index].name,
-                );
-              },
+            CacheHelper.saveData(
+                key: 'BookSelected', value: isDemo ? index : books![index].id);
+
+            downLoadSettings[0].subTitle =
+                isDemo ? 'Book name $index' : books![index].name;
+            CacheHelper.saveData(
+              key: 'BookSelectedName',
+              value: isDemo ? 'Book name $index' : books![index].name,
             );
           },
-        ),
-      ),
+        );
+      },
+    );
+  }
+
+  ListView _downloadBooks(bool isDemo, List<Book>? books) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: isDemo ? 15 : books!.length,
+      itemBuilder: (context, index) {
+        return ItemDownload(
+          name: isDemo ? 'books name' : books![index].name.toString(),
+          isDownloaded: true,
+          isSelect: false,
+          action: () {
+            Get.dialog(
+              const AlertDialogFullScreen(),
+              barrierColor: AppColor.backdone,
+            );
+            setState(() {
+              _selected = index;
+            });
+
+            CacheHelper.saveData(
+                key: 'BookSelected', value: isDemo ? index : books![index].id);
+
+            downLoadSettings[0].subTitle =
+                isDemo ? 'Book name $index' : books![index].name;
+            CacheHelper.saveData(
+              key: 'BookSelectedName',
+              value: isDemo ? 'Book name $index' : books![index].name,
+            );
+          },
+        );
+      },
     );
   }
 }

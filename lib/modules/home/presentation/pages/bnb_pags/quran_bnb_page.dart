@@ -13,9 +13,6 @@ import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
-
-
-
 class QuranBNBPage extends StatelessWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
 
@@ -152,9 +149,6 @@ class QuranBNBPage extends StatelessWidget {
       tag: 'ToChooseSurah',
       child: GestureDetector(
         onTap: () => Navigator.of(context).pushNamed(IndexSurahPage.routeName),
-        onVerticalDragDown: (drag) {
-          Navigator.of(context).pushNamed(IndexSurahPage.routeName);
-        },
         child: Container(
           padding: const EdgeInsets.only(bottom: 40, top: 8),
           //margin:  EdgeInsets.only(top: 4),

@@ -20,14 +20,8 @@ final List<Settings> settings = [
     subTitle: CacheHelper.getData(key: 'NarrationsSelectedName'),
   ),
   Settings(
-    name: translate('Books'),
-    image: AppIcons.downloadIcon,
-    actionTo: BooksPage.routeName,
-    subTitle: CacheHelper.getData(key: 'BookSelectedName'),
-  ),
-  Settings(
     name: translate('Reciters'),
-    image: AppIcons.languageIcon,
+    image: AppIcons.discussioncon,
     actionTo: RecitersPage.routeName,
     subTitle: CacheHelper.getData(key: 'ReciterSelectedName'),
   ),
@@ -45,19 +39,25 @@ final List<Settings> settings = [
   ),
   Settings(
     name: translate('Tafsir'),
-    image: AppIcons.languageIcon,
+    image: AppIcons.readingIcon,
     actionTo: TafseerPage.routeName,
     subTitle: CacheHelper.getData(key: 'TafseerSelectedName'),
   ),
   Settings(
     name: translate('Tajweed'),
-    image: AppIcons.languageIcon,
+    image: AppIcons.readingIcon,
     actionTo: TajweedPage.routeName,
     subTitle: CacheHelper.getData(key: 'TajweedSelectedName'),
   ),
 ];
 
-final List<Settings> dawnLoadSettings = [
+final List<Settings> downLoadSettings = [
+  Settings(
+    name: translate('Books'),
+    image: AppIcons.quran2Icon,
+    actionTo: BooksPage.routeName,
+    subTitle: CacheHelper.getData(key: 'BookSelectedName'),
+  ),
   Settings(
     name: translate('Chapter'),
     image: AppIcons.downloadIcon,
@@ -69,3 +69,12 @@ List<Language> lang = [
   Language(langName: 'English', langCode: 'en'),
   Language(langName: 'العربية', langCode: 'ar'),
 ];
+
+/*
+ Settings(
+    name: translate('Recitations'),
+    image: AppIcons.discussioncon,
+    actionTo: RecitationsPage.routeName,
+    //  subTitle: CacheHelper.getData(key: 'ReciterSelectedName'),
+  ),
+*/

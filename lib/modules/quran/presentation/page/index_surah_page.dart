@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_surah.dart';
+import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:get/get.dart';
 
 class IndexSurahPage extends StatefulWidget {
   const IndexSurahPage({Key? key}) : super(key: key);
@@ -20,12 +24,31 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
   int _selected = -1;
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ChapterCubit>(context).fetchChaptersList(isSelect: true);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: Stack(
         children: [
-          _pageView(),
+          BlocBuilder<ChapterCubit, ChapterState>(
+            builder: (context, state) {
+              if (state is ChapterFetched) {
+                return _pageView(state.chapters);
+              } else if (state is ChapterInitial) {
+                return const LoadingWidget();
+              } else {
+                return _pageView(
+                  null,
+                  isDemo: true,
+                );
+              }
+            },
+          ),
           _viewTop(context),
         ],
       )),
@@ -75,13 +98,13 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
     );
   }
 
-  Column _pageView() {
+  Column _pageView(List<Chapter>? chapters, {bool isDemo = false}) {
     return Column(
-      children: [_topView(), _viewItems()],
+      children: [_topView(isDemo), _viewItems(chapters, isDemo: isDemo)],
     );
   }
 
-  Widget _topView() {
+  Widget _topView([bool? isDemo]) {
     return SearchBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -90,31 +113,36 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
         },
       ),
       title: 'Quran Center',
+      onSearch: (val) {
+        if (!(isDemo ?? false)) {
+          BlocProvider.of<ChapterCubit>(context)
+              .fetchChaptersList(qurey: val, isSelect: true);
+        }
+      },
     );
   }
 
-  Expanded _viewItems() {
+  Expanded _viewItems(List<Chapter>? chapters, {bool isDemo = false}) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: 15,
+          itemCount: isDemo ? 15 : chapters!.length,
           itemBuilder: (context, index) {
             return ItemSurah(
-              name: 'Al-Fatihah',
+              name: isDemo ? 'Al-Fatihah' : chapters![index].name.toString(),
               partName: 'juz 1',
               pageFrom: 1,
               pageTO: 1,
               verses: 7,
               isMakkah: index % 2 == 0,
               isSelect: _selected == index,
-              onLongPress: () {
+              onLongPress: () {},
+              action: () {
                 setState(() {
                   _selected = index;
                 });
-              },
-              action: () {
-                Get.back();
+                _changePage(1);
               },
             );
           },
