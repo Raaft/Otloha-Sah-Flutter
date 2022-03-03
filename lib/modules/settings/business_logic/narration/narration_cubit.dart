@@ -2,8 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
-import 'package:quran_widget_flutter/data_source/data_source.dart';
-import 'package:quran_widget_flutter/model/narration.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 part 'narration_state.dart';
 

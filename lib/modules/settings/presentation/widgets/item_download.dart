@@ -85,6 +85,7 @@ class ItemDownload extends StatelessWidget {
                           colorText: AppColor.txtColor4,
                           sizeText: 12,
                           padding: const EdgeInsets.all(0),
+                          textAlign: TextAlign.start,
                         ),
                     ],
                   ),
