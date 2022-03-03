@@ -67,6 +67,8 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                                   onTap: () {
                                     cubit.changePluginPage(
                                         page: PageType.quran);
+                                    cubit.changeFalseFloating();
+
                                   },
                                   child: Image.asset(AppIcons.quran2Icon,
                                       color: AppColor.white, width: 30),
@@ -76,6 +78,8 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                                   onTap: () {
                                     cubit.changePluginPage(
                                         page: PageType.tajwid);
+                                    cubit.changeFalseFloating();
+
                                   },
                                   child: Image.asset(AppIcons.discussioncon,
                                       color: AppColor.white, width: 30),
@@ -88,6 +92,7 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                           ),
                         ),
                         SizedBox(
+
                           height: 30,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -96,6 +101,7 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                               GestureDetector(
                                 onTap: () {
                                   cubit.changePluginPage(page: PageType.tafsir);
+                                  cubit.changeFalseFloating();
                                 },
                                 child: Container(
                                     padding: const EdgeInsets.only(
@@ -164,6 +170,8 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                                   onTap: () {
                                     cubit.changePluginPage(
                                         page: PageType.translation);
+                                    cubit.changeFalseFloating();
+
                                   },
                                   child: Icon(
                                     Icons.translate,
