@@ -10,7 +10,6 @@ import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import '../../../../core/utils/res/icons_app.dart';
 import '../../../../core/utils/themes/color.dart';
-import '../../../../core/widgets/alert_dialog_full_screen.dart';
 import '../../business_logic/cubit/home_cubit.dart';
 
 Widget floatMenu(BuildContext context, HomeCubit cubit) {
@@ -68,7 +67,6 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                                     cubit.changePluginPage(
                                         page: PageType.quran);
                                     cubit.changeFalseFloating();
-
                                   },
                                   child: Image.asset(AppIcons.quran2Icon,
                                       color: AppColor.white, width: 30),
@@ -79,7 +77,6 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                                     cubit.changePluginPage(
                                         page: PageType.tajwid);
                                     cubit.changeFalseFloating();
-
                                   },
                                   child: Image.asset(AppIcons.discussioncon,
                                       color: AppColor.white, width: 30),
@@ -92,7 +89,6 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                           ),
                         ),
                         SizedBox(
-
                           height: 30,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -171,7 +167,6 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                                     cubit.changePluginPage(
                                         page: PageType.translation);
                                     cubit.changeFalseFloating();
-
                                   },
                                   child: Icon(
                                     Icons.translate,
