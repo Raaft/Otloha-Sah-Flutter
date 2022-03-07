@@ -1,10 +1,7 @@
 part of 'book_cubit.dart';
 
-abstract class BookState extends Equatable {
+abstract class BookState {
   const BookState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class BookInitial extends BookState {}
