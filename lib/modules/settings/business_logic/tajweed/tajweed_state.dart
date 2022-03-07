@@ -1,10 +1,7 @@
 part of 'tajweed_cubit.dart';
 
-abstract class TajweedState extends Equatable {
+abstract class TajweedState {
   const TajweedState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class TajweedInitial extends TajweedState {}

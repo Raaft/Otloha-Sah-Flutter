@@ -24,7 +24,7 @@ class BooksPage extends StatefulWidget {
 class _BooksPageState extends State<BooksPage> {
   int _selected = -1;
 
-  //final List<int> _downloaded = [];
+  final List<int> _downloaded = [];
 
   @override
   void initState() {
@@ -93,9 +93,12 @@ class _BooksPageState extends State<BooksPage> {
             isDemo,
             isDemo ? null : state!.books!,
           ),
-          Divider(
-            thickness: 1,
-            color: AppColor.lineColor,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Divider(
+              thickness: 1,
+              color: AppColor.grey,
+            ),
           ),
           _downloadBooks(
             isDemo,
@@ -117,23 +120,7 @@ class _BooksPageState extends State<BooksPage> {
           isDownloaded: true,
           isSelect: _selected == index,
           action: () {
-            Get.dialog(
-              const AlertDialogFullScreen(),
-              barrierColor: AppColor.backdone,
-            );
-            setState(() {
-              _selected = index;
-            });
-
-            CacheHelper.saveData(
-                key: 'BookSelected', value: isDemo ? index : books![index].id);
-
-            downLoadSettings[0].subTitle =
-                isDemo ? 'Book name $index' : books![index].name;
-            CacheHelper.saveData(
-              key: 'BookSelectedName',
-              value: isDemo ? 'Book name $index' : books![index].name,
-            );
+            BlocProvider.of<BookCubit>(context).changeIndex(index, isDemo);
           },
         );
       },
@@ -148,8 +135,18 @@ class _BooksPageState extends State<BooksPage> {
       itemBuilder: (context, index) {
         return ItemDownload(
           name: isDemo ? 'books name' : books![index].name.toString(),
-          isDownloaded: true,
+          isDownloaded: _downloaded.contains(index),
           isSelect: false,
+          onDownload: () {
+            setState(() {
+              _downloaded.add(index);
+            });
+          },
+          onLongPress: () {
+            setState(() {
+              _selected = index;
+            });
+          },
           action: () {
             Get.dialog(
               const AlertDialogFullScreen(),

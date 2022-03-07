@@ -1,10 +1,7 @@
 part of 'narration_cubit.dart';
 
-abstract class NarrationState extends Equatable {
+abstract class NarrationState {
   const NarrationState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class NarrationInitial extends NarrationState {}

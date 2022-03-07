@@ -1,10 +1,7 @@
 part of 'chapter_cubit.dart';
 
-abstract class ChapterState extends Equatable {
+abstract class ChapterState {
   const ChapterState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class ChapterInitial extends ChapterState {}
