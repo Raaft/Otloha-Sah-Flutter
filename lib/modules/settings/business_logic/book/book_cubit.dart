@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
+import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 part 'book_state.dart';
@@ -12,9 +14,24 @@ class BookCubit extends Cubit<BookState> {
 
   BookCubit() : super(BookInitial());
 
-  changeIndex(int index) {
+  changeIndex(int index, bool isDemo) {
     selected = index;
     print(selected);
+
+    Get.dialog(
+      const AlertDialogFullScreen(),
+      barrierColor: AppColor.backdone,
+    );
+    CacheHelper.saveData(
+        key: 'BookSelected', value: isDemo ? index : books![index].id);
+
+    downLoadSettings[0].subTitle =
+        isDemo ? 'Book name $index' : books![index].name;
+    CacheHelper.saveData(
+      key: 'BookSelectedName',
+      value: isDemo ? 'Book name $index' : books![index].name,
+    );
+
     emit(BookFetched(books, index));
   }
 
@@ -38,7 +55,7 @@ class BookCubit extends Cubit<BookState> {
 
           books = value;
           selected = val;
-          emit(BookInitial());
+
           emit(BookFetched(value, val));
         } else {
           emit(const BookError('Not Found Data'));

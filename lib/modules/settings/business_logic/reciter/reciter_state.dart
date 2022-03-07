@@ -1,10 +1,7 @@
 part of 'reciter_cubit.dart';
 
-abstract class ReciterState extends Equatable {
+abstract class ReciterState {
   const ReciterState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class ReciterInitial extends ReciterState {}

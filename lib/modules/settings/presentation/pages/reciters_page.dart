@@ -81,7 +81,7 @@ class _RecitersPageState extends State<RecitersPage> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: 15,
+          itemCount: isDemo ? 15 : reciters!.length,
           itemBuilder: (context, index) {
             return ItemDownload(
               name: isDemo ? 'reciters name' : reciters![index].name.toString(),

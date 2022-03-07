@@ -30,6 +30,32 @@ void main() async {
 
   await CacheHelper.init();
 
+  for (var item in List.generate(10, (index) => index)) {
+    FileStorage().download2(
+      'https://cdn-icons-png.flaticon.com/512/1581/1581942.png',
+      '/docs/text.png',
+      (received, total) {
+        if (total != -1) {
+          print('Downloads Main $item ' +
+              (received / total * 100).toStringAsFixed(0) +
+              '%');
+        }
+      },
+    );
+  }
+
+/*
+  FileStorage.writeCounter('deoc/text.png',
+          'https://cdn-icons-png.flaticon.com/512/1581/1581942.png')
+      .then(
+    (value) {
+      print('File Path' + value!.path);
+    },
+  );
+  */
+
+//
+
   var index = (CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? 1;
 
   if (index == 0) {

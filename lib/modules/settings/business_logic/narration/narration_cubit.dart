@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -32,7 +31,6 @@ class NarrationCubit extends Cubit<NarrationState> {
           }
           narrations = value;
           selected = val;
-          emit(NarrationInitial());
           emit(NarrationFetched(value, val));
         } else {
           emit(const NarrationError('Not Found Data'));

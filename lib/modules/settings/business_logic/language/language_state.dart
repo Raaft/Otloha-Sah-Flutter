@@ -1,10 +1,7 @@
 part of '../language/language_cubit.dart';
 
-abstract class LanguageState extends Equatable {
+abstract class LanguageState {
   const LanguageState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class LanguageInitial extends LanguageState {}
