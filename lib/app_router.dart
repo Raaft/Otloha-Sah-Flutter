@@ -91,7 +91,10 @@ class AppRouter {
         );
       case IndexSurahPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const IndexSurahPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => ChapterCubit(),
+            child: const IndexSurahPage(),
+          ),
           settings: settings,
         );
       case ChapterDownloadPage.routeName:

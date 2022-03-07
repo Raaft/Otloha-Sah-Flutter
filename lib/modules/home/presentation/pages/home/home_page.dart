@@ -71,7 +71,8 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              if (cubit.isFloatingMenu) floatMenu(context, cubit),
+
+              if (cubit.isFloatingMenu||state is IsFloatingTrueMenuState) floatMenu(context, cubit),
 
             ],
           );

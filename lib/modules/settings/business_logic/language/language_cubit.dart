@@ -17,6 +17,7 @@ class LanguageCubit extends Cubit<LanguageState> {
     } else {
       EasyLocalization.of(context)!.setLocale(const Locale('ar'));
     }
+    //   Restart.restartApp();
     emit(LanguageChange());
   }
 }

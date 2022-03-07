@@ -18,3 +18,8 @@ class ChapterError extends ChapterState {
   final String error;
   const ChapterError(this.error);
 }
+
+class ChapterEmpty extends ChapterState {
+  final bool isNarrtion;
+  const ChapterEmpty(this.isNarrtion);
+}

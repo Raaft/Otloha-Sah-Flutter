@@ -88,7 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
   _change() {
     setState(() {
       settings;
-      dawnLoadSettings;
+      downLoadSettings;
     });
   }
 
@@ -98,7 +98,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: dawnLoadSettings.length,
+        itemCount: downLoadSettings.length,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 150,
           childAspectRatio: 2 / 2,
@@ -106,7 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         itemBuilder: (context, index) {
           return ItemSetting(
-            settings: dawnLoadSettings[index],
+            settings: downLoadSettings[index],
             change: _change,
           );
         },

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/business_logic/reciter/reciter_cubit.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:quran_widget_flutter/model/reciter.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class RecitersPage extends StatefulWidget {
   const RecitersPage({Key? key}) : super(key: key);
@@ -95,7 +96,7 @@ class _RecitersPageState extends State<RecitersPage> {
                   key: 'ReciterSelected',
                   value: isDemo ? index : reciters![index].id,
                 );
-                settings[2].subTitle =
+                settings[1].subTitle =
                     isDemo ? 'reciters name $index' : reciters![index].name;
 
                 CacheHelper.saveData(
