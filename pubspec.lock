@@ -304,7 +304,7 @@ packages:
       name: flutter_native_splash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.5"
+    version: "2.1.0"
   flutter_offline:
     dependency: "direct main"
     description:
@@ -615,7 +615,7 @@ packages:
       name: record
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.2"
+    version: "3.0.3"
   record_platform_interface:
     dependency: transitive
     description:

@@ -30,6 +30,7 @@ void main() async {
 
   await CacheHelper.init();
 
+/*
   for (var item in List.generate(10, (index) => index)) {
     FileStorage().download2(
       'https://cdn-icons-png.flaticon.com/512/1581/1581942.png',
@@ -41,10 +42,13 @@ void main() async {
               '%');
         }
       },
+    ).then(
+      (value) {
+        print('File Path' + value!.path);
+      },
     );
   }
 
-/*
   FileStorage.writeCounter('deoc/text.png',
           'https://cdn-icons-png.flaticon.com/512/1581/1581942.png')
       .then(
@@ -109,6 +113,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      //showSemanticsDebugger: true,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
