@@ -45,13 +45,16 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           _sectionMain(context),
           SizedBox(
             width: double.infinity,
-            child: TextView(
-              text: translate('PopularActions'),
-              colorText: AppColor.txtColor3,
-              sizeText: 16,
-              weightText: FontWeight.w700,
-              padding: const EdgeInsets.all(4),
-              textAlign: TextAlign.start,
+            child: Semantics(
+              label: translate('PopularActions'),
+              child: TextView(
+                text: translate('PopularActions'),
+                colorText: AppColor.txtColor3,
+                sizeText: 16,
+                weightText: FontWeight.w700,
+                padding: const EdgeInsets.all(4),
+                textAlign: TextAlign.start,
+              ),
             ),
           ),
           _subSections(context),
