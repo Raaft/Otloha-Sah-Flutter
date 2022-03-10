@@ -134,7 +134,15 @@ class QuranBNBPage extends StatelessWidget {
                 listener: (context, state) {},
                 builder: (context, state) {
                   var cubit = HomeCubit.get(context);
-                  return QuranWidget(page: cubit.pageType);
+                  return QuranWidget(
+                    page: cubit.pageType,
+                    onTap: (val) {
+                      print(val);
+                    },
+                    onLongTap: (val) {
+                      print(val);
+                    },
+                  );
                 },
               ),
             )
