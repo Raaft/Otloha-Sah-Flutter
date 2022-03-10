@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
-
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -44,7 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
   bool isPlaying = false;
   bool playPause = true;
 
-  double opacity = 0.4;
+  double opacity = 0.0;
 
   changePlayPause() {
     playPause = !playPause;

@@ -45,7 +45,7 @@ class QuranBNBPage extends StatelessWidget {
     );
   }
 
-  Positioned _viewLikeMarked(HomeCubit cubit) {
+  Widget _viewLikeMarked(HomeCubit cubit) {
     return Positioned(
       top: 50,
       child: Row(
@@ -67,7 +67,7 @@ class QuranBNBPage extends StatelessWidget {
     );
   }
 
-  Positioned _tempView(BuildContext context, HomeCubit cubit) {
+  Widget tempView(BuildContext context, HomeCubit cubit) {
     return Positioned(
       top: 200,
       child: Align(
@@ -135,11 +135,11 @@ class QuranBNBPage extends StatelessWidget {
                     page: cubit.pageType,
                     onTap: (val) {
                       print('onTap ' + val);
-                      cubit.changeIsOnTruePressed();
-                      cubit.changeOpacity(1);
-                      Future.delayed(const Duration(seconds: 5), () {
-                        cubit.changeIsOnFalsePressed();
-                        cubit.changeOpacity(.4);
+                      //cubit.changeIsOnTruePressed();
+                      cubit.changeOpacity(.4);
+                      Future.delayed(const Duration(seconds: 10), () {
+                        //cubit.changeIsOnFalsePressed();
+                        cubit.changeOpacity(.0);
                       });
                     },
                     onLongTap: (val) {
