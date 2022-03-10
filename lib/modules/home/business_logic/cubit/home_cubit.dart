@@ -44,7 +44,7 @@ class HomeCubit extends Cubit<HomeState> {
   bool isPlaying = false;
   bool playPause = true;
 
-  double opacity = 0.4;
+  double opacity = 0;
 
   changePlayPause() {
     playPause = !playPause;
