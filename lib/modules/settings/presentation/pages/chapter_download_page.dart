@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
@@ -37,8 +38,8 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () async {
-      narrationName = await CacheHelper.getData(key: 'NarrationsSelectedName');
-      bookName = await CacheHelper.getData(key: 'BookSelectedName');
+      narrationName = await CacheHelper.getData(key: narrationSelectedName);
+      bookName = await CacheHelper.getData(key: bookSelectedName);
     });
 
     return Scaffold(

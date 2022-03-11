@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -35,8 +36,7 @@ class _NarrationPageState extends State<NarrationPage> {
   @override
   Widget build(BuildContext context) {
     try {
-      _selected =
-          (CacheHelper.getData(key: 'NarrationsSelected') as int?) ?? -1;
+      _selected = (CacheHelper.getData(key: narrationSelectedId) as int?) ?? -1;
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -110,19 +110,19 @@ class _NarrationPageState extends State<NarrationPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(
-                  key: 'NarrationsSelected',
+                  key: narrationSelectedId,
                   value: isDemo ? index : narrations![index].id,
                 );
-                CacheHelper.clearData(key: 'BookSelected');
-                CacheHelper.clearData(key: 'ReciterSelected');
-                CacheHelper.clearData(key: 'BookSelectedName');
-                CacheHelper.clearData(key: 'ReciterSelectedName');
+                CacheHelper.clearData(key: bookSelectedId);
+                CacheHelper.clearData(key: reciterSelectedId);
+                CacheHelper.clearData(key: bookSelectedName);
+                CacheHelper.clearData(key: reciterSelectedName);
                 settings[1].subTitle = '';
                 downLoadSettings[0].subTitle = '';
                 settings[0].subTitle =
                     isDemo ? 'narrations name $index' : narrations![index].name;
                 CacheHelper.saveData(
-                  key: 'NarrationsSelectedName',
+                  key: narrationSelectedName,
                   value: isDemo ? 'narrations name' : narrations![index].name,
                 );
               },

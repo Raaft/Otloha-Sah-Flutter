@@ -1,4 +1,5 @@
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/chapter_download_page.dart';
@@ -17,37 +18,37 @@ final List<Settings> settings = [
     name: translate('Narration'),
     image: AppIcons.languageIcon,
     actionTo: NarrationPage.routeName,
-    subTitle: CacheHelper.getData(key: 'NarrationsSelectedName'),
+    subTitle: CacheHelper.getData(key: narrationSelectedName),
   ),
   Settings(
     name: translate('Reciters'),
     image: AppIcons.discussioncon,
     actionTo: RecitersPage.routeName,
-    subTitle: CacheHelper.getData(key: 'ReciterSelectedName'),
+    subTitle: CacheHelper.getData(key: reciterSelectedName),
   ),
   Settings(
     name: translate('Languages'),
     image: AppIcons.languageIcon,
     actionTo: LanguagesPage.routeName,
-    subTitle: CacheHelper.getData(key: 'LanguagesSelectedName'),
+    subTitle: CacheHelper.getData(key: languagesSelected),
   ),
   Settings(
     name: translate('QuranTranslationLanguage'),
     image: AppIcons.languageIcon,
     actionTo: QuranTranslationLanguagePage.routeName,
-    subTitle: CacheHelper.getData(key: 'QuranTranslationLanguageSelectedName'),
+    subTitle: CacheHelper.getData(key: qtlSelectedName),
   ),
   Settings(
     name: translate('Tafsir'),
     image: AppIcons.readingIcon,
     actionTo: TafseerPage.routeName,
-    subTitle: CacheHelper.getData(key: 'TafseerSelectedName'),
+    subTitle: CacheHelper.getData(key: tafseerSelectedId),
   ),
   Settings(
     name: translate('Tajweed'),
     image: AppIcons.readingIcon,
     actionTo: TajweedPage.routeName,
-    subTitle: CacheHelper.getData(key: 'TajweedSelectedName'),
+    subTitle: CacheHelper.getData(key: tafseerSelectedName),
   ),
 ];
 
@@ -56,7 +57,7 @@ final List<Settings> downLoadSettings = [
     name: translate('Books'),
     image: AppIcons.quran2Icon,
     actionTo: BooksPage.routeName,
-    subTitle: CacheHelper.getData(key: 'BookSelectedName'),
+    subTitle: CacheHelper.getData(key: bookSelectedName),
   ),
   Settings(
     name: translate('Chapter'),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
@@ -22,7 +23,7 @@ class _TafseerPageState extends State<TafseerPage> {
   @override
   Widget build(BuildContext context) {
     try {
-      _selected = (CacheHelper.getData(key: 'TafseerSelected') as int?) ?? -1;
+      _selected = (CacheHelper.getData(key: tafseerSelectedId) as int?) ?? -1;
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -65,11 +66,11 @@ class _TafseerPageState extends State<TafseerPage> {
                   const AlertDialogFullScreen(),
                   barrierColor: AppColor.backdone,
                 );
-                CacheHelper.saveData(key: 'TafseerSelected', value: index);
+                CacheHelper.saveData(key: tafseerSelectedId, value: index);
 
                 settings[4].subTitle = 'Tafseer ${index + 1}';
                 CacheHelper.saveData(
-                    key: 'TafseerSelectedName', value: 'Tafseer ${index + 1}');
+                    key: tafseerSelectedName, value: 'Tafseer ${index + 1}');
 
                 setState(() {
                   _selected = index;

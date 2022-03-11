@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
@@ -13,8 +15,21 @@ import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
-class QuranBNBPage extends StatelessWidget {
+class QuranBNBPage extends StatefulWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
+
+  @override
+  State<QuranBNBPage> createState() => _QuranBNBPageState();
+}
+
+class _QuranBNBPageState extends State<QuranBNBPage> {
+  int chapter = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    chapter = CacheHelper.getData(key: chapterID) ?? 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +148,10 @@ class QuranBNBPage extends StatelessWidget {
                   var cubit = HomeCubit.get(context);
                   return QuranWidget(
                     page: cubit.pageType,
+                    chapterId: chapter,
+                    bookId: CacheHelper.getData(key: bookSelectedId) ?? 1,
+                    narrationId:
+                        CacheHelper.getData(key: narrationSelectedId) ?? 1,
                     onTap: (val) {
                       print('onTap ' + val);
                       //cubit.changeIsOnTruePressed();
@@ -160,7 +179,14 @@ class QuranBNBPage extends StatelessWidget {
     return Hero(
       tag: 'ToChooseSurah',
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed(IndexSurahPage.routeName),
+        onTap: () => Navigator.of(context)
+            .pushNamed(IndexSurahPage.routeName)
+            .then((value) {
+          setState(() {
+            chapter = CacheHelper.getData(key: chapterID) ?? 1;
+            print('Chapter $chapter');
+          });
+        }),
         child: Container(
           padding: const EdgeInsets.only(bottom: 40, top: 8),
           //margin:  EdgeInsets.only(top: 4),
