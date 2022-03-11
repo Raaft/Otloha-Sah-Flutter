@@ -56,10 +56,9 @@ void main() async {
       print('File Path' + value!.path);
     },
   );
-
   **/
 
-  var index = (CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? 1;
+  var index = (CacheHelper.getData(key: languagesSelected) as int?) ?? 1;
 
   if (index == 0) {
     isEn = true;

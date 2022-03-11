@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
@@ -21,7 +22,7 @@ class NarrationCubit extends Cubit<NarrationState> {
       DataSource.instance.fetchNarrationsList(qurey: qurey).then((value) async {
         if (value!.isNotEmpty) {
           int val =
-              (CacheHelper.getData(key: 'NarrationsSelected') as int?) ?? -1;
+              (CacheHelper.getData(key: narrationSelectedId) as int?) ?? -1;
           for (var element in value) {
             if (element.id == val) {
               val = value.indexOf(element);

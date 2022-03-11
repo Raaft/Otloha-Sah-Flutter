@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
@@ -142,6 +144,8 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
                 setState(() {
                   _selected = index;
                 });
+                CacheHelper.saveData(
+                    key: chapterID, value: chapters![index].id);
                 _changePage(1);
               },
             );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
@@ -25,9 +26,7 @@ class _QuranTranslationLanguagePageState
   @override
   Widget build(BuildContext context) {
     try {
-      _selected = (CacheHelper.getData(key: 'QuranTranslationLanguageSelected')
-              as int?) ??
-          -1;
+      _selected = (CacheHelper.getData(key: qtlSelectedId) as int?) ?? -1;
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -70,12 +69,11 @@ class _QuranTranslationLanguagePageState
                   const AlertDialogFullScreen(),
                   barrierColor: AppColor.backdone,
                 );
-                CacheHelper.saveData(
-                    key: 'QuranTranslationLanguageSelected', value: index);
+                CacheHelper.saveData(key: qtlSelectedId, value: index);
 
                 settings[3].subTitle = 'Quran Translation ${index + 1}';
                 CacheHelper.saveData(
-                    key: 'QuranTranslationLanguageSelectedName',
+                    key: qtlSelectedName,
                     value: 'Quran Translation ${index + 1}');
                 setState(() {
                   _selected = index;

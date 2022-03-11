@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
@@ -12,7 +13,7 @@ class ReciterCubit extends Cubit<ReciterState> {
     try {
       DataSource.instance.fetchRecitersList(qurey: qurey).then((value) async {
         if (value!.isNotEmpty) {
-          int val = (CacheHelper.getData(key: 'RecitersSelected') as int?) ?? 0;
+          int val = (CacheHelper.getData(key: reciterSelectedId) as int?) ?? 0;
 
           if (val > value.length) {
             val = 0;
