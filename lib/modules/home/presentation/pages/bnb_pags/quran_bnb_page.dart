@@ -22,9 +22,7 @@ class QuranBNBPage extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        return Scaffold(
-            //  floatingActionButton: cubit.isOnPressed ? floatingButton( cubit) : null,
-            body: Stack(
+        return Stack(
           alignment: Alignment.center,
           children: [
             Stack(
@@ -33,54 +31,8 @@ class QuranBNBPage extends StatelessWidget {
                 _viewPageReading(context),
               ],
             ),
-            Positioned(
-              top: 200,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Column(
-                  children: [
-                    AuthButton(
-                        buttonText: 'on press',
-                        width: MediaQuery.of(context).size.width / 2,
-                        onPressed: () {
-                          cubit.changeIsOnTruePressed();
-                          cubit.changeOpacity(1);
-                          Future.delayed(const Duration(seconds: 5), () {
-                            cubit.changeIsOnFalsePressed();
-                            cubit.changeOpacity(.4);
-                          });
-                        },
-                        colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                    AuthButton(
-                        buttonText: 'on long press',
-                        width: MediaQuery.of(context).size.width / 2,
-                        onPressed: () {
-                          cubit.changeIsSelectedVerse();
-                        },
-                        colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 50,
-              child: Row(
-                children: [
-                  if (cubit.isLiked)
-                    const Icon(
-                      Icons.favorite,
-                      color: Colors.amber,
-                      size: 40,
-                    ),
-                  if (cubit.isBookmarked)
-                    const Icon(
-                      Icons.bookmark,
-                      color: Colors.amber,
-                      size: 40,
-                    ),
-                ],
-              ),
-            ),
+            //_tempView(context, cubit),
+            _viewLikeMarked(cubit),
             if (cubit.isRecorded) const RecordTool(),
             if (cubit.isOnPressed || cubit.isSelectedVerse) const ToolBotton(),
             if (cubit.isRecordedFile) const RecordedFileTool(),
@@ -88,8 +40,53 @@ class QuranBNBPage extends StatelessWidget {
             if (cubit.opacity != 0)
               floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
           ],
-        ));
+        );
       },
+    );
+  }
+
+  Widget _viewLikeMarked(HomeCubit cubit) {
+    return Positioned(
+      top: 50,
+      child: Row(
+        children: [
+          if (cubit.isLiked)
+            const Icon(
+              Icons.favorite,
+              color: Colors.amber,
+              size: 40,
+            ),
+          if (cubit.isBookmarked)
+            const Icon(
+              Icons.bookmark,
+              color: Colors.amber,
+              size: 40,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget tempView(BuildContext context, HomeCubit cubit) {
+    return Positioned(
+      top: 200,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Column(
+          children: [
+            AuthButton(
+                buttonText: 'on press',
+                width: MediaQuery.of(context).size.width / 2,
+                onPressed: () {},
+                colors: [AppColor.darkBlue, AppColor.lightBlue]),
+            AuthButton(
+                buttonText: 'on long press',
+                width: MediaQuery.of(context).size.width / 2,
+                onPressed: () {},
+                colors: [AppColor.darkBlue, AppColor.lightBlue]),
+          ],
+        ),
+      ),
     );
   }
 
@@ -134,7 +131,22 @@ class QuranBNBPage extends StatelessWidget {
                 listener: (context, state) {},
                 builder: (context, state) {
                   var cubit = HomeCubit.get(context);
-                  return QuranWidget(page: cubit.pageType);
+                  return QuranWidget(
+                    page: cubit.pageType,
+                    onTap: (val) {
+                      print('onTap ' + val);
+                      //cubit.changeIsOnTruePressed();
+                      cubit.changeOpacity(.4);
+                      Future.delayed(const Duration(seconds: 10), () {
+                        //cubit.changeIsOnFalsePressed();
+                        cubit.changeOpacity(.0);
+                      });
+                    },
+                    onLongTap: (val) {
+                      print('onLongTap ' + val);
+                      cubit.changeIsSelectedVerse();
+                    },
+                  );
                 },
               ),
             )
