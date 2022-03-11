@@ -133,6 +133,9 @@ class QuranBNBPage extends StatelessWidget {
                   var cubit = HomeCubit.get(context);
                   return QuranWidget(
                     page: cubit.pageType,
+                    chapterId: 1,
+                    bookId: 1,
+                    narrationId: 1,
                     onTap: (val) {
                       print('onTap ' + val);
                       //cubit.changeIsOnTruePressed();

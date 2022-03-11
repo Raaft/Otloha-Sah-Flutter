@@ -145,12 +145,12 @@ class _ToolBottonState extends State<ToolBotton> {
                         ),
                         GestureDetector(
                           onTap: () {},
-                          child: Image.asset(AppIcons.languageIcon,
+                          child: Image.asset(AppIcons.discussioncon,
                               color: AppColor.white, width: 30),
                         ),
                         GestureDetector(
                           onTap: () {},
-                          child: Image.asset(AppIcons.languageIcon,
+                          child: Image.asset(AppIcons.quran4Icon,
                               color: AppColor.white, width: 30),
                         ),
                         /*  

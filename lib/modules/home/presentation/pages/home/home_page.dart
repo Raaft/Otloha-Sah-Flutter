@@ -62,18 +62,16 @@ class _HomePageState extends State<HomePage> {
                     }
 
                     ///
-                    return  BubbleBottomBarApp(
-                            onItemTapped: _changePage,
-                            selectedIndex: _index,
-                            items: homeMenuItems,
-                          );
-
+                    return BubbleBottomBarApp(
+                      onItemTapped: _changePage,
+                      selectedIndex: _index,
+                      items: homeMenuItems,
+                    );
                   },
                 ),
               ),
-
-              if (cubit.isFloatingMenu||state is IsFloatingTrueMenuState) floatMenu(context, cubit),
-
+              if (cubit.isFloatingMenu || state is IsFloatingTrueMenuState)
+                floatMenu(context, cubit),
             ],
           );
         },
