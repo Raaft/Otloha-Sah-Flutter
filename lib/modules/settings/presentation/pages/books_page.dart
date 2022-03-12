@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -75,9 +76,15 @@ class _BooksPageState extends State<BooksPage> {
             return const LoadingWidget();
           }
         } else if (state is BookInitial) {
-          return _viewData(null, isDemo: true);
+          return const LoadingWidget();
         } else {
-          return _viewData(null, isDemo: true);
+          String error = 'Not Found Data';
+
+          if (state is BookError) {
+            error = state.error;
+          }
+
+          return ViewError(error: error);
         }
       },
     );

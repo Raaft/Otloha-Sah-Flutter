@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
@@ -44,10 +45,7 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
               } else if (state is ChapterInitial) {
                 return const LoadingWidget();
               } else {
-                return _pageView(
-                  null,
-                  isDemo: true,
-                );
+                return const ViewError(error: '');
               }
             },
           ),
@@ -83,7 +81,8 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextView(
-                  text: '2. Al-Baqarah',
+                  text: ' سورة ' +
+                      (CacheHelper.getData(key: chapterName) ?? 'الفاتحة'),
                   textAlign: TextAlign.center,
                   colorText: AppColor.txtColor2,
                   sizeText: 17,
@@ -104,7 +103,7 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
     return Column(
       children: [
         _topView(isDemo),
-        _viewItems(chapters, isDemo: isDemo),
+        _viewItems(chapters),
       ],
     );
   }
@@ -127,17 +126,17 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
     );
   }
 
-  SizedBox _viewItems(List<Chapter>? chapters, {bool isDemo = false}) {
+  SizedBox _viewItems(List<Chapter>? chapters) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.8,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
-          itemCount: isDemo ? 15 : chapters!.length,
+          itemCount: chapters!.length,
           itemBuilder: (context, index) {
             return ItemSurah(
-              name: isDemo ? 'Al-Fatihah' : chapters![index].name.toString(),
-              partName: 'juz 1',
+              name: chapters[index].name.toString(),
+              partName: '',
               pageFrom: 1,
               pageTO: 1,
               verses: 7,
@@ -148,8 +147,9 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
                 setState(() {
                   _selected = index;
                 });
+                CacheHelper.saveData(key: chapterID, value: chapters[index].id);
                 CacheHelper.saveData(
-                    key: chapterID, value: chapters![index].id);
+                    key: chapterName, value: chapters[index].name);
                 _changePage(1);
               },
             );

@@ -25,3 +25,4 @@ const String reciterSelectedName = 'ReciterSelectedName';
 const String tajweedSelectedId = 'TajweedSelectedId';
 const String tajweedSelectedName = 'TajweedSelectedName';
 const String chapterID = 'ChapterID';
+const String chapterName = 'ChapterName';
