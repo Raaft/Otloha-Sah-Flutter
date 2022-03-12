@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -68,10 +69,13 @@ class _RecitersPageState extends State<RecitersPage> {
         } else if (state is ReciterInitial) {
           return const LoadingWidget();
         } else {
-          return _viewData(
-            null,
-            isDemo: true,
-          );
+          String error = 'Not Found Data';
+
+          if (state is ReciterError) {
+            error = state.error;
+          }
+
+          return ViewError(error: error);
         }
       },
     );

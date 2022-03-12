@@ -11,11 +11,18 @@ import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit() : super(HomeInitial()) {
+    chapterId = CacheHelper.getData(key: chapterID) ?? 1;
+    chapterN = (CacheHelper.getData(key: chapterName) as String);
+    // bookId = CacheHelper.getData(key: bookSelectedId) ?? 1;
+    //narrationId = CacheHelper.getData(key: narrationSelectedId) ?? 1;
+  }
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
@@ -31,6 +38,23 @@ class HomeCubit extends Cubit<HomeState> {
     emit(HomeInitial());
     debugPrint('index $index');
     emit(HomeChangeIndex(index ?? 0));
+  }
+
+  int chapterId = 1;
+  int bookId = 1;
+  int narrationId = 1;
+  String? chapterN = 'الفاتحة';
+  String juz = 'جزء رقم 1';
+
+  changeChapter(int newChapter) {
+    chapterId = newChapter;
+    chapterN = (CacheHelper.getData(key: chapterName) as String);
+    emit(QuranChangeChapter());
+  }
+
+  changeJuz(int newJux) {
+    juz = 'جزء رقم ' + newJux.toString();
+    emit(QuranChangeChapter());
   }
 
   bool isLiked = false;
