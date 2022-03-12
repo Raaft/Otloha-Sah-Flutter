@@ -17,6 +17,7 @@ import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.da
 import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 final List<SubSectionItem> subSectionData = [
   SubSectionItem(
@@ -40,7 +41,9 @@ final List<SubSectionItem> subSectionData = [
     image: AppIcons.languageIcon,
     subTitle: CacheHelper.getData(key: qtlSelectedName),
     action2: (context) {
-      BlocProvider.of<HomeCubit>(context).changeIndex(1);
+      BlocProvider.of<HomeCubit>(context)
+          .changePluginPage(page: PageType.translation)
+          .then((value) => BlocProvider.of<HomeCubit>(context).changeIndex(1));
     },
   ),
   SubSectionItem(
@@ -48,15 +51,17 @@ final List<SubSectionItem> subSectionData = [
     image: AppIcons.mailIcon,
     subTitle: CacheHelper.getData(key: tafseerSelectedName),
     action2: (context) {
-      BlocProvider.of<HomeCubit>(context).changeIndex(1);
-    },
+      BlocProvider.of<HomeCubit>(context)
+          .changePluginPage(page: PageType.tafsir)
+          .then((value) => BlocProvider.of<HomeCubit>(context).changeIndex(1));    },
   ),
   SubSectionItem(
     title: translate('Tajweed'),
     image: AppIcons.mailIcon,
     action2: (context) {
-      BlocProvider.of<HomeCubit>(context).changeIndex(1);
-    },
+      BlocProvider.of<HomeCubit>(context)
+          .changePluginPage(page: PageType.tajwid)
+          .then((value) => BlocProvider.of<HomeCubit>(context).changeIndex(1));    },
   ),
   SubSectionItem(
     title: translate('Note'),
@@ -96,6 +101,7 @@ List<BottomBarData> homeMenuItems = [
     badgeColor: AppColor.bottomHome,
     page: const HomeBNBPage(),
   ),
+
   BottomBarData(
     title: translate('Quran'),
     iconData: AppIcons.quranIcon,

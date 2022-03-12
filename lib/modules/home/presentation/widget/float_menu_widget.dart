@@ -224,7 +224,7 @@ GestureDetector floatBackGround(HomeCubit cubit) {
       cubit.changeOpacity(1);
       Future.delayed(const Duration(seconds: 5), () {
         cubit.changeIsOnFalsePressed();
-        cubit.changeOpacity(.4);
+        cubit.changeOpacity(.2);
       });
     },
     child: Container(

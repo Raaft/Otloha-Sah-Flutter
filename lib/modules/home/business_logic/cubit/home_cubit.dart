@@ -21,9 +21,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   PageType pageType = PageType.quran;
 
-  void changePluginPage({required PageType page}) {
+  Future<void> changePluginPage({required PageType page}) async{
     print('page type = $page');
-    pageType = page;
+     pageType = page;
     emit(ChangePageState());
   }
 

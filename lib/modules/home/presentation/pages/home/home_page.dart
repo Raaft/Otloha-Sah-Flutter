@@ -3,6 +3,7 @@ import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import '../../widget/float_menu_widget.dart';
 
@@ -63,7 +64,18 @@ class _HomePageState extends State<HomePage> {
 
                     ///
                     return BubbleBottomBarApp(
-                      onItemTapped: _changePage,
+                      onItemTapped: (int? index ){
+                        _changePage(index).then((value){
+                          Future.delayed(const Duration(milliseconds: 50),() {
+                            if(index==1){
+                              BlocProvider.of<HomeCubit>(context).changePluginPage(page: PageType.quran);
+                            }
+
+                          },);
+
+                        });
+
+                      },
                       selectedIndex: _index,
                       items: homeMenuItems,
                     );
@@ -79,7 +91,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _changePage(int? index) {
+  Future _changePage(index) async{
     BlocProvider.of<HomeCubit>(context).changeIndex(index ?? 0);
   }
 }

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/themes/color.dart';
 import '../../business_logic/cubit/home_cubit.dart';
 
-Widget floatingButton({required HomeCubit cubit, required bool isPressed,}) {
+Widget floatingButton({
+  required HomeCubit cubit,
+  required bool isPressed,
+}) {
   if (isPressed) {
     cubit.changeOpacity(1);
   } else {
