@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +33,7 @@ class _RecitersPageState extends State<RecitersPage> {
   @override
   Widget build(BuildContext context) {
     try {
-      _selected = (CacheHelper.getData(key: 'ReciterSelected') as int?) ?? -1;
+      _selected = (CacheHelper.getData(key: reciterSelectedId) as int?) ?? -1;
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -93,14 +94,14 @@ class _RecitersPageState extends State<RecitersPage> {
                   barrierColor: AppColor.backdone,
                 );
                 CacheHelper.saveData(
-                  key: 'ReciterSelected',
+                  key: reciterSelectedId,
                   value: isDemo ? index : reciters![index].id,
                 );
                 settings[1].subTitle =
                     isDemo ? 'reciters name $index' : reciters![index].name;
 
                 CacheHelper.saveData(
-                  key: 'ReciterSelectedName',
+                  key: reciterSelectedName,
                   value: isDemo ? 'reciters name' : reciters![index].name,
                 );
 

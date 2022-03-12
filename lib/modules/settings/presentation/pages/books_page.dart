@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,7 @@ class _BooksPageState extends State<BooksPage> {
   @override
   Widget build(BuildContext context) {
     try {
-      _selected = (CacheHelper.getData(key: 'BookSelected') as int?) ?? -1;
+      _selected = (CacheHelper.getData(key: bookSelectedId) as int?) ?? -1;
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -157,12 +158,12 @@ class _BooksPageState extends State<BooksPage> {
             });
 
             CacheHelper.saveData(
-                key: 'BookSelected', value: isDemo ? index : books![index].id);
+                key: bookSelectedId, value: isDemo ? index : books![index].id);
 
             downLoadSettings[0].subTitle =
                 isDemo ? 'Book name $index' : books![index].name;
             CacheHelper.saveData(
-              key: 'BookSelectedName',
+              key: bookSelectedName,
               value: isDemo ? 'Book name $index' : books![index].name,
             );
           },

@@ -71,10 +71,10 @@ class _LanguagesPageState extends State<LanguagesPage> {
       isSelect: _selected == index,
       action: () {
         try {
-          CacheHelper.saveData(key: 'LanguagesSelected', value: index);
+          CacheHelper.saveData(key: languagesSelectedId, value: index);
 
           CacheHelper.saveData(
-              key: 'LanguagesSelectedName', value: lang[index].langName);
+              key: languagesSelected, value: lang[index].langName);
           setState(() {
             _selected = index;
 
