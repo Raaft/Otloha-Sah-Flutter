@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
@@ -100,7 +102,10 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
 
   Column _pageView(List<Chapter>? chapters, {bool isDemo = false}) {
     return Column(
-      children: [_topView(isDemo), _viewItems(chapters, isDemo: isDemo)],
+      children: [
+        _topView(isDemo),
+        _viewItems(chapters, isDemo: isDemo),
+      ],
     );
   }
 
@@ -122,8 +127,9 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
     );
   }
 
-  Expanded _viewItems(List<Chapter>? chapters, {bool isDemo = false}) {
-    return Expanded(
+  SizedBox _viewItems(List<Chapter>? chapters, {bool isDemo = false}) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.8,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
@@ -142,6 +148,8 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
                 setState(() {
                   _selected = index;
                 });
+                CacheHelper.saveData(
+                    key: chapterID, value: chapters![index].id);
                 _changePage(1);
               },
             );

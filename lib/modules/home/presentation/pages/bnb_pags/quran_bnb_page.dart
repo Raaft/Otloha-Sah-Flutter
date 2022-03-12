@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
@@ -13,8 +15,21 @@ import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
-class QuranBNBPage extends StatelessWidget {
+class QuranBNBPage extends StatefulWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
+
+  @override
+  State<QuranBNBPage> createState() => _QuranBNBPageState();
+}
+
+class _QuranBNBPageState extends State<QuranBNBPage> {
+  int chapter = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    chapter = CacheHelper.getData(key: chapterID) ?? 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +37,7 @@ class QuranBNBPage extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        return Scaffold(
-            //  floatingActionButton: cubit.isOnPressed ? floatingButton( cubit) : null,
-            body: Stack(
+        return Stack(
           alignment: Alignment.center,
           children: [
             Stack(
@@ -33,54 +46,8 @@ class QuranBNBPage extends StatelessWidget {
                 _viewPageReading(context),
               ],
             ),
-            Positioned(
-              top: 200,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Column(
-                  children: [
-                    AuthButton(
-                        buttonText: 'on press',
-                        width: MediaQuery.of(context).size.width / 2,
-                        onPressed: () {
-                          cubit.changeIsOnTruePressed();
-                          cubit.changeOpacity(1);
-                          Future.delayed(const Duration(seconds: 5), () {
-                            cubit.changeIsOnFalsePressed();
-                            cubit.changeOpacity(.4);
-                          });
-                        },
-                        colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                    AuthButton(
-                        buttonText: 'on long press',
-                        width: MediaQuery.of(context).size.width / 2,
-                        onPressed: () {
-                          cubit.changeIsSelectedVerse();
-                        },
-                        colors: [AppColor.darkBlue, AppColor.lightBlue]),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 50,
-              child: Row(
-                children: [
-                  if (cubit.isLiked)
-                    const Icon(
-                      Icons.favorite,
-                      color: Colors.amber,
-                      size: 40,
-                    ),
-                  if (cubit.isBookmarked)
-                    const Icon(
-                      Icons.bookmark,
-                      color: Colors.amber,
-                      size: 40,
-                    ),
-                ],
-              ),
-            ),
+            //_tempView(context, cubit),
+            _viewLikeMarked(cubit),
             if (cubit.isRecorded) const RecordTool(),
             if (cubit.isOnPressed || cubit.isSelectedVerse) const ToolBotton(),
             if (cubit.isRecordedFile) const RecordedFileTool(),
@@ -88,8 +55,53 @@ class QuranBNBPage extends StatelessWidget {
             if (cubit.opacity != 0)
               floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
           ],
-        ));
+        );
       },
+    );
+  }
+
+  Widget _viewLikeMarked(HomeCubit cubit) {
+    return Positioned(
+      top: 50,
+      child: Row(
+        children: [
+          if (cubit.isLiked)
+            const Icon(
+              Icons.favorite,
+              color: Colors.amber,
+              size: 40,
+            ),
+          if (cubit.isBookmarked)
+            const Icon(
+              Icons.bookmark,
+              color: Colors.amber,
+              size: 40,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget tempView(BuildContext context, HomeCubit cubit) {
+    return Positioned(
+      top: 200,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Column(
+          children: [
+            AuthButton(
+                buttonText: 'on press',
+                width: MediaQuery.of(context).size.width / 2,
+                onPressed: () {},
+                colors: [AppColor.darkBlue, AppColor.lightBlue]),
+            AuthButton(
+                buttonText: 'on long press',
+                width: MediaQuery.of(context).size.width / 2,
+                onPressed: () {},
+                colors: [AppColor.darkBlue, AppColor.lightBlue]),
+          ],
+        ),
+      ),
     );
   }
 
@@ -134,7 +146,26 @@ class QuranBNBPage extends StatelessWidget {
                 listener: (context, state) {},
                 builder: (context, state) {
                   var cubit = HomeCubit.get(context);
-                  return QuranWidget(page: cubit.pageType);
+                  return QuranWidget(
+                    page: cubit.pageType,
+                    chapterId: chapter,
+                    bookId: CacheHelper.getData(key: bookSelectedId) ?? 1,
+                    narrationId:
+                        CacheHelper.getData(key: narrationSelectedId) ?? 1,
+                    onTap: (val) {
+                      print('onTap ' + val);
+                      //cubit.changeIsOnTruePressed();
+                      cubit.changeOpacity(.4);
+                      Future.delayed(const Duration(seconds: 10), () {
+                        //cubit.changeIsOnFalsePressed();
+                        cubit.changeOpacity(.0);
+                      });
+                    },
+                    onLongTap: (val) {
+                      print('onLongTap ' + val);
+                      cubit.changeIsSelectedVerse();
+                    },
+                  );
                 },
               ),
             )
@@ -148,7 +179,14 @@ class QuranBNBPage extends StatelessWidget {
     return Hero(
       tag: 'ToChooseSurah',
       child: GestureDetector(
-        onTap: () => Navigator.of(context).pushNamed(IndexSurahPage.routeName),
+        onTap: () => Navigator.of(context)
+            .pushNamed(IndexSurahPage.routeName)
+            .then((value) {
+          setState(() {
+            chapter = CacheHelper.getData(key: chapterID) ?? 1;
+            print('Chapter $chapter');
+          });
+        }),
         child: Container(
           padding: const EdgeInsets.only(bottom: 40, top: 8),
           //margin:  EdgeInsets.only(top: 4),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
@@ -37,7 +38,7 @@ final List<SubSectionItem> subSectionData = [
   SubSectionItem(
     title: translate('Translation'),
     image: AppIcons.languageIcon,
-    subTitle: CacheHelper.getData(key: 'QuranTranslationLanguageSelectedName'),
+    subTitle: CacheHelper.getData(key: qtlSelectedName),
     action2: (context) {
       BlocProvider.of<HomeCubit>(context).changeIndex(1);
     },
@@ -45,7 +46,7 @@ final List<SubSectionItem> subSectionData = [
   SubSectionItem(
     title: translate('Tafsir'),
     image: AppIcons.mailIcon,
-    subTitle: CacheHelper.getData(key: 'TafseerSelectedName'),
+    subTitle: CacheHelper.getData(key: tafseerSelectedName),
     action2: (context) {
       BlocProvider.of<HomeCubit>(context).changeIndex(1);
     },

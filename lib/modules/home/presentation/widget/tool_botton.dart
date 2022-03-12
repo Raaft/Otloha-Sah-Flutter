@@ -75,12 +75,13 @@ class _ToolBottonState extends State<ToolBotton> {
                               )),
                         if (cubit.isSelectedVerse)
                           GestureDetector(
-                              onTap: () {},
-                              child: Icon(
-                                Icons.restart_alt_outlined,
-                                color: AppColor.white,
-                                size: 30,
-                              )),
+                            onTap: () {},
+                            child: Icon(
+                              Icons.restart_alt_outlined,
+                              color: AppColor.white,
+                              size: 30,
+                            ),
+                          ),
                         if (cubit.isSelectedVerse)
                           GestureDetector(
                             onTap: () {
@@ -89,7 +90,7 @@ class _ToolBottonState extends State<ToolBotton> {
                                   title: '2. Al-Baqarah',
                                   textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
                                 ),
-                                //TODO add parmeter to Add Note widget!!
+                                //TODO Add Parmeter To Add Note Widget!!
                                 backgroundColor: AppColor.transparent,
                               );
                             },
@@ -117,33 +118,47 @@ class _ToolBottonState extends State<ToolBotton> {
                           ),
                         ),
                         GestureDetector(
-                            onTap: () {
-                              cubit.changeIsLiked();
-                              DatabaseRepository().insertVerseLiked(VerseLiked(
+                          onTap: () {
+                            cubit.changeIsLiked();
+                            DatabaseRepository().insertVerseLiked(
+                              VerseLiked(
                                 idFromVerse: 1,
                                 pageNumber: 20,
                                 textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
                                 idToVerse: 2,
                                 idPage: 20,
-                              ));
-                            },
-                            child: Icon(
-                              cubit.isLiked
-                                  ? Icons.favorite
-                                  : Icons.favorite_border_outlined,
-                              color: AppColor.white,
-                              size: 30,
-                            )),
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            cubit.isLiked
+                                ? Icons.favorite
+                                : Icons.favorite_border_outlined,
+                            color: AppColor.white,
+                            size: 30,
+                          ),
+                        ),
                         GestureDetector(
                           onTap: () {},
-                          child: Image.asset(AppIcons.shareIcon,
+                          child: Image.asset(AppIcons.languageIcon,
                               color: AppColor.white, width: 30),
                         ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Image.asset(AppIcons.discussioncon,
+                              color: AppColor.white, width: 30),
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Image.asset(AppIcons.quran4Icon,
+                              color: AppColor.white, width: 30),
+                        ),
+                        /*  
                         GestureDetector(
                           onTap: () {},
                           child: Image.asset(AppIcons.quran2Icon,
                               color: AppColor.white, width: 30),
-                        ),
+                        ),*/
                       ],
                     ),
                   )));

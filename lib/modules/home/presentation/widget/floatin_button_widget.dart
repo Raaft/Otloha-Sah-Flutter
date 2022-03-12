@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/themes/color.dart';
 import '../../business_logic/cubit/home_cubit.dart';
 
-Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
+Widget floatingButton({required HomeCubit cubit, required bool isPressed,}) {
   if (isPressed) {
     cubit.changeOpacity(1);
   } else {
-    cubit.changeOpacity(.2);
+    cubit.changeOpacity(.4);
   }
 
   return Positioned(
@@ -17,11 +17,8 @@ Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
       opacity: cubit.opacity,
       child: GestureDetector(
         onTap: () async {
-
           cubit.changeTrueFloating();
           cubit.changeOpacity(.0);
-
-          
         },
         child: ball(),
       ),
@@ -29,25 +26,25 @@ Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
   );
 }
 
- ball() {
+ball() {
   return CircleAvatar(
-        radius: 30,
+    radius: 30,
+    backgroundColor: AppColor.darkBlue,
+    child: CircleAvatar(
+      radius: 25,
+      backgroundColor: AppColor.lightBlue,
+      child: CircleAvatar(
+        radius: 20,
         backgroundColor: AppColor.darkBlue,
         child: CircleAvatar(
-          radius: 25,
+          radius: 15,
           backgroundColor: AppColor.lightBlue,
           child: CircleAvatar(
-            radius: 20,
+            radius: 10,
             backgroundColor: AppColor.darkBlue,
-            child: CircleAvatar(
-              radius: 15,
-              backgroundColor: AppColor.lightBlue,
-              child: CircleAvatar(
-                radius: 10,
-                backgroundColor: AppColor.darkBlue,
-              ),
-            ),
           ),
         ),
-      );
+      ),
+    ),
+  );
 }

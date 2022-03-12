@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
-class ItemDownload extends StatelessWidget {
+class ItemDownload extends StatefulWidget {
   const ItemDownload({
     Key? key,
     required this.name,
@@ -25,20 +26,28 @@ class ItemDownload extends StatelessWidget {
   final Function()? action;
 
   @override
+  State<ItemDownload> createState() => _ItemDownloadState();
+}
+
+class _ItemDownloadState extends State<ItemDownload> {
+  double _progress = 0;
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: onLongPress,
-      onTap: action,
+      onLongPress: widget.onLongPress,
+      onTap: widget.action,
       child: Container(
         margin: const EdgeInsets.all(4),
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelect ? AppColor.borderColor : AppColor.transparent,
+            color:
+                widget.isSelect ? AppColor.borderColor : AppColor.transparent,
             width: 2,
           ),
-          color: isDownloaded ? AppColor.backItem2 : AppColor.backItem,
+          color: widget.isDownloaded ? AppColor.backItem2 : AppColor.backItem,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,16 +81,16 @@ class ItemDownload extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       TextView(
-                        text: name,
+                        text: widget.name,
                         colorText: AppColor.txtColor3,
                         sizeText: 16,
                         weightText: FontWeight.bold,
                         textAlign: TextAlign.start,
                         padding: const EdgeInsets.all(0),
                       ),
-                      if (description != null)
+                      if (widget.description != null)
                         TextView(
-                          text: description ?? '',
+                          text: widget.description ?? '',
                           colorText: AppColor.txtColor4,
                           sizeText: 12,
                           padding: const EdgeInsets.all(0),
@@ -92,18 +101,40 @@ class ItemDownload extends StatelessWidget {
                 ),
               ],
             ),
-            isDownloaded
-                ? Container()
-                : GestureDetector(
-                    onTap: onDownload,
-                    child: Icon(
-                      Icons.cloud_download_outlined,
-                      color: AppColor.conColor1,
-                    ),
-                  ),
+            widget.isDownloaded ? Container() : _downloadView(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _downloadView() {
+    return (_progress > 0)
+        ? CircularProgressIndicator(
+            value: _progress,
+          )
+        : GestureDetector(
+            onTap: _startDownload,
+            child: Icon(
+              Icons.cloud_download_outlined,
+              color: AppColor.conColor1,
+            ),
+          );
+  }
+
+  void _startDownload() {
+    DataSource.instance.downloadBook(
+        bookId: 1,
+        narrationId: 1,
+        retunProgress: (val) {
+          print('StartDownload ' + val.toString());
+          setState(() {
+            _progress = val;
+          });
+          if (val >= 1.0) {
+            print('Download Done');
+            widget.onDownload!();
+          }
+        });
   }
 }
