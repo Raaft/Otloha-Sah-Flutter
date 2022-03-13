@@ -9,32 +9,47 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
-
 class IsLikedTrueState extends HomeState {}
+
 class IsLikedFalseState extends HomeState {}
+
 class IsOnPressFalseState extends HomeState {}
+
 class IsOnPressTrueState extends HomeState {}
+
 class IsBookMarkTrueState extends HomeState {}
+
 class IsBookMarkFalseState extends HomeState {}
+
 class IsRecordedState extends HomeState {}
+
 class IsRecordedFileState extends HomeState {}
+
 class GetDurationState extends HomeState {}
+
 class ChangeDurationState extends HomeState {}
+
 class IsFloatingTrueMenuState extends HomeState {}
+
 class IsFloatingFalseMenuState extends HomeState {}
+
 class ChangeOpacityState extends HomeState {}
+
 class ChangeIsSelectedVerseState extends HomeState {}
+
 class ChangeIsPlayingState extends HomeState {}
+
 class ChangePlayPauseState extends HomeState {}
+
 class ChangePageState extends HomeState {}
+
+class QuranChangeChapter extends HomeState {}
 
 class HomeChangeIndex extends HomeState {
   final int index;
 
   const HomeChangeIndex(this.index);
 }
-
-
 
 class RecordHasPermission extends HomeState {
   final bool hasPermission;
@@ -56,4 +71,3 @@ class RecordIsRecord extends HomeState {
     required this.isRecord,
   });
 }
-

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import 'package:flutter_base/core/data/chash_helper.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/settings/business_logic/narration/narration_cubit.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 
 class NarrationPage extends StatefulWidget {
   const NarrationPage({Key? key}) : super(key: key);
@@ -77,10 +76,13 @@ class _NarrationPageState extends State<NarrationPage> {
         } else if (state is NarrationInitial) {
           return const LoadingWidget();
         } else {
-          return _viewData(
-            null,
-            isDemo: true,
-          );
+          String error = 'Not Found Data';
+
+          if (state is NarrationError) {
+            error = state.error;
+          }
+
+          return ViewError(error: error);
         }
       },
     );
@@ -128,29 +130,6 @@ class _NarrationPageState extends State<NarrationPage> {
               },
             );
           },
-        ),
-      ),
-    );
-  }
-
-  Widget viewError(NarrationState state) {
-    return Expanded(
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              AppIcons.emptyIcon,
-              height: 150,
-              width: 150,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: TextView(
-                  text:
-                      'No Data to Fetch! Error is ${(state as NarrationError).error}'),
-            ),
-          ],
         ),
       ),
     );

@@ -10,23 +10,50 @@ class ReciterCubit extends Cubit<ReciterState> {
   ReciterCubit() : super(ReciterInitial());
 
   fetchReciter({String? qurey}) {
+    int narration = CacheHelper.getData(key: narrationSelectedId) ?? 0;
+    int val = (CacheHelper.getData(key: reciterSelectedId) as int?) ?? 0;
+
+    List<Reciter> recitersView = [];
+
     try {
-      DataSource.instance.fetchRecitersList(qurey: qurey).then((value) async {
-        if (value!.isNotEmpty) {
-          int val = (CacheHelper.getData(key: reciterSelectedId) as int?) ?? 0;
-
-          if (val > value.length) {
-            val = 0;
-          }
-
-          for (var element in value) {
-            if (element.id == val) {
-              val = value.indexOf(element);
-              settings[1].subTitle = element.name;
-              break;
+      DataSource.instance
+          .fetchRecitersList(qurey: qurey)
+          .then((reciters) async {
+        if (reciters!.isNotEmpty) {
+          DataSource.instance
+              .fetchRecitationsList(narrationId: narration)
+              .then((value) {
+            if (val > reciters.length) {
+              val = 0;
             }
-          }
-          emit(ReciterFetched(value, val));
+
+            if (value != null && value.isNotEmpty) {
+              for (var element in value) {
+                for (var elementR in reciters) {
+                  if (elementR.id == element.reciterId) {
+                    recitersView.add(elementR);
+                    break;
+                  }
+                }
+              }
+
+              if (recitersView.isNotEmpty) {
+                for (var element in recitersView) {
+                  if (element.id == val) {
+                    val = reciters.indexOf(element);
+                    settings[1].subTitle = element.name;
+                    break;
+                  }
+                }
+
+                emit(ReciterFetched(recitersView, val));
+              } else {
+                emit(const ReciterError('Not Found Data'));
+              }
+            } else {
+              emit(const ReciterError('Not Found Data'));
+            }
+          });
         } else {
           emit(const ReciterError('Not Found Data'));
         }

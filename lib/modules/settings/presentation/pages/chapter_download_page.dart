@@ -10,6 +10,7 @@ import 'package:flutter_base/modules/settings/presentation/pages/reciters_page.d
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -75,44 +76,52 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
         } else if (state is ChapterInitial) {
           return const LoadingWidget();
         } else if (state is ChapterEmpty) {
-          Future.delayed(const Duration(seconds: 3), () {
-            if (state.isNarrtion) {
-              Navigator.of(context)
-                  .pushReplacementNamed(NarrationPage.routeName)
-                  .then((value) {
-                BlocProvider.of<ChapterCubit>(context).fetchChaptersList();
-              });
-            } else {
-              Navigator.of(context)
-                  .pushReplacementNamed(RecitersPage.routeName)
-                  .then((value) {
-                BlocProvider.of<ChapterCubit>(context).fetchChaptersList();
-              });
-            }
-          });
-          return Expanded(
-            child: Center(
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.warning_amber,
-                    color: AppColor.lightBlue,
-                    size: 150,
-                  ),
-                  TextView(
-                      text:
-                          'You must Choose ${state.isNarrtion ? 'Narrtation' : 'Reciter'} First'),
-                ],
-              ),
-            ),
-          );
+          return _viewEmpty(state, context);
         } else {
-          return _viewData(
-            null,
-            isDemo: true,
-          );
+          String error = 'Not Found Data';
+
+          if (state is ChapterError) {
+            error = state.error;
+          }
+
+          return ViewError(error: error);
         }
       },
+    );
+  }
+
+  Widget _viewEmpty(ChapterEmpty state, BuildContext context) {
+    Future.delayed(const Duration(seconds: 3), () {
+      if (state.isNarrtion) {
+        Navigator.of(context)
+            .pushReplacementNamed(NarrationPage.routeName)
+            .then((value) {
+          BlocProvider.of<ChapterCubit>(context).fetchChaptersList();
+        });
+      } else {
+        Navigator.of(context)
+            .pushReplacementNamed(RecitersPage.routeName)
+            .then((value) {
+          BlocProvider.of<ChapterCubit>(context).fetchChaptersList();
+        });
+      }
+    });
+    return Expanded(
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.warning_amber,
+              color: AppColor.lightBlue,
+              size: 150,
+            ),
+            TextView(
+                text:
+                    'You must Choose ${state.isNarrtion ? 'Narrtation' : 'Reciter'} First'),
+          ],
+        ),
+      ),
     );
   }
 

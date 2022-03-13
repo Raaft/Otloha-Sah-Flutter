@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/data/chash_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
@@ -9,11 +10,8 @@ import 'package:flutter_base/modules/home/presentation/widget/floatin_button_wid
 import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
 import 'package:flutter_base/modules/home/presentation/widget/play_puse_tools.dart';
 import 'package:flutter_base/modules/home/presentation/widget/recorded_file_setting.dart';
-
 import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class QuranBNBPage extends StatefulWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
@@ -25,10 +23,12 @@ class QuranBNBPage extends StatefulWidget {
 class _QuranBNBPageState extends State<QuranBNBPage> {
   int chapter = 1;
 
+  late HomeCubit cubit;
+
   @override
   void initState() {
     super.initState();
-    chapter = CacheHelper.getData(key: chapterID) ?? 1;
+    cubit = HomeCubit.get(context);
   }
 
   @override
@@ -124,14 +124,14 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextView(
-                    text: 'سورة البقرة',
+                    text: ' سورة ' + cubit.chapterN.toString(),
                     textAlign: TextAlign.center,
                     colorText: AppColor.txtColor1,
                     sizeText: 17,
                     padding: const EdgeInsets.only(top: 12),
                   ),
                   TextView(
-                    text: 'الجزء اﻷول',
+                    text: cubit.juz,
                     textAlign: TextAlign.center,
                     colorText: AppColor.txtColor1,
                     sizeText: 17,
@@ -145,13 +145,12 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
               child: BlocConsumer<HomeCubit, HomeState>(
                 listener: (context, state) {},
                 builder: (context, state) {
-                  var cubit = HomeCubit.get(context);
+                  print('Chapter Cubit ${cubit.chapterId}');
                   return QuranWidget(
                     page: cubit.pageType,
-                    chapterId: chapter,
-                    bookId: CacheHelper.getData(key: bookSelectedId) ?? 1,
-                    narrationId:
-                        CacheHelper.getData(key: narrationSelectedId) ?? 1,
+                    chapterId: cubit.chapterId,
+                    bookId: cubit.bookId,
+                    narrationId: cubit.narrationId,
                     onTap: (val) {
                       print('onTap ' + val);
                       //cubit.changeIsOnTruePressed();
@@ -164,6 +163,9 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                     onLongTap: (val) {
                       print('onLongTap ' + val);
                       cubit.changeIsSelectedVerse();
+                    },
+                    getPage: (page) {
+                      cubit.changeJuz(page.partId ?? 1);
                     },
                   );
                 },
@@ -182,10 +184,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
         onTap: () => Navigator.of(context)
             .pushNamed(IndexSurahPage.routeName)
             .then((value) {
-          setState(() {
-            chapter = CacheHelper.getData(key: chapterID) ?? 1;
-            print('Chapter $chapter');
-          });
+          cubit.changeChapter(value as int);
         }),
         child: Container(
           padding: const EdgeInsets.only(bottom: 40, top: 8),
@@ -201,7 +200,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextView(
-                text: '2. Al-Baqarah',
+                text: ' سورة ' + (cubit.chapterN ?? 'الفاتحة'),
                 textAlign: TextAlign.center,
                 colorText: AppColor.txtColor2,
                 sizeText: 17,
