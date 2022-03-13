@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
+import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
@@ -201,13 +203,14 @@ class HomeCubit extends Cubit<HomeState> {
   RecordingStatus _currentStatus = RecordingStatus.Unset;
   LocalFileSystem? localFileSystem;
   Stream<Duration> duration = const Stream.empty();
+  String? filePath;
 
   Future init() async {
     try {
       bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
 
       if (hasPermission) {
-        String customPath = '/flutter_audio_recorder_';
+        String customPath = '/recodred/files/File_}';
         io.Directory appDocDirectory;
 
         if (io.Platform.isIOS) {
@@ -219,6 +222,8 @@ class HomeCubit extends Cubit<HomeState> {
         customPath = appDocDirectory.path +
             customPath +
             DateTime.now().millisecondsSinceEpoch.toString();
+
+        filePath = customPath;
 
         _recorder =
             FlutterAudioRecorder2(customPath, audioFormat: AudioFormat.WAV);
@@ -291,6 +296,19 @@ class HomeCubit extends Cubit<HomeState> {
   void onPlayAudio() async {
     AudioPlayer audioPlayer = AudioPlayer();
     await audioPlayer.play(current!.path!, isLocal: true);
+  }
+
+  void saveFile() async {
+    await AppDatabase()
+        .userRecitationDao
+        .insert(UserRecitation(
+            narrationId: narrationId,
+            record: filePath,
+            name: 'todo add',
+            versesID: [1, 2]))
+        .then((value) {
+      print('Saved Value' + value.toString());
+    });
   }
 
 /*
