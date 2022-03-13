@@ -29,7 +29,8 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ChapterCubit>(context).fetchChaptersList(isSelect: true);
+    BlocProvider.of<ChapterCubit>(context)
+        .fetchChaptersList(isSelect: true, fromIndex: true);
   }
 
   @override
@@ -82,7 +83,8 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
               children: [
                 TextView(
                   text: ' سورة ' +
-                      (CacheHelper.getData(key: chapterName) ?? 'الفاتحة'),
+                      (CacheHelper.getData(key: chapterSelectedName) ??
+                          'الفاتحة'),
                   textAlign: TextAlign.center,
                   colorText: AppColor.txtColor2,
                   sizeText: 17,
@@ -137,19 +139,20 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
             return ItemSurah(
               name: chapters[index].name.toString(),
               partName: '',
-              pageFrom: 1,
-              pageTO: 1,
-              verses: 7,
-              isMakkah: index % 2 == 0,
+              pageFrom: chapters[index].pageFrom ?? 1,
+              pageTO: chapters[index].pageTo ?? 1,
+              verses: chapters[index].versesSize ?? 7,
+              isMakkah: _getOorigin(chapters[index].origin),
               isSelect: _selected == index,
               onLongPress: () {},
               action: () {
                 setState(() {
                   _selected = index;
                 });
-                CacheHelper.saveData(key: chapterID, value: chapters[index].id);
                 CacheHelper.saveData(
-                    key: chapterName, value: chapters[index].name);
+                    key: chapterSelectedID, value: chapters[index].id);
+                CacheHelper.saveData(
+                    key: chapterSelectedName, value: chapters[index].name);
                 _changePage(1);
               },
             );
@@ -162,5 +165,12 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
   _changePage(int? index) {
     Navigator.of(context)
         .pushReplacementNamed(HomePage.routeName, arguments: index);
+  }
+
+  _getOorigin(String? origin) {
+    if (origin == 'maka') {
+      return true;
+    }
+    return false;
   }
 }

@@ -24,5 +24,5 @@ const String reciterSelectedId = 'ReciterSelectedId';
 const String reciterSelectedName = 'ReciterSelectedName';
 const String tajweedSelectedId = 'TajweedSelectedId';
 const String tajweedSelectedName = 'TajweedSelectedName';
-const String chapterID = 'ChapterID';
-const String chapterName = 'ChapterName';
+const String chapterSelectedID = 'ChapterID';
+const String chapterSelectedName = 'ChapterName';
