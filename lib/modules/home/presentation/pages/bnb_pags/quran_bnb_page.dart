@@ -50,7 +50,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
               //_tempView(context, cubit),
               _viewLikeMarked(cubit),
               if (cubit.isRecorded) const RecordTool(),
-              if (cubit.checkVersesValue&&cubit.isRecordedFile==false) const ToolBotton(),
+              if (cubit.checkVersesValue&&cubit.isPlaying==false) const ToolBotton(),
               if (cubit.isRecordedFile) const RecordedFileTool(),
               if (cubit.isPlaying) const PlayPauseTools(),
               if (cubit.opacity != 0)

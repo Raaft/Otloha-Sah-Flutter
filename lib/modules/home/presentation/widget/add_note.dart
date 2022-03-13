@@ -60,30 +60,28 @@ class AddNote extends StatelessWidget {
               topRight: Radius.circular(24),
             ),
             color: Colors.white),
-        child: Expanded(
-          child: TextFormField(
-            controller: con,
-            decoration: InputDecoration(
-              //  color: Colors.blue,
-              isDense: true,
-              contentPadding: const EdgeInsets.all(12),
-              filled: true,
-              enabledBorder: border,
-              focusedBorder: border,
-              errorBorder: border,
-              focusedErrorBorder: border,
-              disabledBorder: border,
-              hintText: translate('AddNote'),
-              fillColor: AppColor.white,
-            ),
-            onChanged: (val) {
-              con.text = val;
-            },
-            keyboardType: TextInputType.multiline,
-            minLines: 3,
-            maxLines: 10,
-            style: AppStyle().textStyle1.copyWith(fontWeight: FontWeight.w600),
+        child: TextFormField(
+          controller: con,
+          decoration: InputDecoration(
+            //  color: Colors.blue,
+            isDense: true,
+            contentPadding: const EdgeInsets.all(12),
+            filled: true,
+            enabledBorder: border,
+            focusedBorder: border,
+            errorBorder: border,
+            focusedErrorBorder: border,
+            disabledBorder: border,
+            hintText: translate('AddNote'),
+            fillColor: AppColor.white,
           ),
+          onChanged: (val) {
+            con.text = val;
+          },
+          keyboardType: TextInputType.multiline,
+          minLines: 3,
+          maxLines: 10,
+          style: AppStyle().textStyle1.copyWith(fontWeight: FontWeight.w600),
         ),
       ),
     );
