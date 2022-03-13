@@ -18,8 +18,10 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial()) {
-    chapterId = CacheHelper.getData(key: chapterID) ?? 1;
-    chapterN = (CacheHelper.getData(key: chapterName) as String?) ?? 'elfateja';
+
+    chapterId = CacheHelper.getData(key: chapterSelectedID) ?? 1;
+    chapterName =
+        (CacheHelper.getData(key: chapterSelectedName) as String?) ?? 'الفاتحة';
     // bookId = CacheHelper.getData(key: bookSelectedId) ?? 1;
     //narrationId = CacheHelper.getData(key: narrationSelectedId) ?? 1;
   }
@@ -59,17 +61,25 @@ class HomeCubit extends Cubit<HomeState> {
   int chapterId = 1;
   int bookId = 1;
   int narrationId = 1;
-  String? chapterN = 'الفاتحة';
+  String? chapterName = 'الفاتحة';
   String juz = 'جزء رقم 1';
 
   changeChapter(int newChapter) {
     chapterId = newChapter;
-    chapterN = (CacheHelper.getData(key: chapterName) as String);
+    chapterName = (CacheHelper.getData(key: chapterSelectedName) as String);
     emit(QuranChangeChapter());
   }
 
-  changeJuz(int newJux) {
+  changeJuz(int newJux, int newChapter) async {
     juz = 'جزء رقم ' + newJux.toString();
+    await DataSource.instance.fetchChapterById(newChapter).then((value) {
+      if (value != null) {
+        chapterId = value.id!;
+        chapterName = value.name;
+        CacheHelper.saveData(key: chapterSelectedID, value: chapterId);
+        CacheHelper.saveData(key: chapterSelectedName, value: chapterName);
+      }
+    });
     emit(QuranChangeChapter());
   }
 

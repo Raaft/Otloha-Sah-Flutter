@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
+import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -90,52 +91,75 @@ class _BooksPageState extends State<BooksPage> {
     );
   }
 
-  Expanded _viewData(BookFetched? state, {bool isDemo = false}) {
-    // var books = (state as BookFetched).books;
+  Expanded _viewData(BookFetched? state) {
+    List<Book>? booksDown = [];
+    List<Book>? booksUp = [];
+    for (var element in state!.books!) {
+      if (element.downloaded ?? false) {
+        booksDown.add(element);
+      } else {
+        booksUp.add(element);
+      }
+    }
+
     return Expanded(
       child: ListView(
         shrinkWrap: true,
         padding: const EdgeInsets.all(8.0),
         children: [
-          _downloadedBooks(
-            isDemo,
-            isDemo ? null : state!.books!,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Divider(
-              thickness: 1,
-              color: AppColor.grey,
+          if (booksDown.isNotEmpty)
+            const TextView(
+              text: 'Downloaded Books',
+              textAlign: TextAlign.start,
             ),
-          ),
-          _downloadBooks(
-            isDemo,
-            isDemo ? null : state!.books!,
-          )
+          if (booksDown.isNotEmpty)
+            _downloadedBooks(
+              booksDown,
+            ),
+          if (booksUp.isNotEmpty && booksDown.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Divider(
+                thickness: 1,
+                color: AppColor.grey,
+              ),
+            ),
+          if (booksUp.isNotEmpty)
+            const TextView(
+              text: 'Books Available for download ',
+              textAlign: TextAlign.start,
+            ),
+          if (booksUp.isNotEmpty)
+            _downloadBooks(
+              booksUp,
+            )
         ],
       ),
     );
   }
 
-  ListView _downloadedBooks(bool isDemo, List<Book>? books) {
+  ListView _downloadedBooks(List<Book>? books) {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: isDemo ? 15 : books!.length,
+      itemCount: books!.length,
       itemBuilder: (context, index) {
         return ItemDownload(
-          name: isDemo ? 'books name' : books![index].name.toString(),
+          name: books[index].name.toString(),
           isDownloaded: true,
           isSelect: _selected == index,
           action: () {
-            BlocProvider.of<BookCubit>(context).changeIndex(index, isDemo);
+            BlocProvider.of<BookCubit>(context).changeIndex(index);
           },
         );
       },
     );
   }
 
-  ListView _downloadBooks(bool isDemo, List<Book>? books) {
+  ListView _downloadBooks(
+    List<Book>? books, {
+    bool isDemo = false,
+  }) {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -150,29 +174,10 @@ class _BooksPageState extends State<BooksPage> {
               _downloaded.add(index);
             });
           },
-          onLongPress: () {
-            setState(() {
-              _selected = index;
-            });
-          },
           action: () {
-            Get.dialog(
-              const AlertDialogFullScreen(),
-              barrierColor: AppColor.backdone,
-            );
             setState(() {
-              _selected = index;
+              _downloaded.add(index);
             });
-
-            CacheHelper.saveData(
-                key: bookSelectedId, value: isDemo ? index : books![index].id);
-
-            downLoadSettings[0].subTitle =
-                isDemo ? 'Book name $index' : books![index].name;
-            CacheHelper.saveData(
-              key: bookSelectedName,
-              value: isDemo ? 'Book name $index' : books![index].name,
-            );
           },
         );
       },
