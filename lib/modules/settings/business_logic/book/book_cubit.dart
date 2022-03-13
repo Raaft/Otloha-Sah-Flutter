@@ -15,7 +15,7 @@ class BookCubit extends Cubit<BookState> {
 
   BookCubit() : super(BookInitial());
 
-  changeIndex(int index, bool isDemo) {
+  changeIndex(int index) {
     selected = index;
     print(selected);
 
@@ -23,15 +23,13 @@ class BookCubit extends Cubit<BookState> {
       const AlertDialogFullScreen(),
       barrierColor: AppColor.backdone,
     );
-    CacheHelper.saveData(
-        key: bookSelectedId, value: isDemo ? index : books![index].id);
+    CacheHelper.saveData(key: bookSelectedId, value: books![index].id);
 
-    downLoadSettings[0].subTitle =
-        isDemo ? 'Book name $index' : books![index].name;
+    downLoadSettings[0].subTitle = books![index].name;
 
     CacheHelper.saveData(
       key: bookSelectedName,
-      value: isDemo ? 'Book name $index' : books![index].name,
+      value: books![index].name,
     );
 
     emit(BookFetched(books, index));
