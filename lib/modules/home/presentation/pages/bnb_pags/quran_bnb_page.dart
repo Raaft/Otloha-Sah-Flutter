@@ -37,24 +37,26 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            Stack(
-              children: [
-                _viewTop(context),
-                _viewPageReading(context),
-              ],
-            ),
-            //_tempView(context, cubit),
-            _viewLikeMarked(cubit),
-            if (cubit.isRecorded) const RecordTool(),
-            if (cubit.isOnPressed || cubit.isSelectedVerse) const ToolBotton(),
-            if (cubit.isRecordedFile) const RecordedFileTool(),
-            if (cubit.isPlaying) const PlayPauseTools(),
-            if (cubit.opacity != 0)
-              floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
-          ],
+        return Scaffold(
+          body: Stack(
+            alignment: Alignment.center,
+            children: [
+              Stack(
+                children: [
+                  _viewTop(context),
+                  _viewPageReading(context),
+                ],
+              ),
+              //_tempView(context, cubit),
+              _viewLikeMarked(cubit),
+              if (cubit.isRecorded) const RecordTool(),
+              if (cubit.checkVersesValue&&cubit.isRecordedFile==false) const ToolBotton(),
+              if (cubit.isRecordedFile) const RecordedFileTool(),
+              if (cubit.isPlaying) const PlayPauseTools(),
+              if (cubit.opacity != 0)
+                floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
+            ],
+          ),
         );
       },
     );
@@ -151,18 +153,24 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                     chapterId: cubit.chapterId,
                     bookId: cubit.bookId,
                     narrationId: cubit.narrationId,
-                    onTap: (val) {
+                    onTap: (val, isVerSelected) {
                       print('onTap ' + val);
-                      //cubit.changeIsOnTruePressed();
-                      cubit.changeOpacity(.4);
-                      Future.delayed(const Duration(seconds: 10), () {
-                        //cubit.changeIsOnFalsePressed();
-                        cubit.changeOpacity(.0);
+                      cubit.isVerSelected(isVerSelected);
+
+                     // cubit.changeIsOnTruePressed();
+
+                      cubit.changeOpacity(.5);
+                      Future.delayed(const Duration(seconds: 5), () {
+                        cubit.changeOpacity(.2);
                       });
                     },
-                    onLongTap: (val) {
+                    onLongTap: (val, isVerSelected) {
                       print('onLongTap ' + val);
-                      cubit.changeIsSelectedVerse();
+                      cubit.isVerSelected(isVerSelected);
+
+                      //cubit.changeIsSelectedVerse();
+                      cubit.changeIsOnTruePressed();
+
                     },
                     getPage: (page) {
                       cubit.changeJuz(page.partId ?? 1);

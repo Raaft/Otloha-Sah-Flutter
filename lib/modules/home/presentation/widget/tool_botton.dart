@@ -6,9 +6,12 @@ import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/add_note.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import '../../../../core/utils/res/icons_app.dart';
 import '../../../../core/widgets/alert_dialog_full_screen.dart';
+import '../../../data/model/verse_note.dart';
+import '../../../settings/presentation/pages/settings_page.dart';
 
 class ToolBotton extends StatefulWidget {
   const ToolBotton({Key? key}) : super(key: key);
@@ -60,50 +63,29 @@ class _ToolBottonState extends State<ToolBotton> {
                               color: AppColor.white,
                               height: 30,
                             )),
-                        if (cubit.isSelectedVerse)
-                          GestureDetector(
-                              onTap: () {
-                                cubit.init().then((value) {
-                                  cubit.start();
-                                  cubit.changeIsRecorded();
-                                });
-                              },
-                              child: const Icon(
-                                Icons.mic_none_outlined,
-                                color: Colors.white,
-                                size: 30,
-                              )),
-                        if (cubit.isSelectedVerse)
-                          GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              Icons.restart_alt_outlined,
-                              color: AppColor.white,
-                              size: 30,
-                            ),
-                          ),
-                        if (cubit.isSelectedVerse)
-                          GestureDetector(
+                        // if (cubit.isSelectedVerse)
+                        GestureDetector(
                             onTap: () {
-                              Scaffold.of(context).showBottomSheet(
-                                (context) => AddNote(
-                                  title: '2. Al-Baqarah',
-                                  textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
-                                ),
-                                //TODO Add Parmeter To Add Note Widget!!
-                                backgroundColor: AppColor.transparent,
-                              );
+                              cubit.init().then((value) {
+                                cubit.start();
+                                cubit.changeIsRecorded();
+                              });
                             },
-                            child: Container(
-                                padding:
-                                    const EdgeInsets.only(right: 10, left: 5),
-                                height: 50,
-                                width: 50,
-                                child: Icon(
-                                  Icons.comment,
-                                  color: AppColor.white,
-                                )),
+                            child: const Icon(
+                              Icons.mic_none_outlined,
+                              color: Colors.white,
+                              size: 30,
+                            )),
+                        //  if (cubit.isSelectedVerse)
+                        GestureDetector(
+                          onTap: () {},
+                          child: Icon(
+                            Icons.restart_alt_outlined,
+                            color: AppColor.white,
+                            size: 30,
                           ),
+                        ),
+                        // if (cubit.isSelectedVerse)
                         GestureDetector(
                           onTap: () {
                             Get.dialog(
@@ -139,20 +121,68 @@ class _ToolBottonState extends State<ToolBotton> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
-                          child: Image.asset(AppIcons.languageIcon,
-                              color: AppColor.white, width: 30),
+                          onTap: () {
+                            Scaffold.of(context).showBottomSheet(
+                                  (context) => AddNote(
+                                title: '2. Al-Baqarah',
+                                textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                              ),
+                              //TODO Add Parmeter To Add Note Widget!!
+                              backgroundColor: AppColor.transparent,
+                            );
+                          },
+                          child: Container(
+                              padding:
+                              const EdgeInsets.only(right: 10, left: 5),
+                              height: 50,
+                              width: 50,
+                              child: Icon(
+                                Icons.comment,
+                                color: AppColor.white,
+                              )),
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Image.asset(AppIcons.discussioncon,
-                              color: AppColor.white, width: 30),
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Image.asset(AppIcons.quran4Icon,
-                              color: AppColor.white, width: 30),
-                        ),
+
+                        if (cubit.pageType != PageType.translation)
+                          SizedBox(
+                            height: 30,
+                            child: GestureDetector(
+                                onTap: () {
+                                  cubit.changePluginPage(
+                                      page: PageType.translation);
+                                  cubit.changeFalseFloating();
+                                },
+                                child: Icon(
+                                  Icons.translate,
+                                  color: AppColor.white,
+                                  size: 30,
+                                )),
+                          ),
+                        if (cubit.pageType != PageType.tajwid)
+                          GestureDetector(
+                            onTap: () {
+                              cubit.changePluginPage(page: PageType.tajwid);
+                              cubit.changeFalseFloating();
+                            },
+                            child: Image.asset(AppIcons.discussioncon,
+                                color: AppColor.white, width: 30),
+                          ),
+                        if (cubit.pageType != PageType.tafsir)
+                          GestureDetector(
+                            onTap: () {
+                              cubit.changePluginPage(page: PageType.tafsir);
+                              cubit.changeFalseFloating();
+                            },
+                            child: Container(
+                                padding:
+                                    const EdgeInsets.only(right: 10, left: 5),
+                                height: 50,
+                                width: 50,
+                                child: Image.asset(
+                                  AppIcons.quran4Icon,
+                                  color: AppColor.white,
+                                  width: 30,
+                                )),
+                          ),
                         /*  
                         GestureDetector(
                           onTap: () {},

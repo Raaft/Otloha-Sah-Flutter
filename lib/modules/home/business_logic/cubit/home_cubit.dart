@@ -19,18 +19,34 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial()) {
     chapterId = CacheHelper.getData(key: chapterID) ?? 1;
-    chapterN = (CacheHelper.getData(key: chapterName) as String);
+    chapterN = (CacheHelper.getData(key: chapterName) as String?) ?? 'elfateja';
     // bookId = CacheHelper.getData(key: bookSelectedId) ?? 1;
     //narrationId = CacheHelper.getData(key: narrationSelectedId) ?? 1;
   }
 
   static HomeCubit get(context) => BlocProvider.of(context);
+  bool checkVersesValue = false;
+
+  isVerSelected(bool? verses) {
+    if (verses == null || verses == false) {
+      checkVersesValue = false;
+      emit(CheckIsVerseEmptyState());
+
+      return false;
+    } else {
+      checkVersesValue = true;
+
+      emit(CheckIsVerseEmptyState());
+    }
+
+    emit(DoneCheckIsVerseEmptyState());
+  }
 
   PageType pageType = PageType.quran;
 
-  Future<void> changePluginPage({required PageType page}) async{
+  Future<void> changePluginPage({required PageType page}) async {
     print('page type = $page');
-     pageType = page;
+    pageType = page;
     emit(ChangePageState());
   }
 
