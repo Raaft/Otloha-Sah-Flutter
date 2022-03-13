@@ -134,7 +134,7 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
           itemBuilder: (context, index) {
             return ItemDownload(
               name: isDemo ? 'chapters name' : chapters![index].name.toString(),
-              description: '$narrationName \n$bookName',
+              description: '${narrationName ?? ""} \n${bookName ?? ""}',
               isDownloaded: _downloaded.contains(index),
               isSelect: _selected == index,
               onLongPress: () {
