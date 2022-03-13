@@ -63,8 +63,8 @@ class _ToolBottonState extends State<ToolBotton> {
                         if (cubit.isSelectedVerse)
                           GestureDetector(
                               onTap: () {
-                                cubit.init().then((value) {
-                                  cubit.start();
+                                cubit.init().then((value) async {
+                                  await cubit.start();
                                   cubit.changeIsRecorded();
                                 });
                               },

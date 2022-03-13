@@ -1,5 +1,6 @@
 import 'package:flutter_base/modules/data/model/page_marked.dart';
 import 'package:flutter_base/modules/data/model/user.dart';
+import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_base/modules/data/model/verse_like.dart';
 import 'package:flutter_base/modules/data/model/verse_note.dart';
 import 'package:sqflite/sqflite.dart';
@@ -9,6 +10,7 @@ part '../dao/dao_user.dart';
 part '../dao/dao_verse_note.dart';
 part '../dao/dao_verse_liked.dart';
 part '../dao/dao_page_marked.dart';
+part '../dao/dao_user_recitation.dart';
 
 class AppDatabase {
   static Database? _db;
@@ -46,6 +48,7 @@ class AppDatabase {
   VerseNoteDao get verseNoteDao => VerseNoteDao();
   VerseLikedDao get verseLikedDao => VerseLikedDao();
   PageMarkedDao get pageMarkedDao => PageMarkedDao();
+  UserRecitationDao get userRecitationDao => UserRecitationDao();
 
   String join(String databasesPath, String databasesName) {
     return '$databasesPath/$databasesName';
