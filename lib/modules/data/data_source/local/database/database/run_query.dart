@@ -6,7 +6,8 @@ class RunQueries {
   static const verseLikedName = 'VerseLiked';
   static const pageName = 'Page';
   static const pageMarkedName = 'PageMarked';
-  static const userName = 'useruser';
+  static const userName = 'user';
+  static const userRecitationName = 'UserRecitation';
 
   runQueries(Database db) async {
     var list = queries.split(';');
@@ -43,54 +44,15 @@ CREATE TABLE IF NOT EXISTS "VerseLiked" (
 	"pageNumber"	INTEGER,
 	"textFristVerse"	TEXT,
 	PRIMARY KEY("id" AUTOINCREMENT)
-);''';
-
-//// old
-  final queries2 = '''
-CREATE TABLE IF NOT EXISTS "$verseName" (
-	"id"	INTEGER NOT NULL AUTOINCREMENT,
-	"text"	TEXT,
-	"uthmanicText"	TEXT,
-	"lineStart"	INTEGER,
-	"lineEnd"	INTEGER,
-	"image"	TEXT,
-	"narrationId"	INTEGER,
-	"chapterId"	INTEGER,
-	"bookId"	INTEGER,
-	"partId"	INTEGER,
-	"pageId"	INTEGER,
-	PRIMARY KEY("id")
 );
-CREATE TABLE IF NOT EXISTS "$verseNoteName" (
-	"id"	INTEGER NOT NULL AUTOINCREMENT,
-	"idVerse"	INTEGER,
-	"noteText"	TEXT,
-	"textVerse"	TEXT,
-	PRIMARY KEY("id")
-);
-CREATE TABLE IF NOT EXISTS "$verseLikedName" (
+CREATE TABLE "UserRecitation" (
 	"id"	INTEGER NOT NULL,
-	"idVerse"	INTEGER NOT NULL,
-	"textVerse"	INTEGER,
-	"isLiked"	INTEGER,
-	PRIMARY KEY("id")
+	"narration_id"	INTEGER,
+	"record"	INTEGER,
+	"versesID"	TEXT,
+	"name"	TEXT,
+	"uploaded"	INTEGER DEFAULT 0,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
-CREATE TABLE IF NOT EXISTS "$pageName" (
-	"id"	INTEGER NOT NULL AUTOINCREMENT,
-	"pageNumber"	INTEGER NOT NULL,
-	"chapterId"	INTEGER,
-	"bookId"	INTEGER,
-	"narrationId"	INTEGER,
-	"partId"	INTEGER,
-	"image"	TEXT,
-	PRIMARY KEY("id")
-);
-CREATE TABLE IF NOT EXISTS "$pageMarkedName" (
-	"id"	INTEGER NOT NULL AUTOINCREMENT,
-	"idPage"	INTEGER NOT NULL,
-	"pageNumber"	INTEGER,
-	"text"	TEXT,
-	PRIMARY KEY("id")
-);
-'''; //// old
+''';
 }

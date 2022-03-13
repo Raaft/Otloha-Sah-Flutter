@@ -42,25 +42,28 @@ class RecordedFileTool extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
-                        onTap: () {
-                          cubit.onPlayAudio();
-                        },
-                        child:Image.asset(AppIcons.playIcon,
-                            color: AppColor.white, width: 30),),
+                      onTap: () {
+                        cubit.onPlayAudio();
+                      },
+                      child: Image.asset(AppIcons.playIcon,
+                          color: AppColor.white, width: 30),
+                    ),
                     GestureDetector(
                         onTap: () {
-                          cubit.init().then((value) {
-                            cubit.start();
+                          cubit.init().then((value) async {
+                            await cubit.start();
                             cubit.changeIsRecorded();
                           });
                         },
                         child: Icon(
                           Icons.mic_none,
                           color: AppColor.white,
-                            size: 30,
+                          size: 30,
                         )),
                     GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          cubit.saveFile();
+                        },
                         child: Icon(
                           Icons.save_alt,
                           color: AppColor.white,
@@ -85,7 +88,6 @@ class RecordedFileTool extends StatelessWidget {
                       child: Image.asset(AppIcons.shareIcon,
                           color: AppColor.white, width: 30),
                     ),
-
                   ],
                 ),
               )));
