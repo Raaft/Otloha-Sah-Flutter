@@ -124,7 +124,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextView(
-                    text: ' سورة ' + cubit.chapterN.toString(),
+                    text: ' سورة ' + (cubit.chapterName ?? 'الفاتحة'),
                     textAlign: TextAlign.center,
                     colorText: AppColor.txtColor1,
                     sizeText: 17,
@@ -165,7 +165,8 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                       cubit.changeIsSelectedVerse();
                     },
                     getPage: (page) {
-                      cubit.changeJuz(page.partId ?? 1);
+                      cubit.changeJuz(
+                          page.partId ?? 1, page.chapters![0].id ?? 1);
                     },
                   );
                 },
@@ -200,7 +201,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextView(
-                text: ' سورة ' + (cubit.chapterN ?? 'الفاتحة'),
+                text: ' سورة ' + (cubit.chapterName ?? 'الفاتحة'),
                 textAlign: TextAlign.center,
                 colorText: AppColor.txtColor2,
                 sizeText: 17,
