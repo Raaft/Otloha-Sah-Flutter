@@ -5,6 +5,7 @@ import 'package:flutter_base/modules/data/model/verse_note.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
 
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
@@ -12,7 +13,27 @@ import '../../../../core/utils/res/icons_app.dart';
 import '../../../../core/utils/themes/color.dart';
 import '../../business_logic/cubit/home_cubit.dart';
 
-Widget floatMenu(BuildContext context, HomeCubit cubit) {
+class FloatingMenu extends StatelessWidget {
+  const FloatingMenu({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+  builder: (context, state) {
+var cubit=HomeCubit.get(context);
+    return Stack(
+      children: [
+        floatBackGround(cubit),
+        floatBall(context, cubit),
+      ],
+    );
+  },
+);
+  }
+}
+
+
+/*Widget floatMenu(BuildContext context, HomeCubit cubit) {
   return Stack(
     children: [
       floatBackGround(cubit),
@@ -20,7 +41,7 @@ Widget floatMenu(BuildContext context, HomeCubit cubit) {
     ],
   );
 }
-
+*/
 Positioned floatBall(BuildContext context, HomeCubit cubit) {
   return Positioned(
     bottom: MediaQuery.of(context).size.width / -2,
@@ -62,25 +83,27 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 const SizedBox(width: 15),
-                                GestureDetector(
-                                  onTap: () {
-                                    cubit.changePluginPage(
-                                        page: PageType.quran);
-                                    cubit.changeFalseFloating();
-                                  },
-                                  child: Image.asset(AppIcons.quran2Icon,
-                                      color: AppColor.white, width: 30),
-                                ),
+                                if (cubit.pageType != PageType.quran)
+                                  GestureDetector(
+                                    onTap: () {
+                                      cubit.changePluginPage(
+                                          page: PageType.quran);
+                                      cubit.changeFalseFloating();
+                                    },
+                                    child: Image.asset(AppIcons.quran2Icon,
+                                        color: AppColor.white, width: 30),
+                                  ),
                                 const SizedBox(width: 15),
-                                GestureDetector(
-                                  onTap: () {
-                                    cubit.changePluginPage(
-                                        page: PageType.tajwid);
-                                    cubit.changeFalseFloating();
-                                  },
-                                  child: Image.asset(AppIcons.discussioncon,
-                                      color: AppColor.white, width: 30),
-                                ),
+                                if (cubit.pageType != PageType.tajwid)
+                                  GestureDetector(
+                                    onTap: () {
+                                      cubit.changePluginPage(
+                                          page: PageType.tajwid);
+                                      cubit.changeFalseFloating();
+                                    },
+                                    child: Image.asset(AppIcons.discussioncon,
+                                        color: AppColor.white, width: 30),
+                                  ),
                                 const SizedBox(
                                   width: 20,
                                 )
@@ -94,22 +117,24 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  cubit.changePluginPage(page: PageType.tafsir);
-                                  cubit.changeFalseFloating();
-                                },
-                                child: Container(
-                                    padding: const EdgeInsets.only(
-                                        right: 10, left: 5),
-                                    height: 50,
-                                    width: 50,
-                                    child: Image.asset(
-                                      AppIcons.quran4Icon,
-                                      color: AppColor.white,
-                                      width: 30,
-                                    )),
-                              ),
+                              if (cubit.pageType != PageType.tafsir)
+                                GestureDetector(
+                                  onTap: () {
+                                    cubit.changePluginPage(
+                                        page: PageType.tafsir);
+                                    cubit.changeFalseFloating();
+                                  },
+                                  child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 10, left: 5),
+                                      height: 50,
+                                      width: 50,
+                                      child: Image.asset(
+                                        AppIcons.quran4Icon,
+                                        color: AppColor.white,
+                                        width: 30,
+                                      )),
+                                ),
                               GestureDetector(
                                   onTap: () {
                                     cubit.changeIsBookmarked();
@@ -156,58 +181,59 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 30,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                  onTap: () {
-                                    cubit.changePluginPage(
-                                        page: PageType.translation);
-                                    cubit.changeFalseFloating();
-                                  },
-                                  child: Icon(
-                                    Icons.translate,
-                                    color: AppColor.white,
-                                    size: 30,
-                                  )),
-                              GestureDetector(
-                                  onTap: () {
-                                    DatabaseRepository()
-                                        .insertVerseNote(VerseNote(
-                                      idFromVerse: 1,
-                                      pageNumber: 20,
-                                      textFristVerse:
-                                          'قُلْ هُوَ اللَّهُ أَحَدٌ',
-                                      idToVerse: 2,
-                                      noteText: 'My Note',
-                                      idPage: 20,
-                                    ));
-                                  },
-                                  child: Icon(
-                                    Icons.comment_outlined,
-                                    color: AppColor.white,
-                                    size: 30,
-                                  )),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Image.asset(AppIcons.shareIcon,
-                                    color: AppColor.white, width: 30),
-                              ),
-                              GestureDetector(
-                                  onTap: () {
-                                    Get.to(const SettingsPage());
-                                  },
-                                  child: Icon(
-                                    Icons.settings,
-                                    color: AppColor.white,
-                                    size: 35,
-                                  )),
-                            ],
+                        if (cubit.pageType != PageType.translation)
+                          SizedBox(
+                            height: 30,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      cubit.changePluginPage(
+                                          page: PageType.translation);
+                                      cubit.changeFalseFloating();
+                                    },
+                                    child: Icon(
+                                      Icons.translate,
+                                      color: AppColor.white,
+                                      size: 30,
+                                    )),
+                                GestureDetector(
+                                    onTap: () {
+                                      DatabaseRepository()
+                                          .insertVerseNote(VerseNote(
+                                        idFromVerse: 1,
+                                        pageNumber: 20,
+                                        textFristVerse:
+                                            'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                                        idToVerse: 2,
+                                        noteText: 'My Note',
+                                        idPage: 20,
+                                      ));
+                                    },
+                                    child: Icon(
+                                      Icons.comment_outlined,
+                                      color: AppColor.white,
+                                      size: 30,
+                                    )),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Image.asset(AppIcons.shareIcon,
+                                      color: AppColor.white, width: 30),
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      Get.to(const SettingsPage());
+                                    },
+                                    child: Icon(
+                                      Icons.settings,
+                                      color: AppColor.white,
+                                      size: 35,
+                                    )),
+                              ],
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -224,7 +250,7 @@ GestureDetector floatBackGround(HomeCubit cubit) {
       cubit.changeOpacity(1);
       Future.delayed(const Duration(seconds: 5), () {
         cubit.changeIsOnFalsePressed();
-        cubit.changeOpacity(.4);
+        cubit.changeOpacity(.2);
       });
     },
     child: Container(

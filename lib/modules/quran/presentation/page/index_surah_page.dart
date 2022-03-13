@@ -30,7 +30,7 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
   void initState() {
     super.initState();
     BlocProvider.of<ChapterCubit>(context)
-        .fetchChaptersList(isSelect: true, fromIndex: true);
+        .fetchChaptersList(isSelect: true, );
   }
 
   @override

@@ -82,7 +82,7 @@ class _ToolBottonState extends State<ToolBotton> {
                               size: 30,
                             ),
                           ),
-                        if (cubit.isSelectedVerse)
+                       // if (cubit.isSelectedVerse)
                           GestureDetector(
                             onTap: () {
                               Scaffold.of(context).showBottomSheet(

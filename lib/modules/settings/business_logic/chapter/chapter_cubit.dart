@@ -9,25 +9,13 @@ class ChapterCubit extends Cubit<ChapterState> {
 
   ChapterCubit() : super(ChapterInitial());
 
-  fetchChaptersList({
-    String? qurey,
-    bool isSelect = false,
-    bool? fromIndex,
-  }) {
+  fetchChaptersList({String? qurey, bool isSelect = false}) {
     try {
       int? narrationId = CacheHelper.getData(key: narrationSelectedId) as int?;
-      int? bookId = CacheHelper.getData(key: bookSelectedId) as int?;
       int? reciterId = CacheHelper.getData(key: reciterSelectedId) as int?;
 
       if (isSelect || (narrationId != null && reciterId != null)) {
-        DataSource.instance
-            .fetchChaptersList(
-          qurey: qurey,
-          bookId: bookId,
-          fromIndex: fromIndex,
-          narrationId: narrationId,
-        )
-            .then((value) async {
+        DataSource.instance.fetchChaptersList(qurey: qurey).then((value) async {
           if (value!.isNotEmpty) {
             DataSource.instance
                 .fetchRecitationsList(
