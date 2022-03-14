@@ -56,7 +56,10 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
   @override
   void initState() {
     super.initState();
-    initPlayer();
+
+    Future.delayed(Duration.zero, () {
+      initPlayer();
+    });
   }
 
   @override

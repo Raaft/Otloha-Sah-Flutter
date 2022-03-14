@@ -9,12 +9,13 @@
 
 class MessageModel {
   MessageModel({
-      this.addresser, 
-      this.addressee, 
-      this.acceptedAt, 
-      this.isRead, 
-      this.isSent, 
-      this.recitation,});
+    this.addresser,
+    this.addressee,
+    this.acceptedAt,
+    this.isRead,
+    this.isSent,
+    this.recitation,
+  });
 
   MessageModel.fromJson(dynamic json) {
     addresser = json['addresser'];
@@ -24,6 +25,7 @@ class MessageModel {
     isSent = json['is_sent'];
     recitation = json['recitation'];
   }
+
   int? addresser;
   int? addressee;
   String? acceptedAt;
@@ -41,5 +43,4 @@ class MessageModel {
     map['recitation'] = recitation;
     return map;
   }
-
 }
