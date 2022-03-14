@@ -54,7 +54,7 @@ class OnBoardPage extends StatelessWidget {
                     buttonText: 'Guest',
                     width: MediaQuery.of(context).size.height * 0.5,
                     onPressed: () {
-                      Get.off(
+                      Get.to(
                         () => BlocProvider(
                           create: (_) => HomeCubit(),
                           child: const HomePage(),
