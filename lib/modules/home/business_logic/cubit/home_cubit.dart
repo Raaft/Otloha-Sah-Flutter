@@ -4,7 +4,6 @@ import 'package:flutter_base/modules/data/data_source/local/database/database/da
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io' as io;
@@ -18,7 +17,6 @@ import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:rxdart/streams.dart';
 
 part 'home_state.dart';
 
