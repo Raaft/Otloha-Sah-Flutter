@@ -20,7 +20,6 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial()) {
-
     chapterId = CacheHelper.getData(key: chapterSelectedID) ?? 1;
     chapterName =
         (CacheHelper.getData(key: chapterSelectedName) as String?) ?? 'الفاتحة';
@@ -68,7 +67,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeChapter(int newChapter) {
     chapterId = newChapter;
-    chapterName = (CacheHelper.getData(key: chapterSelectedName) as String);
+    chapterName =
+        ((CacheHelper.getData(key: chapterSelectedName) ?? '') as String);
     emit(QuranChangeChapter());
   }
 

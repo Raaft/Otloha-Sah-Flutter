@@ -21,10 +21,13 @@ class ChapterCubit extends Cubit<ChapterState> {
                 .fetchRecitationsList(
                     reciterId: reciterId, narrationId: narrationId)
                 .then((recitations) {
-              recitation = recitations!.firstWhere((element) =>
-                  (element.narrationId == narrationId &&
-                      element.reciterId == reciterId));
-              if (recitation != null) {
+              if (recitations != null && recitations.isNotEmpty) {
+                recitation = recitations.firstWhere(
+                    (element) => (element.narrationId == narrationId &&
+                        element.reciterId == reciterId),
+                    orElse: () => Recitation(0, narrationId, reciterId, ''));
+              }
+              if (recitation != null || recitation!.id == 0) {
                 emit(ChapterInitial());
                 emit(ChapterFetched(value));
               } else {

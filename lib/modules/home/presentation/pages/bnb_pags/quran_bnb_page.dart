@@ -50,7 +50,8 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
               //_tempView(context, cubit),
               _viewLikeMarked(cubit),
               if (cubit.isRecorded) const RecordTool(),
-              if (cubit.checkVersesValue&&cubit.isPlaying==false) const ToolBotton(),
+              if (cubit.checkVersesValue && cubit.isPlaying == false)
+                const ToolBotton(),
               if (cubit.isRecordedFile) const RecordedFileTool(),
               if (cubit.isPlaying) const PlayPauseTools(),
               if (cubit.opacity != 0)
@@ -149,7 +150,6 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                 builder: (context, state) {
                   print('Chapter Cubit ${cubit.chapterId}');
                   return QuranWidget(
-
                     page: cubit.pageType,
                     chapterId: cubit.chapterId,
                     bookId: cubit.bookId,
@@ -158,7 +158,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                       print('onTap ' + val);
                       cubit.isVerSelected(isVerSelected);
 
-                     // cubit.changeIsOnTruePressed();
+                      // cubit.changeIsOnTruePressed();
 
                       cubit.changeOpacity(.5);
                       Future.delayed(const Duration(seconds: 5), () {
@@ -171,7 +171,6 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
 
                       //cubit.changeIsSelectedVerse();
                       cubit.changeIsOnTruePressed();
-
                     },
                     getPage: (page) {
                       cubit.changeJuz(
@@ -194,7 +193,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
         onTap: () => Navigator.of(context)
             .pushNamed(IndexSurahPage.routeName)
             .then((value) {
-          cubit.changeChapter(value as int);
+          cubit.changeChapter((value ?? 1) as int);
         }),
         child: Container(
           padding: const EdgeInsets.only(bottom: 40, top: 8),
