@@ -12,10 +12,12 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/login_with.
 import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
-import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:get/get.dart';
+
+import '../../../home/presentation/pages/home/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   static const routeName = '/loginPage';
@@ -39,14 +41,20 @@ class LoginPage extends StatelessWidget {
   Widget loginComponents(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        // TODO: implement listener
-      },
+        if (state is LogInSuccessState) {
+          Get.to(() => BlocProvider(
+              create: (context) => HomeCubit(),
+              child: const HomePage()));
+        }      },
       builder: (context, state) {
         var cubit = AuthCubit.get(context);
         return SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(35),
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,28 +112,32 @@ class LoginPage extends StatelessWidget {
             textAlign: TextAlign.end,
             colorText: AppColor.silver,
           ),
-          AuthButton(
-            buttonText: tr('Login'),
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                debugPrint('validate');
-                cubit
-                    .userLogIn(
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return AuthButton(
+                buttonText: tr('Login'),
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    debugPrint('validate');
+                    cubit
+                        .userLogIn(
                         email: emailController.text,
                         password: passwordController.text)
-                    ?.then((value) {
-                       Get.to(() => HomePage);
+                        .then((value) {
+
                     })
-                    .catchError((e) {
-                  print('ERROR IN LOG IN IS $e');
-                });
-              }
+                        .catchError((e) {
+                      print('ERROR IN LOG IN IS $e');
+                    });
+                  }
+                },
+                width: double.infinity,
+                colors: [
+                  AppColor.darkBlue,
+                  AppColor.lightBlue,
+                ],
+              );
             },
-            width: double.infinity,
-            colors: [
-              AppColor.darkBlue,
-              AppColor.lightBlue,
-            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
