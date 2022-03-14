@@ -105,13 +105,13 @@ class _MessagesPageState extends State<MessagesPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _tabItem('General', 0, isSelect: _selected == 0),
+        _tabItem('General', 0, isSelect: _selected == 0, fetchData: () {}),
         _divider(),
-        _tabItem('Inbox', 1, isSelect: _selected == 1),
+        _tabItem('Inbox', 1, isSelect: _selected == 1, fetchData: () {}),
         _divider(),
-        _tabItem('Outbox', 2, isSelect: _selected == 2),
+        _tabItem('Outbox', 2, isSelect: _selected == 2, fetchData: () {}),
         _divider(),
-        _tabItem('Private', 3, isSelect: _selected == 3),
+        _tabItem('Private', 3, isSelect: _selected == 3, fetchData: () {}),
       ],
     );
   }
@@ -126,9 +126,11 @@ class _MessagesPageState extends State<MessagesPage> {
     );
   }
 
-  Widget _tabItem(String title, int value, {bool isSelect = false}) {
+  Widget _tabItem(String title, int value,
+      {bool isSelect = false, Function()? fetchData}) {
     return GestureDetector(
       onTap: () {
+        fetchData!();
         BlocProvider.of<MessageTapCubit>(context).changeIndex(value);
       },
       child: Container(
