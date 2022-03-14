@@ -9,22 +9,20 @@ class ViewError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              AppIcons.emptyIcon,
-              height: 150,
-              width: 150,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: TextView(text: 'No Data to Fetch!\n Error is $error '),
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            AppIcons.emptyIcon,
+            height: 150,
+            width: 150,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: TextView(text: 'No Data to Fetch!\n Error is $error '),
+          ),
+        ],
       ),
     );
   }

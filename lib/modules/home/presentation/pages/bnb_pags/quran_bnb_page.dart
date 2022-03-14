@@ -54,7 +54,8 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                   cubit.isPlaying == false &&
                   cubit.isRecorded == false &&
                   cubit.isRecordedFile == false)
-                const ToolBotton(),
+                if (cubit.checkVersesValue && cubit.isPlaying == false)
+                  const ToolBotton(),
               if (cubit.isRecordedFile) const RecordedFileTool(),
               if (cubit.isPlaying) const PlayPauseTools(),
               if (cubit.opacity != 0)
@@ -198,7 +199,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
         onTap: () => Navigator.of(context)
             .pushNamed(IndexSurahPage.routeName)
             .then((value) {
-          cubit.changeChapter(value as int);
+          cubit.changeChapter((value ?? 1) as int);
         }),
         child: Container(
           padding: const EdgeInsets.only(bottom: 40, top: 8),

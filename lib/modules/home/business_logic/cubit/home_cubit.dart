@@ -71,7 +71,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   changeChapter(int newChapter) {
     chapterId = newChapter;
-    chapterName = (CacheHelper.getData(key: chapterSelectedName) as String);
+    chapterName =
+        ((CacheHelper.getData(key: chapterSelectedName) ?? '') as String);
     emit(QuranChangeChapter());
   }
 

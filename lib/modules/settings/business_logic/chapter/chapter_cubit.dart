@@ -35,6 +35,12 @@ class ChapterCubit extends Cubit<ChapterState> {
                 } else {
                   emit(const ChapterError('Not Found Data'));
                 }
+                (element) => (element.narrationId == narrationId &&
+                    element.reciterId == reciterId);
+              }
+              if (recitation != null || recitation!.id == 0) {
+                emit(ChapterInitial());
+                emit(ChapterFetched(value));
               } else {
                 emit(const ChapterError('Not Found Data'));
               }
