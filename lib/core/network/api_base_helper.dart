@@ -7,7 +7,7 @@ import 'package:flutter_base/core/network/network_info.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ApiBaseHelper {
-  static const String url = 'http://192.168.1.11:8000';
+  static const String url = 'http://46.101.113.121';
 
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
