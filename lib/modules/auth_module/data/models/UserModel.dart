@@ -1,40 +1,48 @@
-// access_token : "jqsDKVl8QRyQL7wfJ2OuRvNQKHHvQU"
-/// expires_in : 36000
-/// token_type : "Bearer"
-/// scope : "read write groups"
-/// refresh_token : "cWyC666pAfASsxCbEDPFHv2qIn6B5f"
-
-// ignore_for_file: file_names
-
 class UserModel {
-  UserModel({
-      this.accessToken, 
-      this.expiresIn, 
-      this.tokenType, 
-      this.scope, 
-      this.refreshToken,});
-
-  UserModel.fromJson(dynamic json) {
-    accessToken = json['access_token'];
-    expiresIn = json['expires_in'];
-    tokenType = json['token_type'];
-    scope = json['scope'];
-    refreshToken = json['refresh_token'];
-  }
   String? accessToken;
-  int? expiresIn;
-  String? tokenType;
-  String? scope;
   String? refreshToken;
+  User? user;
+
+  UserModel({this.accessToken, this.refreshToken, this.user});
+
+  UserModel.fromJson(Map<String, dynamic> json) {
+    accessToken = json['access_token'];
+    refreshToken = json['refresh_token'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+  }
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['access_token'] = accessToken;
-    map['expires_in'] = expiresIn;
-    map['token_type'] = tokenType;
-    map['scope'] = scope;
-    map['refresh_token'] = refreshToken;
-    return map;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['access_token'] = this.accessToken;
+    data['refresh_token'] = this.refreshToken;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    return data;
+  }
+}
+
+class User {
+  int? pk;
+  String? email;
+  String? firstName;
+  String? lastName;
+
+  User({this.pk, this.email, this.firstName, this.lastName});
+
+  User.fromJson(Map<String, dynamic> json) {
+    pk = json['pk'];
+    email = json['email'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
   }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['pk'] = this.pk;
+    data['email'] = this.email;
+    data['first_name'] = this.firstName;
+    data['last_name'] = this.lastName;
+    return data;
+  }
 }

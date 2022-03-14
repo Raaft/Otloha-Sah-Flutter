@@ -13,7 +13,7 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
   UserModel? userModel;
 
-  Future<Response>? userLogIn({@required email, @required password}) {
+   Future <Response>?userLogIn({@required email, @required password}) {
     emit(LogInSuccessLoadingState());
     Auth().userLogIn(email: email, password: password).then((value) {
       userModel = UserModel.fromJson(value.data);
@@ -25,7 +25,6 @@ class AuthCubit extends Cubit<AuthState> {
       emit(LogInErrorState(error.toString()));
       return error;
     });
-    return null;
   }
 
   Future<Response>? userRegister(

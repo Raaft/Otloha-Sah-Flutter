@@ -9,7 +9,7 @@ const String clientId = 'dzyLcyFBzXCHXjHLiFZ5DCK1ucPSRTMrIj3HzXLW';
 const String clientSecret =
     'ofbXOLzm6dVxHVAO5Eivg8RSfMLKL4vxe5EBzbc9b6efsAhxINzJjDDd7VTbOJdjqhPodk00Ae2wwwL1F7QnBIlxPpLCwYPwtQAetdU1LvLaHUgP6hWMcCF352RKCmA6';
 
-const String languagesSelected = 'LanguagesSelectedName';
+const String languagesSelectedName = 'LanguagesSelectedName';
 const String languagesSelectedId = 'LanguagesSelectedId';
 const String bookSelectedId = 'BookSelectedId';
 const String bookSelectedName = 'BookSelectedName';

@@ -30,7 +30,7 @@ final List<Settings> settings = [
     name: translate('Languages'),
     image: AppIcons.languageIcon,
     actionTo: LanguagesPage.routeName,
-    subTitle: CacheHelper.getData(key: languagesSelected),
+    subTitle: CacheHelper.getData(key: languagesSelectedName),
   ),
   Settings(
     name: translate('QuranTranslationLanguage'),

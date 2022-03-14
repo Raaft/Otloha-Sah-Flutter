@@ -62,7 +62,7 @@ void main() async {
   );
   **/
 
-  var index = (CacheHelper.getData(key: languagesSelected) as int?) ?? 1;
+  var index = (CacheHelper.getData(key: languagesSelectedId) as int?) ?? 1;
 
   if (index == 0) {
     isEn = true;

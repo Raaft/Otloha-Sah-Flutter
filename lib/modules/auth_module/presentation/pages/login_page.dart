@@ -112,8 +112,13 @@ class LoginPage extends StatelessWidget {
                 cubit
                     .userLogIn(
                         email: emailController.text,
-                        password: passwordController.text)!
-                    .then((value) => Get.to(()=>HomePage));
+                        password: passwordController.text)
+                    ?.then((value) {
+                       Get.to(() => HomePage);
+                    })
+                    .catchError((e) {
+                  print('ERROR IN LOG IN IS $e');
+                });
               }
             },
             width: double.infinity,
