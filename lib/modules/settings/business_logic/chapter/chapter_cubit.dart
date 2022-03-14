@@ -27,9 +27,9 @@ class ChapterCubit extends Cubit<ChapterState> {
                 .then((recitations) {
               if (recitations != null && recitations.isNotEmpty) {
                 recitation = recitations.firstWhere(
-                  (element) => (element.narrationId == narrationId &&
-                      element.reciterId == reciterId),
-                );
+                    (element) => (element.narrationId == narrationId &&
+                        element.reciterId == reciterId),
+                    orElse: () => Recitation(0, narrationId, reciterId, ''));
                 if (recitation != null) {
                   //  emit(ChapterInitial());
                 } else {
