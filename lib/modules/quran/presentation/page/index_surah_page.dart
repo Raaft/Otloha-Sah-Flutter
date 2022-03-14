@@ -29,8 +29,9 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<ChapterCubit>(context)
-        .fetchChaptersList(isSelect: true, );
+    BlocProvider.of<ChapterCubit>(context).fetchChaptersList(
+      isSelect: true,
+    );
   }
 
   @override
@@ -128,36 +129,35 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
     );
   }
 
-  SizedBox _viewItems(List<Chapter>? chapters) {
-    return SizedBox(
+  Widget _viewItems(List<Chapter>? chapters) {
+    return Container(
+      padding: const EdgeInsets.all(8),
       height: MediaQuery.of(context).size.height * 0.8,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: chapters!.length,
-          itemBuilder: (context, index) {
-            return ItemSurah(
-              name: chapters[index].name.toString(),
-              partName: '',
-              pageFrom: chapters[index].pageFrom ?? 1,
-              pageTO: chapters[index].pageTo ?? 1,
-              verses: chapters[index].versesSize ?? 7,
-              isMakkah: _getOorigin(chapters[index].origin),
-              isSelect: _selected == index,
-              onLongPress: () {},
-              action: () {
-                setState(() {
-                  _selected = index;
-                });
-                CacheHelper.saveData(
-                    key: chapterSelectedID, value: chapters[index].id);
-                CacheHelper.saveData(
-                    key: chapterSelectedName, value: chapters[index].name);
-                _changePage(1);
-              },
-            );
-          },
-        ),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: chapters!.length,
+        itemBuilder: (context, index) {
+          return ItemSurah(
+            name: chapters[index].name.toString(),
+            partName: '',
+            pageFrom: chapters[index].pageFrom ?? 1,
+            pageTO: chapters[index].pageTo ?? 1,
+            verses: chapters[index].versesSize ?? 7,
+            isMakkah: _getOorigin(chapters[index].origin),
+            isSelect: _selected == index,
+            onLongPress: () {},
+            action: () {
+              setState(() {
+                _selected = index;
+              });
+              CacheHelper.saveData(
+                  key: chapterSelectedID, value: chapters[index].id);
+              CacheHelper.saveData(
+                  key: chapterSelectedName, value: chapters[index].name);
+              _changePage(1);
+            },
+          );
+        },
       ),
     );
   }

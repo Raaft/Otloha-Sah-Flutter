@@ -50,7 +50,11 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
               //_tempView(context, cubit),
               _viewLikeMarked(cubit),
               if (cubit.isRecorded) const RecordTool(),
-              if (cubit.checkVersesValue&&cubit.isPlaying==false) const ToolBotton(),
+              if (cubit.checkVersesValue &&
+                  cubit.isPlaying == false &&
+                  cubit.isRecorded == false &&
+                  cubit.isRecordedFile == false)
+                const ToolBotton(),
               if (cubit.isRecordedFile) const RecordedFileTool(),
               if (cubit.isPlaying) const PlayPauseTools(),
               if (cubit.opacity != 0)
@@ -149,33 +153,33 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                 builder: (context, state) {
                   print('Chapter Cubit ${cubit.chapterId}');
                   return QuranWidget(
-
                     page: cubit.pageType,
                     chapterId: cubit.chapterId,
                     bookId: cubit.bookId,
                     narrationId: cubit.narrationId,
-                    onTap: (val, isVerSelected) {
+                    onTap: (val, isVerSelected, values) {
                       print('onTap ' + val);
                       cubit.isVerSelected(isVerSelected);
 
-                     // cubit.changeIsOnTruePressed();
+                      // cubit.changeIsOnTruePressed();
 
                       cubit.changeOpacity(.5);
+                      cubit.addSelected(values);
                       Future.delayed(const Duration(seconds: 5), () {
                         cubit.changeOpacity(.2);
                       });
                     },
-                    onLongTap: (val, isVerSelected) {
+                    onLongTap: (val, isVerSelected, values) {
                       print('onLongTap ' + val);
                       cubit.isVerSelected(isVerSelected);
 
-                      //cubit.changeIsSelectedVerse();
+                      cubit.changeIsSelectedVerse();
                       cubit.changeIsOnTruePressed();
-
+                      cubit.addSelected(values);
                     },
                     getPage: (page) {
                       cubit.changeJuz(
-                          page.partId ?? 1, page.chapters![0].id ?? 1);
+                          page.partId ?? 1, page.chapters![0].id ?? 1, page);
                     },
                   );
                 },

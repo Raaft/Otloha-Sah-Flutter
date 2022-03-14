@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
-import 'package:flutter_base/core/data/chash_helper.dart'as otlohaShaerd;
+import 'package:flutter_base/core/data/chash_helper.dart' as otloha_shaerd;
 
 import 'package:flutter_base/app_router.dart';
 import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
@@ -29,7 +29,7 @@ void main() async {
     ),
   );
 
-  await  otlohaShaerd.CacheHelper.init();
+  await otloha_shaerd.CacheHelper.init();
   await CacheHelper.init();
 
 /*

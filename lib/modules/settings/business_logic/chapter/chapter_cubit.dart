@@ -14,19 +14,27 @@ class ChapterCubit extends Cubit<ChapterState> {
       int? narrationId = CacheHelper.getData(key: narrationSelectedId) as int?;
       int? reciterId = CacheHelper.getData(key: reciterSelectedId) as int?;
 
-      if (isSelect || (narrationId != null && reciterId != null)) {
-        DataSource.instance.fetchChaptersList(qurey: qurey).then((value) async {
-          if (value!.isNotEmpty) {
+      DataSource.instance.fetchChaptersList(qurey: qurey).then((value) async {
+        if (value!.isNotEmpty) {
+          if (isSelect) {
+            emit(ChapterFetched(value));
+            return;
+          }
+          if ((narrationId != null && reciterId != null)) {
             DataSource.instance
                 .fetchRecitationsList(
                     reciterId: reciterId, narrationId: narrationId)
                 .then((recitations) {
-              recitation = recitations!.firstWhere((element) =>
-                  (element.narrationId == narrationId &&
-                      element.reciterId == reciterId));
-              if (recitation != null) {
-                emit(ChapterInitial());
-                emit(ChapterFetched(value));
+              if (recitations != null && recitations.isNotEmpty) {
+                recitation = recitations.firstWhere(
+                  (element) => (element.narrationId == narrationId &&
+                      element.reciterId == reciterId),
+                );
+                if (recitation != null) {
+                  //  emit(ChapterInitial());
+                } else {
+                  emit(const ChapterError('Not Found Data'));
+                }
               } else {
                 emit(const ChapterError('Not Found Data'));
               }
@@ -36,14 +44,14 @@ class ChapterCubit extends Cubit<ChapterState> {
           } else {
             emit(const ChapterError('Not Found Data'));
           }
-        });
-      } else {
-        if (narrationId == null) {
-          emit(const ChapterEmpty(true));
         } else {
-          emit(const ChapterEmpty(false));
+          if (narrationId == null) {
+            emit(const ChapterEmpty(true));
+          } else {
+            emit(const ChapterEmpty(false));
+          }
         }
-      }
+      });
     } catch (e) {
       emit(ChapterError(e.toString()));
     }

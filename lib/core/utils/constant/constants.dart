@@ -3,11 +3,11 @@ const String fontFamily2 = 'ElMessiri';
 
 var isEn = false;
 
-const String clientId = 'gvsUPGapswBuIhMpzpt8b64M9H6ccodv5suLvN6J';
+const String clientId = 'dzyLcyFBzXCHXjHLiFZ5DCK1ucPSRTMrIj3HzXLW';
 ///////
 //const String clientSecret = '7VJuQ1DrwQzbMilum88be5tLCKx3QJOZ1Rjzp3dUTwNfo2yB8ir9qLWb5Y2xRGnfKcftZxkpVPflXaeP7KjteRFIZREp8WwOcr8Trvq5WVml84DKHoIHXjktBrzy3utk';
 const String clientSecret =
-    'gnNMqB4p0nq3aE72XEOQdRMphn2P0e4l1xVv8H2UzS83VtKpmGXvEFuNrKQWR3G2kRRsy5gn9870iDN5IA3FC6B5E0tNMhwySSo0T95nDzLfrS9ai73ej67aQXtvLqGc';
+    'ofbXOLzm6dVxHVAO5Eivg8RSfMLKL4vxe5EBzbc9b6efsAhxINzJjDDd7VTbOJdjqhPodk00Ae2wwwL1F7QnBIlxPpLCwYPwtQAetdU1LvLaHUgP6hWMcCF352RKCmA6';
 
 const String languagesSelected = 'LanguagesSelectedName';
 const String languagesSelectedId = 'LanguagesSelectedId';
