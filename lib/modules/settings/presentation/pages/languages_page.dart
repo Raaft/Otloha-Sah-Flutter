@@ -74,7 +74,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
           CacheHelper.saveData(key: languagesSelectedId, value: index);
 
           CacheHelper.saveData(
-              key: languagesSelected, value: lang[index].langName);
+              key: languagesSelectedName, value: lang[index].langName);
           setState(() {
             _selected = index;
 
