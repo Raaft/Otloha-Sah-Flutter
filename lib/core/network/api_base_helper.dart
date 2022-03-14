@@ -7,14 +7,15 @@ import 'package:flutter_base/core/network/network_info.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ApiBaseHelper {
-  static const String url = 'http://kalamy.dev.itqadem.com/api/v1/';
+  static const String url = 'http://192.168.1.11:8000';
+
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
       responseType: ResponseType.json,
-      connectTimeout: 30000,
-      receiveTimeout: 30000,
+      connectTimeout: 1000,
+      receiveTimeout: 1000,
       headers: {
-        'Accept': 'application/json',
+       // 'Accept': 'application/json',
       });
 
   static Dio createDio() {
@@ -74,6 +75,7 @@ class ApiBaseHelper {
     print(url);
     try {
       Response response = await baseAPI.post(url, data: data);
+      print(response);
       return response;
     } on DioError catch (e) {
       print(data);
@@ -82,6 +84,7 @@ class ApiBaseHelper {
     }
   }
 
+  // ignore: missing_return
   Future<Response> postPhotoHTTP(String url, dynamic data) async {
     try {
       FormData formData = FormData.fromMap(data);
@@ -89,7 +92,6 @@ class ApiBaseHelper {
       return response;
     } on DioError catch (e) {
       ExceptionHandling.handleDioExceprion(e);
-      print(e.error);
       rethrow;
     }
   }

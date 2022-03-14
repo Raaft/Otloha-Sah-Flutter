@@ -4,6 +4,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/password_form_field.dart';
 import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/rest_password.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/sign_up.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/login_with.
 import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
+import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:get/get.dart';
 
@@ -25,33 +28,44 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pageLayout(context, loginComponents(context)),
-    );
-  }
-
-  Widget loginComponents(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(35),
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            pageLayOutTextHead(tr('Log-in')),
-            loginForm(),
-            loginWith(
-              tr('loginwith'),
-            ),
-            needHelpText(),
-          ],
-        ),
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: Scaffold(
+        body: pageLayout(context, loginComponents(context)),
       ),
     );
   }
 
-  Widget loginForm() {
+  Widget loginComponents(BuildContext context) {
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        var cubit = AuthCubit.get(context);
+        return SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(35),
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                pageLayOutTextHead(tr('Log-in')),
+                loginForm(cubit),
+                loginWith(
+                  tr('loginwith'),
+                ),
+                needHelpText(),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget loginForm(AuthCubit cubit) {
     return Form(
       key: formKey,
       child: Column(
@@ -95,6 +109,16 @@ class LoginPage extends StatelessWidget {
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 debugPrint('validate');
+                cubit
+                    .userLogIn(
+                        email: emailController.text,
+                        password: passwordController.text)
+                    ?.then((value) {
+                       Get.to(() => HomePage);
+                    })
+                    .catchError((e) {
+                  print('ERROR IN LOG IN IS $e');
+                });
               }
             },
             width: double.infinity,

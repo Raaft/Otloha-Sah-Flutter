@@ -37,7 +37,7 @@ dependencies:
   path_provider: null
   pinput: ^1.2.0
   quran_widget_flutter:
-    path: ../quran_flutter_widget
+    path: ../quran_widget_flutter
   record: ^3.0.2
   rxdart: ^0.27.3
   search_page: ^2.0.0+1
