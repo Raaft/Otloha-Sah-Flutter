@@ -50,10 +50,10 @@ class _MessagesPageState extends State<MessagesPage> {
       return const GeneralMessagePage();
     }
     if (_selected == 1) {
-      return const InBoxMessagePage();
+      return InBoxMessagePage();
     }
     if (_selected == 2) {
-      return const OutBoxMessagePage();
+      return OutBoxMessagePage();
     }
     if (_selected == 3) {
       return const PrivateMessagePage();
@@ -68,9 +68,13 @@ class _MessagesPageState extends State<MessagesPage> {
       children: [
         _tabItem('General', 0, isSelect: _selected == 0, fetchData: () {}),
         _divider(),
-        _tabItem('Inbox', 1, isSelect: _selected == 1, fetchData: () {}),
+        _tabItem('Inbox', 1, isSelect: _selected == 1, fetchData: () {
+          BlocProvider.of<MessageTapCubit>(context).getRecieveMessage();
+        }),
         _divider(),
-        _tabItem('Outbox', 2, isSelect: _selected == 2, fetchData: () {}),
+        _tabItem('Outbox', 2, isSelect: _selected == 2, fetchData: () {
+          BlocProvider.of<MessageTapCubit>(context).getSendMessage();
+        }),
         _divider(),
         _tabItem('Private', 3, isSelect: _selected == 3, fetchData: () {}),
       ],
