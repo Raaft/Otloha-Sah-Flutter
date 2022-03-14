@@ -44,7 +44,9 @@ class ChangePlayPauseState extends HomeState {}
 class ChangePageState extends HomeState {}
 
 class QuranChangeChapter extends HomeState {}
+
 class CheckIsVerseEmptyState extends HomeState {}
+
 class DoneCheckIsVerseEmptyState extends HomeState {}
 
 class HomeChangeIndex extends HomeState {

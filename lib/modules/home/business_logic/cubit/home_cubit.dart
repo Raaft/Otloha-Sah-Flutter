@@ -1,11 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
+import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io' as io;
+import 'package:quran_widget_flutter/model/page.dart' as page_obj;
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file/file.dart';
@@ -15,6 +18,7 @@ import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:rxdart/streams.dart';
 
 part 'home_state.dart';
 
@@ -72,7 +76,10 @@ class HomeCubit extends Cubit<HomeState> {
     emit(QuranChangeChapter());
   }
 
-  changeJuz(int newJux, int newChapter) async {
+  Map<int, List<int>>? selectedIndex = {};
+  page_obj.Page? page;
+  changeJuz(int newJux, int newChapter, page_obj.Page page) async {
+    this.page = page;
     juz = 'جزء رقم ' + newJux.toString();
     await DataSource.instance.fetchChapterById(newChapter).then((value) {
       if (value != null) {
@@ -207,10 +214,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future init() async {
     try {
+      print('start init');
       bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
 
       if (hasPermission) {
-        String customPath = '/recodred/files/File_}';
+        String customPath = '/File_';
         io.Directory appDocDirectory;
 
         if (io.Platform.isIOS) {
@@ -221,7 +229,8 @@ class HomeCubit extends Cubit<HomeState> {
 
         customPath = appDocDirectory.path +
             customPath +
-            DateTime.now().millisecondsSinceEpoch.toString();
+            DateTime.now().millisecondsSinceEpoch.toString() +
+            '.wav';
 
         filePath = customPath;
 
@@ -236,11 +245,12 @@ class HomeCubit extends Cubit<HomeState> {
         this.current = current;
         _currentStatus = current!.status!;
         print(_currentStatus);
+        print('end init');
       } else {
         print('You must accept permissions');
       }
     } catch (e) {
-      print(e);
+      print('init Error' + e.toString());
     }
   }
 
@@ -299,16 +309,48 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void saveFile() async {
-    await AppDatabase()
-        .userRecitationDao
-        .insert(UserRecitation(
-            narrationId: narrationId,
-            record: filePath,
-            name: 'todo add',
-            versesID: [1, 2]))
-        .then((value) {
+    var userRecitation = UserRecitation(
+      narrationId: narrationId,
+      record: current!.path ?? '',
+      name: _getName(),
+      versesID: _getVerses(),
+    );
+    await AppDatabase().userRecitationDao.insert(userRecitation).then((value) {
       print('Saved Value' + value.toString());
     });
+
+    print(userRecitation);
+  }
+
+  void shareRecitation() async {
+    await AppDatabase()
+        .userRecitationDao
+        .findAllUserRecitations()
+        .then((value) async {
+      if (value != null && value.isNotEmpty) {
+        for (var userRecitation in value) {
+          var userRe = await UserRecitationApi()
+              .saveUserReciataion(userRecitation: userRecitation);
+          print('shareRecitation $userRe');
+        }
+      }
+    });
+  }
+
+  void addSelected(Map<int, List<int>>? values) {
+    selectedIndex = values;
+  }
+
+  _getName() {
+    String? text = page!.verses!
+        .firstWhere((element) => element.id == _getVerses()![0])
+        .text;
+
+    return getFirstWords(text ?? '', 5);
+  }
+
+  List<int>? _getVerses() {
+    return selectedIndex![0];
   }
 
 /*
@@ -330,4 +372,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(RecordIsRecord(isRecord: isPlay));
   }*/
 
+  String getFirstWords(String sentence, int wordCounts) {
+    return sentence.split(' ').sublist(0, wordCounts).join(' ');
+  }
 }

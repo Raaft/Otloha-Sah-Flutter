@@ -48,10 +48,16 @@ CREATE TABLE IF NOT EXISTS "VerseLiked" (
 CREATE TABLE "UserRecitation" (
 	"id"	INTEGER NOT NULL,
 	"narration_id"	INTEGER,
+	"user_id"	INTEGER,
 	"record"	INTEGER,
-	"versesID"	TEXT,
+	"verse_ids"	TEXT,
 	"name"	TEXT,
 	"uploaded"	INTEGER DEFAULT 0,
+	"is_accepted"	INTEGER,
+	"is_teacher_recitation"	INTEGER,
+	"show_in_general"	INTEGER,
+	"finished_at"	INTEGER,
+	"archived_at"	INTEGER,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 ''';

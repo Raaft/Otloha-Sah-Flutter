@@ -7,7 +7,6 @@ import 'package:flutter_base/core/network/network_info.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ApiBaseHelper {
-
   static const String url = 'http://kalamy.dev.itqadem.com/api/v1/';
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
@@ -83,7 +82,6 @@ class ApiBaseHelper {
     }
   }
 
-  // ignore: missing_return
   Future<Response> postPhotoHTTP(String url, dynamic data) async {
     try {
       FormData formData = FormData.fromMap(data);
@@ -91,6 +89,7 @@ class ApiBaseHelper {
       return response;
     } on DioError catch (e) {
       ExceptionHandling.handleDioExceprion(e);
+      print(e.error);
       rethrow;
     }
   }

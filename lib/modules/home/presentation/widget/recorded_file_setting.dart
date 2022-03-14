@@ -49,11 +49,10 @@ class RecordedFileTool extends StatelessWidget {
                           color: AppColor.white, width: 30),
                     ),
                     GestureDetector(
-                        onTap: () {
-                          cubit.init().then((value) async {
-                            await cubit.start();
-                            cubit.changeIsRecorded();
-                          });
+                        onTap: () async {
+                          await cubit.init();
+                          cubit.changeIsRecorded();
+                          cubit.start();
                         },
                         child: Icon(
                           Icons.mic_none,
@@ -84,7 +83,9 @@ class RecordedFileTool extends StatelessWidget {
                           //  size: 40,
                         )),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        cubit.shareRecitation();
+                      },
                       child: Image.asset(AppIcons.shareIcon,
                           color: AppColor.white, width: 30),
                     ),

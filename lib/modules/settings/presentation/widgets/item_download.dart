@@ -124,17 +124,18 @@ class _ItemDownloadState extends State<ItemDownload> {
 
   void _startDownload() {
     DataSource.instance.downloadBook(
-        bookId: 1,
-        narrationId: 1,
-        retunProgress: (val) {
-          print('StartDownload ' + val.toString());
-          setState(() {
-            _progress = val;
-          });
-          if (val >= 1.0) {
-            print('Download Done');
-            widget.onDownload!();
-          }
+      bookId: 1,
+      narrationId: 1,
+      retunProgress: (val) {
+        print('StartDownload ' + val.toString());
+        setState(() {
+          _progress = val;
         });
+        if (val >= 1.0) {
+          print('Download Done');
+          widget.onDownload!();
+        }
+      },
+    );
   }
 }

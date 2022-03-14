@@ -60,13 +60,12 @@ class _ToolBottonState extends State<ToolBotton> {
                               color: AppColor.white,
                               height: 30,
                             )),
-                        if (cubit.isSelectedVerse)
+                        if (!cubit.isSelectedVerse)
                           GestureDetector(
-                              onTap: () {
-                                cubit.init().then((value) async {
-                                  await cubit.start();
-                                  cubit.changeIsRecorded();
-                                });
+                              onTap: () async {
+                                await cubit.init();
+                                cubit.changeIsRecorded();
+                                cubit.start();
                               },
                               child: const Icon(
                                 Icons.mic_none_outlined,
@@ -82,28 +81,28 @@ class _ToolBottonState extends State<ToolBotton> {
                               size: 30,
                             ),
                           ),
-                       // if (cubit.isSelectedVerse)
-                          GestureDetector(
-                            onTap: () {
-                              Scaffold.of(context).showBottomSheet(
-                                (context) => AddNote(
-                                  title: '2. Al-Baqarah',
-                                  textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
-                                ),
-                                //TODO Add Parmeter To Add Note Widget!!
-                                backgroundColor: AppColor.transparent,
-                              );
-                            },
-                            child: Container(
-                                padding:
-                                    const EdgeInsets.only(right: 10, left: 5),
-                                height: 50,
-                                width: 50,
-                                child: Icon(
-                                  Icons.comment,
-                                  color: AppColor.white,
-                                )),
-                          ),
+                        // if (cubit.isSelectedVerse)
+                        GestureDetector(
+                          onTap: () {
+                            Scaffold.of(context).showBottomSheet(
+                              (context) => AddNote(
+                                title: '2. Al-Baqarah',
+                                textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                              ),
+                              //TODO Add Parmeter To Add Note Widget!!
+                              backgroundColor: AppColor.transparent,
+                            );
+                          },
+                          child: Container(
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 5),
+                              height: 50,
+                              width: 50,
+                              child: Icon(
+                                Icons.comment,
+                                color: AppColor.white,
+                              )),
+                        ),
                         GestureDetector(
                           onTap: () {
                             Get.dialog(

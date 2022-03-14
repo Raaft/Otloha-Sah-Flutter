@@ -46,7 +46,7 @@ class ItemSurah extends StatelessWidget {
           color: AppColor.conColor2,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               AppIcons.quran3Icon,
