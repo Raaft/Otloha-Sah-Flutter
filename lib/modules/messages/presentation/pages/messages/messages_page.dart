@@ -84,11 +84,15 @@ class _MessagesPageState extends State<MessagesPage> {
         _tabItem('Outbox', 2, isSelect: _selected == 2, fetchData: () {
           BlocProvider.of<MessageTapCubit>(context).getSendMessage();
         }),
-        _divider(),
-        _tabItem('Private', 3, isSelect: _selected == 3, fetchData: () {}),
       ],
     );
   }
+
+  /*
+  
+        _divider(),
+        _tabItem('Private', 3, isSelect: _selected == 3, fetchData: () {}),
+   */
 
   SizedBox _divider() {
     return SizedBox(

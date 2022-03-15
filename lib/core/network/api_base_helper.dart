@@ -64,9 +64,10 @@ class ApiBaseHelper {
     Response? response;
     try {
       response = await baseAPI.get(url);
+      //response.statusCode;
       return response;
-    } on DioError catch (e) {
-      ExceptionHandling.handleDioExceprion(e);
+    } catch (e) {
+      //ExceptionHandling.handleDioExceprion(e);on DioError
     }
     return response;
   }

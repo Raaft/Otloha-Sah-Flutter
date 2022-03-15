@@ -2,13 +2,14 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:get/get.dart';
 
-import '../../data/data_source/messages_servise.dart';
+import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
 
 part 'messagetap_state.dart';
 
@@ -42,7 +43,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         emit(const MessageErrorState('Empty'));
       }
     }).catchError((error) {
-      print(error.toString());
+      print('Error Finish' + error.toString());
       emit(MessageErrorState(error.toString()));
     });
   }
@@ -50,32 +51,46 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   getRecieveMessage() {
     emit(MessageRecieveSuccessLoadingState());
     GetMessages().messgasRecieve()!.then((value) {
-      messages = (value!.data as List)
-          .map((data) => MessageModel.fromJson(data))
-          .toList();
-      print('MessageModel is ===========> $messageRecieve');
-      emit(MessageRecieveSuccessState());
+      print('Status Code ${value!.statusCode}');
+      if (value.statusCode == 200) {
+        messages = (value.data as List)
+            .map((data) => MessageModel.fromJson(data))
+            .toList();
+        print('MessageModel is ===========> $messageRecieve');
+        emit(MessageRecieveSuccessState());
+      } else {
+        if (value.statusCode == 401) {
+          Get.to(LoginPage);
+        }
+        emit(const MessageSendErrorState('Error Code'));
+      }
     }).catchError((error) {
-      print(error.toString());
+      print('Error Finish' + error.toString());
       emit(MessageRecieveErrorState(error.toString()));
     });
   }
 
-  Future<Response>? getSendMessage() {
+  getSendMessage() {
     emit(MessageSendSuccessLoadingState());
     GetMessages().messagesSent()!.then((value) {
-      messages = (value!.data as List)
-          .map((data) => MessageModel.fromJson(data))
-          .toList();
-      print('MessageModel is ===========> $messageSendList');
-      emit(MessageSendSuccessState());
-      return value;
+      print('Status Code ${value!.statusCode}');
+
+      if (value.statusCode == 200) {
+        messages = (value.data as List)
+            .map((data) => MessageModel.fromJson(data))
+            .toList();
+        print('MessageModel is ===========> $messageSendList');
+        emit(MessageSendSuccessState());
+      } else {
+        if (value.statusCode == 401) {
+          Get.to(LoginPage);
+        }
+        emit(const MessageSendErrorState('Error Code'));
+      }
     }).catchError((error) {
-      print(error.toString());
+      print('Error Finish' + error.toString());
       emit(MessageSendErrorState(error.toString()));
-      return error;
     });
-    return null;
   }
 
   Future<Response>? getDetailsMessage({required int messageId}) {
