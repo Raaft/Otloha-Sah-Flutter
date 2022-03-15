@@ -51,6 +51,7 @@ CREATE TABLE "UserRecitation" (
 	"user_id"	INTEGER,
 	"record"	INTEGER,
 	"verse_ids"	TEXT,
+	"wavePath"	TEXT,
 	"name"	TEXT,
 	"uploaded"	INTEGER DEFAULT 0,
 	"is_accepted"	INTEGER,

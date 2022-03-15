@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/recitations/recitations_page.dart';
@@ -172,7 +173,10 @@ class AppRouter {
         );
       case RecitationsPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const RecitationsPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => UserRecitationCubit(),
+            child: const RecitationsPage(),
+          ),
           settings: settings,
         );
       case TajweedPage.routeName:

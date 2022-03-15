@@ -8,3 +8,9 @@ abstract class UserRecitationState extends Equatable {
 }
 
 class UserRecitationInitial extends UserRecitationState {}
+
+class UserRecitationFetched extends UserRecitationState {}
+
+class UserRecitationError extends UserRecitationState {}
+
+class UserRecitationLoading extends UserRecitationState {}

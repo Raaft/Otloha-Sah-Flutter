@@ -4,19 +4,23 @@ import 'package:flutter_base/modules/data/data_source/local/database/database/da
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io' as io;
 import 'package:quran_widget_flutter/model/page.dart' as page_obj;
-
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file/file.dart';
 import 'package:file/local.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+
+import '../../../../lib_edit/wave/just_waveform.dart';
 
 part 'home_state.dart';
 
@@ -307,12 +311,30 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void saveFile() async {
+    String customPath = '/File_';
+    io.Directory appDocDirectory;
+
+    if (io.Platform.isIOS) {
+      appDocDirectory = await getApplicationDocumentsDirectory();
+    } else {
+      appDocDirectory = (await getExternalStorageDirectory())!;
+    }
+
+    var wave = appDocDirectory.path +
+        customPath +
+        DateTime.now().millisecondsSinceEpoch.toString() +
+        '.wave';
+
     var userRecitation = UserRecitation(
       narrationId: narrationId,
       record: current!.path ?? '',
       name: _getName(),
       versesID: _getVerses(),
+      wavePath: wave,
     );
+
+    await _initWave(userRecitation.record ?? '', userRecitation.wavePath ?? '');
+
     await AppDatabase().userRecitationDao.insert(userRecitation).then((value) {
       print('Saved Value' + value.toString());
     });
@@ -339,12 +361,42 @@ class HomeCubit extends Cubit<HomeState> {
     selectedIndex = values;
   }
 
-  _getName() {
-    String? text = page!.verses!
-        .firstWhere((element) => element.id == _getVerses()![0])
-        .text;
+  final BehaviorSubject<WaveformProgress> progressStream =
+      BehaviorSubject<WaveformProgress>();
 
-    return getFirstWords(text ?? '', 5);
+  Future<void> _initWave(String path, String wavePath) async {
+    final audioFile = io.File(path);
+    try {
+      await audioFile.writeAsBytes(
+          (await rootBundle.load('assets/audio/waveform.mp3'))
+              .buffer
+              .asUint8List());
+      final waveFile = io.File(wavePath);
+
+      JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile)
+          .listen(progressStream.add, onError: progressStream.addError);
+
+      //    JustWaveform.parse(waveFile);
+    } catch (e) {
+      debugPrint('Eror audio' + e.toString());
+      progressStream.addError(e);
+    }
+  }
+
+  _getName() {
+    print(page!.verses.toString());
+    String? text = '';
+
+    for (var element in page!.verses!) {
+      if (element.id == _getVerses()![0]) {
+        text = element.text;
+        break;
+      }
+    }
+
+    print('name ' + _getFirstWords(text ?? '', 5));
+
+    return _getFirstWords(text ?? '', 5);
   }
 
   List<int>? _getVerses() {
@@ -370,7 +422,11 @@ class HomeCubit extends Cubit<HomeState> {
     emit(RecordIsRecord(isRecord: isPlay));
   }*/
 
-  String getFirstWords(String sentence, int wordCounts) {
-    return sentence.split(' ').sublist(0, wordCounts).join(' ');
+  String _getFirstWords(String sentence, int wordCounts) {
+    try {
+      return sentence.split(' ').sublist(0, wordCounts).join(' ');
+    } catch (e) {
+      return sentence;
+    }
   }
 }

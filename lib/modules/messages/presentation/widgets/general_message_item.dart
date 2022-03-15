@@ -24,6 +24,7 @@ class GeneralMessageItem extends StatefulWidget {
     this.goNote,
     this.goReMraker,
     this.isPlay = false,
+    this.viewBottom = false,
     required this.trggelPlay,
   }) : super(key: key);
 
@@ -39,6 +40,7 @@ class GeneralMessageItem extends StatefulWidget {
   final int likeCount;
 
   final bool isPlay;
+  final bool viewBottom;
   final Function() trggelPlay;
 
   @override
@@ -137,127 +139,130 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      child: Image.asset(
-                        widget.isLike ? AppIcons.like2Icon : AppIcons.likeIcon,
-                        color: widget.isLike
-                            ? AppColor.darkBlue
-                            : AppColor.txtColor4d,
-                        width: 20,
-                        height: 20,
+          if (widget.viewBottom)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      GestureDetector(
+                        child: Image.asset(
+                          widget.isLike
+                              ? AppIcons.like2Icon
+                              : AppIcons.likeIcon,
+                          color: widget.isLike
+                              ? AppColor.darkBlue
+                              : AppColor.txtColor4d,
+                          width: 20,
+                          height: 20,
+                        ),
+                        onTap: widget.liked,
                       ),
-                      onTap: widget.liked,
-                    ),
-                    TextView(
-                      text: widget.likeCount.toString(),
-                      colorText: AppColor.txtColor4d,
-                      sizeText: 20,
-                      weightText: FontWeight.bold,
-                      action: widget.goLike,
-                    ),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: widget.goNote,
-                      child: Row(
+                      TextView(
+                        text: widget.likeCount.toString(),
+                        colorText: AppColor.txtColor4d,
+                        sizeText: 20,
+                        weightText: FontWeight.bold,
+                        action: widget.goLike,
+                      ),
+                      const SizedBox(width: 8),
+                      GestureDetector(
+                        onTap: widget.goNote,
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              AppIcons.bubbleIcon,
+                              color: AppColor.iconColor,
+                              width: 20,
+                              height: 20,
+                            ),
+                            TextView(
+                              text: '20',
+                              colorText: AppColor.txtColor4d,
+                              sizeText: 20,
+                              weightText: FontWeight.bold,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      GestureDetector(
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              AppIcons.quality2Icon,
+                              color: AppColor.iconColor,
+                              width: 20,
+                              height: 20,
+                            ),
+                            TextView(
+                              text: '20',
+                              colorText: AppColor.txtColor4d,
+                              sizeText: 20,
+                              weightText: FontWeight.bold,
+                            ),
+                          ],
+                        ),
+                        onTap: widget.goReMraker,
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: widget.goLike,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * .25,
+                      child: Stack(
                         children: [
-                          Image.asset(
-                            AppIcons.bubbleIcon,
-                            color: AppColor.iconColor,
-                            width: 20,
-                            height: 20,
+                          Align(
+                            alignment: const Alignment(-1, 0),
+                            child: _circalUser(),
                           ),
-                          TextView(
-                            text: '20',
-                            colorText: AppColor.txtColor4d,
-                            sizeText: 20,
-                            weightText: FontWeight.bold,
+                          Align(
+                            alignment: const Alignment(-.62, 0),
+                            child: _circalUser(),
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            AppIcons.quality2Icon,
-                            color: AppColor.iconColor,
-                            width: 20,
-                            height: 20,
+                          Align(
+                            alignment: const Alignment(-.24, 0),
+                            child: _circalUser(),
                           ),
-                          TextView(
-                            text: '20',
-                            colorText: AppColor.txtColor4d,
-                            sizeText: 20,
-                            weightText: FontWeight.bold,
+                          Align(
+                            alignment: const Alignment(.14, 0),
+                            child: _circalUser(),
                           ),
-                        ],
-                      ),
-                      onTap: widget.goReMraker,
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: widget.goLike,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * .25,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: const Alignment(-1, 0),
-                          child: _circalUser(),
-                        ),
-                        Align(
-                          alignment: const Alignment(-.62, 0),
-                          child: _circalUser(),
-                        ),
-                        Align(
-                          alignment: const Alignment(-.24, 0),
-                          child: _circalUser(),
-                        ),
-                        Align(
-                          alignment: const Alignment(.14, 0),
-                          child: _circalUser(),
-                        ),
-                        Align(
-                          alignment: const Alignment(.52, 0),
-                          child: _circalUser(),
-                        ),
-                        Align(
-                          alignment: const Alignment(.95, 0),
-                          child: Container(
-                            width: 20,
-                            height: 20,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                colors: [
-                                  AppColor.gradient6,
-                                  AppColor.gradient3
-                                ],
+                          Align(
+                            alignment: const Alignment(.52, 0),
+                            child: _circalUser(),
+                          ),
+                          Align(
+                            alignment: const Alignment(.95, 0),
+                            child: Container(
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    AppColor.gradient6,
+                                    AppColor.gradient3
+                                  ],
+                                ),
+                              ),
+                              child: TextView(
+                                text: '+9',
+                                colorText: AppColor.txtColor2,
+                                sizeText: 10,
                               ),
                             ),
-                            child: TextView(
-                              text: '+9',
-                              colorText: AppColor.txtColor2,
-                              sizeText: 10,
-                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          )
+                  )
+                ],
+              ),
+            )
         ],
       ),
     );
