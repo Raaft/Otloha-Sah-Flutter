@@ -17,6 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../core/data/chash_helper.dart';
+import '../../../../core/utils/constant/constants.dart';
 import '../../../home/presentation/pages/home/home_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -124,6 +126,7 @@ class LoginPage extends StatelessWidget {
                         email: emailController.text,
                         password: passwordController.text)
                         .then((value) {
+                      token =  CacheHelper.getData(key: 'token')??'';
 
                     })
                         .catchError((e) {
