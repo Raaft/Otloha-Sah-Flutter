@@ -7,21 +7,30 @@ import 'package:flutter_base/modules/messages/data/repositories/messages_repo.da
 
 class GetMessages extends MessagesRepository {
   @override
-  Future<Response> getMessageListing() {
-    ApiBaseHelper().getHTTP('/recitations/messages/');
-    throw UnimplementedError();
+  Future<Response?>? getMessageListing() async {
+    try {
+      return await ApiBaseHelper().getHTTP('/recitations/messages/');
+    } catch (e) {
+      throw UnimplementedError();
+    }
   }
 
   @override
-  Future<Response> messagesSent() {
-    ApiBaseHelper().getHTTP('/recitations/messages/sent/');
-    throw UnimplementedError();
+  Future<Response?>? messagesSent() async {
+    try {
+      return await ApiBaseHelper().getHTTP('/recitations/messages/sent/');
+    } catch (e) {
+      throw UnimplementedError();
+    }
   }
 
   @override
-  Future<Response> messgasRecieve() {
-    ApiBaseHelper().getHTTP('/recitations/messages/received/');
-    throw UnimplementedError();
+  Future<Response?>? messgasRecieve() async {
+    try {
+      return await ApiBaseHelper().getHTTP('/recitations/messages/received/');
+    } catch (e) {
+      throw UnimplementedError();
+    }
   }
 
   @override
@@ -46,20 +55,20 @@ class GetMessages extends MessagesRepository {
     required int position_from,
     required int positition_to,
     required String error_type,
-  }) async{
-
+  }) async {
     FormData formData = FormData.fromMap({
-    'record': await MultipartFile.fromFile(record.path,filename:record.basename),
-    'FIELD_NAME_WEBSERVICE_HERE':'sample value for another field',
-    'verses_ids':verses_ids,
-    'comment':comment,
-    'verseId':verseId,
-    'position_from':position_from,
-    'positition_to':positition_to,
-    'error_type':error_type,
-
+      'record':
+          await MultipartFile.fromFile(record.path, filename: record.basename),
+      'FIELD_NAME_WEBSERVICE_HERE': 'sample value for another field',
+      'verses_ids': verses_ids,
+      'comment': comment,
+      'verseId': verseId,
+      'position_from': position_from,
+      'positition_to': positition_to,
+      'error_type': error_type,
     });
-    ApiBaseHelper().postHTTP('/recitations/messages/<$messageId>/replies/', formData);
+    ApiBaseHelper()
+        .postHTTP('/recitations/messages/<$messageId>/replies/', formData);
     throw UnimplementedError();
   }
 }

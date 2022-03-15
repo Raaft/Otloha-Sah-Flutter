@@ -29,44 +29,42 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   List<UserRecitation>? userRecitations;
 
-  Future<Response>? getListMessages() {
+  getListMessages() {
     emit(MessageLoadingState());
-    GetMessages().getMessageListing().then((value) {
-      messages = (value.data as List)
-          .map((data) => MessageModel.fromJson(data))
-          .toList();
-      print('MessageModel is ===========> $messages');
-      emit(MessageSuccessState());
-      return value;
+    GetMessages().getMessageListing()!.then((value) {
+      if (value!.data != null) {
+        messages = (value.data as List)
+            .map((data) => MessageModel.fromJson(data))
+            .toList();
+        print('MessageModel is ===========> $messages');
+        emit(MessageSuccessState());
+      } else {
+        emit(const MessageErrorState('Empty'));
+      }
     }).catchError((error) {
       print(error.toString());
       emit(MessageErrorState(error.toString()));
-      return error;
     });
-    return null;
   }
 
-  Future<Response>? getRecieveMessage() {
+  getRecieveMessage() {
     emit(MessageRecieveSuccessLoadingState());
-    GetMessages().messgasRecieve().then((value) {
-      messages = (value.data as List)
+    GetMessages().messgasRecieve()!.then((value) {
+      messages = (value!.data as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
       print('MessageModel is ===========> $messageRecieve');
       emit(MessageRecieveSuccessState());
-      return value;
     }).catchError((error) {
       print(error.toString());
       emit(MessageRecieveErrorState(error.toString()));
-      return error;
     });
-    return null;
   }
 
   Future<Response>? getSendMessage() {
     emit(MessageSendSuccessLoadingState());
-    GetMessages().messagesSent().then((value) {
-      messages = (value.data as List)
+    GetMessages().messagesSent()!.then((value) {
+      messages = (value!.data as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
       print('MessageModel is ===========> $messageSendList');

@@ -66,27 +66,29 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<MessageTapCubit, MessageTapState>(
       builder: (context, state) {
-        return Column(
-          children: [
-            if (state is GenaralLoadingState)
-              const Center(
-                child: CircularProgressIndicator(),
+        if (state is GenaralLoadingState) {
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (state is GenaralErrorState) {
+          return const Expanded(child: ViewError(error: 'No Data'));
+        }
+        if (state is GenaralSuccessState) {
+          return Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: cubit!.messageSendList!.length,
+                itemBuilder: (context, index) {
+                  return _getItem(index, cubit!.userRecitations![index]);
+                },
               ),
-            if (state is GenaralErrorState) const ViewError(error: 'No Data'),
-            if (state is GenaralSuccessState)
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    itemCount: cubit!.messageSendList!.length,
-                    itemBuilder: (context, index) {
-                      return _getItem(index, cubit!.userRecitations![index]);
-                    },
-                  ),
-                ),
-              ),
-          ],
-        );
+            ),
+          );
+        }
+
+        return const Expanded(child: ViewError(error: 'No Data'));
       },
     );
   }

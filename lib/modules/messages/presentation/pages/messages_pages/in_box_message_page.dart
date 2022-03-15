@@ -16,28 +16,29 @@ class InBoxMessagePage extends StatelessWidget {
     cubit = MessageTapCubit.get(context);
     return BlocBuilder<MessageTapCubit, MessageTapState>(
       builder: (context, state) {
-        return Column(
-          children: [
-            if (state is MessageRecieveSuccessLoadingState)
-              const Center(
-                child: CircularProgressIndicator(),
+        if (state is MessageRecieveSuccessLoadingState) {
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (state is MessageRecieveErrorState) {
+          return const Expanded(child: ViewError(error: 'No Data'));
+        }
+        if (state is MessageRecieveSuccessState) {
+          return Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: cubit!.messageSendList!.length,
+                itemBuilder: (context, index) {
+                  return _getItem(index, cubit!.messageRecieve![index]);
+                },
               ),
-            if (state is MessageRecieveErrorState)
-              const ViewError(error: 'No Data'),
-            if (state is MessageRecieveSuccessState)
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    itemCount: cubit!.messageSendList!.length,
-                    itemBuilder: (context, index) {
-                      return _getItem(index, cubit!.messageSendList![index]);
-                    },
-                  ),
-                ),
-              ),
-          ],
-        );
+            ),
+          );
+        }
+
+        return const Expanded(child: ViewError(error: 'No Data'));
       },
     );
   }
