@@ -4,11 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:file/file.dart';
 
 abstract class MessagesRepository {
-  Future<Response> getMessageListing();
+  Future<Response?>? getMessageListing();
 
-  Future<Response> messgasRecieve();
+  Future<Response?>? messgasRecieve();
 
-  Future<Response> messagesSent();
+  Future<Response?>? messagesSent();
 
   Future<Response> messageDetails({required int messageId});
 
@@ -17,11 +17,11 @@ abstract class MessagesRepository {
   Future<Response> createMessageReply({
     required int messageId,
     required List<int> verses_ids,
-    required  File record,
-    required   String comment,
-    required  int verseId,
-    required  int position_from,
-    required  int positition_to,
+    required File record,
+    required String comment,
+    required int verseId,
+    required int position_from,
+    required int positition_to,
     required String error_type,
   });
 }

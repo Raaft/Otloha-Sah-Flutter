@@ -16,28 +16,29 @@ class OutBoxMessagePage extends StatelessWidget {
     cubit = MessageTapCubit.get(context);
     return BlocBuilder<MessageTapCubit, MessageTapState>(
       builder: (context, state) {
-        return Column(
-          children: [
-            if (state is MessageSendSuccessLoadingState)
-              const Center(
-                child: CircularProgressIndicator(),
+        if (state is MessageSendSuccessLoadingState) {
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (state is MessageSendErrorState) {
+          return const Expanded(child: ViewError(error: 'No Data'));
+        }
+        if (state is MessageSendSuccessState) {
+          return Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: cubit!.messageSendList!.length,
+                itemBuilder: (context, index) {
+                  return _getItem(index, cubit!.messageSendList![index]);
+                },
               ),
-            if (state is MessageSendErrorState)
-              const ViewError(error: 'No Data'),
-            if (state is MessageSendSuccessState)
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    itemCount: cubit!.messageSendList!.length,
-                    itemBuilder: (context, index) {
-                      return _getItem(index, cubit!.messageSendList![index]);
-                    },
-                  ),
-                ),
-              ),
-          ],
-        );
+            ),
+          );
+        }
+
+        return const Expanded(child: ViewError(error: 'No Data'));
       },
     );
   }

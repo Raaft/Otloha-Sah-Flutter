@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/network/network_info.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ApiBaseHelper {
@@ -47,10 +48,10 @@ class ApiBaseHelper {
     }
 
     // Get your JWT token
-    String token = ''; // await localDataSource.getToken();
+    /// await localDataSource.getToken();
 
     if (token.isNotEmpty) {
-      options.headers[HttpHeaders.authorizationHeader] = 'Token ' + token;
+      options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + token;
     }
     return handler.next(options);
   }
@@ -63,18 +64,21 @@ class ApiBaseHelper {
     Response? response;
     try {
       response = await baseAPI.get(url);
+      //response.statusCode;
       return response;
-    } on DioError catch (e) {
-      ExceptionHandling.handleDioExceprion(e);
+    } catch (e) {
+      //ExceptionHandling.handleDioExceprion(e);on DioError
     }
     return response;
   }
 
   // ignore: missing_return
-  Future<Response> postHTTP(String url, dynamic data,  ) async {
+  Future<Response> postHTTP(
+    String url,
+    dynamic data,
+  ) async {
     print(url);
     try {
-
       Response response = await baseAPI.post(url, data: data);
       print(response);
       return response;
