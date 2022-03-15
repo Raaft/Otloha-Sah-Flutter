@@ -1,9 +1,4 @@
-import 'dart:async';
-import 'dart:math';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
@@ -49,62 +44,6 @@ class GeneralMessageItem extends StatefulWidget {
 }
 
 class _GeneralMessageItemState extends State<GeneralMessageItem> {
-  Duration position = const Duration();
-  AudioPlayer? advancedPlayer;
-  AudioCache? audioCache;
-
-  bool _isPlay = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(Duration.zero, () {
-      initPlayer();
-    });
-  }
-
-  @override
-  void didUpdateWidget(GeneralMessageItem oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    setState(() {
-      _isPlay = widget.isPlay;
-      if (!_isPlay) {
-        advancedPlayer!.pause();
-      }
-    });
-  }
-
-  void initPlayer() {
-    advancedPlayer = AudioPlayer();
-    audioCache =
-        AudioCache(fixedPlayer: advancedPlayer, prefix: 'assets/audio/');
-
-    advancedPlayer!.onPlayerStateChanged.listen((event) {
-      setState(() {
-        if (event == PlayerState.COMPLETED) {
-          _isPlay = false;
-        }
-      });
-    });
-
-    advancedPlayer!.onAudioPositionChanged.listen((Duration current) {
-      if (position.inSeconds < current.inSeconds) {
-        setState(() {
-          position = current;
-        });
-      }
-    });
-  }
-
-  Future<void> playSound(String path) async {
-    await audioCache!.play(path);
-  }
-
-  void startNewRoute() async {
-    await playSound('waveform.mp3');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -118,27 +57,10 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
       child: Column(
         children: [
           widget.boxMessageItem,
-          Row(
-            children: [
-              Transform(
-                alignment: Alignment.center,
-                transform: isEn ? Matrix4.rotationY(0) : Matrix4.rotationY(pi),
-                child: GestureDetector(
-                  onTap: () {
-                    _playPause();
-                  },
-                  child: Icon(
-                    _isPlay ? Icons.pause : Icons.play_arrow_outlined,
-                    size: 40,
-                    color: AppColor.iconColor2,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: _getWave(context),
-              ),
-            ],
-          ),
+          WaveViewPlayAudio(
+              progressStream: widget.progressStream,
+              trggelPlay: widget.trggelPlay,
+              isPlay: widget.isPlay),
           if (widget.viewBottom)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -277,30 +199,5 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
         child: Image.asset(AppImages.duserImage),
       ),
     );
-  }
-
-  _getWave(BuildContext context) {
-    return WaveView(progressStream: widget.progressStream, position: position);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    advancedPlayer!.dispose();
-  }
-
-  void _playPause() {
-    if (!_isPlay) {
-      widget.trggelPlay();
-      startNewRoute();
-      setState(() {
-        _isPlay = true;
-      });
-    } else {
-      advancedPlayer!.pause();
-      setState(() {
-        _isPlay = false;
-      });
-    }
   }
 }

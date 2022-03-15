@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
@@ -121,6 +122,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
       return value;
     }).catchError((error) {
       print(error.toString());
+
       emit(MessageDetailsErrorState(error.toString()));
       return error;
     });
@@ -134,7 +136,11 @@ class MessageTapCubit extends Cubit<MessageTapState> {
       print('UserRecitation is ===========> $userRecitations');
       emit(GenaralSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      print('Error G ' + error.toString());
+      if (error is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
       emit(GenaralErrorState(error.toString()));
     });
   }

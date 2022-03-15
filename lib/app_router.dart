@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
@@ -49,6 +50,14 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (_) => HomeCubit(),
             child: const OnBoardPage(),
+          ),
+          settings: settings,
+        );
+      case LoginPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => HomeCubit(),
+            child: LoginPage(),
           ),
           settings: settings,
         );
