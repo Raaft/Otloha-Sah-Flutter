@@ -17,20 +17,12 @@ class GetMessages extends MessagesRepository {
 
   @override
   Future<Response?>? messagesSent() async {
-    try {
-      return await ApiBaseHelper().getHTTP('/recitations/messages/sent/');
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    return await ApiBaseHelper().getHTTP('/recitations/messages/sent/');
   }
 
   @override
   Future<Response?>? messgasRecieve() async {
-    try {
-      return await ApiBaseHelper().getHTTP('/recitations/messages/received/');
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    return await ApiBaseHelper().getHTTP('/recitations/messages/received/');
   }
 
   @override
