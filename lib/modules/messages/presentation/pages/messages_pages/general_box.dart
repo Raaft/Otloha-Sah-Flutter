@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
@@ -70,6 +71,12 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
           return const Expanded(
             child: Center(child: CircularProgressIndicator()),
           );
+        }
+        if (state is NoAuthState) {
+          Future.delayed(const Duration(seconds: 1), () {
+            print('object');
+            Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+          });
         }
         if (state is GenaralErrorState) {
           return const Expanded(child: ViewError(error: 'No Data'));

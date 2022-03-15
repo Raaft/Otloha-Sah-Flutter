@@ -18,6 +18,8 @@ class InvalidData implements Exception {
 
 class ServerError implements Exception {}
 
+class AuthError implements Exception {}
+
 class CacheError implements Exception {}
 
 class SomeThingWentWrong implements Exception {}
@@ -36,6 +38,10 @@ class ExceptionHandling {
         print(e.response!.data);
         throw ServerError();
       }
+      if (e.response!.statusCode! >= 401) {
+        print(e.response!.data);
+        throw AuthError();
+      }
     } else if (e.type == DioErrorType.connectTimeout) {
       throw TimeoutException('time out');
     }
@@ -52,6 +58,8 @@ class ExceptionHandling {
       return ServerFailure();
     } else if (e is TimeoutException) {
       return NetworkFailure();
+    } else if (e is AuthError) {
+      return AuthFailure();
     }
 
     return SomeThingWentWrongFailure();
