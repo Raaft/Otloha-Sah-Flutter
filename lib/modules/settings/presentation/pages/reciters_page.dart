@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/settings/business_logic/recitation/recitation_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -108,6 +109,8 @@ class _RecitersPageState extends State<RecitersPage> {
                   key: reciterSelectedName,
                   value: isDemo ? 'reciters name' : reciters![index].name,
                 );
+
+                BlocProvider.of<RecitationCubit>(context).fetchRecitations();
 
                 setState(() {
                   _selected = index;

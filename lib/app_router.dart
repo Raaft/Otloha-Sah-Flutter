@@ -12,6 +12,7 @@ import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiac
 import 'package:flutter_base/modules/plugin_creation/domain/plugin_cubit/plugin_cubit.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranaction_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/recitation/recitation_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/reciter/reciter_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/chapter_download_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
@@ -141,8 +142,11 @@ class AppRouter {
         );
       case RecitersPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => ReciterCubit(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => ReciterCubit()),
+              BlocProvider(create: (context) => RecitationCubit()),
+            ],
             child: const RecitersPage(),
           ),
           settings: settings,
