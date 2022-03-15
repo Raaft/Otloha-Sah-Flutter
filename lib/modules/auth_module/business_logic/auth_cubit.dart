@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/modules/auth_module/data/data_source/login_servise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -17,6 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LogInLoadingState());
     await Auth().userLogIn(email: email, password: password).then((value) {
       userModel = UserModel.fromJson(value.data);
+      CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
       print('UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
       emit(LogInSuccessState());
     }).catchError((error) {

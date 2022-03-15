@@ -1,7 +1,7 @@
 const String fontFamily1 = 'Cairo';
 const String fontFamily2 = 'ElMessiri';
 
-const String token = '';
+ String token = '';
 
 var isEn = false;
 
