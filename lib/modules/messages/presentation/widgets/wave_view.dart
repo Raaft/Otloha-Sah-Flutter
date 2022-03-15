@@ -1,25 +1,84 @@
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
-
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
+import 'package:rxdart/rxdart.dart';
 
-class WaveView extends StatelessWidget {
-  WaveView({
+class WaveViewPlayAudio extends StatefulWidget {
+  const WaveViewPlayAudio({
     Key? key,
     required this.progressStream,
-    this.position = const Duration(),
-    this.waveForm,
+    required this.trggelPlay,
+    required this.isPlay,
   }) : super(key: key);
-  Duration position;
 
   final BehaviorSubject<WaveformProgress> progressStream;
 
+  final Function() trggelPlay;
+
+  final bool isPlay;
+  @override
+  State<WaveViewPlayAudio> createState() => _WaveViewPlayAudioState();
+}
+
+class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
+  Duration position = const Duration();
+  AudioPlayer? advancedPlayer;
   Waveform? waveForm;
+
+  AudioCache? audioCache;
+
+  bool _isPlay = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, () {
+      initPlayer();
+    });
+  }
+
+  @override
+  void didUpdateWidget(WaveViewPlayAudio oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      _isPlay = widget.isPlay;
+      if (!_isPlay) {
+        advancedPlayer!.pause();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Transform(
+          alignment: Alignment.center,
+          transform: isEn ? Matrix4.rotationY(0) : Matrix4.rotationY(pi),
+          child: GestureDetector(
+            onTap: () {
+              _playPause();
+            },
+            child: Icon(
+              _isPlay ? Icons.pause : Icons.play_arrow_outlined,
+              size: 40,
+              color: AppColor.iconColor2,
+            ),
+          ),
+        ),
+        Expanded(
+          child: _getWave(context),
+        ),
+      ],
+    );
+  }
+
+  Container _getWave(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(4.0),
@@ -28,7 +87,7 @@ class WaveView extends StatelessWidget {
         padding: const EdgeInsets.all(2),
         width: MediaQuery.of(context).size.width * 65,
         child: StreamBuilder<WaveformProgress>(
-          stream: progressStream,
+          stream: widget.progressStream,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(
@@ -55,6 +114,51 @@ class WaveView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _playPause() {
+    if (!_isPlay) {
+      widget.trggelPlay();
+      startNewRoute();
+      setState(() {
+        _isPlay = true;
+      });
+    } else {
+      advancedPlayer!.pause();
+      setState(() {
+        _isPlay = false;
+      });
+    }
+  }
+
+  void initPlayer() {
+    advancedPlayer = AudioPlayer();
+    audioCache =
+        AudioCache(fixedPlayer: advancedPlayer, prefix: 'assets/audio/');
+
+    advancedPlayer!.onPlayerStateChanged.listen((event) {
+      setState(() {
+        if (event == PlayerState.COMPLETED) {
+          _isPlay = false;
+        }
+      });
+    });
+
+    advancedPlayer!.onAudioPositionChanged.listen((Duration current) {
+      if (position.inSeconds < current.inSeconds) {
+        setState(() {
+          position = current;
+        });
+      }
+    });
+  }
+
+  Future<void> playSound(String path) async {
+    await audioCache!.play(path);
+  }
+
+  void startNewRoute() async {
+    await playSound('waveform.mp3');
   }
 
   Widget _audioWave(Waveform waveform, Duration? position) {
