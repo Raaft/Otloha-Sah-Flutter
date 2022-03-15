@@ -1,6 +1,8 @@
 const String fontFamily1 = 'Cairo';
 const String fontFamily2 = 'ElMessiri';
 
+const String token = '';
+
 var isEn = false;
 
 const String clientId = 'dzyLcyFBzXCHXjHLiFZ5DCK1ucPSRTMrIj3HzXLW';
@@ -25,3 +27,4 @@ const String tajweedSelectedId = 'TajweedSelectedId';
 const String tajweedSelectedName = 'TajweedSelectedName';
 const String chapterSelectedID = 'ChapterID';
 const String chapterSelectedName = 'ChapterName';
+const String recitationSelectedId = 'RecitationSelectedId';

@@ -57,7 +57,6 @@ class MessageDetailsErrorState extends MessageTapState {
   const MessageDetailsErrorState(this.error);
 }
 
-
 class SendMessageLoadingState extends MessageTapState {}
 
 class SendMessageSuccessState extends MessageTapState {}
@@ -66,4 +65,14 @@ class SendMessageErrorState extends MessageTapState {
   final String error;
 
   const SendMessageErrorState(this.error);
+}
+
+class GenaralLoadingState extends MessageTapState {}
+
+class GenaralSuccessState extends MessageTapState {}
+
+class GenaralErrorState extends MessageTapState {
+  final String error;
+
+  const GenaralErrorState(this.error);
 }

@@ -29,4 +29,46 @@ class UserRecitationApi extends UserRecitationRepository {
 
     return userRecitation;
   }
+
+  @override
+  Future<List<UserRecitation>>? getUserReciataions() async {
+    Response? response =
+        await ApiBaseHelper().getHTTP('/api/v1/recitations/list/');
+
+    List<UserRecitation>? userRecitatios = [];
+
+    if (response != null &&
+        (response.statusCode == 201 || response.statusCode == 200)) {
+      if (response.data != null) {
+        userRecitatios = (response.data as List)
+            .map((element) => UserRecitation.fromJson(element))
+            .toList();
+      }
+    } else {
+      print('Error Api ' + response!.data.toString());
+    }
+
+    return userRecitatios;
+  }
+
+  @override
+  Future<List<UserRecitation>>? getGeneraBoXMessage() async {
+    Response? response =
+        await ApiBaseHelper().getHTTP('/api/v1/recitations/general/');
+
+    List<UserRecitation>? userRecitatios = [];
+
+    if (response != null &&
+        (response.statusCode == 201 || response.statusCode == 200)) {
+      if (response.data != null) {
+        userRecitatios = (response.data as List)
+            .map((element) => UserRecitation.fromJson(element))
+            .toList();
+      }
+    } else {
+      print('Error Api ' + response!.data.toString());
+    }
+
+    return userRecitatios;
+  }
 }

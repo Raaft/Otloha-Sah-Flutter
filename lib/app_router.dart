@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/recitations/recitations_page.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiac
 import 'package:flutter_base/modules/plugin_creation/domain/plugin_cubit/plugin_cubit.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranaction_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/recitation/recitation_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/reciter/reciter_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/chapter_download_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
@@ -141,8 +143,11 @@ class AppRouter {
         );
       case RecitersPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => ReciterCubit(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => ReciterCubit()),
+              BlocProvider(create: (context) => RecitationCubit()),
+            ],
             child: const RecitersPage(),
           ),
           settings: settings,
@@ -172,7 +177,10 @@ class AppRouter {
         );
       case RecitationsPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const RecitationsPage(),
+          builder: (_) => BlocProvider(
+            create: (context) => UserRecitationCubit(),
+            child: const RecitationsPage(),
+          ),
           settings: settings,
         );
       case TajweedPage.routeName:

@@ -612,7 +612,7 @@ packages:
   quran_widget_flutter:
     dependency: "direct main"
     description:
-      path: "../quran_widget_flutter"
+      path: "../quran_flutter_widget"
       relative: true
     source: path
     version: "0.0.1"

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
+import 'package:flutter_base/modules/data/model/user_recitation.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -28,9 +33,14 @@ class _RecitationsPageState extends State<RecitationsPage> {
 
   late Waveform waveform;
 
+  UserRecitationCubit? cubit;
+
   @override
   void initState() {
     super.initState();
+
+    cubit = UserRecitationCubit.get(context);
+    cubit!.fetchLoacl();
 
     Future.delayed(Duration.zero, _init);
   }
@@ -69,14 +79,23 @@ class _RecitationsPageState extends State<RecitationsPage> {
 
   Expanded _viewItems() {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: 15,
-          itemBuilder: (context, index) {
-            return _getItem(index);
-          },
-        ),
+      child: BlocBuilder<UserRecitationCubit, UserRecitationState>(
+        builder: (context, state) {
+          if (state is UserRecitationFetched) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: cubit!.userRecitatios!.length,
+                itemBuilder: (context, index) {
+                  return _getItem(cubit!.userRecitatios![index], index);
+                },
+              ),
+            );
+          } else if (state is UserRecitationError) {
+            return const ViewError(error: 'Not Found Data');
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }
@@ -89,19 +108,21 @@ class _RecitationsPageState extends State<RecitationsPage> {
           Navigator.of(context).pop();
         },
       ),
-      title: 'Books Center',
+      title: translate('Recitations'),
     );
   }
 
-  Widget _getItem(index) {
+  Widget _getItem(UserRecitation userRecitation, int index) {
     return GeneralMessageItem(
       boxMessageItem: BoxMessageItem(
-        isActive: (index % 2 != 0),
-        ayah: 'أن الذين كفروا سواء عليهم',
-        ayahInfo: 'Juz-1  6-Ayah البقرة',
+        isActive: userRecitation.uploaded ?? false,
+        ayah: userRecitation.name ?? '',
+        ayahInfo: '',
         userImage: AppImages.duserImage,
         userName: 'Mohamed Ahmed',
-        dateStr: '9:30 15 Nov',
+        dateStr: (userRecitation.finishedAt != null)
+            ? userRecitation.finishedAt.toString()
+            : null,
         color: AppColor.transparent,
       ),
       progressStream: streamWave,
@@ -113,6 +134,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
         });
       },
       isPlay: index == _selectedPlay,
+      viewBottom: userRecitation.uploaded ?? false,
     );
   }
 }

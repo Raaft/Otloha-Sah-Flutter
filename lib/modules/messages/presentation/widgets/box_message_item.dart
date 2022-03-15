@@ -18,7 +18,7 @@ class BoxMessageItem extends StatelessWidget {
 
   final String userName;
   final String userImage;
-  final String dateStr;
+  final String? dateStr;
   final String ayah;
   final String ayahInfo;
   final Color color;
@@ -78,21 +78,22 @@ class BoxMessageItem extends StatelessWidget {
                               )
                             : null,
                       ),
-                      Row(
-                        children: [
-                          TextView(
-                            padding: const EdgeInsets.all(1),
-                            text: dateStr,
-                            sizeText: 12,
-                            colorText: AppColor.txtColor4,
-                          ),
-                          Icon(
-                            Icons.bookmark_outline,
-                            size: 14,
-                            color: AppColor.txtColor4,
-                          )
-                        ],
-                      )
+                      if (dateStr != null)
+                        Row(
+                          children: [
+                            TextView(
+                              padding: const EdgeInsets.all(1),
+                              text: dateStr ?? '',
+                              sizeText: 12,
+                              colorText: AppColor.txtColor4,
+                            ),
+                            Icon(
+                              Icons.bookmark_outline,
+                              size: 14,
+                              color: AppColor.txtColor4,
+                            )
+                          ],
+                        )
                     ],
                   ),
                   TextView(

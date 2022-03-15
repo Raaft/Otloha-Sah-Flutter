@@ -179,6 +179,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                       cubit.addSelected(values);
                     },
                     getPage: (page) {
+                      print('Oloha ' + page.toString());
                       cubit.changeJuz(
                           page.partId ?? 1, page.chapters![0].id ?? 1, page);
                     },

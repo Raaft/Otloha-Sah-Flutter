@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
+import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
 import '../../data/data_source/messages_servise.dart';
@@ -13,21 +15,26 @@ part 'messagetap_state.dart';
 class MessageTapCubit extends Cubit<MessageTapState> {
   MessageTapCubit() : super(MessageTapInitial());
 
+  static MessageTapCubit get(context) => BlocProvider.of(context);
   changeIndex(int index) {
     emit(MessageTapInitial());
     emit(MessageTapChange(index: index));
   }
 
-  MessageModel? messages;
-  MessageModel? messageSendList;
-  MessageModel? messageRecieve;
-  MessageModel? messageDetails;
-  MessageModel? sendMessage;
+  List<MessageModel>? messages;
+  List<MessageModel>? messageSendList;
+  List<MessageModel>? messageRecieve;
+  List<MessageModel>? messageDetails;
+  List<MessageModel>? sendMessage;
+
+  List<UserRecitation>? userRecitations;
 
   Future<Response>? getListMessages() {
     emit(MessageLoadingState());
     GetMessages().getMessageListing().then((value) {
-      messages = MessageModel.fromJson(value.data);
+      messages = (value.data as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
       print('MessageModel is ===========> $messages');
       emit(MessageSuccessState());
       return value;
@@ -38,10 +45,13 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
     return null;
   }
+
   Future<Response>? getRecieveMessage() {
     emit(MessageRecieveSuccessLoadingState());
     GetMessages().messgasRecieve().then((value) {
-      messageRecieve = MessageModel.fromJson(value.data);
+      messages = (value.data as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
       print('MessageModel is ===========> $messageRecieve');
       emit(MessageRecieveSuccessState());
       return value;
@@ -52,10 +62,13 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
     return null;
   }
+
   Future<Response>? getSendMessage() {
     emit(MessageSendSuccessLoadingState());
     GetMessages().messagesSent().then((value) {
-      messageSendList = MessageModel.fromJson(value.data);
+      messages = (value.data as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
       print('MessageModel is ===========> $messageSendList');
       emit(MessageSendSuccessState());
       return value;
@@ -66,10 +79,13 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
     return null;
   }
+
   Future<Response>? getDetailsMessage({required int messageId}) {
     emit(MessageDetailsLoadingState());
     GetMessages().messageDetails(messageId: messageId).then((value) {
-      messageDetails = MessageModel.fromJson(value.data);
+      messages = (value.data as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
       print('MessageModel is ===========> $messageDetails');
       emit(MessageDetailsSuccessState());
       return value;
@@ -80,10 +96,13 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
     return null;
   }
+
   Future<Response>? sendMessageRequest({required int messageId}) {
     emit(SendMessageLoadingState());
     GetMessages().sendMessage(messageId: messageId).then((value) {
-      sendMessage = MessageModel.fromJson(value.data);
+      messages = (value.data as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
       print('MessageModel is ===========> $sendMessage');
       emit(MessageDetailsSuccessState());
       return value;
@@ -95,6 +114,17 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     return null;
   }
 
+  getGeneraBoXMessage() async {
+    emit(GenaralLoadingState());
+    UserRecitationApi().getGeneraBoXMessage()!.then((value) {
+      userRecitations = value;
+      print('UserRecitation is ===========> $userRecitations');
+      emit(GenaralSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GenaralErrorState(error.toString()));
+    });
+  }
 
   /// play
   Duration position = const Duration();
