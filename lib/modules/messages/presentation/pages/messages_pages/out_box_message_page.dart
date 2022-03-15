@@ -8,6 +8,9 @@ import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+
+import '../messages/message_details.dart';
 
 class OutBoxMessagePage extends StatelessWidget {
   OutBoxMessagePage({Key? key}) : super(key: key);
@@ -60,6 +63,9 @@ class OutBoxMessagePage extends StatelessWidget {
       userImage: AppImages.duserImage,
       userName: 'Mohamed Ahmed',
       dateStr: '9:30 15 Nov',
+      action: (){
+        Get.to(()=>const MessageDetails());
+      },
     );
   }
 }
