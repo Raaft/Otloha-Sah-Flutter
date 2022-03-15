@@ -8,7 +8,7 @@ import 'package:flutter_base/modules/messages/presentation/widgets/box_message_i
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
 import 'package:rxdart/rxdart.dart';
 
-class GeneralMessageItem extends StatefulWidget {
+class GeneralMessageItem extends StatelessWidget {
   const GeneralMessageItem({
     Key? key,
     required this.boxMessageItem,
@@ -40,28 +40,23 @@ class GeneralMessageItem extends StatefulWidget {
   final Function() trggelPlay;
 
   @override
-  State<GeneralMessageItem> createState() => _GeneralMessageItemState();
-}
-
-class _GeneralMessageItemState extends State<GeneralMessageItem> {
-  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: widget.boxMessageItem.isActive
+        color: boxMessageItem.isActive
             ? AppColor.selectColor1
             : AppColor.transparent,
       ),
       child: Column(
         children: [
-          widget.boxMessageItem,
+          boxMessageItem,
           WaveViewPlayAudio(
-              progressStream: widget.progressStream,
-              trggelPlay: widget.trggelPlay,
-              isPlay: widget.isPlay),
-          if (widget.viewBottom)
+              progressStream: progressStream,
+              trggelPlay: trggelPlay,
+              isPlay: isPlay),
+          if (viewBottom)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
@@ -71,27 +66,24 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
                     children: [
                       GestureDetector(
                         child: Image.asset(
-                          widget.isLike
-                              ? AppIcons.like2Icon
-                              : AppIcons.likeIcon,
-                          color: widget.isLike
-                              ? AppColor.darkBlue
-                              : AppColor.txtColor4d,
+                          isLike ? AppIcons.like2Icon : AppIcons.likeIcon,
+                          color:
+                              isLike ? AppColor.darkBlue : AppColor.txtColor4d,
                           width: 20,
                           height: 20,
                         ),
-                        onTap: widget.liked,
+                        onTap: liked,
                       ),
                       TextView(
-                        text: widget.likeCount.toString(),
+                        text: likeCount.toString(),
                         colorText: AppColor.txtColor4d,
                         sizeText: 20,
                         weightText: FontWeight.bold,
-                        action: widget.goLike,
+                        action: goLike,
                       ),
                       const SizedBox(width: 8),
                       GestureDetector(
-                        onTap: widget.goNote,
+                        onTap: goNote,
                         child: Row(
                           children: [
                             Image.asset(
@@ -127,12 +119,12 @@ class _GeneralMessageItemState extends State<GeneralMessageItem> {
                             ),
                           ],
                         ),
-                        onTap: widget.goReMraker,
+                        onTap: goReMraker,
                       ),
                     ],
                   ),
                   GestureDetector(
-                    onTap: widget.goLike,
+                    onTap: goLike,
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * .25,
                       child: Stack(
