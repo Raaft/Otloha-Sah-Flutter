@@ -1,6 +1,8 @@
 const String fontFamily1 = 'Cairo';
 const String fontFamily2 = 'ElMessiri';
 
+const String token = '';
+
 var isEn = false;
 
 const String clientId = 'dzyLcyFBzXCHXjHLiFZ5DCK1ucPSRTMrIj3HzXLW';

@@ -20,6 +20,13 @@ class MessagesPage extends StatefulWidget {
 }
 
 class _MessagesPageState extends State<MessagesPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    BlocProvider.of<MessageTapCubit>(context).getGeneraBoXMessage();
+  }
+
   int _selected = 0;
 
   @override
@@ -66,7 +73,9 @@ class _MessagesPageState extends State<MessagesPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _tabItem('General', 0, isSelect: _selected == 0, fetchData: () {}),
+        _tabItem('General', 0, isSelect: _selected == 0, fetchData: () {
+          BlocProvider.of<MessageTapCubit>(context).getGeneraBoXMessage();
+        }),
         _divider(),
         _tabItem('Inbox', 1, isSelect: _selected == 1, fetchData: () {
           BlocProvider.of<MessageTapCubit>(context).getRecieveMessage();

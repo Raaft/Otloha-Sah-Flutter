@@ -3,12 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/data/model/user_recitation.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -29,10 +33,13 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
 
   late Waveform waveform;
 
+  late MessageTapCubit? cubit;
+
   @override
   void initState() {
     super.initState();
 
+    cubit = MessageTapCubit.get(context);
     Future.delayed(Duration.zero, _init);
   }
 
@@ -57,28 +64,44 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: 15,
-          itemBuilder: (context, index) {
-            return _getItem(index);
-          },
-        ),
-      ),
+    return BlocBuilder<MessageTapCubit, MessageTapState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            if (state is GenaralLoadingState)
+              const Center(
+                child: CircularProgressIndicator(),
+              ),
+            if (state is GenaralErrorState) const ViewError(error: 'No Data'),
+            if (state is GenaralSuccessState)
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemCount: cubit!.messageSendList!.length,
+                    itemBuilder: (context, index) {
+                      return _getItem(index, cubit!.userRecitations![index]);
+                    },
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 
-  Widget _getItem(int index) {
+  Widget _getItem(int index, UserRecitation userRecitation) {
     return GeneralMessageItem(
       boxMessageItem: BoxMessageItem(
         isActive: false,
-        ayah: 'أن الذين كفروا سواء عليهم',
-        ayahInfo: 'Juz-1  6-Ayah البقرة',
+        ayah: userRecitation.name ?? '',
+        ayahInfo: '',
         userImage: AppImages.duserImage,
-        userName: 'Mohamed Ahmed',
-        dateStr: '9:30 15 Nov',
+        userName: userRecitation.userId.toString(),
+        dateStr: (userRecitation.finishedAt != null)
+            ? userRecitation.finishedAt.toString()
+            : null,
         color: AppColor.transparent,
       ),
       progressStream: streamWave,

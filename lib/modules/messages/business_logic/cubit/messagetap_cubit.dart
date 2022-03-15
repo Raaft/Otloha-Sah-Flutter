@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
+import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
@@ -25,6 +26,8 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   List<MessageModel>? messageRecieve;
   List<MessageModel>? messageDetails;
   List<MessageModel>? sendMessage;
+
+  List<UserRecitation>? userRecitations;
 
   Future<Response>? getListMessages() {
     emit(MessageLoadingState());
@@ -109,6 +112,18 @@ class MessageTapCubit extends Cubit<MessageTapState> {
       return error;
     });
     return null;
+  }
+
+  getGeneraBoXMessage() async {
+    emit(GenaralLoadingState());
+    UserRecitationApi().getGeneraBoXMessage()!.then((value) {
+      userRecitations = value;
+      print('UserRecitation is ===========> $userRecitations');
+      emit(GenaralSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GenaralErrorState(error.toString()));
+    });
   }
 
   /// play
