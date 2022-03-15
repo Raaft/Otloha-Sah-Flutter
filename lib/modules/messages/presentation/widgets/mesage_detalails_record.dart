@@ -56,6 +56,7 @@ class _MessageDetailsRecordState extends State<MessageDetailsRecord> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
         child: WaveViewPlayAudio(
           isPlay: false,
           progressStream: streamWave,
