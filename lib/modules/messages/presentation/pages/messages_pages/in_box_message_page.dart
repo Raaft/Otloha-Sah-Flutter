@@ -1,11 +1,15 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class InBoxMessagePage extends StatelessWidget {
   InBoxMessagePage({Key? key}) : super(key: key);
@@ -58,6 +62,9 @@ class InBoxMessagePage extends StatelessWidget {
       userImage: AppImages.duserImage,
       userName: 'Mohamed Ahmed',
       dateStr: '9:30 15 Nov',
+      action: (){
+        Get.to(()=>const MessageDetails());
+      },
     );
   }
 }

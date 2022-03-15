@@ -9,6 +9,9 @@ import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/
 import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/out_box_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/private_message_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+
+import 'message_details.dart';
 
 class MessagesPage extends StatefulWidget {
   const MessagesPage({Key? key}) : super(key: key);
@@ -136,12 +139,19 @@ class _MessagesPageState extends State<MessagesPage> {
   Widget _topView() {
     return ToolBarApp(
       backIcon: IconButton(
-        icon: const Icon(Icons.arrow_back),
+        icon: GestureDetector(
+          child: const Icon(Icons.arrow_back),
+        ),
         onPressed: () {
           Navigator.of(context).pop();
         },
       ),
-      actionIcon: const Icon(Icons.filter_alt_outlined),
+      actionIcon: GestureDetector(
+        onTap: (){
+          Get.to(()=>const MessageDetails());
+        },
+        child: const Icon(Icons.filter_alt_outlined),
+      ),
       title: translate('Messages'),
     );
   }
