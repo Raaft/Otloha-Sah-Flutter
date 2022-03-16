@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:flutter_base/modules/settings/business_logic/recitation/recitation_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,6 +91,8 @@ class _RecitersPageState extends State<RecitersPage> {
           itemCount: isDemo ? 15 : reciters!.length,
           itemBuilder: (context, index) {
             return ItemDownload(
+              instance: null,
+              downloadType: DownloadTypes.page,
               name: isDemo ? 'reciters name' : reciters![index].name.toString(),
               isDownloaded: true,
               isSelect: _selected == index,

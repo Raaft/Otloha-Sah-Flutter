@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -142,6 +143,8 @@ class _BooksPageState extends State<BooksPage> {
       itemCount: books!.length,
       itemBuilder: (context, index) {
         return ItemDownload(
+          instance: books[index],
+          downloadType: DownloadTypes.page,
           name: books[index].name.toString(),
           isDownloaded: true,
           isSelect: _selected == index,
@@ -163,7 +166,9 @@ class _BooksPageState extends State<BooksPage> {
       itemCount: isDemo ? 15 : books!.length,
       itemBuilder: (context, index) {
         return ItemDownload(
-          name: isDemo ? 'books name' : books![index].name.toString(),
+          instance: books![index],
+          downloadType: DownloadTypes.page,
+          name: isDemo ? 'books name' : books[index].name.toString(),
           isDownloaded: _downloaded.contains(index),
           isSelect: false,
           onDownload: () {

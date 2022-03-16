@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -96,12 +97,14 @@ class _NarrationPageState extends State<NarrationPage> {
           itemCount: isDemo ? 15 : narrations!.length,
           itemBuilder: (context, index) {
             return ItemDownload(
+              instance: narrations![index],
+              downloadType: DownloadTypes.page,
               name: isDemo
                   ? 'narrations name'
-                  : narrations![index].name.toString(),
+                  : narrations[index].name.toString(),
               description: isDemo
                   ? 'narrations description'
-                  : narrations![index].description.toString(),
+                  : narrations[index].description.toString(),
               isDownloaded: true,
               isSelect: _selected == index,
               action: () {
@@ -113,7 +116,7 @@ class _NarrationPageState extends State<NarrationPage> {
                 );
                 CacheHelper.saveData(
                   key: narrationSelectedId,
-                  value: isDemo ? index : narrations![index].id,
+                  value: isDemo ? index : narrations[index].id,
                 );
                 CacheHelper.clearData(key: bookSelectedId);
                 CacheHelper.clearData(key: reciterSelectedId);
@@ -122,10 +125,10 @@ class _NarrationPageState extends State<NarrationPage> {
                 settings[1].subTitle = '';
                 downLoadSettings[0].subTitle = '';
                 settings[0].subTitle =
-                    isDemo ? 'narrations name $index' : narrations![index].name;
+                    isDemo ? 'narrations name $index' : narrations[index].name;
                 CacheHelper.saveData(
                   key: narrationSelectedName,
-                  value: isDemo ? 'narrations name' : narrations![index].name,
+                  value: isDemo ? 'narrations name' : narrations[index].name,
                 );
               },
             );

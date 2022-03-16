@@ -3,6 +3,7 @@ import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
+import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
@@ -57,6 +58,8 @@ class _TafseerPageState extends State<TafseerPage> {
           itemCount: 15,
           itemBuilder: (context, index) {
             return ItemDownload(
+              instance: null,
+              downloadType: DownloadTypes.page,
               name: 'Tafseer ${index + 1}',
               description: 'surah',
               isDownloaded: true,

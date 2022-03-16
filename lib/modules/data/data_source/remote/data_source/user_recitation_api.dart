@@ -16,7 +16,6 @@ class UserRecitationApi extends UserRecitationRepository {
 
     map['record'] = await MultipartFile.fromFile(file.path,
         filename: file.path.split('/').last);
-
     Response response =
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);
 

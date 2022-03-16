@@ -62,15 +62,4 @@ class ChapterCubit extends Cubit<ChapterState> {
       emit(ChapterError(e.toString()));
     }
   }
-
-  downloadChapter(chapterId) {
-    int recitationId = CacheHelper.getData(key: recitationSelectedId);
-
-    try {
-      DataSource.instance
-          .downloadChapter(chapterId: chapterId, recitationId: recitationId);
-    } catch (e) {
-      ChapterError(e.toString());
-    }
-  }
 }

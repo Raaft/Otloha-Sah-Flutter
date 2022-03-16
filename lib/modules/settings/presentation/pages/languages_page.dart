@@ -3,6 +3,7 @@ import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
+import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/business_logic/language/language_cubit.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
@@ -66,6 +67,8 @@ class _LanguagesPageState extends State<LanguagesPage> {
 
   Widget _builder(int index) {
     return ItemDownload(
+      instance: lang[index],
+      downloadType: DownloadTypes.page,
       name: lang[index].langName,
       isDownloaded: true,
       isSelect: _selected == index,

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/error/failure.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/data/enums/download_types.dart';
+import 'package:quran_widget_flutter/data_source/local/file_storage/download_book.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class ItemDownload extends StatefulWidget {
@@ -15,6 +20,8 @@ class ItemDownload extends StatefulWidget {
     this.onLongPress,
     this.onDownload,
     this.action,
+    required this.downloadType,
+    required this.instance,
   }) : super(key: key);
 
   final String name;
@@ -24,6 +31,8 @@ class ItemDownload extends StatefulWidget {
   final Function()? onLongPress;
   final Function()? onDownload;
   final Function()? action;
+  final DownloadTypes downloadType;
+  final dynamic instance;
 
   @override
   State<ItemDownload> createState() => _ItemDownloadState();
@@ -123,19 +132,38 @@ class _ItemDownloadState extends State<ItemDownload> {
   }
 
   void _startDownload() {
-    DataSource.instance.downloadBook(
-      bookId: 1,
-      narrationId: 1,
-      retunProgress: (val) {
-        print('StartDownload ' + val.toString());
-        setState(() {
-          _progress = val;
-        });
-        if (val >= 1.0) {
-          print('Download Done');
-          widget.onDownload!();
-        }
-      },
-    );
+    if (DownloadTypes.chapter == widget.downloadType) {
+      DataSource.instance.downloadChapter(
+        chapterId: widget.instance.id,
+        recitationId: CacheHelper.getData(key: recitationSelectedId),
+        reciterId: CacheHelper.getData(key: reciterSelectedId),
+        narrationId: CacheHelper.getData(key: narrationSelectedId),
+        retunProgress: (val) {
+          print('StartDownload ' + val.toString());
+          setState(() {
+            _progress = val;
+          });
+          if (val >= 1.0) {
+            print('Download Done');
+            widget.onDownload!();
+          }
+        },
+      );
+    } else if (DownloadTypes.page == widget.downloadType) {
+      DataSource.instance.downloadBook(
+        bookId: 1,
+        narrationId: 1,
+        retunProgress: (val) {
+          print('StartDownload ' + val.toString());
+          setState(() {
+            _progress = val;
+          });
+          if (val >= 1.0) {
+            print('Download Done');
+            widget.onDownload!();
+          }
+        },
+      );
+    }
   }
 }

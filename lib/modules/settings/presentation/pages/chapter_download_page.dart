@@ -5,6 +5,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/reciters_page.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
@@ -13,6 +14,8 @@ import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_ap
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:quran_widget_flutter/data_source/local/local_data_source/chapter_download_data_source.dart';
+import 'package:quran_widget_flutter/data_source/local/local_data_source/chapter_local_data_source.dart.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class ChapterDownloadPage extends StatefulWidget {
@@ -34,6 +37,14 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
   void initState() {
     super.initState();
     BlocProvider.of<ChapterCubit>(context).fetchChaptersList();
+  }
+
+  Future<bool> isDownloaded(int id) async {
+    return await ChapterDownloadLocalDataSource()
+        .fetchChapterDownloadsById(id)
+        .then((value) {
+      return value == null ? false : value.downloaded;
+    });
   }
 
   @override
@@ -132,39 +143,50 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
         child: ListView.builder(
           itemCount: 15,
           itemBuilder: (context, index) {
-            return ItemDownload(
-              name: isDemo ? 'chapters name' : chapters![index].name.toString(),
-              description: '${narrationName ?? ""} \n${bookName ?? ""}',
-              isDownloaded: _downloaded.contains(index),
-              isSelect: _selected == index,
-              onLongPress: () {
-                if (_downloaded.contains(index)) {
-                  Get.dialog(
-                    const AlertDialogFullScreen(),
-                    barrierColor: AppColor.backdone,
+            return FutureBuilder<bool>(
+                future: isDownloaded(chapters![index].id!),
+                builder: (context, snapshot) {
+                  return ItemDownload(
+                    instance: chapters[index],
+                    downloadType: DownloadTypes.chapter,
+                    name: isDemo
+                        ? 'chapters name'
+                        : chapters[index].name.toString(),
+                    description: '${narrationName ?? ""} \n${bookName ?? ""}',
+                    isDownloaded:
+                        snapshot.connectionState == ConnectionState.done
+                            ? snapshot.data!
+                            : false,
+                    isSelect: _selected == index,
+                    onLongPress: () {
+                      if (_downloaded.contains(index)) {
+                        Get.dialog(
+                          const AlertDialogFullScreen(),
+                          barrierColor: AppColor.backdone,
+                        );
+                        setState(() {
+                          _selected = index;
+                        });
+                      }
+                    },
+                    onDownload: () {
+                      setState(() {
+                        _downloaded.add(index);
+                      });
+                    },
+                    action: () {
+                      if (_downloaded.contains(index)) {
+                        Get.dialog(
+                          const AlertDialogFullScreen(),
+                          barrierColor: AppColor.backdone,
+                        );
+                        setState(() {
+                          _selected = index;
+                        });
+                      }
+                    },
                   );
-                  setState(() {
-                    _selected = index;
-                  });
-                }
-              },
-              onDownload: () {
-                setState(() {
-                  _downloaded.add(index);
                 });
-              },
-              action: () {
-                if (_downloaded.contains(index)) {
-                  Get.dialog(
-                    const AlertDialogFullScreen(),
-                    barrierColor: AppColor.backdone,
-                  );
-                  setState(() {
-                    _selected = index;
-                  });
-                }
-              },
-            );
           },
         ),
       ),
