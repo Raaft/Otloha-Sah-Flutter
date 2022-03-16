@@ -15,6 +15,16 @@ class LogInErrorState extends AuthState {
   LogInErrorState(this.error);
 }
 
+class LogOutLoadingState extends AuthState {}
+
+class LogOutSuccessState extends AuthState {}
+
+class LogOutErrorState extends AuthState {
+  final String error;
+
+  LogOutErrorState(this.error);
+}
+
 class RegisterLoadingState extends AuthState {}
 
 class RegisterSuccessState extends AuthState {}

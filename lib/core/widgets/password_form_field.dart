@@ -26,7 +26,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormFieldApp(
-      //color: Colors.blue,
+      color: AppColor.lightBlue,
 
       title: widget.title,
       keyType: TextInputType.visiblePassword,

@@ -19,3 +19,46 @@ class SettingsChangeDown extends SettingsState {
     required this.settings,
   });
 }
+
+
+
+class UpdatePhoneLoadingState extends SettingsState {}
+
+
+class UpdatePhoneSuccessState extends SettingsState {
+  UpdatePhoneSuccessState(Response value);
+}
+
+class UpdatePhoneErrorState extends SettingsState {
+  final String error;
+
+  const UpdatePhoneErrorState(this.error);
+}
+
+
+class UpdateEmailLoadingState extends SettingsState {}
+
+
+class UpdateEmailSuccessState extends SettingsState {
+  UpdateEmailSuccessState(Response value);
+}
+
+class UpdateEmailErrorState extends SettingsState {
+  final String error;
+
+  const UpdateEmailErrorState(this.error);
+}
+
+class ChangePasswordLoadingState extends SettingsState {}
+
+
+class ChangePasswordSuccessState extends SettingsState {
+  ChangePasswordSuccessState(Response value);
+}
+
+class ChangePasswordErrorState extends SettingsState {
+  final String error;
+
+  const ChangePasswordErrorState(this.error);
+}
+

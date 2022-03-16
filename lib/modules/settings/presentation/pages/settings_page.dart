@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/profile_setting/change_Password.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/profile_setting/update_email.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/profile_setting/update_phone.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/profile_setting/update_profile.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_sub.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:expandable/expandable.dart';
 
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
@@ -20,8 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
+        body: SafeArea(
+      child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           shrinkWrap: true,
           children: [
@@ -31,10 +40,126 @@ class _SettingsPageState extends State<SettingsPage> {
             const Divider(),
             _titleSection('Download Center'),
             _downloadSettings(context),
-          ],
-        ),
-      ),
-    );
+            const Divider(),
+            _titleSection('Settings'),
+            TextViewIcon(
+              text: 'Sign up As Teacher ',
+              textAlign: TextAlign.start,
+              colorText: AppColor.txtColor3,
+              sizeText: 17,
+              weightText: FontWeight.w700,
+              icon: Icon(
+                Icons.person_add_alt,
+                color: AppColor.txtColor3,
+              ),
+            ),
+            ListView(
+              shrinkWrap: true,
+              children: [
+                ExpandablePanel(
+                  header: TextViewIcon(
+                    text: 'Profile Settings',
+                    textAlign: TextAlign.start,
+                    colorText: AppColor.txtColor3,
+                    sizeText: 17,
+                    weightText: FontWeight.w700,
+                    icon: Icon(
+                      Icons.settings_outlined,
+                      color: AppColor.txtColor3,
+                    ),
+                  ),
+                  collapsed: const Text(''),
+                  expanded: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextView(
+                          text: 'Update Profile',
+                          textAlign: TextAlign.start,
+                          colorText: AppColor.txtColor3,
+                          sizeText: 17,
+                          weightText: FontWeight.bold,
+                          action: () {
+                            Get.to(() => UpdateProfile());
+                          },
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextView(
+                          text: 'Update Email',
+                          textAlign: TextAlign.start,
+                          colorText: AppColor.txtColor3,
+                          sizeText: 17,
+                          weightText: FontWeight.bold,
+                          action: () {
+                            Get.to(() => UpdateEmail());
+                          },
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextView(
+                          text: 'Update Phone',
+                          textAlign: TextAlign.start,
+                          colorText: AppColor.txtColor3,
+                          weightText: FontWeight.bold,
+                          sizeText: 17,
+                          action: () {
+                            Get.to(() => UpdatePhone());
+                          },
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextView(
+                          text: 'Change Password',
+                          textAlign: TextAlign.start,
+                          colorText: AppColor.txtColor3,
+                          sizeText: 17,
+                          weightText: FontWeight.bold,
+                          action: () {
+                            Get.to(() => ChangePassword());
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+            BlocProvider(
+              create: (context) => AuthCubit(),
+              child: BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is LogOutSuccessState) {
+                    Get.to(() => LoginPage());
+                  }
+                },
+                builder: (context, state) {
+                  var cubit = AuthCubit.get(context);
+
+                  return TextViewIcon(
+                    text: 'Log Out',
+                    textAlign: TextAlign.start,
+                    colorText: AppColor.txtColor3,
+                    sizeText: 17,
+                    weightText: FontWeight.w700,
+                    icon: Icon(
+                      Icons.logout,
+                      color: AppColor.txtColor3,
+                    ),
+                    action: () {
+                      cubit.userLogOut();
+                    },
+                  );
+                },
+              ),
+            ),
+          ]),
+    ));
   }
 
   SizedBox _titleSection(String title) {
@@ -43,7 +168,7 @@ class _SettingsPageState extends State<SettingsPage> {
       child: TextView(
         text: translate(title),
         colorText: AppColor.txtColor3,
-        sizeText: 16,
+        sizeText: 14,
         weightText: FontWeight.w700,
         padding: const EdgeInsets.all(4),
         textAlign: TextAlign.start,

@@ -67,9 +67,11 @@ class SendMessageErrorState extends MessageTapState {
   const SendMessageErrorState(this.error);
 }
 
+class NoAuthState extends MessageTapState {}
+
+
 class GenaralLoadingState extends MessageTapState {}
 
-class NoAuthState extends MessageTapState {}
 
 class GenaralSuccessState extends MessageTapState {}
 

@@ -9,8 +9,15 @@ abstract class AuthRepository {
     @required password,
   });
 
-  Future<Response> userRegister(
-      {@required email, @required password, @required name, @required phone});
+  Future<Response> userRegister({
+    @required email,
+    @required username,
+    @required password1,
+    @required password2,
+    @required birthdate,
+    @required phone,
+    @required gender,
+  });
 
   Future<Response> logOut({String auth});
 

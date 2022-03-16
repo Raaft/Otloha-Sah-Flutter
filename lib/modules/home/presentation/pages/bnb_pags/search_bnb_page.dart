@@ -7,9 +7,9 @@ import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/item_surah.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/chapter_download_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/books_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/chapter_download_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/narration_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
 
 class SearchBNBPage extends StatefulWidget {
