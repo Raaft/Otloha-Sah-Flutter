@@ -221,7 +221,7 @@ class _SignFormState extends State<SignForm> {
                           Get.to(() => BlocProvider(
                               create: (context) => HomeCubit(),
                               child: const HomePage()));
-    ;
+
 
                       }})
                           .catchError((e) {
