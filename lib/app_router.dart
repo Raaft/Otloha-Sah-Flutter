@@ -16,21 +16,22 @@ import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranacti
 import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/recitation/recitation_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/reciter/reciter_cubit.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/chapter_download_page.dart';
+import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/chapter_download_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.dart';
 import 'package:flutter_base/modules/settings/business_logic/book/book_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/language/language_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/narration/narration_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/tajweed/tajweed_cubit.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/languages_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/quran_translation_language_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/reciters_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/books_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/languages_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/narration_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/quran_translation_language_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/reciters_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/tafseer_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/tajweed_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/tafseer_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/tajweed_page.dart';
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
@@ -118,7 +119,10 @@ class AppRouter {
         );
       case SettingsPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const SettingsPage(),
+          builder: (_) =>  BlocProvider(
+            create: (context) => SettingsCubit(),
+            child: const SettingsPage(),),
+
           settings: settings,
         );
       case BooksPage.routeName:

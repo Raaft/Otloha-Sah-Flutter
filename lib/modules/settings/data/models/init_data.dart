@@ -2,16 +2,16 @@ import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/chapter_download_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/chapter_download_page.dart';
 import 'package:flutter_base/modules/settings/data/models/language.dart';
 import 'package:flutter_base/modules/settings/data/models/setting.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/books_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/languages_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/narration_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/quran_translation_language_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/reciters_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/tafseer_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/tajweed_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/books_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/languages_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/narration_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/quran_translation_language_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/reciters_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/tafseer_page.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/settings/tajweed_page.dart';
 
 final List<Settings> settings = [
   Settings(

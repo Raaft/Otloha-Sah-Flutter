@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/auth_module/data/data_source/login_servise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -34,18 +34,43 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  Future<Response>? userRegister(
-      {@required email, @required password, @required name, @required phone}) {
+
+  Future<void> userRegister(
+      {email, username, password1, password2, birthdate, phone, gender}) async{
     emit(RegisterLoadingState());
-    Auth()
+   await Auth()
         .userRegister(
-            email: email, password: password, name: name, phone: phone)
+            birthdate: birthdate,
+            email: email,
+            gender: gender,
+            password1: password1,
+            password2: password2,
+            phone: phone,
+            username: username)
         .then((value) {
+     userModel = UserModel.fromJson(value.data);
+
+     CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
+      token=userModel!.accessToken.toString();
+      print(
+          'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
       emit(RegisterSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      print('in cubit'+error.toString());
       emit(RegisterErrorState(error.toString()));
     });
-    return null;
   }
+  Future<void> userLogOut() async {
+    emit(LogOutLoadingState());
+    await Auth().logOut().then((value) {
+      CacheHelper.clearData(key: 'token');
+      print('LogOut Done');
+      emit(LogOutSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(LogOutErrorState(error.toString()));
+      return error;
+    });
+  }
+
 }
