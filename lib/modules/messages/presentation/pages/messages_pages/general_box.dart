@@ -6,14 +6,17 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/messages/recitation_details.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -94,16 +97,23 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             ),
           );
         }
-
-        return const Expanded(child: ViewError(error: 'No Data'));
+        return Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.all(8.0),
+            itemCount: 15,
+            itemBuilder: (context, index) {
+              return _getItem2(index);
+            },
+          ),
+        );
       },
     );
   }
 
   Widget _getItem(int index, UserRecitation userRecitation) {
     return GeneralMessageItem(
-      boxMessageItem: BoxMessageItem(
-        isActive: false,
+      boxMessageItem: SubMessageItem(
+        isRead: false,
         ayah: userRecitation.name ?? '',
         ayahInfo: '',
         userImage: AppImages.duserImage,
@@ -112,7 +122,53 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             ? userRecitation.finishedAt.toString()
             : null,
         color: AppColor.transparent,
+        action: () {
+          print('prcess ');
+          Get.to(const MessageDetails());
+        },
       ),
+      progressStream: streamWave,
+      //  waveform: waveform,
+      isLike: _liked.contains(index),
+      liked: () {
+        setState(() {
+          _liked.add(index);
+        });
+      },
+      goLike: () =>
+          Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 0),
+      goNote: () =>
+          Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 1),
+      goReMraker: () =>
+          Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 2),
+      likeCount: 20 + (_liked.contains(index) ? 1 : 0),
+      trggelPlay: () {
+        setState(() {
+          _selectedPlay = index;
+        });
+      },
+      isPlay: index == _selectedPlay,
+    );
+  }
+
+  Widget _getItem2(int index) {
+    return GeneralMessageItem(
+      boxMessageItem: SubMessageItem(
+        isCertic: true,
+        isRead: false,
+        ayah: 'صِرَٰطَ ٱلَّذِينَ أَنۡعَمۡتَ عَلَيۡهِمۡ غَيۡرِ ٱلۡمَغۡضُوبِ',
+        ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
+        userImage: AppImages.duserImage,
+        userName: 'userRecitation',
+        dateStr: '9:30 15 Nev',
+        color: AppColor.transparent,
+        action: () {
+          print('prcess ');
+          Get.to(const RecitationDetails());
+        },
+      ),
+
+      viewBottom: true,
       progressStream: streamWave,
       //  waveform: waveform,
       isLike: _liked.contains(index),

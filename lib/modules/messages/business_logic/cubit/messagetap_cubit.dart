@@ -62,16 +62,19 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         print('MessageModel is ===========> $messageRecieve');
         emit(MessageRecieveSuccessState());
       } else {
-        emit(const MessageSendErrorState('Error Code'));
+        //    emit(const MessageSendErrorState('Error Code'));
       }
     }).catchError((error) {
       print('Error Finish' + error.toString());
       if (error is AuthError) {
-        emit(NoAuthState());
-        return;
+        // emit(NoAuthState());
+        //return;
       }
-      emit(MessageRecieveErrorState(error.toString()));
+      //emit(MessageRecieveErrorState(error.toString()));
     });
+    // TODO edit all Fun Has Comment
+
+    emit(const MessageDetailsErrorState(''));
   }
 
   getSendMessage() {
@@ -149,11 +152,13 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     }).catchError((error) {
       print('Error G ' + error.toString());
       if (error is AuthError) {
-        emit(NoAuthState());
+        // emit(NoAuthState());
         return;
       }
-      emit(GenaralErrorState(error.toString()));
+      // emit(GenaralErrorState(error.toString()));
     });
+
+    emit(const MessageDetailsErrorState(''));
   }
 
   /// play

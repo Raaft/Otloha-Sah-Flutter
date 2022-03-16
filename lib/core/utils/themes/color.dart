@@ -103,7 +103,7 @@ class AppColor {
   static Color iconColor2 = const Color(0xFF142f75);
   static Color iconColor3 = const Color(0xFFf6d955);
   static Color iconColor4 = const Color(0xFFbabdbe);
-  static Color iconColor5 = const Color(0xFF27c1f5);
+  static Color iconColor5 = const Color(0xFF03d2ff);
 
   /// proogess
   static Color proogessColor1 = const Color(0xD5FFD76B);

@@ -48,22 +48,45 @@ class InBoxMessagePage extends StatelessWidget {
             ),
           );
         }
-
-        return const Expanded(child: ViewError(error: 'No Data'));
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ListView.builder(
+              itemCount: 15,
+              itemBuilder: (context, index) {
+                return _getItem2(index);
+              },
+            ),
+          ),
+        );
       },
     );
   }
 
   Widget _getItem(int index, MessageModel messageModel) {
     return BoxMessageItem(
-      isActive: ((index % 3) == 0),
+      isRead: ((index % 3) == 0),
       ayah: 'أن الذين كفروا سواء عليهم',
       ayahInfo: 'Juz-1  6-Ayah البقرة',
       userImage: AppImages.duserImage,
       userName: 'Mohamed Ahmed',
       dateStr: '9:30 15 Nov',
-      action: (){
-        Get.to(()=>const MessageDetails());
+      action: () {
+        Get.to(() => const MessageDetails());
+      },
+    );
+  }
+
+  Widget _getItem2(int index) {
+    return BoxMessageItem(
+      isRead: ((index % 3) == 0),
+      ayah: 'أن الذين كفروا سواء عليهم',
+      ayahInfo: 'Juz-1  6-Ayah البقرة',
+      userImage: AppImages.duserImage,
+      userName: 'Mohamed Ahmed',
+      dateStr: '9:30 15 Nov',
+      action: () {
+        Get.to(() => const MessageDetails());
       },
     );
   }
