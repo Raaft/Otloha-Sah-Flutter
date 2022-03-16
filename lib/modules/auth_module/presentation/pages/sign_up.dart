@@ -43,7 +43,6 @@ class SignUpPage extends StatelessWidget {
       Get.to(() => BlocProvider(
           create: (context) => HomeCubit(),
           child: const HomePage()));
-      ;
 
     }  },
   builder: (context, state) {
