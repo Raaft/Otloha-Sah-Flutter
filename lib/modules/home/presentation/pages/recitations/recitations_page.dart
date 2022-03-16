@@ -6,8 +6,8 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,8 +114,8 @@ class _RecitationsPageState extends State<RecitationsPage> {
 
   Widget _getItem(UserRecitation userRecitation, int index) {
     return GeneralMessageItem(
-      boxMessageItem: BoxMessageItem(
-        isActive: userRecitation.uploaded ?? false,
+      boxMessageItem: SubMessageItem(
+        isRead: userRecitation.uploaded ?? false,
         ayah: userRecitation.name ?? '',
         ayahInfo: '',
         userImage: AppImages.duserImage,

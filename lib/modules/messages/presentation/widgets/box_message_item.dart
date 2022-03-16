@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 
 class BoxMessageItem extends StatelessWidget {
   const BoxMessageItem({
@@ -13,7 +14,7 @@ class BoxMessageItem extends StatelessWidget {
     required this.ayahInfo,
     this.color = AppColor.selectColor1,
     this.action,
-    this.isActive = false,
+    this.isRead = false,
   }) : super(key: key);
 
   final String userName;
@@ -24,7 +25,46 @@ class BoxMessageItem extends StatelessWidget {
   final Color color;
   final Function()? action;
 
+  final bool isRead;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: SubMessageItem(
+          action: action,
+          isRead: isRead,
+          color: color,
+          userImage: userImage,
+          userName: userName,
+          dateStr: dateStr,
+          ayah: ayah,
+          ayahInfo: ayahInfo),
+    );
+  }
+}
+
+class ViewOld extends StatelessWidget {
+  const ViewOld({
+    Key? key,
+    required this.action,
+    required this.isActive,
+    required this.color,
+    required this.userImage,
+    required this.userName,
+    required this.dateStr,
+    required this.ayah,
+    required this.ayahInfo,
+  }) : super(key: key);
+
+  final Function()? action;
   final bool isActive;
+  final Color color;
+  final String userImage;
+  final String userName;
+  final String? dateStr;
+  final String ayah;
+  final String ayahInfo;
 
   @override
   Widget build(BuildContext context) {

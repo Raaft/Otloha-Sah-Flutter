@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/error/failure.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:flutter_base/core/error/failure.dart';
 
 class NetworkConnectionException implements Exception {}
 
@@ -18,7 +19,15 @@ class InvalidData implements Exception {
 
 class ServerError implements Exception {}
 
-class AuthError implements Exception {}
+class AuthError implements Exception {
+  String error;
+  AuthError({
+    required this.error,
+  });
+
+  @override
+  String toString() => 'AuthError(error: $error)';
+}
 
 class CacheError implements Exception {}
 
@@ -40,7 +49,7 @@ class ExceptionHandling {
       }
       if (e.response!.statusCode! >= 401) {
         print(e.response!.data);
-        throw AuthError();
+        throw AuthError(error: '401 Error ' + e.message);
       }
     } else if (e.type == DioErrorType.connectTimeout) {
       throw TimeoutException('time out');

@@ -17,6 +17,7 @@ class TeacherPage extends StatefulWidget {
 
 class _TeacherPageState extends State<TeacherPage> {
   bool _type = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

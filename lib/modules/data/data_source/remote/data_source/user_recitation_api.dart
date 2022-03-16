@@ -71,7 +71,6 @@ class UserRecitationApi extends UserRecitationRepository {
     return userRecitatios;
   }
 
-  @override
   Future<UserRecitation?>? getTeacher() async {
     Response? response =
         await ApiBaseHelper().getHTTP('/api/v1/recitations/general/');
