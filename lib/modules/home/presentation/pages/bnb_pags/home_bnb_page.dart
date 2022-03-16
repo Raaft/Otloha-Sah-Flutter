@@ -16,7 +16,9 @@ import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_scti
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
 import 'package:flutter_base/modules/home/presentation/widget/user_progress_reading.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
+import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class HomeBNBPage extends StatefulWidget {
@@ -223,7 +225,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         const SizedBox(width: 8),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(SettingsPage.routeName);
+           Navigator.of(context).pushNamed(SettingsPage.routeName);
           },
           child: Icon(
             Icons.settings_outlined,

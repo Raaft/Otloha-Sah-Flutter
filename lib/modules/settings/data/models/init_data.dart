@@ -42,13 +42,13 @@ final List<Settings> settings = [
     name: translate('Tafsir'),
     image: AppIcons.readingIcon,
     actionTo: TafseerPage.routeName,
-    subTitle: CacheHelper.getData(key: tafseerSelectedId),
+    subTitle: CacheHelper.getData(key: tafseerSelectedName),
   ),
   Settings(
     name: translate('Tajweed'),
     image: AppIcons.readingIcon,
     actionTo: TajweedPage.routeName,
-    subTitle: CacheHelper.getData(key: tafseerSelectedName),
+    subTitle: CacheHelper.getData(key: tajweedSelectedName),
   ),
 ];
 
