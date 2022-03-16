@@ -1,7 +1,9 @@
 const String fontFamily1 = 'Cairo';
 const String fontFamily2 = 'ElMessiri';
 
- String token = '';
+const String baseUrl = 'http://192.168.1.11:8000';
+
+String token = '';
 
 var isEn = false;
 

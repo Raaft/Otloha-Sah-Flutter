@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_base/modules/messages/presentation/widgets/message_item_
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -77,6 +79,7 @@ class _MessageDetailsState extends State<MessageDetails> {
 
   ListView _viewData() {
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: 15,
@@ -179,6 +182,21 @@ class _MessageDetailsState extends State<MessageDetails> {
       trggelPlay: () {},
       margin: 0,
       viewBottom: false,
+      replay: SizedBox(
+        width: double.infinity,
+        child: TextView(
+          text: 'رد',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          sizeText: 14,
+          weightText: FontWeight.w700,
+          colorText: AppColor.txtColor4,
+          textAlign: TextAlign.start,
+          action: () {
+            Get.to(const ReplayMesaagePage());
+          },
+          // overflow: TextOverflow.ellipsis,
+        ),
+      ),
     );
   }
 
@@ -192,7 +210,7 @@ class _MessageDetailsState extends State<MessageDetails> {
         userImage: AppImages.duserImage,
         userName: 'userRecitation',
         dateStr: '9:30 15 Nev',
-        color: AppColor.transparent,
+        color: AppColor.selectColor1,
         isPlay: false,
         progressStream: streamWave,
         trggelPlay: () {},

@@ -4,7 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
-import 'package:flutter_base/modules/data/model/user_recitation.dart';
+import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +27,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   List<MessageModel>? messageDetails;
   List<MessageModel>? sendMessage;
 
-  List<UserRecitation>? userRecitations;
+  List<GeneralResponse>? generalResponses;
 
   getListMessages() {
     emit(MessageLoadingState());
@@ -62,19 +62,16 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         print('MessageModel is ===========> $messageRecieve');
         emit(MessageRecieveSuccessState());
       } else {
-        //    emit(const MessageSendErrorState('Error Code'));
+        emit(const MessageSendErrorState('Error Code'));
       }
     }).catchError((error) {
       print('Error Finish' + error.toString());
       if (error is AuthError) {
-        // emit(NoAuthState());
-        //return;
+        emit(NoAuthState());
+        return;
       }
-      //emit(MessageRecieveErrorState(error.toString()));
+      emit(MessageRecieveErrorState(error.toString()));
     });
-    // TODO edit all Fun Has Comment
-
-    emit(const MessageDetailsErrorState(''));
   }
 
   getSendMessage() {
@@ -146,19 +143,17 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   getGeneraBoXMessage() async {
     emit(GenaralLoadingState());
     UserRecitationApi().getGeneraBoXMessage()!.then((value) {
-      userRecitations = value;
-      print('UserRecitation is ===========> $userRecitations');
+      generalResponses = value;
+      print('UserRecitation is ===========> $generalResponses');
       emit(GenaralSuccessState());
     }).catchError((error) {
       print('Error G ' + error.toString());
       if (error is AuthError) {
-        // emit(NoAuthState());
+        emit(NoAuthState());
         return;
       }
-      // emit(GenaralErrorState(error.toString()));
+      emit(GenaralErrorState(error.toString()));
     });
-
-    emit(const MessageDetailsErrorState(''));
   }
 
   /// play

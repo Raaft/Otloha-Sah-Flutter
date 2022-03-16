@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/data/model/user_recitation.dart';
+import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/recitation_details.dart';
@@ -89,43 +90,42 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                itemCount: cubit!.messageSendList!.length,
+                itemCount: cubit!.generalResponses!.length,
                 itemBuilder: (context, index) {
-                  return _getItem(index, cubit!.userRecitations![index]);
+                  return _getItem(index, cubit!.generalResponses![index]);
                 },
               ),
             ),
           );
         }
-        return Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.all(8.0),
-            itemCount: 15,
-            itemBuilder: (context, index) {
-              return _getItem2(index);
-            },
-          ),
+        return const Expanded(
+          child: Center(child: CircularProgressIndicator()),
         );
       },
     );
   }
 
-  Widget _getItem(int index, UserRecitation userRecitation) {
+  Widget _getItem(int index, GeneralResponse generalResponse) {
     return GeneralMessageItem(
       boxMessageItem: SubMessageItem(
         isRead: false,
-        ayah: userRecitation.name ?? '',
+        ayah: generalResponse.name ?? '',
+        userInfo: _getUserInfo(generalResponse.owner),
         ayahInfo: '',
-        userImage: AppImages.duserImage,
-        userName: userRecitation.userId.toString(),
-        dateStr: (userRecitation.finishedAt != null)
-            ? userRecitation.finishedAt.toString()
+        userImage: generalResponse.owner!.image ?? '',
+        userName: generalResponse.owner!.firstName.toString() +
+            ' ' +
+            generalResponse.owner!.lastName.toString(),
+        dateStr: (generalResponse.finishedAt != null)
+            ? DateFormat.MMMMEEEEd()
+                .format(DateTime.parse(generalResponse.finishedAt ?? ''))
             : null,
         color: AppColor.transparent,
         action: () {
           print('prcess ');
           Get.to(const MessageDetails());
         },
+        isCertic: generalResponse.owner!.isCertified ?? false,
       ),
       progressStream: streamWave,
       //  waveform: waveform,
@@ -147,11 +147,12 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
           _selectedPlay = index;
         });
       },
+      viewBottom: true,
       isPlay: index == _selectedPlay,
     );
   }
 
-  Widget _getItem2(int index) {
+  Widget getItem2(int index) {
     return GeneralMessageItem(
       boxMessageItem: SubMessageItem(
         isCertic: true,
@@ -191,5 +192,16 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
       },
       isPlay: index == _selectedPlay,
     );
+  }
+
+  _getUserInfo(Owner? owner) {
+    if (owner != null) {
+      if (owner.isATeacher ?? false) {
+        return '${owner.level} Student';
+      } else {
+        return '${owner.teacherType ?? ''} Teacher';
+      }
+    }
+    return ' ';
   }
 }

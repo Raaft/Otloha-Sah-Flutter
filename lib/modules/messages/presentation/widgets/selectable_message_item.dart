@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
 
+import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/utils/themes/text_style.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 
-class SubMessageItem extends StatelessWidget {
-  const SubMessageItem({
+class SelectableMessageItem extends StatelessWidget {
+  const SelectableMessageItem({
     Key? key,
     required this.userName,
     required this.userImage,
-    required this.dateStr,
+    this.dateStr,
     required this.ayah,
     required this.ayahInfo,
-    this.color = AppColor.selectColor1,
+    required this.color,
     this.action,
     this.userInfo,
     this.narrationName,
-    this.isRead = false,
-    this.isCertic = false,
+    required this.isRead,
+    required this.isCertic,
+    required this.selectedText,
   }) : super(key: key);
 
   final String userName;
@@ -29,6 +29,7 @@ class SubMessageItem extends StatelessWidget {
   final String ayahInfo;
   final Color color;
   final Function()? action;
+  final Function(String) selectedText;
 
   final String? userInfo;
   final String? narrationName;
@@ -58,9 +59,7 @@ class SubMessageItem extends StatelessWidget {
                   height: 60,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    child: FadeInImage(
-                        placeholder: AssetImage(AppImages.duserImage),
-                        image: NetworkImage(baseUrl + userImage)),
+                    child: Image.asset(userImage),
                   ),
                 ),
                 Expanded(
@@ -141,15 +140,21 @@ class SubMessageItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      TextView(
-                        padding: EdgeInsets.zero,
-                        text: ayah,
-                        sizeText: 16,
-                        weightText: FontWeight.bold,
-                        colorText:
-                            isRead ? AppColor.txtColor3 : AppColor.txtColor4,
+                      SelectableText(
+                        ayah,
                         textAlign: TextAlign.start,
-                        // fontFamily: Q.hafs15,
+                        showCursor: true,
+                        cursorRadius: const Radius.circular(16),
+                        cursorWidth: 3,
+                        onSelectionChanged: sele,
+                        toolbarOptions:
+                            const ToolbarOptions(copy: true, selectAll: true),
+                        style: AppStyle().textStyle1.copyWith(
+                              fontSize: 16,
+                              color: AppColor.txtColor4,
+                              fontWeight: FontWeight.bold,
+                              wordSpacing: .5,
+                            ),
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -171,5 +176,9 @@ class SubMessageItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void sele(TextSelection selection, SelectionChangedCause? cause) {
+    selectedText(selection.toString());
   }
 }

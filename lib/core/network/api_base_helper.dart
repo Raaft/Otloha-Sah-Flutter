@@ -75,8 +75,13 @@ class ApiBaseHelper {
   // ignore: missing_return
   Future<Response> postHTTP(
     String url,
-    dynamic data,
-  ) async {
+    dynamic data, {
+    bool? isAuth,
+  }) async {
+    if (isAuth ?? false) {
+      ApiBaseHelper.baseAPI.options.headers[HttpHeaders.authorizationHeader] =
+          '';
+    }
     print(url);
     try {
       Response response = await baseAPI.post(url, data: data);

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
-import 'package:flutter_base/core/error/failure.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/data/enums/download_types.dart';
-import 'package:quran_widget_flutter/data_source/local/file_storage/download_book.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class ItemDownload extends StatefulWidget {

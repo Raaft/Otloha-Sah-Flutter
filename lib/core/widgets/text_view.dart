@@ -13,7 +13,7 @@ class TextView extends StatelessWidget {
       this.colorText,
       this.sizeText,
       this.weightText,
-      this.fontFamily = fontFamily2,
+      this.fontFamily = fontFamily1,
       this.overflow = TextOverflow.clip})
       : super(key: key);
 
@@ -62,9 +62,11 @@ class TextViewIcon extends StatelessWidget {
     this.colorText,
     this.sizeText,
     this.weightText,
+    this.fontFamily = fontFamily1,
   }) : super(key: key);
 
   final String text;
+  final String fontFamily;
   final TextAlign? textAlign;
   final Function()? action;
   final EdgeInsetsGeometry padding;
@@ -91,10 +93,10 @@ class TextViewIcon extends StatelessWidget {
             Text(
               text,
               style: AppStyle().textStyle1.copyWith(
-                    fontSize: sizeText,
-                    color: colorText,
-                    fontWeight: weightText,
-                  ),
+                  fontSize: sizeText,
+                  color: colorText,
+                  fontWeight: weightText,
+                  fontFamily: fontFamily),
               textAlign: textAlign,
             ),
           ],

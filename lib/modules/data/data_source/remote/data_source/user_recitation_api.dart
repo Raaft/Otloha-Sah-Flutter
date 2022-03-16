@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
 import 'package:flutter_base/modules/data/data_source/remote/repositories/user_recitation_repository.dart';
+import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 
 class UserRecitationApi extends UserRecitationRepository {
@@ -51,24 +52,25 @@ class UserRecitationApi extends UserRecitationRepository {
   }
 
   @override
-  Future<List<UserRecitation>>? getGeneraBoXMessage() async {
+  Future<List<GeneralResponse>?>? getGeneraBoXMessage() async {
     Response? response =
         await ApiBaseHelper().getHTTP('/api/v1/recitations/general/');
 
-    List<UserRecitation>? userRecitatios = [];
+    List<GeneralResponse>? generalResponses;
 
     if (response != null &&
         (response.statusCode == 201 || response.statusCode == 200)) {
       if (response.data != null) {
-        userRecitatios = (response.data as List)
-            .map((element) => UserRecitation.fromJson(element))
+        print('data ${response.data}');
+        generalResponses = (response.data as List)
+            .map((data) => GeneralResponse.fromJson(data))
             .toList();
       }
     } else {
       print('Error Api ' + response!.data.toString());
     }
 
-    return userRecitatios;
+    return generalResponses;
   }
 
   Future<UserRecitation?>? getTeacher() async {

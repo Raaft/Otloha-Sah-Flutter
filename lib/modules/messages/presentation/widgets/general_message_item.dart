@@ -21,6 +21,7 @@ class GeneralMessageItem extends StatelessWidget {
     this.goReMraker,
     this.isPlay = false,
     this.viewBottom = false,
+    this.replay,
     this.margin = 12,
     required this.trggelPlay,
   }) : super(key: key);
@@ -40,6 +41,7 @@ class GeneralMessageItem extends StatelessWidget {
   final double margin;
   final bool viewBottom;
   final Function() trggelPlay;
+  final Widget? replay;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,8 @@ class GeneralMessageItem extends StatelessWidget {
                   trggelPlay: trggelPlay,
                   isPlay: isPlay),
             ),
-            if (viewBottom) _viewBottom(context)
+            if (viewBottom) _viewBottom(context),
+            replay ?? Container(),
           ],
         ),
       ),

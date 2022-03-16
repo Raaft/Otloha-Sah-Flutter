@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
+import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:flutter_base/core/utils/res/icons_app.dart';
@@ -54,9 +57,13 @@ class CommentReplayItem extends StatelessWidget {
     return GestureDetector(
       onTap: action,
       child: Container(
+        padding: const EdgeInsets.all(6),
+        margin: isReplay
+            ? EdgeInsets.only(left: isEn ? 48 : 0, right: isEn ? 0 : 48)
+            : EdgeInsets.zero,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: isRead ? color : AppColor.transparent,
+          color: color,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,9 +73,8 @@ class CommentReplayItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                if (isReplay) const SizedBox(width: 48),
-                Container(
-                  margin: const EdgeInsets.all(4),
+                SizedBox(
+                  // margin: const EdgeInsets.all(4),
                   width: 40,
                   height: 40,
                   child: ClipRRect(
@@ -76,6 +82,7 @@ class CommentReplayItem extends StatelessWidget {
                     child: Image.asset(userImage),
                   ),
                 ),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -141,14 +148,13 @@ class CommentReplayItem extends StatelessWidget {
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 4),
+                                horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color: AppColor.gradient1,
                             ),
                             child: TextView(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2),
+                              padding: EdgeInsets.zero,
                               text: errorType ?? 'نوع الخطاء : تجويد',
                               sizeText: 11,
                               colorText: AppColor.txtColor4,
@@ -178,6 +184,10 @@ class CommentReplayItem extends StatelessWidget {
                           textAlign: TextAlign.start,
                         ),
                       ),
+                      WaveViewPlayAudio(
+                          progressStream: progressStream,
+                          trggelPlay: trggelPlay,
+                          isPlay: isPlay),
                       TextView(
                         text: errorStr,
                         padding: EdgeInsets.zero,
@@ -186,10 +196,6 @@ class CommentReplayItem extends StatelessWidget {
                         textAlign: TextAlign.start,
                         // overflow: TextOverflow.ellipsis,
                       ),
-                      WaveViewPlayAudio(
-                          progressStream: progressStream,
-                          trggelPlay: trggelPlay,
-                          isPlay: isPlay),
                       TextView(
                         text: 'رد',
                         padding: EdgeInsets.zero,
@@ -197,6 +203,9 @@ class CommentReplayItem extends StatelessWidget {
                         weightText: FontWeight.w700,
                         colorText: AppColor.txtColor4,
                         textAlign: TextAlign.start,
+                        action: () {
+                          Get.to(const ReplayMesaagePage());
+                        },
                         // overflow: TextOverflow.ellipsis,
                       ),
                     ],

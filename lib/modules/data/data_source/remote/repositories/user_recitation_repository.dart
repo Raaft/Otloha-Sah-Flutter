@@ -1,3 +1,4 @@
+import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 
 abstract class UserRecitationRepository {
@@ -6,5 +7,5 @@ abstract class UserRecitationRepository {
 
   Future<List<UserRecitation>>? getUserReciataions();
 
-  Future<List<UserRecitation>>? getGeneraBoXMessage();
+  Future<List<GeneralResponse>?>? getGeneraBoXMessage();
 }

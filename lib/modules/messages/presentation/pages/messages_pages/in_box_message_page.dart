@@ -48,16 +48,8 @@ class InBoxMessagePage extends StatelessWidget {
             ),
           );
         }
-        return Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: ListView.builder(
-              itemCount: 15,
-              itemBuilder: (context, index) {
-                return _getItem2(index);
-              },
-            ),
-          ),
+        return const Expanded(
+          child: Center(child: CircularProgressIndicator()),
         );
       },
     );
@@ -77,7 +69,7 @@ class InBoxMessagePage extends StatelessWidget {
     );
   }
 
-  Widget _getItem2(int index) {
+  Widget getItem2(int index) {
     return BoxMessageItem(
       isRead: ((index % 3) == 0),
       ayah: 'أن الذين كفروا سواء عليهم',

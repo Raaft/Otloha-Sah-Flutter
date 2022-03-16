@@ -14,12 +14,18 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
   UserModel? userModel;
 
-   Future<void> userLogIn({@required email, @required password}) async {
+  Future<void> userLogIn({@required email, @required password}) async {
     emit(LogInLoadingState());
-    await Auth().userLogIn(email: email, password: password).then((value) {
+    await Auth()
+        .userLogIn(
+      email: email,
+      password: password,
+    )
+        .then((value) {
       userModel = UserModel.fromJson(value.data);
       CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
-      print('UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
+      print(
+          'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
       emit(LogInSuccessState());
     }).catchError((error) {
       print(error.toString());
