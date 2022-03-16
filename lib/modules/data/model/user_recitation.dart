@@ -6,6 +6,7 @@ class UserRecitation {
   int? id;
   int? narrationId; // narration_id
   int? userId; // narration_id
+  int? chapterId; // narration_id
   String? record; // record
   String? wavePath; // record
   List<int>? versesID; // vseres_ids
@@ -31,6 +32,7 @@ class UserRecitation {
     this.finishedAt,
     this.archivedAt,
     this.wavePath,
+    this.chapterId,
   });
 
   UserRecitation copyWith({
@@ -70,6 +72,7 @@ class UserRecitation {
       'verse_ids': jsonEncode(versesID),
       'name': name,
       'wavePath': wavePath,
+      'chapter_id': chapterId,
       'uploaded': uploaded,
       'is_accepted': isAccepted,
       'is_teacher_recitation': isTeacherRecitation,
@@ -89,6 +92,7 @@ class UserRecitation {
       name: map['name'],
       wavePath: map['wavePath'],
       uploaded: map['uploaded'],
+      chapterId: map['chapter_id'],
       isAccepted: map['is_accepted'],
       isTeacherRecitation: map['is_teacher_recitation'],
       showInGeneral: map['show_in_general'],

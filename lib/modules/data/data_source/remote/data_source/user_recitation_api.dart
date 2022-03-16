@@ -71,4 +71,23 @@ class UserRecitationApi extends UserRecitationRepository {
 
     return userRecitatios;
   }
+
+  @override
+  Future<UserRecitation?>? getTeacher() async {
+    Response? response =
+        await ApiBaseHelper().getHTTP('/api/v1/recitations/general/');
+
+    UserRecitation? userRecitatios;
+
+    if (response != null &&
+        (response.statusCode == 201 || response.statusCode == 200)) {
+      if (response.data != null) {
+        userRecitatios = UserRecitation.fromJson(response.data);
+      }
+    } else {
+      print('Error Api ' + response!.data.toString());
+    }
+
+    return userRecitatios;
+  }
 }

@@ -7,4 +7,5 @@ abstract class UserRecitationRepository {
   Future<List<UserRecitation>>? getUserReciataions();
 
   Future<List<UserRecitation>>? getGeneraBoXMessage();
+  Future<UserRecitation?>? getTeacher();
 }
