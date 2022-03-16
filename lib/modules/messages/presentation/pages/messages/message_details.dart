@@ -1,44 +1,118 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/core/utils/res/images_app.dart';
+import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import 'dart:io';
 
-import '../../../../../core/utils/themes/color.dart';
-import '../../../../../core/widgets/text_view.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
+import 'package:rxdart/rxdart.dart';
 
-class MessageDetails extends StatelessWidget {
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
+
+import 'package:flutter_base/core/widgets/text_view.dart';
+
+class MessageDetails extends StatefulWidget {
   const MessageDetails({Key? key}) : super(key: key);
+
+  @override
+  State<MessageDetails> createState() => _MessageDetailsState();
+}
+
+class _MessageDetailsState extends State<MessageDetails> {
+  final BehaviorSubject<WaveformProgress> streamWave =
+      BehaviorSubject<WaveformProgress>();
+
+  late Waveform waveform;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, _init);
+  }
+
+  Future<void> _init() async {
+    final waveFile2 =
+        File(p.join((await getTemporaryDirectory()).path, 'waveform.wave'));
+    try {
+      await waveFile2.writeAsBytes(
+          (await rootBundle.load('assets/audio/waveform.wave'))
+              .buffer
+              .asUint8List());
+
+      waveform = await JustWaveform.parse(waveFile2);
+
+      //    JustWaveform.parse(waveFile);
+
+      streamWave.add(WaveformProgress(1, waveform));
+    } catch (e) {
+      debugPrint('Eror audio' + e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-      //  crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          messageDetails(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextView(
-              text: 'Replays ...',
-              weightText: FontWeight.bold,
-              padding: const EdgeInsets.all(2),
-              sizeText: 15,
-              colorText: AppColor.darkBlue,
-            ),
-          ),
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap:true ,
-            itemCount: 5,
-            itemBuilder: (context, index) => messageReplay(),
-          )
-        ],
+      body: SafeArea(
+        child: ListView(
+          //  crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _topView(context),
+            messageDetailsNew(context),
+            _viewTitle(),
+            _viewData()
+          ],
+        ),
       ),
     );
   }
 
-  Column messageDetails() {
+  ListView _viewData() {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: 15,
+      itemBuilder: (context, index) => _viewItem(index),
+    );
+  }
+
+  Widget _viewTitle() {
+    return SizedBox(
+      width: double.infinity,
+      child: TextView(
+        text: 'التعليقات ...',
+        weightText: FontWeight.bold,
+        padding: const EdgeInsets.all(16),
+        sizeText: 15,
+        textAlign: TextAlign.start,
+        colorText: AppColor.darkBlue,
+      ),
+    );
+  }
+
+  Widget _topView(BuildContext context) {
+    return ToolBarApp(
+      backIcon: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+      title: translate('تفاصيل الرسالة'),
+    );
+  }
+
+  Column messageDetails(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const SizedBox(height: 50),
+      _topView(context),
       MessageDetailsHead(
         userName: 'Raaft',
         verText:
@@ -85,5 +159,47 @@ class MessageDetails extends StatelessWidget {
         ],
       ),
     ]);
+  }
+
+  messageDetailsNew(BuildContext context) {
+    return GeneralMessageItem(
+      boxMessageItem: SubMessageItem(
+        isRead: false,
+        ayah:
+            'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
+        ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
+        userImage: AppImages.duserImage,
+        userName: 'userRecitation',
+        dateStr: '9:30 15 Nev',
+        color: AppColor.transparent,
+      ),
+      progressStream: streamWave,
+      isLike: true,
+      likeCount: 20,
+      trggelPlay: () {},
+      margin: 0,
+      viewBottom: false,
+    );
+  }
+
+  _viewItem(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CommentReplayItem(
+        isRead: false,
+        ayah: 'الصِّرَاطَ ',
+        ayahInfo: 'الفاتحة آية رقم 7',
+        userImage: AppImages.duserImage,
+        userName: 'userRecitation',
+        dateStr: '9:30 15 Nev',
+        color: AppColor.transparent,
+        isPlay: false,
+        progressStream: streamWave,
+        trggelPlay: () {},
+        isReplay: index % 3 == 1,
+        errorStr:
+            'هذا الملف يحتوي على معلومات إضافية، غالبا ما تكون أضيفت من قبل الكاميرا الرقمية أو الماسح الضوئي المستخدم في إنشاء الملف.إذا كان الملف قد عدل عن حالته الأصلية، فبعض التفاصيل قد لا تعبر عن الملف المعدل.',
+      ),
+    );
   }
 }

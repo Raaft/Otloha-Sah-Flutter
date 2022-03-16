@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:rxdart/rxdart.dart';
@@ -64,9 +65,10 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
             onTap: () {
               _playPause();
             },
-            child: Icon(
-              _isPlay ? Icons.pause : Icons.play_arrow_outlined,
-              size: 40,
+            child: Image.asset(
+              _isPlay ? AppIcons.pauseIcon : AppIcons.play2Icon,
+              width: 20,
+              height: 20,
               color: AppColor.iconColor2,
             ),
           ),
@@ -81,10 +83,8 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   Container _getWave(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(4.0),
-      child: Container(
+      child: SizedBox(
         height: 40.0,
-        padding: const EdgeInsets.all(2),
         width: MediaQuery.of(context).size.width * 65,
         child: StreamBuilder<WaveformProgress>(
           stream: widget.progressStream,

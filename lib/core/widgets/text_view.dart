@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/text_style.dart';
 
 class TextView extends StatelessWidget {
@@ -12,10 +13,12 @@ class TextView extends StatelessWidget {
       this.colorText,
       this.sizeText,
       this.weightText,
+      this.fontFamily = fontFamily2,
       this.overflow = TextOverflow.clip})
       : super(key: key);
 
   final String text;
+  final String fontFamily;
   final TextAlign textAlign;
   final Function()? action;
   final EdgeInsetsGeometry padding;
@@ -35,11 +38,11 @@ class TextView extends StatelessWidget {
         child: Text(
           text,
           style: AppStyle().textStyle1.copyWith(
-                fontSize: sizeText,
-                color: colorText,
-                fontWeight: weightText,
-                wordSpacing: .5,
-              ),
+              fontSize: sizeText,
+              color: colorText,
+              fontWeight: weightText,
+              wordSpacing: .5,
+              fontFamily: fontFamily),
           textAlign: textAlign,
           overflow: overflow,
         ),

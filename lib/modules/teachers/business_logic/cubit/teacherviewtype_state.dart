@@ -1,13 +1,16 @@
 part of 'teacherviewtype_cubit.dart';
 
-abstract class TeacherviewtypeState extends Equatable {
+abstract class TeacherviewtypeState {
   const TeacherviewtypeState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class TeacherviewtypeInitial extends TeacherviewtypeState {}
+
+class TeacherFetchedState extends TeacherviewtypeState {}
+
+class TeacherLoadingState extends TeacherviewtypeState {}
+
+class TeacherErrorState extends TeacherviewtypeState {}
 
 class TeacherviewtypeChange extends TeacherviewtypeState {
   final bool type;

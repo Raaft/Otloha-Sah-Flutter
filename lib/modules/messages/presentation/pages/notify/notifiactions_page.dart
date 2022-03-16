@@ -34,7 +34,7 @@ class NotifiactionsPage extends StatelessWidget {
 
   Widget _itemView(int index) {
     return BoxMessageItem(
-      isActive: ((index % 3) == 0),
+      isRead: ((index % 3) == 0),
       ayah: 'Notifiaction contant',
       ayahInfo: '',
       userImage: AppImages.duserImage,
