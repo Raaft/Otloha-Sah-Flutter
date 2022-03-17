@@ -185,7 +185,8 @@ class CommentReplayItem extends StatelessWidget {
                         ),
                       ),
                       WaveViewPlayAudio(
-                          progressStream: progressStream,
+                          recordPath: '',
+                          wavePath: '',
                           trggelPlay: trggelPlay,
                           isPlay: isPlay),
                       TextView(

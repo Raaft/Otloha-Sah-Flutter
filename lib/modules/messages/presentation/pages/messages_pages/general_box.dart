@@ -117,7 +117,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             ' ' +
             generalResponse.owner!.lastName.toString(),
         dateStr: (generalResponse.finishedAt != null)
-            ? DateFormat.MMMMEEEEd()
+            ? DateFormat('hh:mm dd MMM')
                 .format(DateTime.parse(generalResponse.finishedAt ?? ''))
             : null,
         color: AppColor.transparent,
@@ -125,7 +125,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
           print('prcess ');
           Get.to(const MessageDetails());
         },
-        isCertic: generalResponse.owner!.isCertified ?? false,
+        isCertic: generalResponse.owner!.isCertified ?? true,
       ),
       progressStream: streamWave,
       //  waveform: waveform,

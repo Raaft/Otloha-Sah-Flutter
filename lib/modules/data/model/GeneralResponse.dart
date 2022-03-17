@@ -30,6 +30,7 @@ class GeneralResponse {
   String? record;
   String? wave;
   String? narrationId;
+  String? narrationName;
   String? verseIds;
   Owner? owner;
   List<String>? comments;

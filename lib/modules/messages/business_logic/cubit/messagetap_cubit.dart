@@ -143,9 +143,13 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   getGeneraBoXMessage() async {
     emit(GenaralLoadingState());
     UserRecitationApi().getGeneraBoXMessage()!.then((value) {
-      generalResponses = value;
-      print('UserRecitation is ===========> $generalResponses');
-      emit(GenaralSuccessState());
+      if (value != null) {
+        generalResponses = value;
+        print('UserRecitation is ===========> $generalResponses');
+        emit(GenaralSuccessState());
+      } else {
+        emit(const GenaralErrorState('No Data'));
+      }
     }).catchError((error) {
       print('Error G ' + error.toString());
       if (error is AuthError) {

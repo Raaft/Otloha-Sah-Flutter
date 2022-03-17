@@ -6,26 +6,63 @@ import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 
 class WaveViewPlayAudio extends StatefulWidget {
   const WaveViewPlayAudio({
     Key? key,
-    required this.progressStream,
     required this.trggelPlay,
     required this.isPlay,
+    this.recordPath,
+    this.wavePath,
   }) : super(key: key);
-
-  final BehaviorSubject<WaveformProgress> progressStream;
 
   final Function() trggelPlay;
 
   final bool isPlay;
+  final String? recordPath;
+  final String? wavePath;
+
   @override
   State<WaveViewPlayAudio> createState() => _WaveViewPlayAudioState();
 }
 
 class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
+  final BehaviorSubject<WaveformProgress> streamWave =
+      BehaviorSubject<WaveformProgress>();
+  AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
+
+  late Waveform waveform;
+
+  late MessageTapCubit? cubit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, () async {
+      await _init();
+      await initPlayer();
+    });
+  }
+
+  Future<void> _init() async {
+    final waveFile2 = await FileStorage().download2(
+        url: widget.wavePath ?? '',
+        savePath: 'temp/wave',
+        showDownloadProgress: (v, t) {});
+
+    try {
+      waveform = await JustWaveform.parse(waveFile2!);
+      streamWave.add(WaveformProgress(1, waveform));
+    } catch (e) {
+      debugPrint('Eror audio' + e.toString());
+    }
+  }
+
   Duration position = const Duration();
   AudioPlayer? advancedPlayer;
   Waveform? waveForm;
@@ -33,15 +70,6 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   AudioCache? audioCache;
 
   bool _isPlay = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(Duration.zero, () {
-      initPlayer();
-    });
-  }
 
   @override
   void didUpdateWidget(WaveViewPlayAudio oldWidget) {
@@ -87,7 +115,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
         height: 40.0,
         width: MediaQuery.of(context).size.width * 65,
         child: StreamBuilder<WaveformProgress>(
-          stream: widget.progressStream,
+          stream: streamWave,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(
@@ -131,7 +159,12 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
     }
   }
 
-  void initPlayer() {
+  initPlayer() async {
+    final recordFile = await FileStorage().download2(
+        url: widget.recordPath ?? '',
+        savePath: 'temp/record',
+        showDownloadProgress: (v, t) {});
+
     advancedPlayer = AudioPlayer();
     audioCache =
         AudioCache(fixedPlayer: advancedPlayer, prefix: 'assets/audio/');
@@ -154,7 +187,10 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   }
 
   Future<void> playSound(String path) async {
-    await audioCache!.play(path);
+    int result = await audioPlayer.play(widget.recordPath ?? '');
+    if (result == 1) {
+      // success
+    }
   }
 
   void startNewRoute() async {
