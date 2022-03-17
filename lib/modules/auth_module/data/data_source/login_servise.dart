@@ -10,17 +10,15 @@ class Auth extends AuthRepository {
     email,
     password,
   }) {
-    try {
-      return ApiBaseHelper().postHTTP(
+
+      return ApiBaseHelperForAuth().postHTTP(
           '/api/v1/login/',
           {
             'email': email,
             'password': password,
           },
           isAuth: true);
-    } catch (e) {
-      throw UnimplementedError();
-    }
+
     //throw UnimplementedError();
   }
 
@@ -85,8 +83,8 @@ class Auth extends AuthRepository {
   @override
   Future<Response> userRegister(
       {email, username, password1, password2, birthdate, phone, gender}) {
-    try {
-      return ApiBaseHelper().postHTTP('/api/v1/signup/', {
+
+      return ApiBaseHelperForAuth().postHTTP('/api/v1/signup/', {
         'email': email,
         'password1': password1,
         'password2': password2,
@@ -95,9 +93,6 @@ class Auth extends AuthRepository {
         'birthdate': birthdate,
         'gender': gender,
       });
-    } catch (e) {
-      print('Rigister Proplem is $e');
-      throw UnimplementedError();
-    }
+
   }
 }

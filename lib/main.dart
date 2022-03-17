@@ -3,7 +3,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -123,6 +125,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SettingsCubit(),
+        ), BlocProvider(
+          create: (context) => HomeCubit(),
+        ),BlocProvider(
+          create: (context) => AuthCubit(),
         ),
       ],
       child: GetMaterialApp(
