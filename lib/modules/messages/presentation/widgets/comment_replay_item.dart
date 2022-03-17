@@ -23,11 +23,13 @@ class CommentReplayItem extends StatelessWidget {
     this.errorType,
     this.narrationName,
     this.isReplay = false,
+    this.isLocal = false,
     required this.isRead,
     required this.isPlay,
     required this.trggelPlay,
     required this.recordPath,
     required this.wavePath,
+
   }) : super(key: key);
 
   final String userName;
@@ -46,6 +48,7 @@ class CommentReplayItem extends StatelessWidget {
   final String? errorType;
   final String? narrationName;
   final bool isRead;
+  final bool isLocal;
 
   final bool isPlay;
   final bool isReplay;
@@ -188,6 +191,7 @@ class CommentReplayItem extends StatelessWidget {
                           recordPath: recordPath,
                           wavePath: wavePath,
                           trggelPlay: trggelPlay,
+                          isLocal: isLocal,
                           isPlay: isPlay),
                       TextView(
                         text: errorStr,

@@ -3,16 +3,13 @@ import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
-import 'package:rxdart/rxdart.dart';
 
 class GeneralMessageItem extends StatelessWidget {
   const GeneralMessageItem({
     Key? key,
     required this.boxMessageItem,
-    required this.progressStream,
     required this.isLike,
     required this.likeCount,
     this.liked,
@@ -21,6 +18,7 @@ class GeneralMessageItem extends StatelessWidget {
     this.goReMraker,
     this.isPlay = false,
     this.viewBottom = false,
+    required this.isLocal,
     this.replay,
     this.margin = 12,
     required this.trggelPlay,
@@ -30,8 +28,6 @@ class GeneralMessageItem extends StatelessWidget {
 
   final SubMessageItem boxMessageItem;
 
-  final BehaviorSubject<WaveformProgress> progressStream;
-
   final bool isLike;
   final Function()? liked;
   final Function()? goLike;
@@ -40,6 +36,7 @@ class GeneralMessageItem extends StatelessWidget {
   final int likeCount;
 
   final bool isPlay;
+  final bool isLocal;
   final double margin;
   final bool viewBottom;
   final Function() trggelPlay;
@@ -68,6 +65,7 @@ class GeneralMessageItem extends StatelessWidget {
                   recordPath: recordPath,
                   wavePath: wavePath,
                   trggelPlay: trggelPlay,
+                  isLocal: isLocal,
                   isPlay: isPlay),
             ),
             if (viewBottom) _viewBottom(context),

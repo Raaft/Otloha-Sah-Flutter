@@ -1,3 +1,4 @@
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_api.dart';
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,13 +26,44 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
                   .name ??
               '';
         }
-        emit(TeacherFetchedState());
+        emit(TeacherErrorState());
       } else {
-        emit(TeacherFetchedState());
+        emit(TeacherErrorState());
       }
     }).catchError((e) {
       print('Error $e');
-      emit(TeacherFetchedState());
+      print('Error G ' + e.toString());
+      if (e is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
+      emit(TeacherErrorState());
+    });
+  }
+
+  getStudents() {
+    emit(TeacherLoadingState());
+    UserApi().getStudents()!.then((value) async {
+      if (value != null && value.results != null && value.results!.isNotEmpty) {
+        teachers = value;
+        for (var element in teachers!.results!) {
+          element.narrationName = (await DataSource.instance
+                      .fetchNarrationById(element.narrationId ?? 1))!
+                  .name ??
+              '';
+        }
+        emit(TeacherErrorState());
+      } else {
+        emit(TeacherErrorState());
+      }
+    }).catchError((e) {
+      print('Error $e');
+      print('Error G ' + e.toString());
+      if (e is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
+      emit(TeacherErrorState());
     });
   }
 }

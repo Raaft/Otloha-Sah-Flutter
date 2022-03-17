@@ -10,7 +10,6 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'package:quran_widget_flutter/model/page.dart' as page_obj;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file/file.dart';
@@ -367,10 +366,6 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> _initWave(String path, String wavePath) async {
     final audioFile = io.File(path);
     try {
-      await audioFile.writeAsBytes(
-          (await rootBundle.load('assets/audio/waveform.mp3'))
-              .buffer
-              .asUint8List());
       final waveFile = io.File(wavePath);
 
       JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile)
