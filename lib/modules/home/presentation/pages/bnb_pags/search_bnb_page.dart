@@ -12,6 +12,8 @@ import 'package:flutter_base/modules/settings/presentation/pages/settings/chapte
 import 'package:flutter_base/modules/settings/presentation/pages/settings/narration_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
 
+import '../coming_soon/coming_soon_page.dart';
+
 class SearchBNBPage extends StatefulWidget {
   const SearchBNBPage({Key? key}) : super(key: key);
 
@@ -24,14 +26,14 @@ class _SearchBNBPageState extends State<SearchBNBPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return  const ComingSoonPage(); /*Column(
       children: [
         _topView(context),
         _searchBox(),
         _getSearchTarget(),
         _viewItems()
       ],
-    );
+    );*/
   }
 
   Widget _searchBox() {

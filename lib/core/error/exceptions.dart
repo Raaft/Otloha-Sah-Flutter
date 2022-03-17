@@ -36,7 +36,7 @@ class SomeThingWentWrong implements Exception {}
 class ExceptionHandling {
   static handleDioExceprion(DioError e) {
     if (e.type == DioErrorType.other) {
-      print(e.type);
+      print(e);
       throw NetworkConnectionException();
     } else if (e.type == DioErrorType.response) {
       if (e.response!.statusCode! == 400 || e.response!.statusCode! == 422) {

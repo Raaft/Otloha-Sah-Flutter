@@ -10,8 +10,7 @@ class LogInLoadingState extends AuthState {}
 class LogInSuccessState extends AuthState {}
 
 class LogInErrorState extends AuthState {
-  final String error;
-
+  final Map<String,dynamic> error;
   LogInErrorState(this.error);
 }
 
@@ -30,7 +29,7 @@ class RegisterLoadingState extends AuthState {}
 class RegisterSuccessState extends AuthState {}
 
 class RegisterErrorState extends AuthState {
-  final String error;
+  final Map<String,dynamic> error;
 
   RegisterErrorState(this.error);
 }
