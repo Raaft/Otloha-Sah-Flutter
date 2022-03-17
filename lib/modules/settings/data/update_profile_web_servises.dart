@@ -23,7 +23,7 @@ class UpdateProfile extends UpdateProfileRepos {
   @override
   Future<Response> updateEmail({required email, required password}) async {
     try {
-      return await ApiBaseHelper().putHTTP('/api/v1/profile/update/email/', {
+      return await ApiBaseHelper().putHTTP('/api/v1/profile/email/update/', {
         'email': email,
         'password': password,
       });

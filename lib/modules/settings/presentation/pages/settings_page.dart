@@ -4,10 +4,9 @@ import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/profile_setting/change_Password.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/profile_setting/update_email.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/profile_setting/update_phone.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/profile_setting/update_profile.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/change_Password.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_email.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_phone.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_sub.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +15,7 @@ import 'package:expandable/expandable.dart';
 
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
+import '../../data/update_profile_web_servises.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);

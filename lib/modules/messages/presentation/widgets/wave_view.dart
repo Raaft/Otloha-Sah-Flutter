@@ -160,10 +160,6 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   }
 
   initPlayer() async {
-    final recordFile = await FileStorage().download2(
-        url: widget.recordPath ?? '',
-        savePath: 'temp/record',
-        showDownloadProgress: (v, t) {});
 
     advancedPlayer = AudioPlayer();
     audioCache =

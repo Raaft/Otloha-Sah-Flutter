@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 
 import '../../widget/numbers_widget.dart';
 import '../../widget/profile_widget.dart';
@@ -10,8 +11,9 @@ class ProfileBNBPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return const Scaffold(
+      body: ComingSoonPage(),
+      /*Center(
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
@@ -30,7 +32,7 @@ class ProfileBNBPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ),*/
     );
   }
 
