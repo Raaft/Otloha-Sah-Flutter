@@ -9,6 +9,7 @@ import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
+import 'package:quran_widget_flutter/data_source/data_source.dart';
 
 part 'messagetap_state.dart';
 
@@ -36,6 +37,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         messages = (value.data as List)
             .map((data) => MessageModel.fromJson(data))
             .toList();
+
         print('MessageModel is ===========> $messages');
         emit(MessageSuccessState());
       } else {
@@ -142,9 +144,19 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   getGeneraBoXMessage() async {
     emit(GenaralLoadingState());
-    UserRecitationApi().getGeneraBoXMessage()!.then((value) {
+    UserRecitationApi().getGeneraBoXMessage()!.then((value) async {
       if (value != null) {
         generalResponses = value;
+        for (var element in generalResponses!) {
+          element.narrationName = (await DataSource.instance
+                      .fetchNarrationById(element.narrationId ?? 0))!
+                  .name ??
+              '';
+          element.chapterName = (await DataSource.instance
+                      .fetchChapterById(element.chapterId ?? 0))!
+                  .name ??
+              '';
+        }
         print('UserRecitation is ===========> $generalResponses');
         emit(GenaralSuccessState());
       } else {

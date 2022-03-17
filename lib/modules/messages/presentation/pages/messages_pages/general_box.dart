@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
@@ -7,20 +5,14 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/recitation_details.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 
-import 'package:flutter/services.dart';
-import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
-import 'package:rxdart/rxdart.dart';
 
 class GeneralMessagePage extends StatefulWidget {
   const GeneralMessagePage({Key? key}) : super(key: key);
@@ -33,11 +25,6 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
   int _selectedPlay = -1;
   final List<int> _liked = [];
 
-  final BehaviorSubject<WaveformProgress> streamWave =
-      BehaviorSubject<WaveformProgress>();
-
-  late Waveform waveform;
-
   late MessageTapCubit? cubit;
 
   @override
@@ -45,26 +32,6 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
     super.initState();
 
     cubit = MessageTapCubit.get(context);
-    Future.delayed(Duration.zero, _init);
-  }
-
-  Future<void> _init() async {
-    final waveFile2 =
-        File(p.join((await getTemporaryDirectory()).path, 'waveform.wave'));
-    try {
-      await waveFile2.writeAsBytes(
-          (await rootBundle.load('assets/audio/waveform.wave'))
-              .buffer
-              .asUint8List());
-
-      waveform = await JustWaveform.parse(waveFile2);
-
-      //    JustWaveform.parse(waveFile);
-
-      streamWave.add(WaveformProgress(1, waveform));
-    } catch (e) {
-      debugPrint('Eror audio' + e.toString());
-    }
   }
 
   @override
@@ -111,7 +78,8 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
         isRead: false,
         ayah: generalResponse.name ?? '',
         userInfo: _getUserInfo(generalResponse.owner),
-        ayahInfo: '',
+        ayahInfo: generalResponse.chapterName ?? '',
+        narrationName: generalResponse.narrationName,
         userImage: generalResponse.owner!.image ?? '',
         userName: generalResponse.owner!.firstName.toString() +
             ' ' +
@@ -122,12 +90,12 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             : null,
         color: AppColor.transparent,
         action: () {
-          print('prcess ');
-          Get.to(const MessageDetails());
+          // print('prcess ');
+          //   Get.to(const MessageDetails());
         },
         isCertic: generalResponse.owner!.isCertified ?? true,
       ),
-      progressStream: streamWave,
+      isLocal: false,
       //  waveform: waveform,
       isLike: _liked.contains(index),
       liked: () {
@@ -154,6 +122,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
 
   Widget getItem2(int index) {
     return GeneralMessageItem(
+      isLocal: false,
       boxMessageItem: SubMessageItem(
         isCertic: true,
         isRead: false,
@@ -170,7 +139,6 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
       ),
 
       viewBottom: true,
-      progressStream: streamWave,
       //  waveform: waveform,
       isLike: _liked.contains(index),
       liked: () {

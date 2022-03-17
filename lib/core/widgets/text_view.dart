@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/text_style.dart';
@@ -35,7 +36,7 @@ class TextView extends StatelessWidget {
       onTap: action,
       child: Padding(
         padding: padding,
-        child: Text(
+        child: AutoSizeText(
           text,
           style: AppStyle().textStyle1.copyWith(
               fontSize: sizeText,
@@ -90,7 +91,7 @@ class TextViewIcon extends StatelessWidget {
           children: [
             if (icon != null) icon!,
             if (icon != null) const SizedBox(width: 8),
-            Text(
+            AutoSizeText(
               text,
               style: AppStyle().textStyle1.copyWith(
                   fontSize: sizeText,
