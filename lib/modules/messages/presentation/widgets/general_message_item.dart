@@ -60,7 +60,8 @@ class GeneralMessageItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: WaveViewPlayAudio(
-                  progressStream: progressStream,
+                  recordPath: '',
+                  wavePath: '',
                   trggelPlay: trggelPlay,
                   isPlay: isPlay),
             ),

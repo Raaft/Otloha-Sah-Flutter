@@ -20,9 +20,9 @@ class AuthCubit extends Cubit<AuthState> {
         .userLogIn(
       email: email,
       password: password,
-    )
+    )!
         .then((value) {
-      userModel = UserModel.fromJson(value.data);
+      userModel = UserModel.fromJson(value!.data);
       CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
       print(
           'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
@@ -34,11 +34,10 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-
   Future<void> userRegister(
-      {email, username, password1, password2, birthdate, phone, gender}) async{
+      {email, username, password1, password2, birthdate, phone, gender}) async {
     emit(RegisterLoadingState());
-   await Auth()
+    await Auth()
         .userRegister(
             birthdate: birthdate,
             email: email,
@@ -48,18 +47,19 @@ class AuthCubit extends Cubit<AuthState> {
             phone: phone,
             username: username)
         .then((value) {
-     userModel = UserModel.fromJson(value.data);
+      userModel = UserModel.fromJson(value.data);
 
-     CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
-      token=userModel!.accessToken.toString();
+      CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
+      token = userModel!.accessToken.toString();
       print(
           'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
       emit(RegisterSuccessState());
     }).catchError((error) {
-      print('in cubit'+error.toString());
+      print('in cubit' + error.toString());
       emit(RegisterErrorState(error.toString()));
     });
   }
+
   Future<void> userLogOut() async {
     emit(LogOutLoadingState());
     await Auth().logOut().then((value) {
@@ -72,5 +72,4 @@ class AuthCubit extends Cubit<AuthState> {
       return error;
     });
   }
-
 }

@@ -37,6 +37,7 @@ class SubMessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(baseUrl + userImage);
     return GestureDetector(
       onTap: action,
       child: Container(
@@ -59,8 +60,13 @@ class SubMessageItem extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                     child: FadeInImage(
+                        fit: BoxFit.cover,
+                        width: 60,
+                        height: 60,
                         placeholder: AssetImage(AppImages.duserImage),
-                        image: NetworkImage(baseUrl + userImage)),
+                        image: NetworkImage(
+                          baseUrl + userImage,
+                        )),
                   ),
                 ),
                 Expanded(
