@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
@@ -14,12 +15,16 @@ class MessageDetailsHead extends StatelessWidget {
     required this.verText,
     required this.action,
     required this.typeView,
+    required this.wavePath,
+    required this.recordPath,
     this.isCertified = false,
   }) : super(key: key);
 
   bool typeView = true;
   final bool isCertified;
 
+  final String? recordPath;
+  final String? wavePath;
   final String userName;
   final String verText;
 
@@ -50,7 +55,7 @@ class MessageDetailsHead extends StatelessWidget {
                       padding: const EdgeInsets.all(2),
                       sizeText: 20,
                       colorText: AppColor.darkBlue,
-                      textAlign:TextAlign.start ,
+                      textAlign: TextAlign.start,
                     ),
                     TextView(
                       text: 'سوره البقره الجزء الاول',
@@ -84,7 +89,7 @@ class MessageDetailsHead extends StatelessWidget {
             // overflow: TextOverflow.ellipsis,
           ),
         ),
-        const MessageDetailsRecord(),
+        MessageDetailsRecord(recordPath: recordPath, wavePath: wavePath),
       ],
     );
 
@@ -116,10 +121,12 @@ class MessageDetailsHead extends StatelessWidget {
 class MessageDetailsReplay extends StatelessWidget {
   MessageDetailsReplay({
     Key? key,
+    this.isCertified = false,
     required this.userName,
     required this.verText,
+    this.recordPath,
+    this.wavePath,
     required this.action,
-    this.isCertified = false,
   }) : super(key: key);
 
   bool typeView = true;
@@ -128,6 +135,8 @@ class MessageDetailsReplay extends StatelessWidget {
   final String userName;
   final String verText;
 
+  final String? recordPath;
+  final String? wavePath;
   final Function()? action;
 
   @override
@@ -186,7 +195,6 @@ class MessageDetailsReplay extends StatelessWidget {
             // overflow: TextOverflow.ellipsis,
           ),
         ),
-
       ],
     );
 

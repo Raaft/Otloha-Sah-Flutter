@@ -148,7 +148,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
         });
       },
       viewBottom: true,
-      isPlay: index == _selectedPlay,
+      isPlay: index == _selectedPlay, recordPath: '', wavePath: '',
     );
   }
 
@@ -190,7 +190,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
           _selectedPlay = index;
         });
       },
-      isPlay: index == _selectedPlay,
+      isPlay: index == _selectedPlay, recordPath: '', wavePath: '',
     );
   }
 

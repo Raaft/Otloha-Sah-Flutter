@@ -13,10 +13,10 @@ class ApiBaseHelper {
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
       responseType: ResponseType.json,
-      connectTimeout: 1000,
-      receiveTimeout: 1000,
+      connectTimeout: 30000,
+      receiveTimeout: 30000,
       headers: {
-        // 'Accept': 'application/json',
+        'Accept': 'application/json',
       });
 
   static Dio createDio() {

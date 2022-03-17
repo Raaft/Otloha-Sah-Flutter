@@ -24,6 +24,8 @@ class GeneralMessageItem extends StatelessWidget {
     this.replay,
     this.margin = 12,
     required this.trggelPlay,
+    required this.recordPath,
+    required this.wavePath,
   }) : super(key: key);
 
   final SubMessageItem boxMessageItem;
@@ -43,6 +45,9 @@ class GeneralMessageItem extends StatelessWidget {
   final Function() trggelPlay;
   final Widget? replay;
 
+  final String? recordPath;
+  final String? wavePath;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -60,8 +65,8 @@ class GeneralMessageItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: WaveViewPlayAudio(
-                  recordPath: '',
-                  wavePath: '',
+                  recordPath: recordPath,
+                  wavePath: wavePath,
                   trggelPlay: trggelPlay,
                   isPlay: isPlay),
             ),
