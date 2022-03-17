@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -8,9 +7,12 @@ import 'package:flutter_base/core/network/network_info.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import 'RefreshTokenModel.dart';
+
 class ApiBaseHelper {
-  static const String url = 'http//:192.168.1.11:8000';
- // static const String url = 'http://46.101.113.121';
+  static const String url = baseUrl;
+
+  // static const String url = 'http://46.101.113.121';
 
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
@@ -18,10 +20,11 @@ class ApiBaseHelper {
       connectTimeout: 30000,
       receiveTimeout: 30000,
       headers: {
-         'content-type': 'application/json',
+        'content-type': 'application/json',
         'Accept': 'application/json',
       });
-///
+
+  ///
   static Dio createDio() {
     return Dio(opts);
   }
@@ -131,17 +134,18 @@ class ApiBaseHelper {
     }
   }
 }
+
 class ApiBaseHelperForAuth {
-  static const String url = 'http://192.168.1.11:8000';
+  static const String url = baseUrl;
 
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
       responseType: ResponseType.json,
       connectTimeout: 30000,
       receiveTimeout: 30000,
-      headers: {
-      });
-///
+      headers: {});
+
+  ///
   static Dio createDio() {
     return Dio(opts);
   }
@@ -150,11 +154,23 @@ class ApiBaseHelperForAuth {
     return dio
       ..interceptors.add(
         InterceptorsWrapper(
-            onRequest: (RequestOptions options, handler) =>
-                requestInterceptor(options, handler),
-            onError: (DioError e, handler) async {
+          onRequest: (RequestOptions options, handler) =>
+              requestInterceptor(options, handler),
+          onError: (DioError e, handler) async {
+            if (token == null) {
               return handler.next(e);
-            }),
+            } else {
+              if (e.response!.statusCode == 401) {
+                var response =
+                    await baseAPI.post('/api/v1/token/refresh/', data: {});
+                RefreshTokenModel? t =
+                    RefreshTokenModel.fromJson(response.data);
+                token = t.access!;
+              }
+              return handler.next(e);
+            }
+          },
+        ),
       );
   }
 
@@ -173,7 +189,6 @@ class ApiBaseHelperForAuth {
     // Get your JWT token
     /// await localDataSource.getToken();
 
-
     return handler.next(options);
   }
 
@@ -185,10 +200,13 @@ class ApiBaseHelperForAuth {
     Response? response;
     try {
       response = await baseAPI.get(url);
-      //response.statusCode;
       return response;
     } on DioError catch (e) {
-      ExceptionHandling.handleDioExceprion(e);
+      try {
+        ExceptionHandling.handleDioExceprion(e);
+      } on RefreshTokenError catch (e) {
+        getHTTP(url);
+      }
     }
     return response;
   }
