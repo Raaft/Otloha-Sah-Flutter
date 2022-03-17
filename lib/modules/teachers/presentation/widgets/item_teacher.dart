@@ -14,10 +14,15 @@ class ItemTeacher extends StatelessWidget {
     required this.action,
     required this.typeView,
     this.isCertified = false,
+    this.setFav,
+    this.isFav,
+    this.isStudent = false,
   }) : super(key: key);
 
   final bool typeView;
   final bool isCertified;
+  final bool? isFav;
+  final bool isStudent;
 
   final String userName;
   final String rate;
@@ -25,6 +30,7 @@ class ItemTeacher extends StatelessWidget {
   final String userbio;
 
   final Function()? action;
+  final Function()? setFav;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,7 @@ class ItemTeacher extends StatelessWidget {
                       TextView(
                         text: userName,
                         weightText: FontWeight.bold,
-                        padding: const EdgeInsets.all(2),
+                        padding: EdgeInsets.zero,
                         sizeText: 18,
                         colorText: AppColor.txtColor4,
                       ),
@@ -57,7 +63,7 @@ class ItemTeacher extends StatelessWidget {
                           TextView(
                             text: rate,
                             weightText: FontWeight.bold,
-                            padding: const EdgeInsets.all(2),
+                            padding: EdgeInsets.zero,
                             sizeText: 18,
                             colorText: AppColor.txtColor4,
                           ),
@@ -74,7 +80,7 @@ class ItemTeacher extends StatelessWidget {
                     children: [
                       TextView(
                         text: userId,
-                        padding: const EdgeInsets.all(2),
+                        padding: EdgeInsets.zero,
                         sizeText: 16,
                         colorText: AppColor.txtColor4,
                         // textAlign: TextAlign.start,
@@ -83,7 +89,7 @@ class ItemTeacher extends StatelessWidget {
                   ),
                   TextView(
                     text: userbio,
-                    padding: const EdgeInsets.all(2),
+                    padding: EdgeInsets.zero,
                     sizeText: 14,
                     colorText: AppColor.txtColor4,
                     textAlign: TextAlign.start,
@@ -103,7 +109,7 @@ class ItemTeacher extends StatelessWidget {
           TextView(
             text: userName,
             weightText: FontWeight.bold,
-            padding: const EdgeInsets.all(2),
+            padding: EdgeInsets.zero,
             sizeText: 18,
             colorText: AppColor.txtColor4,
           ),
@@ -111,7 +117,7 @@ class ItemTeacher extends StatelessWidget {
             children: [
               TextView(
                 text: userId,
-                padding: const EdgeInsets.all(2),
+                padding: EdgeInsets.zero,
                 sizeText: 14,
                 colorText: AppColor.txtColor4,
                 textAlign: TextAlign.start,
@@ -119,7 +125,7 @@ class ItemTeacher extends StatelessWidget {
               TextView(
                 text: rate,
                 weightText: FontWeight.bold,
-                padding: const EdgeInsets.all(2),
+                padding: EdgeInsets.zero,
                 sizeText: 14,
                 colorText: AppColor.txtColor4,
                 textAlign: TextAlign.start,
@@ -128,12 +134,13 @@ class ItemTeacher extends StatelessWidget {
             ],
           ),
           // const SizedBox(height: 4),
-          TextView(
-            text: userbio,
-            padding: const EdgeInsets.all(0),
-            sizeText: 12,
-            colorText: AppColor.txtColor4,
-            weightText: FontWeight.w600,
+          Text(
+            userbio,
+            style: TextStyle(
+              fontSize: 12,
+              color: AppColor.txtColor4,
+            ),
+            maxLines: 3,
             textAlign: TextAlign.start,
             //overflow: TextOverflow.ellipsis,
           ),
@@ -172,18 +179,21 @@ class ItemTeacher extends StatelessWidget {
         color: AppColor.iconColor3,
         size: size,
       ),
-      Icon(
-        Icons.favorite_border,
-        color: AppColor.iconColor,
-        size: size,
-      ),
-      if (isCertified)
+      if (isCertified && !isStudent)
         Image.asset(
           AppIcons.qualityIcon,
           color: AppColor.iconColor5,
           width: size,
           height: size,
         ),
+      GestureDetector(
+        onTap: setFav,
+        child: Icon(
+          (isFav ?? false) ? Icons.favorite : Icons.favorite_border,
+          color: (isFav ?? false) ? AppColor.iconColor2 : AppColor.iconColor,
+          size: size,
+        ),
+      ),
     ];
   }
 }

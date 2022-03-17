@@ -8,16 +8,10 @@ import 'package:flutter_base/modules/messages/presentation/widgets/general_messa
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
-import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
-import 'package:rxdart/rxdart.dart';
 
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 
 import 'package:flutter_base/core/widgets/text_view.dart';
 
@@ -29,37 +23,6 @@ class MessageDetails extends StatefulWidget {
 }
 
 class _MessageDetailsState extends State<MessageDetails> {
-  final BehaviorSubject<WaveformProgress> streamWave =
-      BehaviorSubject<WaveformProgress>();
-
-  late Waveform waveform;
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(Duration.zero, _init);
-  }
-
-  Future<void> _init() async {
-    final waveFile2 =
-        File(p.join((await getTemporaryDirectory()).path, 'waveform.wave'));
-    try {
-      await waveFile2.writeAsBytes(
-          (await rootBundle.load('assets/audio/waveform.wave'))
-              .buffer
-              .asUint8List());
-
-      waveform = await JustWaveform.parse(waveFile2);
-
-      //    JustWaveform.parse(waveFile);
-
-      streamWave.add(WaveformProgress(1, waveform));
-    } catch (e) {
-      debugPrint('Eror audio' + e.toString());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,6 +134,7 @@ class _MessageDetailsState extends State<MessageDetails> {
 
   messageDetailsNew(BuildContext context) {
     return GeneralMessageItem(
+      isLocal: false,
       boxMessageItem: SubMessageItem(
         isRead: false,
         ayah:
@@ -181,7 +145,6 @@ class _MessageDetailsState extends State<MessageDetails> {
         dateStr: '9:30 15 Nev',
         color: AppColor.transparent,
       ),
-      progressStream: streamWave,
       isLike: true,
       likeCount: 20,
       trggelPlay: () {},

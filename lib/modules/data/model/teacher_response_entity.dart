@@ -79,6 +79,37 @@ class TeacherResponse {
   }
 }
 
+/*
+"id": 21,
+            "username": "Lonnie.Hernandez.632",
+            "first_name": "Lonnie",
+            "last_name": "Hernandez",
+            "bio": null,
+            "phone": "3215616_20",
+            "level": "Beginner",
+            "is_a_teacher": false,
+            "narration_id": null,
+            "image": "/media/users/2022/17/03/-example_4lF8Ek1.jpg",
+            "gender": "female" 
+            
+             {
+            "id": 1,
+            "username": "Paige.Richard.579",
+            "first_name": "Paige",
+            "last_name": "Richard",
+            "bio": null,
+            "phone": "3215616_0",
+            "level": "Beginner",
+            "is_a_teacher": true,
+            "narration_id": null,
+            "image": "/media/users/2022/17/03/-example_LJc7l2j.jpg",
+            "gender": "female",
+            "is_favorite": false,
+            "teacher_type": "Volunteer",
+            "is_certified": true,
+            "can_reply_on_every_verse_in_recitation": true,
+            "rate": 4.0
+        },*/
 class Results {
   int? id;
   String? firstName;
@@ -94,10 +125,11 @@ class Results {
   String? gender;
   String? image;
   String? teacherType;
-  bool? isCertfited;
+  bool? isCertified;
   bool? canReplyOnEveryVerseInRecitation;
   bool? isFavorite;
   double? rate;
+
   Results({
     this.id,
     this.firstName,
@@ -112,7 +144,7 @@ class Results {
     this.gender,
     this.image,
     this.teacherType,
-    this.isCertfited,
+    this.isCertified,
     this.canReplyOnEveryVerseInRecitation,
     this.isFavorite,
     this.rate,
@@ -132,7 +164,7 @@ class Results {
     String? gender,
     String? image,
     String? teacherType,
-    bool? isCertfited,
+    bool? isCertified,
     bool? canReplyOnEveryVerseInRecitation,
     bool? isFavorite,
     double? rate,
@@ -151,7 +183,7 @@ class Results {
       gender: gender ?? this.gender,
       image: image ?? this.image,
       teacherType: teacherType ?? this.teacherType,
-      isCertfited: isCertfited ?? this.isCertfited,
+      isCertified: isCertified ?? this.isCertified,
       canReplyOnEveryVerseInRecitation: canReplyOnEveryVerseInRecitation ??
           this.canReplyOnEveryVerseInRecitation,
       isFavorite: isFavorite ?? this.isFavorite,
@@ -169,14 +201,15 @@ class Results {
       'phone': phone,
       'bio': bio,
       'level': level,
-      'isTeacher': isTeacher,
+      'is_a_teacher': isTeacher,
       'narrationId': narrationId,
       'gender': gender,
       'image': image,
-      'teacherType': teacherType,
-      'isCertfited': isCertfited,
-      'canReplyOnEveryVerseInRecitation': canReplyOnEveryVerseInRecitation,
-      'isFavorite': isFavorite,
+      'teacher_type': teacherType,
+      'is_certified': isCertified,
+      'can_reply_on_every_verse_in_recitation':
+          canReplyOnEveryVerseInRecitation,
+      'is_favorite': isFavorite,
       'rate': rate,
     };
   }
@@ -191,14 +224,15 @@ class Results {
       phone: map['phone'],
       bio: map['bio'],
       level: map['level'],
-      isTeacher: map['isTeacher'],
+      isTeacher: map['is_a_teacher'],
       narrationId: map['narrationId']?.toInt(),
       gender: map['gender'],
       image: map['image'],
-      teacherType: map['teacherType'],
-      isCertfited: map['isCertfited'],
-      canReplyOnEveryVerseInRecitation: map['canReplyOnEveryVerseInRecitation'],
-      isFavorite: map['isFavorite'],
+      teacherType: map['teacher_type'],
+      isCertified: map['can_reply_on_every_verse_in_recitation'],
+      canReplyOnEveryVerseInRecitation:
+          map['can_reply_on_every_verse_in_recitation'],
+      isFavorite: map['is_favorite'],
       rate: map['rate']?.toDouble(),
     );
   }
@@ -210,7 +244,7 @@ class Results {
 
   @override
   String toString() {
-    return 'Results(id: $id, firstName: $firstName, lastName: $lastName, email: $email, username: $username, phone: $phone, bio: $bio, level: $level, isTeacher: $isTeacher, narrationId: $narrationId, gender: $gender, image: $image, teacherType: $teacherType, isCertfited: $isCertfited, canReplyOnEveryVerseInRecitation: $canReplyOnEveryVerseInRecitation, isFavorite: $isFavorite, rate: $rate)';
+    return 'Results(id: $id, firstName: $firstName, lastName: $lastName, email: $email, username: $username, phone: $phone, bio: $bio, level: $level, isTeacher: $isTeacher, narrationId: $narrationId, gender: $gender, image: $image, teacherType: $teacherType, isCertfited: $isCertified, canReplyOnEveryVerseInRecitation: $canReplyOnEveryVerseInRecitation, isFavorite: $isFavorite, rate: $rate)';
   }
 
   @override
@@ -231,7 +265,7 @@ class Results {
         other.gender == gender &&
         other.image == image &&
         other.teacherType == teacherType &&
-        other.isCertfited == isCertfited &&
+        other.isCertified == isCertified &&
         other.canReplyOnEveryVerseInRecitation ==
             canReplyOnEveryVerseInRecitation &&
         other.isFavorite == isFavorite &&
@@ -253,7 +287,7 @@ class Results {
         gender.hashCode ^
         image.hashCode ^
         teacherType.hashCode ^
-        isCertfited.hashCode ^
+        isCertified.hashCode ^
         canReplyOnEveryVerseInRecitation.hashCode ^
         isFavorite.hashCode ^
         rate.hashCode;

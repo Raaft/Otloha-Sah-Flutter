@@ -29,13 +29,14 @@ class GeneralResponse {
   }
   String? record;
   String? wave;
-  String? narrationId;
+  int? narrationId;
   String? narrationName;
   String? verseIds;
   Owner? owner;
   List<String>? comments;
   List<String>? likes;
   int? chapterId;
+  String? chapterName;
   String? finishedAt;
   String? name;
   List<String>? remarkable;

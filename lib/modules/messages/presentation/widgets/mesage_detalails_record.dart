@@ -6,10 +6,12 @@ class MessageDetailsRecord extends StatelessWidget {
     Key? key,
     required this.recordPath,
     required this.wavePath,
+    this.isLocal = false,
   }) : super(key: key);
 
   final String? recordPath;
   final String? wavePath;
+  final bool isLocal;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class MessageDetailsRecord extends StatelessWidget {
           recordPath: recordPath,
           wavePath: wavePath,
           trggelPlay: () {},
+          isLocal: isLocal,
         ));
   }
 }

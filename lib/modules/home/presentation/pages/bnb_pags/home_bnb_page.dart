@@ -223,7 +223,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         const SizedBox(width: 8),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed(SettingsPage.routeName);
+           Navigator.of(context).pushNamed(SettingsPage.routeName);
           },
           child: Icon(
             Icons.settings_outlined,
