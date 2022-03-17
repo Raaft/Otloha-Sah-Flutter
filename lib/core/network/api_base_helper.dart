@@ -19,6 +19,7 @@ class ApiBaseHelper {
       receiveTimeout: 30000,
       headers: {
          'content-type': 'application/json',
+        'Accept': 'application/json',
       });
 ///
   static Dio createDio() {

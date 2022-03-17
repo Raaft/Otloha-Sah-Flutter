@@ -84,6 +84,8 @@ class _RecitationDetailsState extends State<RecitationDetails> {
       likeCount: 20,
       trggelPlay: () {},
       margin: 0,
+      recordPath: '',
+      wavePath: '',
     );
   }
 

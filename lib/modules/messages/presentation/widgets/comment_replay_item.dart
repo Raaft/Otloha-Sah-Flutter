@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:get/get.dart';
-import 'package:rxdart/rxdart.dart';
 
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
 
 class CommentReplayItem extends StatelessWidget {
@@ -26,9 +24,10 @@ class CommentReplayItem extends StatelessWidget {
     this.narrationName,
     this.isReplay = false,
     required this.isRead,
-    required this.progressStream,
     required this.isPlay,
     required this.trggelPlay,
+    required this.recordPath,
+    required this.wavePath,
   }) : super(key: key);
 
   final String userName;
@@ -40,12 +39,13 @@ class CommentReplayItem extends StatelessWidget {
   final Color color;
   final Function()? action;
 
+  final String? recordPath;
+  final String? wavePath;
+
   final String? userInfo;
   final String? errorType;
   final String? narrationName;
   final bool isRead;
-
-  final BehaviorSubject<WaveformProgress> progressStream;
 
   final bool isPlay;
   final bool isReplay;
@@ -185,8 +185,8 @@ class CommentReplayItem extends StatelessWidget {
                         ),
                       ),
                       WaveViewPlayAudio(
-                          recordPath: '',
-                          wavePath: '',
+                          recordPath: recordPath,
+                          wavePath: wavePath,
                           trggelPlay: trggelPlay,
                           isPlay: isPlay),
                       TextView(

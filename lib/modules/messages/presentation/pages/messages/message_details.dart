@@ -123,6 +123,8 @@ class _MessageDetailsState extends State<MessageDetails> {
         action: () {},
         typeView: true,
         isCertified: true,
+        recordPath: '',
+        wavePath: '',
       ),
     ]);
   }
@@ -136,7 +138,10 @@ class _MessageDetailsState extends State<MessageDetails> {
         action: () {},
         isCertified: true,
       ),
-      const MessageDetailsRecord(),
+      const MessageDetailsRecord(
+        recordPath: '',
+        wavePath: '',
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -197,12 +202,15 @@ class _MessageDetailsState extends State<MessageDetails> {
           // overflow: TextOverflow.ellipsis,
         ),
       ),
+      recordPath: '',
+      wavePath: '',
     );
   }
 
   _viewItem(int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
+      //TODO add wave files
       child: CommentReplayItem(
         isRead: false,
         ayah: 'الصِّرَاطَ ',
@@ -212,9 +220,10 @@ class _MessageDetailsState extends State<MessageDetails> {
         dateStr: '9:30 15 Nev',
         color: AppColor.selectColor1,
         isPlay: false,
-        progressStream: streamWave,
         trggelPlay: () {},
         isReplay: index % 3 == 1,
+        recordPath: '',
+        wavePath: '',
         errorStr:
             'هذا الملف يحتوي على معلومات إضافية، غالبا ما تكون أضيفت من قبل الكاميرا الرقمية أو الماسح الضوئي المستخدم في إنشاء الملف.إذا كان الملف قد عدل عن حالته الأصلية، فبعض التفاصيل قد لا تعبر عن الملف المعدل.',
       ),
