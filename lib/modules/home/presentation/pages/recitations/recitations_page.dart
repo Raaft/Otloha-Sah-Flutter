@@ -135,6 +135,8 @@ class _RecitationsPageState extends State<RecitationsPage> {
       },
       isPlay: index == _selectedPlay,
       viewBottom: userRecitation.uploaded ?? false,
+      recordPath: '',
+      wavePath: '',
     );
   }
 }

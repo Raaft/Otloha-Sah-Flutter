@@ -16,8 +16,8 @@ class WaveViewPlayAudio extends StatefulWidget {
     Key? key,
     required this.trggelPlay,
     required this.isPlay,
-    this.recordPath,
-    this.wavePath,
+    required this.recordPath,
+    required this.wavePath,
   }) : super(key: key);
 
   final Function() trggelPlay;

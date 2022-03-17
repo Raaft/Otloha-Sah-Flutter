@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
-import 'package:flutter_base/core/network/dio_utils.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
 import 'package:flutter_base/modules/data/data_source/remote/repositories/user_recitation_repository.dart';
