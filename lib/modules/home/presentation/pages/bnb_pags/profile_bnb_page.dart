@@ -3,7 +3,6 @@ import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 
-import '../../widget/numbers_widget.dart';
 import '../../widget/profile_widget.dart';
 
 class ProfileBNBPage extends StatelessWidget {

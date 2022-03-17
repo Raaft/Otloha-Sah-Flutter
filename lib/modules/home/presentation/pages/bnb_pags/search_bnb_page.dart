@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
@@ -36,42 +34,6 @@ class _SearchBNBPageState extends State<SearchBNBPage> {
     );*/
   }
 
-  Widget _searchBox() {
-    return Form(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextFormFieldApp(
-                title: 'title',
-                validator: (val) {
-                  return null;
-                },
-                onSaved: (val) {},
-                color: AppColor.txtColor3,
-              ),
-            ),
-            if (_selected == 0)
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: GestureDetector(
-                  onTap: () {
-                    _showFilter();
-                  },
-                  child: Image.asset(
-                    AppIcons.filterIcon,
-                    height: 30,
-                    width: 30,
-                    color: AppColor.lightBlue,
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
 
   Expanded _viewItems() {
     return Expanded(

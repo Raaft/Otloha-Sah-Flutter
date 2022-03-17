@@ -153,7 +153,7 @@ class LoginPage extends StatelessWidget {
                     text: tr('RegisterNow'),
                     sizeText: 15,
                     action: () {
-                      Get.to(SignUpPage());
+                      Get.to(const SignUpPage());
                     },
                     weightText: FontWeight.w500,
                     textAlign: TextAlign.end,
