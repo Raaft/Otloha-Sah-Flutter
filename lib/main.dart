@@ -3,6 +3,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
+import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
@@ -33,7 +36,7 @@ void main() async {
 
   await otloha_shaerd.CacheHelper.init();
   await CacheHelper.init();
-  token = await CacheHelper.getData(key: 'token')??'';
+  token = await CacheHelper.getData(key: 'token') ?? '';
 
 /*
   for (var item in List.generate(10, (index) => index)) {
@@ -116,16 +119,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      //showSemanticsDebugger: true,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SettingsCubit(),
+        ),
+      ],
+      child: GetMaterialApp(
+        //showSemanticsDebugger: true,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute:
+            (token.isNotEmpty) ? HomePage.routeName : OnBoardPage.routeName,
+        onGenerateRoute: appRouter.generateRoute,
       ),
-      onGenerateRoute: appRouter.generateRoute,
     );
   }
 }

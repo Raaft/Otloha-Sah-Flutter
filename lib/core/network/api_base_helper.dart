@@ -1,12 +1,14 @@
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/network/network_info.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ApiBaseHelper {
-  static const String url = 'http://46.101.113.121';
+  static const String url = baseUrl;
 
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
@@ -48,9 +50,9 @@ class ApiBaseHelper {
     // Get your JWT token
     /// await localDataSource.getToken();
 
-    /*if (token.isNotEmpty) {
+    if (token.isNotEmpty) {
       options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + token;
-    }*/
+    }
     return handler.next(options);
   }
 
@@ -77,8 +79,7 @@ class ApiBaseHelper {
     bool? isAuth,
   }) async {
     if (isAuth ?? false) {
-      ApiBaseHelper.baseAPI.options.headers[HttpHeaders.authorizationHeader] =
-          '';
+      baseAPI.options.headers[HttpHeaders.authorizationHeader] = '';
     }
     print(url);
     try {

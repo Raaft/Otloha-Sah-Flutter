@@ -6,7 +6,7 @@ import 'package:flutter_base/modules/auth_module/data/repositories/login_repo.da
 
 class Auth extends AuthRepository {
   @override
-  Future<Response> userLogIn({
+  Future<Response?>? userLogIn({
     email,
     password,
   }) {
