@@ -35,7 +35,7 @@ class UpdateProfile extends UpdateProfileRepos {
   @override
   Future<Response> updatePhone({required phone, required password}) async {
     try {
-      return await ApiBaseHelper().putHTTP('//api/v1/profile/update/phone/', {
+      return await ApiBaseHelper().putHTTP('/api/v1/profile/update/phone/', {
         'phone': phone,
         'password': password,
       });
@@ -49,4 +49,14 @@ class UpdateProfile extends UpdateProfileRepos {
     // TODO: implement updateProfile
     throw UnimplementedError();
   }
+
+  @override
+  Future<Response> registerAsATeacher() async{
+    try {
+      return await ApiBaseHelper().postHTTP('/api/v1/users/register-as-a-teacher/', {});
+    } catch (e) {
+      throw UnimplementedError();
+    }
+  }
+
 }

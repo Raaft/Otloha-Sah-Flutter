@@ -39,6 +39,7 @@ class UpdateEmail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+
                       TextFormFieldApp(
                           color: AppColor.lightBlue,
                           controller: emailController,

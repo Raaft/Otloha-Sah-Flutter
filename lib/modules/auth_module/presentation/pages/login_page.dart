@@ -12,14 +12,12 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button
 import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../core/data/chash_helper.dart';
 import '../../../../core/utils/constant/constants.dart';
-import '../../../../core/widgets/valdate_error.dart';
 import '../../../home/presentation/pages/home/home_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -123,6 +121,7 @@ class LoginPage extends StatelessWidget {
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               debugPrint('validate');
+
                               cubit
                                   .userLogIn(
                                       email: emailController.text,
