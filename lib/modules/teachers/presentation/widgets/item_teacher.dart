@@ -50,12 +50,25 @@ class ItemTeacher extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextView(
-                        text: userName,
-                        weightText: FontWeight.bold,
-                        padding: EdgeInsets.zero,
-                        sizeText: 18,
-                        colorText: AppColor.txtColor4,
+                      Row(
+                        children: [
+                          TextView(
+                            text: userName,
+                            weightText: FontWeight.bold,
+                            padding: EdgeInsets.zero,
+                            sizeText: 18,
+                            colorText: AppColor.txtColor4,
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Image.asset(
+                            AppIcons.qualityIcon,
+                            color: AppColor.iconColor5,
+                            width: 16,
+                            height: 16,
+                          ),
+                        ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,12 +119,28 @@ class ItemTeacher extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _userImage(),
-          TextView(
-            text: userName,
-            weightText: FontWeight.bold,
-            padding: EdgeInsets.zero,
-            sizeText: 18,
-            colorText: AppColor.txtColor4,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextView(
+                text: userName,
+                weightText: FontWeight.bold,
+                padding: EdgeInsets.zero,
+                sizeText: 18,
+                colorText: AppColor.txtColor4,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              if (isCertified && !isStudent)
+                Image.asset(
+                  AppIcons.qualityIcon,
+                  color: AppColor.iconColor5,
+                  width: 16,
+                  height: 16,
+                ),
+            ],
           ),
           Row(
             children: [
@@ -179,13 +208,6 @@ class ItemTeacher extends StatelessWidget {
         color: AppColor.iconColor3,
         size: size,
       ),
-      if (isCertified && !isStudent)
-        Image.asset(
-          AppIcons.qualityIcon,
-          color: AppColor.iconColor5,
-          width: size,
-          height: size,
-        ),
       GestureDetector(
         onTap: setFav,
         child: Icon(

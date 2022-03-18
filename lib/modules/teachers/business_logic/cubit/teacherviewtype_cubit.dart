@@ -2,7 +2,6 @@ import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_api.dart';
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran_widget_flutter/data_source/data_source.dart';
 
 part 'teacherviewtype_state.dart';
 
@@ -20,19 +19,20 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
     UserApi().getTeacher()!.then((value) async {
       if (value != null && value.results != null && value.results!.isNotEmpty) {
         teachers = value;
-        for (var element in teachers!.results!) {
+        /*   for (var element in teachers!.results!) {
           element.narrationName = (await DataSource.instance
                       .fetchNarrationById(element.narrationId ?? 1))!
                   .name ??
               '';
-        }
-        emit(TeacherErrorState());
+        }*/
+        emit(TeacherFetchedState());
       } else {
+        print('Error e');
         emit(TeacherErrorState());
       }
     }).catchError((e) {
       print('Error $e');
-      print('Error G ' + e.toString());
+      //  print('Error G ' + e.toString());
       if (e is AuthError) {
         emit(NoAuthState());
         return;
@@ -46,13 +46,13 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
     UserApi().getStudents()!.then((value) async {
       if (value != null && value.results != null && value.results!.isNotEmpty) {
         teachers = value;
-        for (var element in teachers!.results!) {
+        /* for (var element in teachers!.results!) {
           element.narrationName = (await DataSource.instance
                       .fetchNarrationById(element.narrationId ?? 1))!
                   .name ??
               '';
-        }
-        emit(TeacherErrorState());
+        }*/
+        emit(TeacherFetchedState());
       } else {
         emit(TeacherErrorState());
       }

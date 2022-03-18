@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -9,8 +8,8 @@ import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ApiBaseHelper {
-  static const String url = 'http//:192.168.1.11:8000';
- // static const String url = 'http://46.101.113.121';
+  static const String url = baseUrl;
+  // static const String url = 'http://46.101.113.121';
 
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
@@ -18,8 +17,7 @@ class ApiBaseHelper {
       connectTimeout: 30000,
       receiveTimeout: 30000,
       headers: {
- 
-         'content-type': 'application/json',
+        'content-type': 'application/json',
         'Accept': 'application/json',
       });
 
@@ -132,17 +130,18 @@ class ApiBaseHelper {
     }
   }
 }
+
 class ApiBaseHelperForAuth {
-  static const String url = 'http://192.168.1.11:8000';
+  static const String url = baseUrl;
 
   static BaseOptions opts = BaseOptions(
       baseUrl: url,
       responseType: ResponseType.json,
       connectTimeout: 30000,
       receiveTimeout: 30000,
-      headers: {
-      });
-///
+      headers: {});
+
+  ///
   static Dio createDio() {
     return Dio(opts);
   }
@@ -173,7 +172,6 @@ class ApiBaseHelperForAuth {
 
     // Get your JWT token
     /// await localDataSource.getToken();
-
 
     return handler.next(options);
   }

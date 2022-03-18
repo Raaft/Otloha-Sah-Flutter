@@ -6,7 +6,6 @@ import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/core/widgets/valdate_error.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/login_with.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
@@ -16,7 +15,6 @@ import 'package:get/get.dart';
 import '../../../../core/data/chash_helper.dart';
 import '../../../../core/utils/constant/constants.dart';
 import '../../../home/presentation/pages/home/home_page.dart';
-import '../../data/models/SignUpErrorModel.dart';
 
 class SignUpPage extends StatelessWidget {
   static const routeName = '/signUpPage';
@@ -129,9 +127,8 @@ class _SignFormState extends State<SignForm> {
                       onSaved: (value) {}),
                 ),
                 FieldValidation(
-                  error: (state is RegisterErrorState)
-                      ? state.error['email']
-                      : [],
+                  error:
+                      (state is RegisterErrorState) ? state.error['email'] : [],
                   textField: TextFormFieldApp(
                       color: AppColor.lightBlue,
                       controller: emailController,
@@ -146,10 +143,9 @@ class _SignFormState extends State<SignForm> {
                       onSaved: (value) {}),
                 ),
                 FieldValidation(
-                  error: (state is RegisterErrorState)
-                      ? state.error['phone']
-                      : [],
-                  textField:                 TextFormFieldApp(
+                  error:
+                      (state is RegisterErrorState) ? state.error['phone'] : [],
+                  textField: TextFormFieldApp(
                       color: AppColor.lightBlue,
                       controller: phoneController,
                       keyType: TextInputType.phone,
@@ -161,10 +157,7 @@ class _SignFormState extends State<SignForm> {
                         return null;
                       },
                       onSaved: (value) {}),
-
                 ),
-
-
                 Row(
                   children: <Widget>[
                     addRadioButton(0, 'Male'),

@@ -14,6 +14,7 @@ class UserApi extends UserRepository {
     if (response != null &&
         (response.statusCode == 201 || response.statusCode == 200)) {
       if (response.data != null) {
+        print(response.data);
         teachers = TeacherResponse.fromJson(response.data);
       }
     } else {
@@ -33,6 +34,7 @@ class UserApi extends UserRepository {
     if (response != null &&
         (response.statusCode == 201 || response.statusCode == 200)) {
       if (response.data != null) {
+        print(response.data);
         teachers = TeacherResponse.fromJson(response.data);
       }
     } else {
