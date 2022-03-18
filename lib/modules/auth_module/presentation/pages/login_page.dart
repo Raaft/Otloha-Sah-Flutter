@@ -98,8 +98,10 @@ class LoginPage extends StatelessWidget {
                 },
                 onSaved: (val) {},
               ),
-              (state is LogInErrorState) ? ValidationErrorText(error: state.error['non_field_errors'][0].toString())
-              : const SizedBox(),
+              (state is LogInErrorState)
+                  ? ValidationErrorText(
+                      error: state.error['non_field_errors'][0].toString())
+                  : const SizedBox(),
               TextView(
                 text: tr('ForgotPassword') + ' ?',
                 sizeText: 13,

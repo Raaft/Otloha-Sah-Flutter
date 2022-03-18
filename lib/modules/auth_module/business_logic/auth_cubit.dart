@@ -29,8 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
           'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
       emit(LogInSuccessState());
     }).catchError((error) {
-
-    //  print('emit error=========');
+      //  print('emit error=========');
 
       emit(LogInErrorState(error.errors));
     });
@@ -59,7 +58,7 @@ class AuthCubit extends Cubit<AuthState> {
     }).catchError((error) {
       // print('in cubit' + .toString());
       // print();
-     // print('emit error=========');
+      // print('emit error=========');
       emit(RegisterErrorState(error.errors));
     });
   }

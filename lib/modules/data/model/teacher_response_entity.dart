@@ -37,21 +37,23 @@ class TeacherResponse {
     };
   }
 
-  factory TeacherResponse.fromMap(Map<String, dynamic> map) {
+  factory TeacherResponse.fromJson(dynamic json) {
+    List<Results> results = [];
+
+    if (json['results'] != null) {
+      json['results'].forEach((v) {
+        results.add(Results.fromJson(v));
+      });
+    }
+
     return TeacherResponse(
-      count: map['count']?.toInt(),
-      next: map['next'],
-      previous: map['previous'],
-      results: map['results'] != null
-          ? List<Results>.from(map['results']?.map((x) => Results.fromMap(x)))
-          : null,
-    );
+        count: json['count'],
+        next: json['next'],
+        previous: json['previous'],
+        results: results);
   }
 
   String toJson() => json.encode(toMap());
-
-  factory TeacherResponse.fromJson(String source) =>
-      TeacherResponse.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -194,7 +196,7 @@ class Results {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'firstName': firstName,
+      'first_name': firstName,
       'lastName': lastName,
       'email': email,
       'username': username,
@@ -214,11 +216,33 @@ class Results {
     };
   }
 
-  factory Results.fromMap(Map<String, dynamic> map) {
+  /*
+  
+  Results.fromJson(dynamic json) {
+    id = json['id'];
+    username = json['username'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    bio = json['bio'];
+    phone = json['phone'];
+    level = json['level'];
+    isATeacher = json['is_a_teacher'];
+    narrationId = json['narration_id'];
+    image = json['image'];
+    gender = json['gender'];
+    isFavorite = json['is_favorite'];
+    teacherType = json['teacher_type'];
+    isCertified = json['is_certified'];
+    canReplyOnEveryVerseInRecitation = json['can_reply_on_every_verse_in_recitation'];
+    rate = json['rate'];
+  }
+   */
+
+  factory Results.fromJson(Map<String, dynamic> map) {
     return Results(
       id: map['id']?.toInt(),
-      firstName: map['firstName'],
-      lastName: map['lastName'],
+      firstName: map['first_name'],
+      lastName: map['last_name'],
       email: map['email'],
       username: map['username'],
       phone: map['phone'],
@@ -229,7 +253,7 @@ class Results {
       gender: map['gender'],
       image: map['image'],
       teacherType: map['teacher_type'],
-      isCertified: map['can_reply_on_every_verse_in_recitation'],
+      isCertified: map['is_certified'],
       canReplyOnEveryVerseInRecitation:
           map['can_reply_on_every_verse_in_recitation'],
       isFavorite: map['is_favorite'],
@@ -239,8 +263,7 @@ class Results {
 
   String toJson() => json.encode(toMap());
 
-  factory Results.fromJson(String source) =>
-      Results.fromMap(json.decode(source));
+  // factory Results.fromJson(source) => Results.fromMap(json.decode(source));
 
   @override
   String toString() {

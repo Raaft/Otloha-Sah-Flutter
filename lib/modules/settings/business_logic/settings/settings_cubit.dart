@@ -10,7 +10,6 @@ class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit() : super(SettingsInitial());
   static SettingsCubit get(context) => BlocProvider.of(context);
 
-
   changeSetting(List<Settings> settings) {
     emit(SettingsChange(settings: settings));
   }
@@ -19,11 +18,9 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(SettingsChangeDown(settings: settings));
   }
 
-  updatePhone({required phone, required password})  {
+  updatePhone({required phone, required password}) {
     emit(UpdatePhoneLoadingState());
-    UpdateProfile()
-        .updatePhone(phone: phone, password: password)
-        .then((value) {
+    UpdateProfile().updatePhone(phone: phone, password: password).then((value) {
       print('UserRecitation is ===========> $value');
       emit(UpdatePhoneSuccessState(value));
     }).catchError((error) {
@@ -33,35 +30,32 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(UpdatePhoneErrorState(error.toString()));
     });
   }
-  updateEmail({required email, required password})  {
+
+  updateEmail({required email, required password}) {
     emit(UpdateEmailLoadingState());
-    UpdateProfile()
-        .updateEmail(email: email, password: password)
-        .then((value) {
+    UpdateProfile().updateEmail(email: email, password: password).then((value) {
       print('UserRecitation is ===========> $value');
       emit(UpdateEmailSuccessState(value));
     }).catchError((error) {
       print('Error G ' + error.toString());
       emit(UpdateEmailErrorState(error));
-
     });
   }
+
   changePassword(
-      {required oldPassword,
-        required newPassword,
-        required confirmPassword}) {
+      {required oldPassword, required newPassword, required confirmPassword}) {
     emit(ChangePasswordLoadingState());
     UpdateProfile()
-        .changePassword(oldPassword: oldPassword, newPassword: newPassword, confirmPassword: confirmPassword)
+        .changePassword(
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            confirmPassword: confirmPassword)
         .then((value) {
       print('UserRecitation is ===========> $value');
       emit(ChangePasswordSuccessState(value));
     }).catchError((error) {
       print('Error G ' + error.toString());
       emit(ChangePasswordErrorState(error));
-
     });
   }
-  
-  
 }

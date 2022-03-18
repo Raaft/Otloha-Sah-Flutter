@@ -127,9 +127,8 @@ class _SignFormState extends State<SignForm> {
                       onSaved: (value) {}),
                 ),
                 FieldValidation(
-                  error: (state is RegisterErrorState)
-                      ? state.error['email']
-                      : [],
+                  error:
+                      (state is RegisterErrorState) ? state.error['email'] : [],
                   textField: TextFormFieldApp(
                       color: AppColor.lightBlue,
                       controller: emailController,
@@ -144,10 +143,9 @@ class _SignFormState extends State<SignForm> {
                       onSaved: (value) {}),
                 ),
                 FieldValidation(
-                  error: (state is RegisterErrorState)
-                      ? state.error['phone']
-                      : [],
-                  textField:                 TextFormFieldApp(
+                  error:
+                      (state is RegisterErrorState) ? state.error['phone'] : [],
+                  textField: TextFormFieldApp(
                       color: AppColor.lightBlue,
                       controller: phoneController,
                       keyType: TextInputType.phone,
@@ -159,10 +157,7 @@ class _SignFormState extends State<SignForm> {
                         return null;
                       },
                       onSaved: (value) {}),
-
                 ),
-
-
                 Row(
                   children: <Widget>[
                     addRadioButton(0, 'Male'),

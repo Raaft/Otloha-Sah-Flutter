@@ -80,7 +80,8 @@ class _TeacherPageState extends State<TeacherPage> {
 
   ItemTeacher _itemView(int index, Results results) {
     return ItemTeacher(
-      userName: results.firstName! + ' ' + results.lastName!,
+      userName:
+          (results.firstName ?? 'Add') + ' ' + (results.lastName ?? 'add'),
       rate: "${results.rate ?? ''}",
       userId: (results.teacherType ?? '') + ' Teacher',
       userbio: results.bio ?? '',
@@ -117,8 +118,12 @@ class _TeacherPageState extends State<TeacherPage> {
   _viewDate(TeacherviewtypeState state) {
     if (state is TeacherErrorState) {
       return const Expanded(child: ViewError(error: 'No Data'));
-    } else if (state is TeacherFetchedState) {
-      return _viewItems();
+    } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {
+      if (cubit!.teachers != null && cubit!.teachers!.results!.isNotEmpty) {
+        return _viewItems();
+      } else {
+        return const Expanded(child: ViewError(error: 'No Data'));
+      }
     }
     if (state is NoAuthState) {
       Future.delayed(const Duration(seconds: 1), () {
