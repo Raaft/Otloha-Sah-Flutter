@@ -65,10 +65,11 @@ class GeneralMessageItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: WaveViewPlayAudio(
-                  recordPath: recordPath,
-                  wavePath: wavePath,
-                  trggelPlay: trggelPlay,
-                  isPlay: isPlay),
+                recordPath: recordPath,
+                wavePath: wavePath,
+                trggelPlay: trggelPlay,
+                isPlay: isPlay,
+              ),
             ),
             if (viewBottom) _viewBottom(context),
             replay ?? Container(),
