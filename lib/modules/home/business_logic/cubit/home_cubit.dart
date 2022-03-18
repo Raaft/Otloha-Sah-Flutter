@@ -211,7 +211,6 @@ class HomeCubit extends Cubit<HomeState> {
   LocalFileSystem? localFileSystem;
   Stream<Duration> duration = const Stream.empty();
   String? filePath;
-  UserRecitation? createdUserRecitation;
 
   Future init() async {
     try {
@@ -294,25 +293,6 @@ class HomeCubit extends Cubit<HomeState> {
       var result = await _recorder!.stop();
       print('Stop recording: ${result!.path}');
       print('Stop recording: ${result.duration}');
-      // File? file = localFileSystem!.file(result.path);
-      // print('File length: ${await file.length()}');
-      String customPath = '/File_';
-      io.Directory appDocDirectory;
-
-      if (io.Platform.isIOS) {
-        appDocDirectory = await getApplicationDocumentsDirectory();
-      } else {
-        appDocDirectory = (await getExternalStorageDirectory())!;
-      }
-
-      createdUserRecitation = UserRecitation(
-        narrationId: narrationId,
-        record: current!.path ?? '',
-        name: _getName(),
-        versesID: _getVerses(),
-      );
-
-      print(createdUserRecitation!.toJson());
 
       current = result;
       _currentStatus = current!.status!;
@@ -326,7 +306,7 @@ class HomeCubit extends Cubit<HomeState> {
     await audioPlayer.play(current!.path!, isLocal: true);
   }
 
-  void saveFile() async {
+  void saveRecitation() async {
     String customPath = '/File_';
     io.Directory appDocDirectory;
 
@@ -351,24 +331,10 @@ class HomeCubit extends Cubit<HomeState> {
 
     await _initWave(userRecitation.record ?? '', userRecitation.wavePath ?? '');
 
-    await AppDatabase().userRecitationDao.insert(userRecitation).then((value) {
-      print('Saved Value' + value.toString());
-    });
+    await UserRecitationApi()
+        .saveUserReciataion(userRecitation: userRecitation);
 
     print(userRecitation);
-  }
-
-  void shareRecitation() async {
-    // if (value != null && value.isNotEmpty) {
-    //   for (var userRecitation in value) {
-    //     var userRe = await UserRecitationApi()
-    //         .saveUserReciataion(userRecitation: userRecitation);
-    //     print('shareRecitation $userRe');
-    //   }
-    // }
-    print(current!.path);
-    await UserRecitationApi()
-        .saveUserReciataion(userRecitation: createdUserRecitation!);
   }
 
   void addSelected(Map<int, List<int>>? values) {

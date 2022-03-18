@@ -19,11 +19,14 @@ class UserRecitationCubit extends Cubit<UserRecitationState> {
 
     try {
       await UserRecitationApi().getUserReciataions()!.then((value) {
+        print(value);
         if (value.isNotEmpty) {
           userRec = value;
         }
       });
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
 
     await AppDatabase()
         .userRecitationDao

@@ -22,9 +22,8 @@ class UserRecitationApi extends UserRecitationRepository {
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      print(response.data);
-      userRecitation = UserRecitation.fromJson(response.data);
-      await AppDatabase().userRecitationDao.delete(userRecitation.id ?? 0);
+      userRecitation = UserRecitation.fromMap(response.data);
+      await AppDatabase().userRecitationDao.insert(userRecitation);
     } else {
       print('Error Api ' + response.data.toString());
     }
@@ -34,20 +33,21 @@ class UserRecitationApi extends UserRecitationRepository {
 
   @override
   Future<List<UserRecitation>>? getUserReciataions() async {
-    Response? response =
-        await ApiBaseHelper().getHTTP('/api/v1/recitations/list/');
+    Response? response = await ApiBaseHelper().getHTTP('/api/v1/recitations/');
 
     List<UserRecitation>? userRecitatios = [];
 
-    if (response != null &&
-        (response.statusCode == 201 || response.statusCode == 200)) {
-      if (response.data != null) {
-        userRecitatios = (response.data as List)
-            .map((element) => UserRecitation.fromJson(element))
-            .toList();
+    print(response!.data);
+    if ((response.statusCode == 201 || response.statusCode == 200)) {
+      userRecitatios.addAll(response.data['results'] as List<UserRecitation>);
+      String next = response.data['next'] ?? '';
+      while (next.isNotEmpty) {
+        response = await ApiBaseHelper().getHTTP(next);
+        userRecitatios
+            .addAll(response!.data['results'] as List<UserRecitation>);
       }
     } else {
-      print('Error Api ' + response!.data.toString());
+      print('Error Api ' + response.data.toString());
     }
 
     return userRecitatios;
@@ -84,7 +84,7 @@ class UserRecitationApi extends UserRecitationRepository {
     if (response != null &&
         (response.statusCode == 201 || response.statusCode == 200)) {
       if (response.data != null) {
-        userRecitatios = UserRecitation.fromJson(response.data);
+        userRecitatios = UserRecitation.fromMap(response.data);
       }
     } else {
       print('Error Api ' + response!.data.toString());

@@ -83,9 +83,10 @@ class UserRecitation {
   }
 
   factory UserRecitation.fromMap(Map<String, dynamic> map) {
+    print(map['is_teacher_recitation']);
     return UserRecitation(
-      id: map['id']?.toInt(),
-      narrationId: map['narration_id']?.toInt(),
+      id: map['id'],
+      narrationId: int.parse(map['narration_id'].toString()),
       record: map['record'],
       userId: map['user_id'],
       versesID: List<int>.from(jsonDecode(map['verse_ids'])),
@@ -94,8 +95,8 @@ class UserRecitation {
       uploaded: map['uploaded'],
       chapterId: map['chapter_id'],
       isAccepted: map['is_accepted'],
-      isTeacherRecitation: map['is_teacher_recitation'],
-      showInGeneral: map['show_in_general'],
+      isTeacherRecitation: (map['is_teacher_recitation'] ?? false) == 1,
+      showInGeneral: (map['show_in_general'] ?? false) == 1,
       finishedAt: map['finished_at'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['finished_at'])
           : null,
@@ -106,9 +107,6 @@ class UserRecitation {
   }
 
   String toJson() => json.encode(toMap());
-
-  factory UserRecitation.fromJson(String source) =>
-      UserRecitation.fromMap(json.decode(source));
 
   @override
   String toString() {

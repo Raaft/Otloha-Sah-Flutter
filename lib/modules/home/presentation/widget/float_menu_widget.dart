@@ -19,19 +19,18 @@ class FloatingMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
-  builder: (context, state) {
-var cubit=HomeCubit.get(context);
-    return Stack(
-      children: [
-        floatBackGround(cubit),
-        floatBall(context, cubit),
-      ],
+      builder: (context, state) {
+        var cubit = HomeCubit.get(context);
+        return Stack(
+          children: [
+            floatBackGround(cubit),
+            floatBall(context, cubit),
+          ],
+        );
+      },
     );
-  },
-);
   }
 }
-
 
 /*Widget floatMenu(BuildContext context, HomeCubit cubit) {
   return Stack(

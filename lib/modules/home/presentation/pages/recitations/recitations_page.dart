@@ -86,7 +86,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
         ayah: userRecitation.name ?? '',
         ayahInfo: '',
         userImage: '',
-        userName: 'Mohamed Ahmed',
+        userName: userRecitation.name!,
         dateStr: (userRecitation.finishedAt != null)
             ? userRecitation.finishedAt.toString()
             : null,

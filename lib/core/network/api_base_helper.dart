@@ -25,41 +25,38 @@ class ApiBaseHelper {
         'Accept': 'application/json',
       });
 
-  
   static Dio createDio() {
     return Dio(opts);
   }
 
-  static retryRequest(RequestOptions? currentRequestOptions) {
+  static retryRequest(RequestOptions? currentRequestOptions) async {
     currentRequestOptions!.headers[HttpHeaders.authorizationHeader] =
         'Bearer ' + CacheHelper.getData(key: 'token');
-    return dio
-        .request(
-          currentRequestOptions.path,
-          cancelToken: currentRequestOptions.cancelToken,
-          data: currentRequestOptions.data,
-          onReceiveProgress: currentRequestOptions.onReceiveProgress,
-          onSendProgress: currentRequestOptions.onSendProgress,
-          queryParameters: currentRequestOptions.queryParameters,
-          options: Options(
-            method: currentRequestOptions.method,
-            sendTimeout: currentRequestOptions.sendTimeout,
-            receiveTimeout: currentRequestOptions.receiveTimeout,
-            extra: currentRequestOptions.extra,
-            headers: currentRequestOptions.headers,
-            responseType: currentRequestOptions.responseType,
-            contentType: currentRequestOptions.contentType,
-            validateStatus: currentRequestOptions.validateStatus,
-            receiveDataWhenStatusError:
-                currentRequestOptions.receiveDataWhenStatusError,
-            followRedirects: currentRequestOptions.followRedirects,
-            maxRedirects: currentRequestOptions.maxRedirects,
-            requestEncoder: currentRequestOptions.requestEncoder,
-            responseDecoder: currentRequestOptions.responseDecoder,
-            listFormat: currentRequestOptions.listFormat,
-          ),
-        )
-        .whenComplete(() => print('complete'));
+    return await dio.request(
+      currentRequestOptions.path,
+      cancelToken: currentRequestOptions.cancelToken,
+      data: currentRequestOptions.data,
+      onReceiveProgress: currentRequestOptions.onReceiveProgress,
+      onSendProgress: currentRequestOptions.onSendProgress,
+      queryParameters: currentRequestOptions.queryParameters,
+      options: Options(
+        method: currentRequestOptions.method,
+        sendTimeout: currentRequestOptions.sendTimeout,
+        receiveTimeout: currentRequestOptions.receiveTimeout,
+        extra: currentRequestOptions.extra,
+        headers: currentRequestOptions.headers,
+        responseType: currentRequestOptions.responseType,
+        contentType: currentRequestOptions.contentType,
+        validateStatus: currentRequestOptions.validateStatus,
+        receiveDataWhenStatusError:
+            currentRequestOptions.receiveDataWhenStatusError,
+        followRedirects: currentRequestOptions.followRedirects,
+        maxRedirects: currentRequestOptions.maxRedirects,
+        requestEncoder: currentRequestOptions.requestEncoder,
+        responseDecoder: currentRequestOptions.responseDecoder,
+        listFormat: currentRequestOptions.listFormat,
+      ),
+    );
   }
 
   static Dio addInterceptors(Dio dio) {
@@ -68,27 +65,22 @@ class ApiBaseHelper {
       ..interceptors.add(
         InterceptorsWrapper(
           onRequest: (RequestOptions options, handler) {
-            print('headers ${options.headers}');
             if (options.path != '/api/v1/token/refresh/') {
-              print('path ${options.path}');
               currentRequestOptions = options;
             }
             requestInterceptor(options, handler);
           },
           onError: (DioError e, handler) async {
             String currentToken = await CacheHelper.getData(key: 'token') ?? '';
-            print('asdasdaskldlaskm $currentToken');
             if (currentToken.isNotEmpty && e.response!.statusCode == 401) {
               String refreshToken = CacheHelper.getData(key: 'refresh');
               var response = await baseAPI.post('/api/v1/token/refresh/',
                   data: {'refresh': refreshToken});
-              print('response  ${response.data}');
               RefreshTokenModel? t = RefreshTokenModel.fromJson(response.data);
-              CacheHelper.saveData(key: 'token', value: t.access);
-              return await retryRequest(currentRequestOptions);
-            } else {
-              return handler.next(e);
+              await CacheHelper.saveData(key: 'token', value: t.access);
+              return handler.resolve(await retryRequest(currentRequestOptions));
             }
+            return handler.next(e);
           },
         ),
       );
@@ -199,7 +191,6 @@ class ApiBaseHelperForAuth {
     receiveTimeout: 30000,
     headers: {},
   );
-
 
   ///
   static Dio createDio() {

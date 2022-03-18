@@ -4,6 +4,7 @@ class UserRecitationDao {
   Future<List<UserRecitation>?> findAllUserRecitations() async {
     List<Map<String, dynamic>> maps =
         await AppDatabase._db!.query(RunQueries.userRecitationName);
+    print(maps);
     List<UserRecitation> items = [];
     if (maps.isNotEmpty) {
       for (var item in maps) {
@@ -37,8 +38,11 @@ class UserRecitationDao {
   }
 
   Future<int> delete(int id) async {
-    return await AppDatabase._db!.delete(RunQueries.userRecitationName,
-        where: 'uid = ?', whereArgs: [id]);
+    return await AppDatabase._db!.delete(
+      RunQueries.userRecitationName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 
   Future<int> update(UserRecitation userRecitation) async {
