@@ -25,6 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
         .then((value) {
       userModel = UserModel.fromJson(value!.data);
       CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
+      CacheHelper.saveData(key: 'refresh', value: userModel!.refreshToken);
       print(
           'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
       emit(LogInSuccessState());

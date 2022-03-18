@@ -74,7 +74,7 @@ class Auth extends AuthRepository {
   @override
   Future<Response> refreshToken() {
     try {
-      return ApiBaseHelper().postHTTP(' /api/v1/token/refresh/', {});
+      return ApiBaseHelper().postHTTP('/api/v1/token/refresh/', {});
     } catch (e) {
       throw UnimplementedError();
     }

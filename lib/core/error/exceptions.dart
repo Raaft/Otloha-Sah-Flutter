@@ -29,6 +29,8 @@ class AuthError implements Exception {
   String toString() => 'AuthError(error: $error)';
 }
 
+class RefreshTokenError implements Exception {}
+
 class CacheError implements Exception {}
 
 class SomeThingWentWrong implements Exception {}
@@ -47,7 +49,7 @@ class ExceptionHandling {
         print(e.response!.data);
         throw ServerError();
       }
-      if (e.response!.statusCode! >= 401) {
+      if (e.response!.statusCode! == 401) {
         print(e.response!.data);
         throw AuthError(error: '401 Error ' + e.message);
       }
