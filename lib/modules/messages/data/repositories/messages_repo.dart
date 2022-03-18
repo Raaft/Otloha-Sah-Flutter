@@ -13,6 +13,9 @@ abstract class MessagesRepository {
   Future<Response> messageDetails({required int messageId});
 
   Future<Response> sendMessage({required int messageId});
+  Future<Response> markAsFinished();
+  Future<Response> addToGeneral();
+  Future<Response> deleteRecitations();
 
   Future<Response> createMessageReply({
     required int messageId,

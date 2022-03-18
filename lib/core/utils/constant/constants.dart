@@ -3,15 +3,17 @@ const String fontFamily2 = 'ElMessiri';
 
 const String baseUrl = 'http://192.168.1.11:8000';
 
+//const String baseUrl = 'http://46.101.113.121';
+
 String token = '';
 
 var isEn = false;
 
-const String clientId = 'dzyLcyFBzXCHXjHLiFZ5DCK1ucPSRTMrIj3HzXLW';
+const String clientId = 'lFkNbhJAxl3rjOOO3hmc17z4le4ERRXP7vgFeXkO';
 ///////
 //const String clientSecret = '7VJuQ1DrwQzbMilum88be5tLCKx3QJOZ1Rjzp3dUTwNfo2yB8ir9qLWb5Y2xRGnfKcftZxkpVPflXaeP7KjteRFIZREp8WwOcr8Trvq5WVml84DKHoIHXjktBrzy3utk';
 const String clientSecret =
-    'ofbXOLzm6dVxHVAO5Eivg8RSfMLKL4vxe5EBzbc9b6efsAhxINzJjDDd7VTbOJdjqhPodk00Ae2wwwL1F7QnBIlxPpLCwYPwtQAetdU1LvLaHUgP6hWMcCF352RKCmA6';
+    'LDHKl8x17cyY3f2L2z5wCT2MJLtjbKk3hAgTV3mIY9kX9iBSjs3QfztcVqT8mAqodUZ9cvOrF3nWVSqX0fFkZCRUH2tiLeKdpDOD0uEmWRVNhU5F4XhLu4FJatQTIoJ7';
 
 const String languagesSelectedName = 'LanguagesSelectedName';
 const String languagesSelectedId = 'LanguagesSelectedId';

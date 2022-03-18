@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   audioplayers: ^0.20.1
+  auto_size_text: ^3.0.0
   bloc: ^8.0.3
   bubble_bottom_bar: ^2.0.0
   cupertino_icons: ^1.0.4
@@ -19,6 +20,7 @@ dependencies:
   draggable_widget: ^2.0.0
   easy_localization: ^3.0.0
   equatable: ^2.0.3
+  expandable: null
   fab_circular_menu: ^1.0.0
   file: ^6.1.2
   flutter:
@@ -44,8 +46,6 @@ dependencies:
   shared_preferences: ^2.0.12
   sqflite: ^2.0.2
   toast: ^0.1.5
-  expandable:
-
 
 flutter_icons:
   android: "launcher_icon"

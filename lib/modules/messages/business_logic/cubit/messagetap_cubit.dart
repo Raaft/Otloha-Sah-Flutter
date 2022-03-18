@@ -9,6 +9,7 @@ import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
+import 'package:quran_widget_flutter/data_source/data_source.dart';
 
 part 'messagetap_state.dart';
 
@@ -33,9 +34,10 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     emit(MessageLoadingState());
     GetMessages().getMessageListing()!.then((value) {
       if (value!.data != null) {
-        messages = (value.data as List)
+        messages = (value.data['results'] as List)
             .map((data) => MessageModel.fromJson(data))
             .toList();
+
         print('MessageModel is ===========> $messages');
         emit(MessageSuccessState());
       } else {
@@ -56,11 +58,15 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     GetMessages().messgasRecieve()!.then((value) {
       print('Status Code ${value!.statusCode}');
       if (value.statusCode == 200) {
-        messages = (value.data as List)
+        messageRecieve = (value.data['results'] as List)
             .map((data) => MessageModel.fromJson(data))
             .toList();
         print('MessageModel is ===========> $messageRecieve');
-        emit(MessageRecieveSuccessState());
+        if (messageRecieve != null && messageRecieve!.isNotEmpty) {
+          emit(MessageRecieveSuccessState());
+        } else {
+          emit(const MessageSendErrorState('No Data'));
+        }
       } else {
         emit(const MessageSendErrorState('Error Code'));
       }
@@ -80,11 +86,15 @@ class MessageTapCubit extends Cubit<MessageTapState> {
       print('Status Code ${value!.statusCode}');
 
       if (value.statusCode == 200) {
-        messages = (value.data as List)
+        messageSendList = (value.data['results'] as List)
             .map((data) => MessageModel.fromJson(data))
             .toList();
         print('MessageModel is ===========> $messageSendList');
-        emit(MessageSendSuccessState());
+        if (messageSendList != null && messageSendList!.isNotEmpty) {
+          emit(MessageSendSuccessState());
+        } else {
+          emit(const MessageSendErrorState('No Data'));
+        }
       } else {
         emit(const MessageSendErrorState('Error Code'));
       }
@@ -101,7 +111,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   getDetailsMessage({required int messageId}) {
     emit(MessageDetailsLoadingState());
     GetMessages().messageDetails(messageId: messageId).then((value) {
-      messages = (value.data as List)
+      messages = (value.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
       print('MessageModel is ===========> $messageDetails');
@@ -122,7 +132,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   sendMessageRequest({required int messageId}) {
     emit(SendMessageLoadingState());
     GetMessages().sendMessage(messageId: messageId).then((value) {
-      messages = (value.data as List)
+      messages = (value.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
       print('MessageModel is ===========> $sendMessage');
@@ -142,9 +152,19 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   getGeneraBoXMessage() async {
     emit(GenaralLoadingState());
-    UserRecitationApi().getGeneraBoXMessage()!.then((value) {
+    UserRecitationApi().getGeneraBoXMessage()!.then((value) async {
       if (value != null) {
         generalResponses = value;
+        /*  for (var element in generalResponses!) {
+          element.narrationName = (await DataSource.instance
+                      .fetchNarrationById(element.narrationId ?? 0))!
+                  .name ??
+              '';
+          element.chapterName = (await DataSource.instance
+                      .fetchChapterById(element.chapterId ?? 0))!
+                  .name ??
+              '';
+        }*/
         print('UserRecitation is ===========> $generalResponses');
         emit(GenaralSuccessState());
       } else {

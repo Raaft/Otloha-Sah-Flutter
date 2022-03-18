@@ -25,7 +25,7 @@ class ApiBaseHelper {
         'Accept': 'application/json',
       });
 
-  ///
+  
   static Dio createDio() {
     return Dio(opts);
   }
@@ -200,6 +200,7 @@ class ApiBaseHelperForAuth {
     headers: {},
   );
 
+
   ///
   static Dio createDio() {
     return Dio(opts);
@@ -273,6 +274,7 @@ class ApiBaseHelperForAuth {
       handler
           .reject(DioError(requestOptions: options, type: DioErrorType.other));
     }
+
     return handler.next(options);
   }
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
+import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
@@ -17,6 +20,17 @@ class TeacherPage extends StatefulWidget {
 
 class _TeacherPageState extends State<TeacherPage> {
   bool _type = true;
+  int _selected = -1;
+
+  late TeacherviewtypeCubit? cubit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    cubit = TeacherviewtypeCubit.get(context);
+    cubit!.getTeacher();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +41,9 @@ class _TeacherPageState extends State<TeacherPage> {
             if (state is TeacherviewtypeChange) {
               _type = state.type;
             }
+
             return Column(
-              children: [_topView(), _viewItems()],
+              children: [_topView(), _viewDate(state)],
             );
           },
         ),
@@ -42,19 +57,19 @@ class _TeacherPageState extends State<TeacherPage> {
         padding: const EdgeInsets.all(8.0),
         child: _type
             ? ListView.builder(
-                itemCount: 15,
+                itemCount: cubit!.teachers!.results!.length,
                 itemBuilder: (context, index) {
-                  return _itemView(index);
+                  return _itemView(index, cubit!.teachers!.results![index]);
                 },
               )
             : GridView.builder(
-                itemCount: 20,
+                itemCount: cubit!.teachers!.results!.length,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
                   childAspectRatio: 2 / 2.45,
                 ),
                 itemBuilder: (context, index) {
-                  return _itemView(index);
+                  return _itemView(index, cubit!.teachers!.results![index]);
                 },
               ),
       ),
@@ -63,16 +78,22 @@ class _TeacherPageState extends State<TeacherPage> {
 
   ///test
 
-  ItemTeacher _itemView(int index) {
+  ItemTeacher _itemView(int index, Results results) {
     return ItemTeacher(
-      userName: 'user Name',
-      rate: '3.4',
-      userId: 'User202Team',
-      userbio:
-          'Proident duis sint pariatur aliquip nostrud Lorem velit tempor duis amet mollit.',
+      userName:
+          (results.firstName ?? 'Add') + ' ' + (results.lastName ?? 'add'),
+      rate: "${results.rate ?? ''}",
+      userId: (results.teacherType ?? '') + ' Teacher',
+      userbio: results.bio ?? '',
       action: () {},
       typeView: _type,
-      isCertified: index % 2 == 0,
+      isCertified: results.isCertified ?? false,
+      isFav: index == _selected,
+      setFav: () {
+        setState(() {
+          _selected = index;
+        });
+      },
     );
   }
 
@@ -91,6 +112,29 @@ class _TeacherPageState extends State<TeacherPage> {
         },
       ),
       title: translate('Teachers'),
+    );
+  }
+
+  _viewDate(TeacherviewtypeState state) {
+    if (state is TeacherErrorState) {
+      return const Expanded(child: ViewError(error: 'No Data'));
+    } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {
+      if (cubit!.teachers != null && cubit!.teachers!.results!.isNotEmpty) {
+        return _viewItems();
+      } else {
+        return const Expanded(child: ViewError(error: 'No Data'));
+      }
+    }
+    if (state is NoAuthState) {
+      Future.delayed(const Duration(seconds: 1), () {
+        print('object');
+        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+      });
+    }
+    return const Expanded(
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

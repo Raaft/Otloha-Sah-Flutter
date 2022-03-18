@@ -9,7 +9,7 @@ class GetMessages extends MessagesRepository {
   @override
   Future<Response?>? getMessageListing() async {
     try {
-      return await ApiBaseHelper().getHTTP('/recitations/messages/');
+      return await ApiBaseHelper().getHTTP('/api/v1/recitations/messages/');
     } catch (e) {
       throw UnimplementedError();
     }
@@ -17,23 +17,24 @@ class GetMessages extends MessagesRepository {
 
   @override
   Future<Response?>? messagesSent() async {
-    return await ApiBaseHelper().getHTTP('/recitations/messages/sent/');
+    return await ApiBaseHelper().getHTTP('/api/v1/recitations/messages/sent/');
   }
 
   @override
   Future<Response?>? messgasRecieve() async {
-    return await ApiBaseHelper().getHTTP('/recitations/messages/received/');
+    return await ApiBaseHelper()
+        .getHTTP('/api/v1/recitations/messages/received/');
   }
 
   @override
   Future<Response> messageDetails({required int messageId}) {
-    ApiBaseHelper().getHTTP('/recitations/messages/<$messageId>/');
+    ApiBaseHelper().getHTTP('/api/v1/recitations/messages/<$messageId>/');
     throw UnimplementedError();
   }
 
   @override
   Future<Response> sendMessage({required int messageId}) {
-    ApiBaseHelper().postHTTP('/recitations/messages/<$messageId>/', {});
+    ApiBaseHelper().postHTTP('/api/v1/recitations/messages/<$messageId>/', {});
     throw UnimplementedError();
   }
 
@@ -59,8 +60,35 @@ class GetMessages extends MessagesRepository {
       'positition_to': positition_to,
       'error_type': error_type,
     });
-    ApiBaseHelper()
-        .postHTTP('/recitations/messages/<$messageId>/replies/', formData);
+    ApiBaseHelper().postHTTP(
+        '/api/v1/recitations/messages/<$messageId>/replies/', formData);
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> addToGeneral() async{
+    try {
+      return await ApiBaseHelper().postHTTP('/api/v1/recitations/:id/messages/:message_id/mark-as-read/',{});
+    } catch (e) {
+      throw UnimplementedError();
+    }
+  }
+
+  @override
+  Future<Response> deleteRecitations() async{
+    try {
+      return await ApiBaseHelper().deleteHTTP('/api/v1/recitations/:id/delete/');
+    } catch (e) {
+      throw UnimplementedError();
+    }
+  }
+
+  @override
+  Future<Response> markAsFinished() async{
+    try {
+      return await ApiBaseHelper().postHTTP('/api/v1/recitations/:recitation_id/add-to-general/',{});
+    } catch (e) {
+      throw UnimplementedError();
+    }
   }
 }

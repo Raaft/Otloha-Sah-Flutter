@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +20,13 @@ class WaveViewPlayAudio extends StatefulWidget {
     required this.isPlay,
     required this.recordPath,
     required this.wavePath,
+    required this.isLocal,
   }) : super(key: key);
 
   final Function() trggelPlay;
 
   final bool isPlay;
+  final bool isLocal;
   final String? recordPath;
   final String? wavePath;
 
@@ -33,6 +37,7 @@ class WaveViewPlayAudio extends StatefulWidget {
 class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   final BehaviorSubject<WaveformProgress> streamWave =
       BehaviorSubject<WaveformProgress>();
+
   AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
 
   late Waveform waveform;
@@ -50,10 +55,15 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   }
 
   Future<void> _init() async {
-    final waveFile2 = await FileStorage().download2(
-        url: widget.wavePath ?? '',
-        savePath: 'temp/wave',
-        showDownloadProgress: (v, t) {});
+    final File? waveFile2;
+    if (widget.isLocal) {
+      waveFile2 = File(widget.wavePath ?? '');
+    } else {
+      waveFile2 = await FileStorage().download2(
+          url: widget.wavePath ?? '',
+          savePath: 'temp/wave',
+          showDownloadProgress: (v, t) {});
+    }
 
     try {
       waveform = await JustWaveform.parse(waveFile2!);
@@ -64,10 +74,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   }
 
   Duration position = const Duration();
-  AudioPlayer? advancedPlayer;
   Waveform? waveForm;
-
-  AudioCache? audioCache;
 
   bool _isPlay = false;
 
@@ -77,7 +84,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
     setState(() {
       _isPlay = widget.isPlay;
       if (!_isPlay) {
-        advancedPlayer!.pause();
+        audioPlayer.pause();
       }
     });
   }
@@ -152,7 +159,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
         _isPlay = true;
       });
     } else {
-      advancedPlayer!.pause();
+      audioPlayer.pause();
       setState(() {
         _isPlay = false;
       });
@@ -160,12 +167,9 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   }
 
   initPlayer() async {
+    audioPlayer = AudioPlayer();
 
-    advancedPlayer = AudioPlayer();
-    audioCache =
-        AudioCache(fixedPlayer: advancedPlayer, prefix: 'assets/audio/');
-
-    advancedPlayer!.onPlayerStateChanged.listen((event) {
+    audioPlayer.onPlayerStateChanged.listen((event) {
       setState(() {
         if (event == PlayerState.COMPLETED) {
           _isPlay = false;
@@ -173,7 +177,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
       });
     });
 
-    advancedPlayer!.onAudioPositionChanged.listen((Duration current) {
+    audioPlayer.onAudioPositionChanged.listen((Duration current) {
       if (position.inSeconds < current.inSeconds) {
         setState(() {
           position = current;
@@ -183,9 +187,23 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   }
 
   Future<void> playSound(String path) async {
-    int result = await audioPlayer.play(widget.recordPath ?? '');
-    if (result == 1) {
-      // success
+    print('isLocal ${widget.isLocal}');
+    if (widget.isLocal) {
+      Uint8List byteData = (await FileStorage().download2(
+              url: widget.recordPath ?? '',
+              savePath: 'temp/record',
+              showDownloadProgress: (v, t) {}))!
+          .readAsBytesSync();
+      int result = await audioPlayer.playBytes(byteData);
+      if (result == 1) {
+        // success
+      }
+    } else {
+      int result = await audioPlayer.play(widget.recordPath ?? '',
+          isLocal: widget.isLocal);
+      if (result == 1) {
+        // success
+      }
     }
   }
 

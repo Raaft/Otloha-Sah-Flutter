@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:flutter_base/core/data/chash_helper.dart';
-import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/auth_module/data/data_source/login_servise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

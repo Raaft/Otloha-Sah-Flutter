@@ -10,10 +10,8 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'package:quran_widget_flutter/model/page.dart' as page_obj;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -213,6 +211,7 @@ class HomeCubit extends Cubit<HomeState> {
   LocalFileSystem? localFileSystem;
   Stream<Duration> duration = const Stream.empty();
   String? filePath;
+  UserRecitation? createdUserRecitation;
 
   Future init() async {
     try {
@@ -295,8 +294,25 @@ class HomeCubit extends Cubit<HomeState> {
       var result = await _recorder!.stop();
       print('Stop recording: ${result!.path}');
       print('Stop recording: ${result.duration}');
-      File? file = localFileSystem!.file(result.path);
-      print('File length: ${await file.length()}');
+      // File? file = localFileSystem!.file(result.path);
+      // print('File length: ${await file.length()}');
+      String customPath = '/File_';
+      io.Directory appDocDirectory;
+
+      if (io.Platform.isIOS) {
+        appDocDirectory = await getApplicationDocumentsDirectory();
+      } else {
+        appDocDirectory = (await getExternalStorageDirectory())!;
+      }
+
+      createdUserRecitation = UserRecitation(
+        narrationId: narrationId,
+        record: current!.path ?? '',
+        name: _getName(),
+        versesID: _getVerses(),
+      );
+
+      print(createdUserRecitation!.toJson());
 
       current = result;
       _currentStatus = current!.status!;
@@ -343,18 +359,16 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void shareRecitation() async {
-    await AppDatabase()
-        .userRecitationDao
-        .findAllUserRecitations()
-        .then((value) async {
-      if (value != null && value.isNotEmpty) {
-        for (var userRecitation in value) {
-          var userRe = await UserRecitationApi()
-              .saveUserReciataion(userRecitation: userRecitation);
-          print('shareRecitation $userRe');
-        }
-      }
-    });
+    // if (value != null && value.isNotEmpty) {
+    //   for (var userRecitation in value) {
+    //     var userRe = await UserRecitationApi()
+    //         .saveUserReciataion(userRecitation: userRecitation);
+    //     print('shareRecitation $userRe');
+    //   }
+    // }
+    print(current!.path);
+    await UserRecitationApi()
+        .saveUserReciataion(userRecitation: createdUserRecitation!);
   }
 
   void addSelected(Map<int, List<int>>? values) {
@@ -367,10 +381,6 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> _initWave(String path, String wavePath) async {
     final audioFile = io.File(path);
     try {
-      await audioFile.writeAsBytes(
-          (await rootBundle.load('assets/audio/waveform.mp3'))
-              .buffer
-              .asUint8List());
       final waveFile = io.File(wavePath);
 
       JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile)

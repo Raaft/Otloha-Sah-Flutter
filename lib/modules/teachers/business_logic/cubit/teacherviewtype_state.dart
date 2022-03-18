@@ -10,6 +10,8 @@ class TeacherFetchedState extends TeacherviewtypeState {}
 
 class TeacherLoadingState extends TeacherviewtypeState {}
 
+class NoAuthState extends TeacherviewtypeState {}
+
 class TeacherErrorState extends TeacherviewtypeState {}
 
 class TeacherviewtypeChange extends TeacherviewtypeState {

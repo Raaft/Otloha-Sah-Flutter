@@ -16,12 +16,12 @@ class GeneralResponse {
   GeneralResponse.fromJson(dynamic json) {
     record = json['record'];
     wave = json['wave'];
-    narrationId = json['narration_id'];
+    narrationId = int.parse(json['narration_id'] ?? "0");
     verseIds = json['verse_ids'];
     owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
     comments = json['comments'] != null ? json['comments'].cast<String>() : [];
     likes = json['likes'] != null ? json['likes'].cast<String>() : [];
-    chapterId = json['chapter_id'];
+    chapterId = int.parse(json['chapter_id'] ?? "0");
     finishedAt = json['finished_at'];
     name = json['name'];
     remarkable =
@@ -29,13 +29,14 @@ class GeneralResponse {
   }
   String? record;
   String? wave;
-  String? narrationId;
+  int? narrationId;
   String? narrationName;
   String? verseIds;
   Owner? owner;
   List<String>? comments;
   List<String>? likes;
   int? chapterId;
+  String? chapterName;
   String? finishedAt;
   String? name;
   List<String>? remarkable;

@@ -7,13 +7,34 @@ class UserApi extends UserRepository {
   @override
   Future<TeacherResponse?>? getTeacher() async {
     Response? response =
-        await ApiBaseHelper().getHTTP('/api/v1/users/teacher/');
+        await ApiBaseHelper().getHTTP('/api/v1/users/teachers/');
 
     TeacherResponse? teachers;
 
     if (response != null &&
         (response.statusCode == 201 || response.statusCode == 200)) {
       if (response.data != null) {
+        print(response.data);
+        teachers = TeacherResponse.fromJson(response.data);
+      }
+    } else {
+      print('Error Api ' + response!.data.toString());
+    }
+
+    return teachers;
+  }
+
+  @override
+  Future<TeacherResponse?>? getStudents() async {
+    Response? response =
+        await ApiBaseHelper().getHTTP('/api/v1/users/students/');
+
+    TeacherResponse? teachers;
+
+    if (response != null &&
+        (response.statusCode == 201 || response.statusCode == 200)) {
+      if (response.data != null) {
+        print(response.data);
         teachers = TeacherResponse.fromJson(response.data);
       }
     } else {
