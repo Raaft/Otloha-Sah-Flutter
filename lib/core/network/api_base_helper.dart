@@ -139,7 +139,7 @@ class ApiBaseHelperForAuth {
       responseType: ResponseType.json,
       connectTimeout: 30000,
       receiveTimeout: 30000,
-      headers: {});
+      );
 
   ///
   static Dio createDio() {
