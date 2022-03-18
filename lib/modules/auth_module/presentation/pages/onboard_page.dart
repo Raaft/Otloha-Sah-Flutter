@@ -43,7 +43,7 @@ class OnBoardPage extends StatelessWidget {
                     buttonText: 'Sign up',
                     width: MediaQuery.of(context).size.height * 0.5,
                     onPressed: () {
-                      Get.to(() => SignUpPage());
+                      Get.to(() => const SignUpPage());
                     },
                     colors: [
                       AppColor.darkBlue,

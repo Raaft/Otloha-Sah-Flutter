@@ -64,4 +64,31 @@ class GetMessages extends MessagesRepository {
         '/api/v1/recitations/messages/<$messageId>/replies/', formData);
     throw UnimplementedError();
   }
+
+  @override
+  Future<Response> addToGeneral() async{
+    try {
+      return await ApiBaseHelper().postHTTP('/api/v1/recitations/:id/messages/:message_id/mark-as-read/',{});
+    } catch (e) {
+      throw UnimplementedError();
+    }
+  }
+
+  @override
+  Future<Response> deleteRecitations() async{
+    try {
+      return await ApiBaseHelper().deleteHTTP('/api/v1/recitations/:id/delete/');
+    } catch (e) {
+      throw UnimplementedError();
+    }
+  }
+
+  @override
+  Future<Response> markAsFinished() async{
+    try {
+      return await ApiBaseHelper().postHTTP('/api/v1/recitations/:recitation_id/add-to-general/',{});
+    } catch (e) {
+      throw UnimplementedError();
+    }
+  }
 }

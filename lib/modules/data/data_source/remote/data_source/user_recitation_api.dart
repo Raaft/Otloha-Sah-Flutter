@@ -22,6 +22,7 @@ class UserRecitationApi extends UserRecitationRepository {
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
+      print(response.data);
       userRecitation = UserRecitation.fromJson(response.data);
       await AppDatabase().userRecitationDao.delete(userRecitation.id ?? 0);
     } else {

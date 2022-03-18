@@ -9,6 +9,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class ApiBaseHelper {
   static const String url = baseUrl;
+
   // static const String url = 'http://46.101.113.121';
 
   static BaseOptions opts = BaseOptions(
@@ -139,7 +140,9 @@ class ApiBaseHelperForAuth {
       responseType: ResponseType.json,
       connectTimeout: 30000,
       receiveTimeout: 30000,
-      headers: {});
+
+      );
+
 
   ///
   static Dio createDio() {
