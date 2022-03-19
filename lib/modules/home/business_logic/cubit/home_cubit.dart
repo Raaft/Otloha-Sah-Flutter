@@ -105,9 +105,17 @@ class HomeCubit extends Cubit<HomeState> {
   double opacity = 0.0;
 
   changePlayPause() {
+    AudioPlayer audioPlayer = AudioPlayer();
     playPause = !playPause;
-
     emit(ChangePlayPauseState());
+    print(selectedIndex);
+    if (playPause) {
+      selectedIndex!.forEach((key, value) {
+        for (int i in value) {
+          // audioPlayer.play();
+        }
+      });
+    }
   }
 
   changeIsPlaying() {
