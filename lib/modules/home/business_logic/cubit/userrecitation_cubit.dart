@@ -17,27 +17,28 @@ class UserRecitationCubit extends Cubit<UserRecitationState> {
   fetchLoacl() async {
     List<UserRecitation>? userRec = [];
 
-    try {
-      await UserRecitationApi().getUserReciataions()!.then((value) {
-        print(value);
-        if (value.isNotEmpty) {
-          userRec = value;
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
+    // try {
+    //   print('asd');
+    //   await UserRecitationApi().getUserReciataions()!.then((value) {
+    //     print(value);
+    //     if (value.isNotEmpty) {
+    //       userRec = value;
+    //     }
+    //   });
+    // } catch (e) {
+    //   print(e);
+    // }
 
     await AppDatabase()
         .userRecitationDao
         .findAllUserRecitations()
         .then((values) {
       if (values != null) {
-        userRec!.addAll(values);
+        userRec.addAll(values);
       }
     });
 
-    if (userRec != null && userRec!.isNotEmpty) {
+    if (userRec != null && userRec.isNotEmpty) {
       userRecitatios = userRec;
       print(userRec);
       emit(UserRecitationFetched());

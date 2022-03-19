@@ -135,9 +135,10 @@ class PagesLikedPage extends StatelessWidget {
     Function() action,
   ) {
     return UserLiked(
-        userName: name,
-        userImage: AppIcons.quran2Icon,
-        note: note,
-        action: action);
+      userName: name,
+      userImage: AppIcons.quran2Icon,
+      note: note,
+      action: action,
+    );
   }
 }

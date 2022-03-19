@@ -89,29 +89,6 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
     );
   }
 
-  Widget tempView(BuildContext context, HomeCubit cubit) {
-    return Positioned(
-      top: 200,
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Column(
-          children: [
-            AuthButton(
-                buttonText: 'on press',
-                width: MediaQuery.of(context).size.width / 2,
-                onPressed: () {},
-                colors: [AppColor.darkBlue, AppColor.lightBlue]),
-            AuthButton(
-                buttonText: 'on long press',
-                width: MediaQuery.of(context).size.width / 2,
-                onPressed: () {},
-                colors: [AppColor.darkBlue, AppColor.lightBlue]),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _viewPageReading(context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40),

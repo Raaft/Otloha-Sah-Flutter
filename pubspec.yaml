@@ -91,3 +91,23 @@ flutter:
         - asset: assets/fonts/Quicksand/Quicksand-Regular.ttf
         - asset: assets/fonts/Quicksand/Quicksand-Bold.ttf
         - asset: assets/fonts/Quicksand/Quicksand-Medium.ttf
+        
+    - family: HafsSmart
+      fonts:
+        - asset: assets/fonts/hafs_smart_08.ttf 
+
+    - family: QuranKarim
+      fonts:
+        - asset: assets/fonts/quran_karim.ttf
+
+    - family: Bazzi1
+      fonts:
+        - asset: assets/fonts/uthmanic_bazzi1_ver07.ttf
+
+    - family: Doori
+      fonts:
+        - asset: assets/fonts/uthmanic_doori1ver09.ttf
+
+    - family: Hafs17
+      fonts:
+        - asset: assets/fonts/uthmanic_hafs1_ver17.ttf 

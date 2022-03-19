@@ -17,6 +17,8 @@ class UserRecitation {
   bool? showInGeneral;
   DateTime? finishedAt;
   DateTime? archivedAt;
+  String? userName;
+  String? userImage;
 
   UserRecitation({
     this.id,
@@ -33,6 +35,8 @@ class UserRecitation {
     this.archivedAt,
     this.wavePath,
     this.chapterId,
+    this.userImage,
+    this.userName,
   });
 
   UserRecitation copyWith({
@@ -60,6 +64,9 @@ class UserRecitation {
       showInGeneral: showInGeneral ?? this.showInGeneral,
       finishedAt: finishedAt ?? this.finishedAt,
       archivedAt: archivedAt ?? this.archivedAt,
+      userImage: userImage,
+      userName: userName,
+      userId: userId,
     );
   }
 
@@ -88,13 +95,12 @@ class UserRecitation {
       id: map['id'],
       narrationId: int.parse(map['narration_id'].toString()),
       record: map['record'],
-      userId: map['user_id'],
+      // userId: map['owner']['id'],
       versesID: List<int>.from(jsonDecode(map['verse_ids'])),
       name: map['name'],
-      wavePath: map['wavePath'],
+      wavePath: map['wave'],
       uploaded: map['uploaded'],
       chapterId: map['chapter_id'],
-      isAccepted: map['is_accepted'],
       isTeacherRecitation: (map['is_teacher_recitation'] ?? false) == 1,
       showInGeneral: (map['show_in_general'] ?? false) == 1,
       finishedAt: map['finished_at'] != null
@@ -103,6 +109,8 @@ class UserRecitation {
       archivedAt: map['archived_at'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['archived_at'])
           : null,
+      // userImage: map['owner']['image'],
+      // userName: map['owner']['username'],
     );
   }
 
