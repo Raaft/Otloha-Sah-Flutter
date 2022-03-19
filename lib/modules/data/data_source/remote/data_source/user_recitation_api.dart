@@ -6,6 +6,7 @@ import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
 import 'package:flutter_base/modules/data/data_source/remote/repositories/user_recitation_repository.dart';
 import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
+import 'package:flutter_base/modules/data/model/recitations.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 
 class UserRecitationApi extends UserRecitationRepository {
@@ -32,20 +33,14 @@ class UserRecitationApi extends UserRecitationRepository {
   }
 
   @override
-  Future<List<UserRecitation>>? getUserReciataions() async {
+  Future<Recitations?>? getUserReciataions() async {
     Response? response = await ApiBaseHelper().getHTTP('/api/v1/recitations/');
 
-    List<UserRecitation>? userRecitatios = [];
+    Recitations? userRecitatios;
 
     print(response!.data);
     if ((response.statusCode == 201 || response.statusCode == 200)) {
-      userRecitatios.addAll(response.data['results'] as List<UserRecitation>);
-      String next = response.data['next'] ?? '';
-      while (next.isNotEmpty) {
-        response = await ApiBaseHelper().getHTTP(next);
-        userRecitatios
-            .addAll(response!.data['results'] as List<UserRecitation>);
-      }
+      userRecitatios = Recitations.fromJson(response.data);
     } else {
       print('Error Api ' + response.data.toString());
     }

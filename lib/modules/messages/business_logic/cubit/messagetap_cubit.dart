@@ -9,7 +9,6 @@ import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
-import 'package:quran_widget_flutter/data_source/data_source.dart';
 
 part 'messagetap_state.dart';
 

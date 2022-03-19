@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
