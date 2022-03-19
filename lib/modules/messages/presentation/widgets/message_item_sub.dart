@@ -20,6 +20,8 @@ class SubMessageItem extends StatelessWidget {
     this.narrationName,
     this.isRead = false,
     this.isCertic = false,
+    this.showPopup,
+    this.hasMenu = false,
   }) : super(key: key);
 
   final String userName;
@@ -29,11 +31,13 @@ class SubMessageItem extends StatelessWidget {
   final String ayahInfo;
   final Color color;
   final Function()? action;
+  final Function()? showPopup;
 
   final String? userInfo;
   final String? narrationName;
   final bool isRead;
   final bool isCertic;
+  final bool hasMenu;
 
   @override
   Widget build(BuildContext context) {
@@ -113,22 +117,30 @@ class SubMessageItem extends StatelessWidget {
                                 ),
                             ],
                           ),
-                          if (dateStr != null)
-                            Row(
-                              children: [
-                                TextView(
-                                  padding: EdgeInsets.zero,
-                                  text: dateStr ?? '',
-                                  sizeText: 11,
-                                  colorText: AppColor.txtColor4,
+                          Row(
+                            children: [
+                              if (dateStr != null)
+                                Row(
+                                  children: [
+                                    TextView(
+                                      padding: EdgeInsets.zero,
+                                      text: dateStr ?? '',
+                                      sizeText: 11,
+                                      colorText: AppColor.txtColor4,
+                                    ),
+                                    Icon(
+                                      Icons.bookmark_outline,
+                                      size: 14,
+                                      color: AppColor.txtColor4,
+                                    )
+                                  ],
                                 ),
-                                Icon(
-                                  Icons.bookmark_outline,
-                                  size: 14,
-                                  color: AppColor.txtColor4,
-                                )
-                              ],
-                            )
+                              if (hasMenu)
+                                GestureDetector(
+                                    onTap: showPopup,
+                                    child: const Icon(Icons.more_vert))
+                            ],
+                          ),
                         ],
                       ),
                       Row(
