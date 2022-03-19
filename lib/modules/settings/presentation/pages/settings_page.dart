@@ -5,6 +5,8 @@ import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart'
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/change_Password.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/profile_seittings.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/register_as_techer.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_email.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_phone.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
@@ -42,93 +44,15 @@ class _SettingsPageState extends State<SettingsPage> {
             _downloadSettings(context),
             const Divider(),
             _titleSection('Settings'),
-            TextViewIcon(
-              text: 'Sign up As Teacher ',
+            TextView(
+              text: 'Update Profile',
               textAlign: TextAlign.start,
               colorText: AppColor.txtColor3,
-              sizeText: 17,
-              weightText: FontWeight.w700,
-              icon: Icon(
-                Icons.person_add_alt,
-                color: AppColor.txtColor3,
-              ),
-            ),
-            ListView(
-              shrinkWrap: true,
-              children: [
-                ExpandablePanel(
-                  header: TextViewIcon(
-                    text: 'Profile Settings',
-                    textAlign: TextAlign.start,
-                    colorText: AppColor.txtColor3,
-                    sizeText: 17,
-                    weightText: FontWeight.w700,
-                    icon: Icon(
-                      Icons.settings_outlined,
-                      color: AppColor.txtColor3,
-                    ),
-                  ),
-                  collapsed: const Text(''),
-                  expanded: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextView(
-                          text: 'Update Profile',
-                          textAlign: TextAlign.start,
-                          colorText: AppColor.txtColor3,
-                          sizeText: 17,
-                          weightText: FontWeight.bold,
-                          action: () {
-                            Get.to(() => UpdateProfile());
-                          },
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextView(
-                          text: 'Update Email',
-                          textAlign: TextAlign.start,
-                          colorText: AppColor.txtColor3,
-                          sizeText: 17,
-                          weightText: FontWeight.bold,
-                          action: () {
-                            Get.to(() => UpdateEmail());
-                          },
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextView(
-                          text: 'Update Phone',
-                          textAlign: TextAlign.start,
-                          colorText: AppColor.txtColor3,
-                          weightText: FontWeight.bold,
-                          sizeText: 17,
-                          action: () {
-                            Get.to(() => UpdatePhone());
-                          },
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextView(
-                          text: 'Change Password',
-                          textAlign: TextAlign.start,
-                          colorText: AppColor.txtColor3,
-                          sizeText: 17,
-                          weightText: FontWeight.bold,
-                          action: () {
-                            Get.to(() => ChangePassword());
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
+              sizeText: 19,
+              weightText: FontWeight.bold,
+              action: () {
+                Get.to(() => ProfileSettings());
+              },
             ),
             BlocProvider(
               create: (context) => AuthCubit(),
@@ -145,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     text: 'Log Out',
                     textAlign: TextAlign.start,
                     colorText: AppColor.txtColor3,
-                    sizeText: 17,
+                    sizeText: 19,
                     weightText: FontWeight.w700,
                     icon: Icon(
                       Icons.logout,
