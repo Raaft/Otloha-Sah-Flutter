@@ -5,8 +5,6 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
-import 'package:flutter_base/modules/home/presentation/widget/recitation_item.dart';
-import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
@@ -86,53 +84,66 @@ class _RecitationsPageState extends State<RecitationsPage> {
   }
 
   Widget _getItem(Results results, int index) {
-    return RecitationItem(
-      showPopup: (() {
-        Get.bottomSheet(
-          PopupRecitation(
-            finish: () {
-              cubit!.markAsFinished(results.id ?? 0);
-            },
-            general: () {
-              cubit!.addToGeneral(results.id ?? 0);
-            },
-            delete: () {
-              cubit!.deleteRecitations(results.id ?? 0);
-            },
-          ),
-        );
-      }),
-      generalMessageItem: GeneralMessageItem(
-        boxMessageItem: SubMessageItem(
-          isRead: false,
-          ayah: results.name ?? '',
-          ayahInfo: _getAyahInfo(results),
-          narrationName: results.narrationName,
-          userImage: results.owner!.image ?? '',
-          userName: results.name!,
-          dateStr: (results.finishedAt != null)
-              ? DateFormat('hh:mm dd MMM')
-                  .format(DateTime.parse(results.finishedAt ?? ''))
-              : null,
-          color: AppColor.transparent,
-        ),
-        likeCount: 20,
-        isLike: (index % 2 == 0),
-        trggelPlay: () {
-          setState(() {
-            _selectedPlay = index;
-          });
-        },
-        isPlay: index == _selectedPlay,
-        viewBottom: true,
-        recordPath: results.record,
-        wavePath: results.wave,
-        isLocal: false,
+    return GeneralMessageItem(
+      boxMessageItem: SubMessageItem(
+        hasMenu: true,
+        showPopup: (() {
+          Get.bottomSheet(
+            PopupRecitation(
+              finish: () {
+                cubit!.markAsFinished(results.id ?? 0);
+                Get.back();
+              },
+              general: () {
+                cubit!.addToGeneral(results.id ?? 0);
+
+                Get.back();
+              },
+              delete: () {
+                cubit!.deleteRecitations(results.id ?? 0);
+                Get.back();
+              },
+            ),
+          );
+        }),
+        isRead: false,
+        ayah: results.name ?? '',
+        ayahInfo: _getAyahInfo(results),
+        narrationName: results.narrationName,
+        userImage: results.owner!.image ?? '',
+        userName: results.owner!.firstName! + results.owner!.lastName!,
+        dateStr: (results.finishedAt != null)
+            ? DateFormat('hh:mm dd MMM')
+                .format(DateTime.parse(results.finishedAt ?? ''))
+            : null,
+        color: AppColor.transparent,
+        userInfo: (results.owner!.level ?? '') +
+            (results.owner!.isATeacher ?? false ? ' Teacher' : ' Student'),
       ),
+      likeCount: results.likes!.length,
+      commentCount: results.comments!.length,
+      isLike: (index % 2 == 0),
+      trggelPlay: () {
+        setState(() {
+          _selectedPlay = index;
+        });
+      },
+      isPlay: index == _selectedPlay,
+      viewBottom: true,
+      recordPath: results.record,
+      wavePath: results.wave,
+      isLocal: false,
     );
   }
 
   _getAyahInfo(Results results) {
+    /*   Scaffold.of(context).showBottomSheet((context) {
+      return BlocProvider(
+        create: (context) => TeachersendCubit(),
+        child: const PopupChooseTeacherSend(),
+      );
+    });*/
+
     return (results.chapterName ?? '') +
         ' من آية ${results.versesID![0]} الي أية ${results.versesID![results.versesID!.length - 1]}';
   }

@@ -24,6 +24,7 @@ class GeneralMessageItem extends StatelessWidget {
     required this.trggelPlay,
     required this.recordPath,
     required this.wavePath,
+    this.commentCount = 0,
   }) : super(key: key);
 
   final SubMessageItem boxMessageItem;
@@ -34,6 +35,7 @@ class GeneralMessageItem extends StatelessWidget {
   final Function()? goNote;
   final Function()? goReMraker;
   final int likeCount;
+  final int commentCount;
 
   final bool isPlay;
   final bool isLocal;
@@ -62,7 +64,6 @@ class GeneralMessageItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: WaveViewPlayAudio(
-
                   recordPath: recordPath,
                   wavePath: wavePath,
                   trggelPlay: trggelPlay,
@@ -117,7 +118,7 @@ class GeneralMessageItem extends StatelessWidget {
                         height: 20,
                       ),
                       TextView(
-                        text: '20',
+                        text: commentCount.toString(),
                         colorText: AppColor.txtColor4d,
                         sizeText: 16,
                         weightText: FontWeight.bold,
@@ -137,7 +138,7 @@ class GeneralMessageItem extends StatelessWidget {
                         height: 20,
                       ),
                       TextView(
-                        text: '20',
+                        text: commentCount.toString(),
                         colorText: AppColor.txtColor4d,
                         sizeText: 16,
                         weightText: FontWeight.bold,
@@ -150,54 +151,55 @@ class GeneralMessageItem extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: goLike,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * .25,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: const Alignment(-1, 0),
-                    child: _circalUser(),
-                  ),
-                  Align(
-                    alignment: const Alignment(-.62, 0),
-                    child: _circalUser(),
-                  ),
-                  Align(
-                    alignment: const Alignment(-.24, 0),
-                    child: _circalUser(),
-                  ),
-                  Align(
-                    alignment: const Alignment(.14, 0),
-                    child: _circalUser(),
-                  ),
-                  Align(
-                    alignment: const Alignment(.52, 0),
-                    child: _circalUser(),
-                  ),
-                  Align(
-                    alignment: const Alignment(.95, 0),
-                    child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: LinearGradient(
-                          colors: [AppColor.gradient6, AppColor.gradient3],
+          if (likeCount > 0)
+            GestureDetector(
+              onTap: goLike,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * .25,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: const Alignment(-1, 0),
+                      child: _circalUser(),
+                    ),
+                    Align(
+                      alignment: const Alignment(-.62, 0),
+                      child: _circalUser(),
+                    ),
+                    Align(
+                      alignment: const Alignment(-.24, 0),
+                      child: _circalUser(),
+                    ),
+                    Align(
+                      alignment: const Alignment(.14, 0),
+                      child: _circalUser(),
+                    ),
+                    Align(
+                      alignment: const Alignment(.52, 0),
+                      child: _circalUser(),
+                    ),
+                    Align(
+                      alignment: const Alignment(.95, 0),
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            colors: [AppColor.gradient6, AppColor.gradient3],
+                          ),
+                        ),
+                        child: TextView(
+                          text: '+9',
+                          colorText: AppColor.txtColor2,
+                          sizeText: 10,
                         ),
                       ),
-                      child: TextView(
-                        text: '+9',
-                        colorText: AppColor.txtColor2,
-                        sizeText: 10,
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );
