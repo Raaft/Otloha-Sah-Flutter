@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
@@ -11,7 +12,12 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 
 class MessageDetails extends StatefulWidget {
-  const MessageDetails({Key? key}) : super(key: key);
+  const MessageDetails(
+      {Key? key, required this.msgId, required this.recitationId})
+      : super(key: key);
+
+  final int msgId;
+  final int recitationId;
 
   @override
   State<MessageDetails> createState() => _MessageDetailsState();
@@ -112,21 +118,23 @@ class _MessageDetailsState extends State<MessageDetails> {
   }
 
   messageDetailsNew(BuildContext context) {
-    return CommentReplayItem(
-      isLocal: false,
-      isRead: false,
-      ayah:
-          'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
-      ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
-      userImage: AppImages.duserImage,
-      userName: 'userRecitation',
-      dateStr: '9:30 15 Nev',
-      color: AppColor.transparent,
-      trggelPlay: () {},
-      recordPath: '',
-      wavePath: '',
-      errorStr: '',
-      isPlay: false,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: CommentReplayItem(
+        isLocal: false,
+        isRead: false,
+        ayah:
+            'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
+        ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
+        userImage: AppImages.duserImage,
+        userName: 'userRecitation',
+        dateStr: '9:30 15 Nev',
+        color: AppColor.selectColor1,
+        trggelPlay: () {},
+        recordPath: '',
+        wavePath: '',
+        isPlay: false,
+      ),
     );
   }
 

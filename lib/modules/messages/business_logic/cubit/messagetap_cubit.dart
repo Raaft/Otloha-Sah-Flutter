@@ -237,4 +237,6 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     await playSound('waveform.mp3');
     // more code here
   }
+
+  void search({String? qurey}) {}
 }

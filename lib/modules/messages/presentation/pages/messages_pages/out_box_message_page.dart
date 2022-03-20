@@ -72,7 +72,13 @@ class OutBoxMessagePage extends StatelessWidget {
               .format(DateTime.parse(messageModel.recitation!.finishedAt ?? ''))
           : null,
       action: () {
-        Get.to(() => const MessageDetails());
+        print(messageModel.id.toString() +
+            ' ' +
+            messageModel.recitation!.id.toString());
+        Get.to(() => MessageDetails(
+              msgId: messageModel.id ?? 0,
+              recitationId: messageModel.recitation!.id ?? 0,
+            ));
       },
     );
   }
