@@ -5,6 +5,7 @@ import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:quran_widget_flutter/model/chapter.dart'as chapter;
 import 'dart:async';
 import 'dart:io' as io;
 import 'package:quran_widget_flutter/model/page.dart' as page_obj;
@@ -33,17 +34,14 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of(context);
   bool checkVersesValue = false;
 
-  bool isLogin=false;
+  bool isLogin = false;
 
- Future<void> changeIsLogin({required bool isLogin})async{
+  Future<void> changeIsLogin({required bool isLogin}) async {
     await CacheHelper.saveData(key: 'isLogin', value: this.isLogin);
-    var log= await CacheHelper.getData(key: 'isLogin')??false;
-    isLogin=log;
+    var log = await CacheHelper.getData(key: 'isLogin') ?? false;
+    isLogin = log;
     emit(ChangeIsLogInStateState());
-
   }
-
-
 
   isVerSelected(bool? verses) {
     if (verses == null || verses == false) {
@@ -90,6 +88,19 @@ class HomeCubit extends Cubit<HomeState> {
 
   Map<int, List<int>>? selectedIndex = {};
   page_obj.Page? page;
+
+  chapter.Chapter? myChapter;
+  Future<void> getChapterName({required int? chapterId}) async{
+    emit(GetChapterByIdLoadingState());
+    await DataSource.instance.fetchChapterById(chapterId!).then((value) {
+      myChapter=value;
+      emit(GetChapterByIdSucssState());
+    }).catchError((e) {
+      print(e);
+      emit(GetChapterByIdErrorState());
+    });
+  }
+
   changeJuz(int newJux, int newChapter, page_obj.Page page) async {
     this.page = page;
     juz = 'جزء رقم ' + newJux.toString();
@@ -344,7 +355,7 @@ class HomeCubit extends Cubit<HomeState> {
     var userRecitation = UserRecitation(
       narrationId: narrationId,
       record: current!.path ?? '',
-      name: _getName(),
+      name: getName(),
       versesID: _getVerses(),
       wavePath: wave,
     );
@@ -379,7 +390,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  _getName() {
+  getName() {
     print(page!.verses.toString());
     String? text = '';
 
@@ -390,9 +401,9 @@ class HomeCubit extends Cubit<HomeState> {
       }
     }
 
-    print('name ' + _getFirstWords(text ?? '', 5));
+    print('name ' + getFirstWords(text ?? '', 5));
 
-    return _getFirstWords(text ?? '', 5);
+    return getFirstWords(text ?? '', 5);
   }
 
   List<int>? _getVerses() {
@@ -418,7 +429,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(RecordIsRecord(isRecord: isPlay));
   }*/
 
-  String _getFirstWords(String sentence, int wordCounts) {
+  String getFirstWords(String sentence, int wordCounts) {
     try {
       return sentence.split(' ').sublist(0, wordCounts).join(' ');
     } catch (e) {

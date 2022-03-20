@@ -137,13 +137,18 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                               GestureDetector(
                                   onTap: () {
                                     cubit.changeIsBookmarked();
-                                    DatabaseRepository()
-                                        .insertPageMarked(PageMarked(
-                                      idBook: 2,
-                                      pageNumber: 20,
-                                      textVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
-                                      idPage: 20,
-                                    ));
+                                    cubit.getChapterName(
+                                            chapterId: cubit
+                                                .page!.chapters![0].chapterId).then((value) {
+                                      DatabaseRepository()
+                                          .insertPageMarked(PageMarked(
+                                        idBook: 2,
+                                        pageNumber: cubit.page!.id,
+                                        textVerse: cubit.myChapter!.name,
+                                        idPage: cubit.page!.id ,
+                                      ));
+                                      ;
+                                    });
                                   },
                                   child: Icon(
                                     cubit.isBookmarked

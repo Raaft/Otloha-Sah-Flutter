@@ -30,6 +30,9 @@ class GetDurationState extends HomeState {}
 class ChangeDurationState extends HomeState {}
 
 class IsFloatingTrueMenuState extends HomeState {}
+class GetChapterByIdLoadingState extends HomeState {}
+class  GetChapterByIdSucssState extends HomeState {}
+class GetChapterByIdErrorState extends HomeState {}
 
 class IsFloatingFalseMenuState extends HomeState {}
 
