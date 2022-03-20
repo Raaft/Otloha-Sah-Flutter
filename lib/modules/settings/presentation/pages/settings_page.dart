@@ -4,18 +4,16 @@ import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/change_Password.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_email.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_phone.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/profile_seittings.dart';
+
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_sub.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:expandable/expandable.dart';
 
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
-import '../../data/update_profile_web_servises.dart';
+import '../../../home/business_logic/cubit/home_cubit.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -30,136 +28,72 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          shrinkWrap: true,
-          children: [
-            _topView(context),
-            _titleSection('Main Section'),
-            _mainSettings(context),
-            const Divider(),
-            _titleSection('Download Center'),
-            _downloadSettings(context),
-            const Divider(),
-            _titleSection('Settings'),
-            TextViewIcon(
-              text: 'Sign up As Teacher ',
-              textAlign: TextAlign.start,
-              colorText: AppColor.txtColor3,
-              sizeText: 17,
-              weightText: FontWeight.w700,
-              icon: Icon(
-                Icons.person_add_alt,
-                color: AppColor.txtColor3,
-              ),
-            ),
-            ListView(
+          child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               shrinkWrap: true,
               children: [
-                ExpandablePanel(
-                  header: TextViewIcon(
-                    text: 'Profile Settings',
+                _topView(context),
+                _titleSection('Main Section'),
+                _mainSettings(context),
+                const Divider(),
+                _titleSection('Download Center'),
+                _downloadSettings(context),
+                const Divider(),
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    var homeCubit = HomeCubit.get(context);
+                    return (homeCubit.isLogin)
+                        ? _titleSection('Settings'): const Text('');
+                  },
+                ),
+                BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+                  var homeCubit = HomeCubit.get(context);
+                  return (homeCubit.isLogin)
+                      ? TextView(
+                    text: 'Update Profile',
                     textAlign: TextAlign.start,
                     colorText: AppColor.txtColor3,
-                    sizeText: 17,
-                    weightText: FontWeight.w700,
-                    icon: Icon(
-                      Icons.settings_outlined,
-                      color: AppColor.txtColor3,
-                    ),
-                  ),
-                  collapsed: const Text(''),
-                  expanded: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextView(
-                          text: 'Update Profile',
-                          textAlign: TextAlign.start,
-                          colorText: AppColor.txtColor3,
-                          sizeText: 17,
-                          weightText: FontWeight.bold,
-                          action: () {
-                            Get.to(() => UpdateProfile());
-                          },
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextView(
-                          text: 'Update Email',
-                          textAlign: TextAlign.start,
-                          colorText: AppColor.txtColor3,
-                          sizeText: 17,
-                          weightText: FontWeight.bold,
-                          action: () {
-                            Get.to(() => UpdateEmail());
-                          },
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextView(
-                          text: 'Update Phone',
-                          textAlign: TextAlign.start,
-                          colorText: AppColor.txtColor3,
-                          weightText: FontWeight.bold,
-                          sizeText: 17,
-                          action: () {
-                            Get.to(() => UpdatePhone());
-                          },
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextView(
-                          text: 'Change Password',
-                          textAlign: TextAlign.start,
-                          colorText: AppColor.txtColor3,
-                          sizeText: 17,
-                          weightText: FontWeight.bold,
-                          action: () {
-                            Get.to(() => ChangePassword());
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
-            BlocProvider(
-              create: (context) => AuthCubit(),
-              child: BlocConsumer<AuthCubit, AuthState>(
-                listener: (context, state) {
+                    sizeText: 19,
+                    weightText: FontWeight.bold,
+                    action: () {
+                      Get.to(() => ProfileSettings());
+                    },
+                  ) : const Text('');
+                }),
+                BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
                   if (state is LogOutSuccessState) {
                     Get.to(() => LoginPage());
                   }
-                },
-                builder: (context, state) {
+                }, builder: (context, state) {
                   var cubit = AuthCubit.get(context);
 
-                  return TextViewIcon(
-                    text: 'Log Out',
-                    textAlign: TextAlign.start,
-                    colorText: AppColor.txtColor3,
-                    sizeText: 17,
-                    weightText: FontWeight.w700,
-                    icon: Icon(
-                      Icons.logout,
-                      color: AppColor.txtColor3,
-                    ),
-                    action: () {
-                      cubit.userLogOut();
+                  return BlocBuilder<HomeCubit, HomeState>(
+                    builder: (context, state) {
+                      var homeCubit = HomeCubit.get(context);
+                      return (homeCubit.isLogin)
+                          ? TextViewIcon(
+                        text: 'Log Out',
+                        textAlign: TextAlign.start,
+                        colorText: AppColor.txtColor3,
+                        sizeText: 19,
+                        weightText: FontWeight.w700,
+                        icon: Icon(
+                          Icons.logout,
+                          color: AppColor.txtColor3,
+                        ),
+                        action: () {
+                          cubit.userLogOut();
+                          if (state is LogOutSuccessState) {
+                            homeCubit.changeIsLogin(isLogin: false);
+                          }
+                        },
+                      )
+                          : const Text('');
                     },
                   );
-                },
-              ),
-            ),
-          ]),
-    ));
+                })
+              ]),
+        ));
   }
 
   SizedBox _titleSection(String title) {

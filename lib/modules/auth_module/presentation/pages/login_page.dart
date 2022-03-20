@@ -12,6 +12,7 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button
 import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:get/get.dart';
@@ -48,7 +49,10 @@ class LoginPage extends StatelessWidget {
         return SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(35),
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,7 +104,7 @@ class LoginPage extends StatelessWidget {
               ),
               (state is LogInErrorState)
                   ? ValidationErrorText(
-                      error: state.error['non_field_errors'][0].toString())
+                  error: state.error['non_field_errors'][0].toString())
                   : const SizedBox(),
               TextView(
                 text: tr('ForgotPassword') + ' ?',
@@ -116,31 +120,40 @@ class LoginPage extends StatelessWidget {
                 builder: (context, state) {
                   return (state is LogInLoadingState)
                       ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : AuthButton(
-                          buttonText: tr('Login'),
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              debugPrint('validate');
+                    child: CircularProgressIndicator(),
+                  )
+                      : BlocBuilder<HomeCubit, HomeState>(
+                    builder: (context, state) {
 
-                              cubit
-                                  .userLogIn(
-                                      email: emailController.text,
-                                      password: passwordController.text)
-                                  .then((value) {
-                                token = CacheHelper.getData(key: 'token') ?? '';
-                              }).catchError((e) {
-                                print('ERROR IN LOG IN IS $e');
-                              });
-                            }
-                          },
-                          width: double.infinity,
-                          colors: [
-                            AppColor.darkBlue,
-                            AppColor.lightBlue,
-                          ],
-                        );
+                      var homeCubit=HomeCubit.get(context);
+                      return AuthButton(
+                        buttonText: tr('Login'),
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            debugPrint('validate');
+
+                            cubit
+                                .userLogIn(
+                                email: emailController.text,
+                                password: passwordController.text)
+                                .then((value) {
+                              token = CacheHelper.getData(key: 'token') ?? '';
+                              if (state is LogInSuccessState) {
+                                homeCubit.changeIsLogin(isLogin: true);
+                              }
+                            }).catchError((e) {
+                              print('ERROR IN LOG IN IS $e');
+                            });
+                          }
+                        },
+                        width: double.infinity,
+                        colors: [
+                          AppColor.darkBlue,
+                          AppColor.lightBlue,
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
               Row(
