@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 
 import 'package:flutter_base/core/utils/themes/color.dart';
 
@@ -115,40 +112,21 @@ class _MessageDetailsState extends State<MessageDetails> {
   }
 
   messageDetailsNew(BuildContext context) {
-    return GeneralMessageItem(
+    return CommentReplayItem(
       isLocal: false,
-      boxMessageItem: SubMessageItem(
-        isRead: false,
-        ayah:
-            'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
-        ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
-        userImage: AppImages.duserImage,
-        userName: 'userRecitation',
-        dateStr: '9:30 15 Nev',
-        color: AppColor.transparent,
-      ),
-      isLike: true,
-      likeCount: 20,
+      isRead: false,
+      ayah:
+          'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
+      ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
+      userImage: AppImages.duserImage,
+      userName: 'userRecitation',
+      dateStr: '9:30 15 Nev',
+      color: AppColor.transparent,
       trggelPlay: () {},
-      margin: 0,
-      viewBottom: false,
-      replay: SizedBox(
-        width: double.infinity,
-        child: TextView(
-          text: 'رد',
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          sizeText: 14,
-          weightText: FontWeight.w700,
-          colorText: AppColor.txtColor4,
-          textAlign: TextAlign.start,
-          action: () {
-            Navigator.of(context).pushNamed(ReplayMesaagePage.routeName);
-          },
-          // overflow: TextOverflow.ellipsis,
-        ),
-      ),
       recordPath: '',
       wavePath: '',
+      errorStr: '',
+      isPlay: false,
     );
   }
 

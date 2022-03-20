@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
+import 'package:flutter_base/modules/messages/data/models/message_model.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,19 +58,29 @@ class OutBoxMessagePage extends StatelessWidget {
   Widget _getItem(int index, MessageModel messageModel) {
     return BoxMessageItem(
       isRead: messageModel.isRead ?? false,
-      ayah: messageModel.name ?? '',
-      ayahInfo: _getAyahInfo(messageModel),
-      userImage: messageModel.owner?.image ?? '',
-      userName: _user(messageModel.owner),
-      narrationName: messageModel.narrationName,
-      dateStr: (messageModel.finishedAt != null)
+      ayah: messageModel.recitation!.name ?? '',
+      ayahInfo: _getAyahInfo(messageModel.recitation),
+      narrationName: messageModel.recitation!.narrationId.toString(),
+      userImage: messageModel.recitation!.owner?.image ?? '',
+      userName: _user(messageModel.recitation!.owner),
+      userInfo: messageModel.recitation!.owner!.level! +
+          ((messageModel.recitation!.owner!.isATeacher ?? false)
+              ? 'Teacher'
+              : 'Student'),
+      dateStr: (messageModel.recitation!.finishedAt != null)
           ? DateFormat('hh:mm dd MMM')
-              .format(DateTime.parse(messageModel.finishedAt ?? ''))
+              .format(DateTime.parse(messageModel.recitation!.finishedAt ?? ''))
           : null,
       action: () {
         Get.to(() => const MessageDetails());
       },
     );
+  }
+
+  String _getAyahInfo(Recitation? recitation) {
+    String? str =
+        'سورة ${recitation!.chapterId ?? 0} من آية ${recitation.verseIds![0]} الي آية ${recitation.verseIds![recitation.verseIds!.length - 1]}';
+    return str;
   }
 
   String _user(Owner? owner) {
@@ -85,11 +95,5 @@ class OutBoxMessagePage extends StatelessWidget {
     } else {
       return '';
     }
-  }
-
-  String _getAyahInfo(MessageModel messageModel) {
-    String? str =
-        'سورة ${messageModel.chapterName} من آية ${messageModel.verseIds![0]} الي آية ${messageModel.verseIds![messageModel.verseIds!.length - 1]}';
-    return str;
   }
 }

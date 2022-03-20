@@ -17,7 +17,6 @@ import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.da
 import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 final List<SubSectionItem> subSectionData = [
@@ -85,7 +84,8 @@ final List<SubSectionItem> subSectionData = [
     image: AppIcons.bubbleIcon,
     action2: (context) {
       //Get.to(const PagesBookMarkPage());
-       Navigator.of(context).pushNamed(PagesBookMarkPage.routeName, arguments: 2);
+      Navigator.of(context)
+          .pushNamed(PagesBookMarkPage.routeName, arguments: 2);
     },
   ),
 ];

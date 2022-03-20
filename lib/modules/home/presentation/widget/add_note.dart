@@ -7,7 +7,7 @@ import 'package:flutter_base/modules/data/model/verse_note.dart';
 import 'package:flutter_base/modules/data/repository/database_repository.dart';
 
 class AddNote extends StatefulWidget {
-  AddNote({
+  const AddNote({
     Key? key,
     required this.title,
     this.idFromVerse,

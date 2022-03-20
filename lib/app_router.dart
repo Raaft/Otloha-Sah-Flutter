@@ -8,6 +8,7 @@ import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/recitations/recitations_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
@@ -189,7 +190,7 @@ class AppRouter {
           ),
           settings: settings,
         );
-        case PagesBookMarkPage.routeName:
+      case PagesBookMarkPage.routeName:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => GetUserQuranActionCubit(databaseRepository),
@@ -217,7 +218,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             // TODO enter your cubit
-            create: (context) => TajweedCubit(),
+            create: (context) => ReplyCubit(),
             child: const ReplayMesaagePage(),
           ),
           settings: settings,

@@ -13,7 +13,6 @@ import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_ap
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:toast/toast.dart';
 
 class PopupChooseTeacherSend extends StatefulWidget {
   const PopupChooseTeacherSend({Key? key, required this.id}) : super(key: key);

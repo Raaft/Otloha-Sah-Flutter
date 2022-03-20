@@ -3,19 +3,19 @@ import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
 const String fontFamily1 = 'Cairo';
 const String fontFamily2 = 'ElMessiri';
 
-const String baseUrl = 'http://192.168.1.11:8000';
+//const String baseUrl = 'http://192.168.1.11:8000';
 
-//const String baseUrl = 'http://otlohasah.noug.co';
+const String baseUrl = 'http://otlohasah.noug.co';
 
 String token = '';
 
 var isEn = false;
 
-const String clientId = '5zwW1EStI8d0G18Ff6sSeZtCoF3VW3rZL7hHLdwz';
+const String clientId = '8qooczKuIdgU1ES0xfc0pEYEqPJRytXHxBcyY7TT';
 ///////
 //const String clientSecret = '7VJuQ1DrwQzbMilum88be5tLCKx3QJOZ1Rjzp3dUTwNfo2yB8ir9qLWb5Y2xRGnfKcftZxkpVPflXaeP7KjteRFIZREp8WwOcr8Trvq5WVml84DKHoIHXjktBrzy3utk';
 const String clientSecret =
-    'b3DgiOv9XvIZ17yMakUpqpFFv79N3M2sbV7iN9HCLoTeKhhxF6Dcd2s2ASKovRbdoJVCEed53eREAdgt0lvBXS74Wq6jFGX5e0XDeyywbPAqCKo4MYQKqnJZ3UHxipkl';
+    'O2JDrwEaQ0mQQLC2fjNyGSxTQ2qkjmfTfad4qKZn2Ut0P1kaHnT0x55pQd59c18t9FiKjok0chjvA6DvegslL2T1xL0ETqC5nRZ0WXNWWqF2uNTFnJHBOgaTHngIvHVi';
 
 const String languagesSelectedName = 'LanguagesSelectedName';
 const String languagesSelectedId = 'LanguagesSelectedId';
