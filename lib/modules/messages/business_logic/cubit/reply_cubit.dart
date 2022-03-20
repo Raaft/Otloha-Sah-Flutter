@@ -1,15 +1,21 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:bloc/bloc.dart';
+
 import 'package:file/local.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 
 class ReplyCubit extends Cubit<ReplyState> {
   ReplyCubit() : super(InitialReplyState());
+  static ReplyCubit get(context) => BlocProvider.of(context);
+
+  TextEditingController messageController = TextEditingController();
 
   FlutterAudioRecorder2? _recorder;
   Recording? current;
@@ -61,27 +67,27 @@ class ReplyCubit extends Cubit<ReplyState> {
   }
 
   Future<Stream?> start() async {
-    try {
-      emit(StartRecordingState());
-      await _recorder!.start();
-      var recording = await _recorder!.current(channel: 0);
+    await init();
+    print('asd');
 
-      current = recording;
+    emit(StartRecordingState());
+    await _recorder!.start();
+    var recording = await _recorder!.current(channel: 0);
 
-      const tick = Duration(milliseconds: 50);
-      Timer.periodic(tick, (Timer t) async {
-        if (_currentStatus == RecordingStatus.Stopped) {
-          t.cancel();
-        }
+    current = recording;
 
-        var current = await _recorder!.current(channel: 0);
+    const tick = Duration(milliseconds: 50);
+    Timer.periodic(tick, (Timer t) async {
+      if (_currentStatus == RecordingStatus.Stopped) {
+        t.cancel();
+      }
 
-        this.current = current;
-        _currentStatus = this.current!.status!;
-      });
-    } catch (e) {
-      print(e);
-    }
+      var current = await _recorder!.current(channel: 0);
+
+      this.current = current;
+      _currentStatus = this.current!.status!;
+    });
+
     return null;
   }
 
@@ -93,10 +99,17 @@ class ReplyCubit extends Cubit<ReplyState> {
 
       current = result;
       _currentStatus = current!.status!;
+
       emit(EndRecordingState());
     } catch (e) {
       print(e);
     }
+  }
+
+  Future delete() async {
+    File file = File(current!.path!);
+    file.delete();
+    emit(DeleteRecordState());
   }
 
   void onPlayAudio() async {
