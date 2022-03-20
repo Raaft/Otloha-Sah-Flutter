@@ -52,7 +52,17 @@ class _AddNoteState extends State<AddNote> {
         Container(
           height: 300,
           margin: const EdgeInsets.only(top: 40),
-          color: AppColor.background1,
+          decoration: BoxDecoration(
+            color: AppColor.background1,
+           // color: AppColor.darkBlue,
+
+            borderRadius: const BorderRadius.only(
+
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+          ),
+
           child: Stack(
             children: [
               _viewTop(context),
