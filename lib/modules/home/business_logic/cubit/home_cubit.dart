@@ -5,7 +5,7 @@ import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:quran_widget_flutter/model/chapter.dart'as chapter;
+import 'package:quran_widget_flutter/model/chapter.dart' as chapter;
 import 'dart:async';
 import 'dart:io' as io;
 import 'package:quran_widget_flutter/model/page.dart' as page_obj;
@@ -90,10 +90,10 @@ class HomeCubit extends Cubit<HomeState> {
   page_obj.Page? page;
 
   chapter.Chapter? myChapter;
-  Future<void> getChapterName({required int? chapterId}) async{
+  Future<void> getChapterName({required int? chapterId}) async {
     emit(GetChapterByIdLoadingState());
     await DataSource.instance.fetchChapterById(chapterId!).then((value) {
-      myChapter=value;
+      myChapter = value;
       emit(GetChapterByIdSucssState());
     }).catchError((e) {
       print(e);
@@ -357,9 +357,8 @@ class HomeCubit extends Cubit<HomeState> {
     var userRecitation = UserRecitation(
       narrationId: narrationId,
       record: current!.path ?? '',
-      name: _getName(),
+      name: getName(),
       versesID: selectedIndex![0],
-
       wavePath: wave,
     );
 
