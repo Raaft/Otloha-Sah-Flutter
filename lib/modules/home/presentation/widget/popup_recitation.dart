@@ -44,7 +44,7 @@ class PopupRecitation extends StatelessWidget {
             ),
           if (send != null)
             ListTile(
-              onTap: general ?? () {},
+              onTap: send ?? () {},
               title:
                   const TextView(text: 'Send to', textAlign: TextAlign.start),
               leading: Transform(
