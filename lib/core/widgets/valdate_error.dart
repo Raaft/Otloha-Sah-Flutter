@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FieldValidation extends StatelessWidget {
-  final String? error;
+  final List error;
   final Widget textField;
   const FieldValidation({
     required this.error,
@@ -14,7 +14,7 @@ class FieldValidation extends StatelessWidget {
       children: [
         textField,
         const SizedBox(height: 5),
-        error != null
+        (error.isNotEmpty)
             ? Align(
                 alignment: AlignmentDirectional.topStart,
                 child: Text(

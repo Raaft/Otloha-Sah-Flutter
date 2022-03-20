@@ -44,6 +44,7 @@ void main() async {
   await otloha_shaerd.CacheHelper.init();
   await CacheHelper.init();
   token = await CacheHelper.getData(key: 'token') ?? '';
+  isLogin=await CacheHelper.getData(key: 'isLogin')??false;
 
 /*
   for (var item in List.generate(10, (index) => index)) {

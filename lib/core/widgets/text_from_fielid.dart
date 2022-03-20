@@ -7,7 +7,7 @@ class TextFormFieldApp extends StatelessWidget {
       required this.title,
       this.keyType = TextInputType.name,
       required this.validator,
-      required this.onSaved,
+      //required this.onSaved,
       this.controller,
       this.isPassword = false,
       this.isEnabled = true,
@@ -23,7 +23,7 @@ class TextFormFieldApp extends StatelessWidget {
   final String? value;
   final TextInputType keyType;
   final String? Function(String?) validator;
-  final Function(String?) onSaved;
+ // final Function(String?) onSaved;
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -70,7 +70,7 @@ class TextFormFieldApp extends StatelessWidget {
         ),
         keyboardType: keyType,
         validator: validator,
-        onSaved: onSaved,
+        //onSaved: onSaved,
       ),
     );
   }

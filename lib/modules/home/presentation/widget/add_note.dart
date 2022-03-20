@@ -95,7 +95,7 @@ class _AddNoteState extends State<AddNote> {
               textDirection: textDirection,
               onChanged: (val) {
                 print(val);
-                RegExp expEn = RegExp("[a-zA-Z]");
+                RegExp expEn = RegExp('[a-zA-Z]');
 
                 if (expEn.hasMatch(val.substring(val.length - 1)) &&
                     val.substring(val.length - 1) != " ") {

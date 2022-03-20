@@ -41,7 +41,10 @@ class LoginPage extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LogInSuccessState) {
-          Get.to(() => const HomePage());
+          var cubit = AuthCubit.get(context);
+          cubit.changeIsLogin(isLog: true).then((value) {
+            Get.to(() => const HomePage());
+          } );
         }
       },
       builder: (context, state) {
@@ -90,7 +93,7 @@ class LoginPage extends StatelessWidget {
                     }
                     return null;
                   },
-                  onSaved: (value) {}),
+               ),
               PasswordFormField(
                 controller: passwordController,
                 title: 'Password',
@@ -138,9 +141,7 @@ class LoginPage extends StatelessWidget {
                                 password: passwordController.text)
                                 .then((value) {
                               token = CacheHelper.getData(key: 'token') ?? '';
-                              if (state is LogInSuccessState) {
-                                homeCubit.changeIsLogin(isLogin: true);
-                              }
+
                             }).catchError((e) {
                               print('ERROR IN LOG IN IS $e');
                             });

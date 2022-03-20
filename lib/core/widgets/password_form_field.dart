@@ -31,7 +31,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       title: widget.title,
       keyType: TextInputType.visiblePassword,
       validator: widget.validator,
-      onSaved: widget.onSaved,
+      //onSaved: widget.onSaved,
       controller: widget.controller,
       isPassword: isPasswordMode,
       suffixIcon: IconButton(

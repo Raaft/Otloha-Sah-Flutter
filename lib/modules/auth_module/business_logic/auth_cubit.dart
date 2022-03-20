@@ -103,4 +103,13 @@ class AuthCubit extends Cubit<AuthState> {
       return error;
     });
   }
+
+  Future<void> changeIsLogin({required bool isLog}) async {
+    await CacheHelper.saveData(key: 'isLogin', value: isLog);
+
+    isLogin = isLog;
+    print('Is Login Booooooooooool $isLogin');
+    emit(ChangeIsLogInStateState());
+  }
+
 }

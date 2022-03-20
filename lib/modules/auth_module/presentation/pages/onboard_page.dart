@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/sign_up.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
@@ -50,21 +51,33 @@ class OnBoardPage extends StatelessWidget {
                       AppColor.lightBlue,
                     ],
                   ),
-                  AuthButton(
-                    buttonText: 'Guest',
-                    width: MediaQuery.of(context).size.height * 0.5,
-                    onPressed: () {
-                      Get.to(
-                        () => BlocProvider(
-                          create: (_) => HomeCubit(),
-                          child: const HomePage(),
-                        ),
+                  BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                    },
+                    builder: (context, state) {
+                      return BlocConsumer<AuthCubit, AuthState>(
+                        listener: (context, state) {
+                          // TODO: implement listener
+                        },
+                        builder: (context, state) {
+                          var cubit = AuthCubit.get(context);
+                          return AuthButton(
+                            buttonText: 'Guest',
+                            width: MediaQuery.of(context).size.height * 0.5,
+                            onPressed: () {
+                              cubit.changeIsLogin(isLog: false).then((value) {
+                                Get.to(() => const HomePage());
+                              }
+                              );},
+                            colors: [
+                              AppColor.hidenBlue,
+                              AppColor.hidenBlue,
+                            ],
+                          );
+                        },
                       );
                     },
-                    colors: [
-                      AppColor.hidenBlue,
-                      AppColor.hidenBlue,
-                    ],
                   )
                 ],
               ),
