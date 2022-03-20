@@ -13,12 +13,14 @@ class PopupRecitation extends StatelessWidget {
     this.general,
     this.delete,
     this.send,
+    this.isGeneral = false,
   }) : super(key: key);
 
   final Function()? finish;
   final Function()? general;
   final Function()? delete;
   final Function()? send;
+  final bool isGeneral;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,11 @@ class PopupRecitation extends StatelessWidget {
               title: const TextView(
                   text: 'Share to General', textAlign: TextAlign.start),
               leading: const Icon(Icons.share),
+              trailing: Checkbox(
+                  value: isGeneral,
+                  onChanged: (val) {
+                    general!();
+                  }),
             ),
           if (send != null)
             ListTile(

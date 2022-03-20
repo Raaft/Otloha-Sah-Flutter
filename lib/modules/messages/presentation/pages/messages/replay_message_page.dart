@@ -8,8 +8,11 @@ import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.d
 import 'package:flutter_base/modules/messages/presentation/widgets/selectable_message_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ReplayMessagePage extends StatelessWidget {
-  const ReplayMessagePage({Key? key}) : super(key: key);
+
+class ReplayMesaagePage extends StatelessWidget {
+  const ReplayMesaagePage({Key? key}) : super(key: key);
+  static const routeName = '/message/replay';
+
 
   @override
   Widget build(BuildContext context) {

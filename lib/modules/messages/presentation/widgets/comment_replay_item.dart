@@ -209,10 +209,10 @@ class CommentReplayItem extends StatelessWidget {
                         colorText: AppColor.txtColor4,
                         textAlign: TextAlign.start,
                         action: () {
-                          Get.to(BlocProvider(
-                            create: (_) => ReplyCubit(),
-                            child: const ReplayMessagePage(),
-                          ));
+
+                          Navigator.of(context)
+                              .pushNamed(ReplayMesaagePage.routeName);
+
                         },
                         // overflow: TextOverflow.ellipsis,
                       ),
