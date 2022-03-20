@@ -64,7 +64,6 @@ class ApiBaseHelper {
     return dio
       ..interceptors.add(
         InterceptorsWrapper(
-
           onRequest: (RequestOptions options, handler) {
             if (options.path != '/api/v1/token/refresh/') {
               currentRequestOptions = options;

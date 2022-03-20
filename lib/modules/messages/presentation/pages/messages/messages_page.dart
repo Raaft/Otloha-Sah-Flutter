@@ -146,12 +146,12 @@ class _MessagesPageState extends State<MessagesPage> {
           Navigator.of(context).pop();
         },
       ),
-      actionIcon: GestureDetector(
-        onTap: (){
-          Get.to(()=>const MessageDetails());
-        },
-        child: const Icon(Icons.filter_alt_outlined),
-      ),
+      // actionIcon: GestureDetector(
+      //   onTap: () {
+      //     Get.to(() => const MessageDetails());
+      //   },
+      //   child: const Icon(Icons.filter_alt_outlined),
+      // ),
       title: translate('Messages'),
     );
   }
