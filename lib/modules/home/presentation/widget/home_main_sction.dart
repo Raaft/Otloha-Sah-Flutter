@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../business_logic/cubit/home_cubit.dart';
+
 ///////////commit
 class HomeMainSection extends StatelessWidget {
   const HomeMainSection({
@@ -69,7 +73,12 @@ class HomeMainSection extends StatelessWidget {
                   ),
                 ),
               ),
-              userProgressIndicator
+              BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+                var homeCubit = HomeCubit.get(context);
+                return (homeCubit.isLogin)
+                    ? userProgressIndicator
+                    : const Text('');
+              })
             ],
           ),
         ),

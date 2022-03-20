@@ -6,7 +6,7 @@ import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/indicator.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/recitations/recitations_page.dart';
@@ -17,7 +17,7 @@ import 'package:flutter_base/modules/home/presentation/widget/progressindicator.
 import 'package:flutter_base/modules/home/presentation/widget/user_progress_reading.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBNBPage extends StatefulWidget {
   const HomeBNBPage({Key? key}) : super(key: key);
@@ -37,29 +37,34 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _toolBarFun(),
-          _headerProgress(),
-          _sectionMain(context),
-          SizedBox(
-            width: double.infinity,
-            child: Semantics(
-              label: translate('PopularActions'),
-              child: TextView(
-                text: translate('PopularActions'),
-                colorText: AppColor.txtColor3,
-                sizeText: 16,
-                weightText: FontWeight.w700,
-                padding: const EdgeInsets.all(4),
-                textAlign: TextAlign.start,
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          var cubit = HomeCubit.get(context);
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _toolBarFun(cubit),
+              _headerProgress(cubit),
+              _sectionMain(context),
+              SizedBox(
+                width: double.infinity,
+                child: Semantics(
+                  label: translate('PopularActions'),
+                  child: TextView(
+                    text: translate('PopularActions'),
+                    colorText: AppColor.txtColor3,
+                    sizeText: 16,
+                    weightText: FontWeight.w700,
+                    padding: const EdgeInsets.all(4),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
               ),
-            ),
-          ),
-          _subSections(context),
-          _adsConView(context),
-        ],
+              _subSections(context),
+              _adsConView(context),
+            ],
+          );
+        },
       ),
     );
   }
@@ -160,7 +165,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  Row _headerProgress() {
+  Row _headerProgress(HomeCubit cubit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -174,7 +179,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               padding: const EdgeInsets.all(2),
               textAlign: TextAlign.start,
             ),
-            TextView(
+            if(cubit.isLogin)
+
+              TextView(
               text: 'Shady',
               colorText: AppColor.txtColor1,
               sizeText: 20,
@@ -184,7 +191,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             ),
           ],
         ),
-        UserProgressReading(
+        if(cubit.isLogin)
+
+          UserProgressReading(
           userProgressIndicator: UserProgressIndicator(
             name: 'Shady',
             type: 'Juz1-3',
@@ -197,12 +206,14 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  Widget _toolBarFun() {
+  Widget _toolBarFun(HomeCubit cubit) {
     return Row(
       children: [
-        GestureDetector(
+        if(cubit.isLogin)
+
+          GestureDetector(
           onTap: () {
-            Get.to(const OnBoardPage());
+            // Get.to(const OnBoardPage());
           },
           child: CircleAvatar(
             radius: 24,

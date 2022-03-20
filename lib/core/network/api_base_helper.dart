@@ -73,7 +73,7 @@ class ApiBaseHelper {
           onError: (DioError e, handler) async {
             String currentToken = await CacheHelper.getData(key: 'token') ?? '';
             if (currentToken.isNotEmpty && e.response!.statusCode == 401) {
-              String refreshToken = CacheHelper.getData(key: 'refresh');
+              String refreshToken = CacheHelper.getData(key: 'refresh') ?? '';
               var response = await baseAPI.post('/api/v1/token/refresh/',
                   data: {'refresh': refreshToken});
               RefreshTokenModel? t = RefreshTokenModel.fromJson(response.data);

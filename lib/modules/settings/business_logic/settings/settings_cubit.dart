@@ -41,6 +41,16 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(UpdateEmailErrorState(error));
     });
   }
+  regiAsTeacher() {
+    emit(RegisterAsTeacherLoadingState());
+    UpdateProfile().registerAsATeacher().then((value) {
+      print('RegisterAsTeacher is ===========> $value');
+      emit(RegisterAsTeacherSuccessState(value));
+    }).catchError((error) {
+      print('Error RegisterAsTeacher ' + error.toString());
+      emit(RegisterAsTeacherErrorState(error));
+    });
+  }
 
   changePassword(
       {required oldPassword, required newPassword, required confirmPassword}) {

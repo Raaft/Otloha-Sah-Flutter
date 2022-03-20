@@ -27,15 +27,15 @@ class GetMessages extends MessagesRepository {
   }
 
   @override
-  Future<Response> messageDetails({required int messageId}) {
-    ApiBaseHelper().getHTTP('/api/v1/recitations/messages/<$messageId>/');
-    throw UnimplementedError();
+  Future<Response?> messageDetails({required int messageId}) async {
+    return await ApiBaseHelper()
+        .getHTTP('/api/v1/recitations/messages/<$messageId>/');
   }
 
   @override
-  Future<Response> sendMessage({required int messageId}) {
-    ApiBaseHelper().postHTTP('/api/v1/recitations/messages/<$messageId>/', {});
-    throw UnimplementedError();
+  Future<Response?> sendMessage({required int messageId}) async {
+    return await ApiBaseHelper()
+        .postHTTP('/api/v1/recitations/messages/<$messageId>/', {});
   }
 
   @override

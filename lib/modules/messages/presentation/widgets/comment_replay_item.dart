@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_base/core/utils/res/icons_app.dart';
@@ -207,8 +209,10 @@ class CommentReplayItem extends StatelessWidget {
                         colorText: AppColor.txtColor4,
                         textAlign: TextAlign.start,
                         action: () {
+
                           Navigator.of(context)
                               .pushNamed(ReplayMesaagePage.routeName);
+
                         },
                         // overflow: TextOverflow.ellipsis,
                       ),

@@ -3,24 +3,32 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/selectable_message_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class ReplayMesaagePage extends StatelessWidget {
   const ReplayMesaagePage({Key? key}) : super(key: key);
   static const routeName = '/message/replay';
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          children: [
-            _topView(context),
-            messageDetailsNew(context),
-          ],
-        ),
-      ),
-    );
+    return BlocProvider(
+        create: (context) => ReplyCubit(),
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                _topView(context),
+                Expanded(child: messageDetailsNew(context)),
+                _messageField(),
+              ],
+            ),
+          ),
+        ));
   }
 
   messageDetailsNew(BuildContext context) {
@@ -50,4 +58,70 @@ class ReplayMesaagePage extends StatelessWidget {
       title: translate('أضافة تعليق جديد'),
     );
   }
+
+  _messageField() => BlocConsumer(
+      listener: (context, state) {},
+      builder: (context, state) => Container(
+            margin: const EdgeInsets.all(15.0),
+            height: 61,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(35.0),
+                      boxShadow: const [
+                        BoxShadow(
+                          offset: Offset(0, 3),
+                          blurRadius: 5,
+                          color: Colors.grey,
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(8),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                        (state is StartRecordingState)
+                            ? IconButton(
+                                icon: const Icon(
+                                  Icons.earbuds,
+                                  color: Colors.blueAccent,
+                                ),
+                                onPressed: () {},
+                              )
+                            : IconButton(
+                                icon: Icon(
+                                  Icons.keyboard_voice,
+                                  color: Colors.blueAccent,
+                                ),
+                                onPressed: () {},
+                              ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 15),
+                Container(
+                  padding: const EdgeInsets.all(15.0),
+                  decoration: BoxDecoration(
+                      color: Colors.blueAccent, shape: BoxShape.circle),
+                  child: InkWell(
+                    child: Icon(
+                      Icons.send,
+                      color: Colors.white,
+                    ),
+                    onLongPress: () {},
+                  ),
+                ),
+              ],
+            ),
+          ));
 }

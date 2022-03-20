@@ -10,12 +10,12 @@ abstract class MessagesRepository {
 
   Future<Response?>? messagesSent();
 
-  Future<Response> messageDetails({required int messageId});
+  Future<Response?> messageDetails({required int messageId});
 
-  Future<Response> sendMessage({required int messageId});
-  Future<Response> markAsFinished(int id);
-  Future<Response> addToGeneral(int id);
-  Future<Response> deleteRecitations(int id);
+  Future<Response?> sendMessage({required int messageId});
+  Future<Response?> markAsFinished(int id);
+  Future<Response?> addToGeneral(int id);
+  Future<Response?> deleteRecitations(int id);
 
   Future<Response> createMessageReply({
     required int messageId,

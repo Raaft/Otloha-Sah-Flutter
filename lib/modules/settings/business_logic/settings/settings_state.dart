@@ -38,7 +38,6 @@ class UpdatePhoneErrorState extends SettingsState {
 
 class UpdateEmailLoadingState extends SettingsState {}
 
-
 class UpdateEmailSuccessState extends SettingsState {
   UpdateEmailSuccessState(Response value);
 }
@@ -47,6 +46,17 @@ class UpdateEmailErrorState extends SettingsState {
   final String error;
 
   const UpdateEmailErrorState(this.error);
+}
+class RegisterAsTeacherLoadingState extends SettingsState {}
+
+class RegisterAsTeacherSuccessState extends SettingsState {
+  RegisterAsTeacherSuccessState(Response value);
+}
+
+class RegisterAsTeacherErrorState extends SettingsState {
+  final String error;
+
+  const RegisterAsTeacherErrorState(this.error);
 }
 
 class ChangePasswordLoadingState extends SettingsState {}
