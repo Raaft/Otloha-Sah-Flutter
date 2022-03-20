@@ -24,6 +24,7 @@ class _ToolBottonState extends State<ToolBotton> {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
+          Map<int, List<int>>? selectedVerse=cubit.selectedIndex;
           return Positioned(
               child: Align(
                   alignment: Alignment.bottomCenter,
@@ -87,7 +88,7 @@ class _ToolBottonState extends State<ToolBotton> {
                             Scaffold.of(context).showBottomSheet(
                               (context) => AddNote(
                                 title: '2. Al-Baqarah',
-                                textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
+                                textFristVerse: cubit.getFirstWords(cubit.page!.verses![selectedVerse![0]![0]].text.toString(), 5),
                               ),
                               //TODO Add Parmeter To Add Note Widget!!
                               backgroundColor: AppColor.transparent,
@@ -119,13 +120,14 @@ class _ToolBottonState extends State<ToolBotton> {
                         GestureDetector(
                           onTap: () {
                             cubit.changeIsLiked();
+
                             DatabaseRepository().insertVerseLiked(
                               VerseLiked(
-                                idFromVerse: 1,
+                                idFromVerse: cubit.page!.verses![selectedVerse![0]![0]].id,
                                 pageNumber: 20,
-                                textFristVerse: 'قُلْ هُوَ اللَّهُ أَحَدٌ',
-                                idToVerse: 2,
-                                idPage: 20,
+                                textFristVerse: cubit.getFirstWords(cubit.page!.verses![selectedVerse[0]![0]].text.toString(), 5),
+                                idToVerse: cubit.page!.verses![selectedVerse[0]![selectedVerse.length-1]].id,
+                                idPage: cubit.page!.id,
                               ),
                             );
                           },

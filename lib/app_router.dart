@@ -189,6 +189,14 @@ class AppRouter {
           ),
           settings: settings,
         );
+        case PagesBookMarkPage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => GetUserQuranActionCubit(databaseRepository),
+            child: const PagesBookMarkPage(),
+          ),
+          settings: settings,
+        );
       case RecitationsPage.routeName:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
