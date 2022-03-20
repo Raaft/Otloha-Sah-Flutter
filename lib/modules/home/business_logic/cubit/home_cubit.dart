@@ -33,11 +33,14 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of(context);
   bool checkVersesValue = false;
 
-  bool isLogin=CacheHelper.getData(key: 'isLogin')??false;
+  bool isLogin=false;
 
-  changeIsLogin({required bool isLogin}){
-    CacheHelper.saveData(key: 'isLogin', value: this.isLogin);
+ Future<void> changeIsLogin({required bool isLogin})async{
+    await CacheHelper.saveData(key: 'isLogin', value: this.isLogin);
+    var log= await CacheHelper.getData(key: 'isLogin')??false;
+    isLogin=log;
     emit(ChangeIsLogInStateState());
+
   }
 
 
