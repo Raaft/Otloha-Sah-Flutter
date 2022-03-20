@@ -119,10 +119,10 @@ class AppRouter {
         );
       case SettingsPage.routeName:
         return MaterialPageRoute(
-          builder: (_) =>  BlocProvider(
+          builder: (_) => BlocProvider(
             create: (context) => SettingsCubit(),
-            child: const SettingsPage(),),
-
+            child: const SettingsPage(),
+          ),
           settings: settings,
         );
       case BooksPage.routeName:

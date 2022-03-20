@@ -97,20 +97,13 @@ class MessageTapCubit extends Cubit<MessageTapState> {
       } else {
         emit(const MessageSendErrorState('Error Code'));
       }
-    }).catchError((error) {
-      print('Error Finish' + error.toString());
-      if (error is AuthError) {
-        emit(NoAuthState());
-        return;
-      }
-      emit(MessageSendErrorState(error.toString()));
     });
   }
 
   getDetailsMessage({required int messageId}) {
     emit(MessageDetailsLoadingState());
     GetMessages().messageDetails(messageId: messageId).then((value) {
-      messages = (value.data['results'] as List)
+      messages = (value!.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
       print('MessageModel is ===========> $messageDetails');
@@ -131,7 +124,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   sendMessageRequest({required int messageId}) {
     emit(SendMessageLoadingState());
     GetMessages().sendMessage(messageId: messageId).then((value) {
-      messages = (value.data['results'] as List)
+      messages = (value!.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
       print('MessageModel is ===========> $sendMessage');

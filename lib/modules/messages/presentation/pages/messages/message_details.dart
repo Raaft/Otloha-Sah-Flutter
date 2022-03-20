@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:get/get.dart';
 
@@ -64,32 +66,16 @@ class _MessageDetailsState extends State<MessageDetails> {
     );
   }
 
-  Widget _topView(BuildContext context) {
+  Widget _topView(BuildContext ctx) {
     return ToolBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.of(ctx).pop();
         },
       ),
       title: translate('تفاصيل الرسالة'),
     );
-  }
-
-  Column messageDetails(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _topView(context),
-      MessageDetailsHead(
-        userName: 'Raaft',
-        verText:
-            'Text of messageText of messageText of messageText of messageText of messageText of message',
-        action: () {},
-        typeView: true,
-        isCertified: true,
-        recordPath: '',
-        wavePath: '',
-      ),
-    ]);
   }
 
   Widget messageReplay() {
@@ -160,7 +146,12 @@ class _MessageDetailsState extends State<MessageDetails> {
           colorText: AppColor.txtColor4,
           textAlign: TextAlign.start,
           action: () {
-            Get.to(const ReplayMesaagePage());
+            Get.to(
+              BlocProvider(
+                create: (context) => ReplyCubit(),
+                child: const ReplayMessagePage(),
+              ),
+            );
           },
           // overflow: TextOverflow.ellipsis,
         ),

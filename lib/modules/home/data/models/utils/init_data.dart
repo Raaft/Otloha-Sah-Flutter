@@ -28,7 +28,7 @@ final List<SubSectionItem> subSectionData = [
   SubSectionItem(
     title: translate('Teachers'),
     image: AppIcons.teacherIcon,
-    subTitle: 'Ahmed Mohammed',
+    subTitle: _user(),
     action: TeacherPage.routeName,
   ),
   SubSectionItem(
@@ -53,7 +53,8 @@ final List<SubSectionItem> subSectionData = [
     action2: (context) {
       BlocProvider.of<HomeCubit>(context)
           .changePluginPage(page: PageType.tafsir)
-          .then((value) => BlocProvider.of<HomeCubit>(context).changeIndex(1));    },
+          .then((value) => BlocProvider.of<HomeCubit>(context).changeIndex(1));
+    },
   ),
   SubSectionItem(
     title: translate('Tajweed'),
@@ -61,7 +62,8 @@ final List<SubSectionItem> subSectionData = [
     action2: (context) {
       BlocProvider.of<HomeCubit>(context)
           .changePluginPage(page: PageType.tajwid)
-          .then((value) => BlocProvider.of<HomeCubit>(context).changeIndex(1));    },
+          .then((value) => BlocProvider.of<HomeCubit>(context).changeIndex(1));
+    },
   ),
   SubSectionItem(
     title: translate('Note'),
@@ -101,7 +103,6 @@ List<BottomBarData> homeMenuItems = [
     badgeColor: AppColor.bottomHome,
     page: const HomeBNBPage(),
   ),
-
   BottomBarData(
     title: translate('Quran'),
     iconData: AppIcons.quranIcon,
@@ -121,3 +122,18 @@ List<BottomBarData> homeMenuItems = [
     page: const ProfileBNBPage(),
   ),
 ];
+
+String _user() {
+  if (myProFile != null) {
+    var str = (favTeacherProFile!.lastName!.isEmpty &&
+            favTeacherProFile!.firstName!.isEmpty)
+        ? (favTeacherProFile!.username)
+        : '';
+    return (favTeacherProFile!.firstName ?? '') +
+        ' ' +
+        (favTeacherProFile!.lastName ?? '') +
+        (str ?? '');
+  } else {
+    return '';
+  }
+}

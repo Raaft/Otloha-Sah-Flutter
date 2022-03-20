@@ -32,9 +32,7 @@ class InBoxMessagePage extends StatelessWidget {
             child: Center(child: CircularProgressIndicator()),
           );
         }
-        if (state is MessageRecieveErrorState) {
-          return const Expanded(child: ViewError(error: 'No Data'));
-        }
+
         if (state is MessageRecieveSuccessState) {
           return Expanded(
             child: Padding(
@@ -48,9 +46,7 @@ class InBoxMessagePage extends StatelessWidget {
             ),
           );
         }
-        return const Expanded(
-          child: Center(child: CircularProgressIndicator()),
-        );
+        return const Expanded(child: ViewError(error: 'No Data'));
       },
     );
   }

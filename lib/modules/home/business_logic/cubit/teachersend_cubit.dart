@@ -17,7 +17,7 @@ class TeachersendCubit extends Cubit<TeachersendState> {
       if (value != null && value.results != null && value.results!.isNotEmpty) {
         teachers = value;
 
-        emit(TeacherErrorState());
+        emit(TeacherFetchedState());
       } else {
         emit(TeacherErrorState());
       }
@@ -30,5 +30,9 @@ class TeachersendCubit extends Cubit<TeachersendState> {
       }
       emit(TeacherErrorState());
     });
+  }
+
+  void sendMessage(List<int> list) {
+    UserApi().sendMessage(1, 1, list);
   }
 }

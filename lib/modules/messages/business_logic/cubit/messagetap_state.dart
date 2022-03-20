@@ -69,9 +69,7 @@ class SendMessageErrorState extends MessageTapState {
 
 class NoAuthState extends MessageTapState {}
 
-
 class GenaralLoadingState extends MessageTapState {}
-
 
 class GenaralSuccessState extends MessageTapState {}
 

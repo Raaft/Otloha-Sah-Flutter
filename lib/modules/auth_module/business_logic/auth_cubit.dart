@@ -1,7 +1,10 @@
+import 'dart:convert';
 
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/auth_module/data/data_source/login_servise.dart';
+import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
+import 'package:flutter_base/modules/home/data/profile_servise/profile_servises.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -22,12 +25,15 @@ class AuthCubit extends Cubit<AuthState> {
       email: email,
       password: password,
     )!
-        .then((value) {
+        .then((value) async {
       userModel = UserModel.fromJson(value!.data);
       CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
       CacheHelper.saveData(key: 'refresh', value: userModel!.refreshToken);
       print(
           'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
+
+      await saveUsers();
+
       emit(LogInSuccessState());
     }).catchError((error) {
       //  print('emit error=========');
@@ -36,6 +42,24 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
+
+
+  saveUsers() async {
+    UserProfile? user = await ProfileServ().myProfile();
+
+    if (user != null) {
+      CacheHelper.saveData(
+          key: userProfileLogined, value: jsonEncode(userModel!.toJson()));
+      if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
+        var teacher =
+            await ProfileServ().userProfile(user.favoriteTeacher ?? 0);
+        if (teacher != null) {
+          CacheHelper.saveData(
+              key: favTeacher, value: jsonEncode(teacher.toJson()));
+        }
+      }
+    }
+  }
 
 
   Future<void> userRegister(
@@ -50,13 +74,14 @@ class AuthCubit extends Cubit<AuthState> {
             password2: password2,
             phone: phone,
             username: username)
-        .then((value) {
+        .then((value) async {
       userModel = UserModel.fromJson(value.data);
 
       CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
       token = userModel!.accessToken.toString();
       print(
           'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
+      await saveUsers();
       emit(RegisterSuccessState());
     }).catchError((error) {
       // print('in cubit' + .toString());

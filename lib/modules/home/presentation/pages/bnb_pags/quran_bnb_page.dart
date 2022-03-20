@@ -208,4 +208,3 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
     );
   }
 }
-///////////commit proplem

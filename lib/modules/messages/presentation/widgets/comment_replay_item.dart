@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_base/core/utils/res/icons_app.dart';
@@ -29,7 +31,6 @@ class CommentReplayItem extends StatelessWidget {
     required this.trggelPlay,
     required this.recordPath,
     required this.wavePath,
-
   }) : super(key: key);
 
   final String userName;
@@ -150,17 +151,16 @@ class CommentReplayItem extends StatelessWidget {
                             ],
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(2),
                               color: AppColor.gradient1,
                             ),
                             child: TextView(
                               padding: EdgeInsets.zero,
                               text: errorType ?? 'نوع الخطاء : تجويد',
                               sizeText: 11,
-                              colorText: AppColor.txtColor4,
+                              colorText: AppColor.txtColor2,
                               textAlign: TextAlign.start,
                             ),
                           ),
@@ -209,7 +209,10 @@ class CommentReplayItem extends StatelessWidget {
                         colorText: AppColor.txtColor4,
                         textAlign: TextAlign.start,
                         action: () {
-                          Get.to(const ReplayMesaagePage());
+                          Get.to(BlocProvider(
+                            create: (_) => ReplyCubit(),
+                            child: const ReplayMessagePage(),
+                          ));
                         },
                         // overflow: TextOverflow.ellipsis,
                       ),

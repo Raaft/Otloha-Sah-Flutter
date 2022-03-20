@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
+import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/messages/recitation_details.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class RecitationsPage extends StatefulWidget {
   const RecitationsPage({Key? key}) : super(key: key);
@@ -90,15 +94,33 @@ class _RecitationsPageState extends State<RecitationsPage> {
         showPopup: (() {
           Get.bottomSheet(
             PopupRecitation(
-              finish: () {
-                cubit!.markAsFinished(results.id ?? 0);
-                Get.back();
-              },
-              general: () {
-                cubit!.addToGeneral(results.id ?? 0);
+              finish:
+                  (results.finishedAt == null || results.finishedAt!.isEmpty)
+                      ? () {
+                          cubit!.markAsFinished(results.id ?? 0);
+                          Get.back();
+                        }
+                      : null,
+              general: ((results.finishedAt != null &&
+                      results.finishedAt!.isNotEmpty))
+                  ? () {
+                      cubit!.addToGeneral(results.id ?? 0);
 
-                Get.back();
-              },
+                      Get.back();
+                    }
+                  : null,
+              send:
+                  (results.finishedAt != null && results.finishedAt!.isNotEmpty)
+                      ? () {
+                          Get.back();
+                          Get.bottomSheet(
+                            BlocProvider(
+                              create: (_) => TeachersendCubit(),
+                              child: const PopupChooseTeacherSend(),
+                            ),
+                          );
+                        }
+                      : null,
               delete: () {
                 cubit!.deleteRecitations(results.id ?? 0);
                 Get.back();
@@ -119,6 +141,9 @@ class _RecitationsPageState extends State<RecitationsPage> {
         color: AppColor.transparent,
         userInfo: (results.owner!.level ?? '') +
             (results.owner!.isATeacher ?? false ? ' Teacher' : ' Student'),
+        action: () {
+          Get.to(const RecitationDetails());
+        },
       ),
       likeCount: results.likes!.length,
       commentCount: results.comments!.length,
