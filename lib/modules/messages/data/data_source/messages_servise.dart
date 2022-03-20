@@ -96,21 +96,33 @@ class GetMessages extends MessagesRepository {
   }
 
   @override
-  Future<Response> markAsAccepted() {
-    // TODO: implement markAsAccepted
-    throw UnimplementedError();
+  Future<Response> markAsAccepted() async {
+    try {
+      return await ApiBaseHelper()
+          .postHTTP('/api/v1/recitations/:id/messages/:message_id/mark-as-accepted/', {});
+    } catch (e) {
+      throw UnimplementedError();
+    }
   }
 
   @override
-  Future<Response> markAsRead() {
-    // TODO: implement markAsRead
-    throw UnimplementedError();
+  Future<Response> markAsRead() async{
+    try {
+      return await ApiBaseHelper()
+          .postHTTP('/api/v1/recitations/:id/messages/:message_id/mark-as-read/', {});
+    } catch (e) {
+      throw UnimplementedError();
+    }
   }
 
   @override
-  Future<Response> markAsRemarkable() {
-    // TODO: implement markAsRemarkable
-    throw UnimplementedError();
+  Future<Response> markAsRemarkable() async{
+    try {
+      return await ApiBaseHelper()
+          .postHTTP('/api/v1/recitations/:id/messages/:message_id/mark-as-remarkable/', {});
+    } catch (e) {
+      throw UnimplementedError();
+    }
   }
 
 
