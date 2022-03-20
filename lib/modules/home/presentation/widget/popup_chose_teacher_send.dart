@@ -9,11 +9,16 @@ import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:toast/toast.dart';
 
 class PopupChooseTeacherSend extends StatefulWidget {
-  const PopupChooseTeacherSend({Key? key}) : super(key: key);
+  const PopupChooseTeacherSend({Key? key, required this.id}) : super(key: key);
+
+  final int id;
 
   @override
   State<PopupChooseTeacherSend> createState() => _PopupChooseTeacherSendState();
@@ -27,22 +32,24 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   @override
   void initState() {
     super.initState();
-
     cubit = TeachersendCubit.get(context);
     cubit!.getTeacher();
+    Future.delayed(const Duration(seconds: 1), () {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.white,
-      height: double.infinity,
       child: BlocBuilder<TeachersendCubit, TeachersendState>(
         builder: (context, state) {
           if (state is TeacherErrorState) {
-            return const Expanded(child: ViewError(error: 'No Data'));
-          } else if (state is TeacherFetchedState) {
+            return const ViewError(error: 'No Data');
+          }
+
+          if (state is TeacherFetchedState) {
             return _viewBody(cubit!.teachers);
+            //print('object');
           }
           if (state is NoAuthState) {
             Future.delayed(const Duration(seconds: 1), () {
@@ -50,93 +57,65 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
               Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
             });
           }
-          return const Expanded(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         },
       ),
     );
   }
 
-  Container _viewBody(TeacherResponse? teachers) {
+  Widget _viewBody(TeacherResponse? teachers) {
     return Container(
-      margin: const EdgeInsets.only(top: 50),
       color: AppColor.transparent,
       child: Container(
         color: AppColor.white,
         child: ListView(
           children: [
-            const SizedBox(
-              width: 250,
-              height: 10,
-              child: Divider(
-                thickness: 3,
-              ),
-            ),
+            _tabView(context),
+            ..._favTeacher(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListView(
-                physics: const NeverScrollableScrollPhysics(),
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
-                shrinkWrap: true,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextView(
-                    text: translate('Send to Favorite Teacher'),
+                    text: translate('Select to Send to a Teachers'),
                     colorText: AppColor.txtColor3,
                     sizeText: 16,
                     weightText: FontWeight.w700,
                     padding: const EdgeInsets.all(4),
                     textAlign: TextAlign.start,
                   ),
-                  _favTeacher(),
-                  const SizedBox(
-                    width: 250,
-                    height: 10,
-                    child: Divider(
-                      thickness: 1,
+                  IconButton(
+                    onPressed: () {
+                      List<int> users = [];
+                      for (var element in list) {
+                        users.add(teachers!.results![element].id ?? 0);
+                      }
+                      _sendMessage(users, widget.id);
+                    },
+                    icon: Transform(
+                      alignment: Alignment.center,
+                      transform:
+                          isEn ? Matrix4.rotationY(pi) : Matrix4.rotationY(0),
+                      child: Icon(
+                        Icons.send,
+                        color: AppColor.txtColor4,
+                      ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextView(
-                        text: translate('Select to Send to a Teachers'),
-                        colorText: AppColor.txtColor3,
-                        sizeText: 16,
-                        weightText: FontWeight.w700,
-                        padding: const EdgeInsets.all(4),
-                        textAlign: TextAlign.start,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          _sendMessage(list);
-                        },
-                        icon: Transform(
-                          alignment: Alignment.center,
-                          transform: isEn
-                              ? Matrix4.rotationY(0)
-                              : Matrix4.rotationY(pi),
-                          child: Icon(
-                            Icons.send,
-                            color: AppColor.txtColor4,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: teachers!.results!.length,
-                    itemBuilder: (context, index) {
-                      return _teachers(index, teachers.results![index]);
-                    },
-                  )
                 ],
               ),
             ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: teachers!.results!.length,
+              itemBuilder: (context, index) {
+                return _teachers(index, teachers.results![index]);
+              },
+            )
           ],
         ),
       ),
@@ -144,61 +123,80 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   }
 
   _favTeacher() {
-    return ListTile(
-      leading: Container(
-        margin: const EdgeInsets.all(4),
-        width: 60,
-        height: 60,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
-          child: FadeInImage(
-            fit: BoxFit.cover,
-            width: 60,
-            height: 60,
-            placeholder: AssetImage(AppImages.duserImage),
-            image: NetworkImage(
-              favTeacherProFile!.image ??
-                  'https://media-exp1.licdn.com/dms/image/C4D03AQHuILHolmwcsw/profile-displayphoto-shrink_200_200/0/1635605885835?e=2147483647&v=beta&t=QPucLhzpuEWgVZbpTislGr8cr8wtfyeuumpE0jGH9MM',
+    if (favTeacherProFile != null) {
+      return [
+        TextView(
+          text: translate('Send to Favorite Teacher'),
+          colorText: AppColor.txtColor3,
+          sizeText: 16,
+          weightText: FontWeight.w700,
+          padding: const EdgeInsets.all(4),
+          textAlign: TextAlign.start,
+        ),
+        ListTile(
+          leading: Container(
+            margin: const EdgeInsets.all(4),
+            width: 50,
+            height: 50,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(25)),
+              child: FadeInImage(
+                fit: BoxFit.cover,
+                width: 50,
+                height: 50,
+                placeholder: AssetImage(AppImages.duserImage),
+                image: NetworkImage(
+                  (favTeacherProFile != null)
+                      ? favTeacherProFile!.image ?? ''
+                      : 'https://media-exp1.licdn.com/dms/image/C4D03AQHuILHolmwcsw/profile-displayphoto-shrink_200_200/0/1635605885835?e=2147483647&v=beta&t=QPucLhzpuEWgVZbpTislGr8cr8wtfyeuumpE0jGH9MM',
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-      title: TextView(
-        text: _user(favTeacherProFile),
-        colorText: AppColor.txtColor4,
-        sizeText: 16,
-        weightText: FontWeight.w700,
-        padding: const EdgeInsets.all(4),
-        textAlign: TextAlign.start,
-      ),
-      trailing: IconButton(
-        onPressed: () {
-          _sendMessage([favTeacherProFile!.id ?? 0]);
-        },
-        icon: Transform(
-          alignment: Alignment.center,
-          transform: isEn ? Matrix4.rotationY(0) : Matrix4.rotationY(pi),
-          child: Icon(
-            Icons.send,
-            color: AppColor.txtColor4,
+          title: TextView(
+            text: (favTeacherProFile != null)
+                ? _user(favTeacherProFile)
+                : 'no Fav',
+            colorText: AppColor.txtColor4,
+            sizeText: 16,
+            weightText: FontWeight.w700,
+            padding: const EdgeInsets.all(4),
+            textAlign: TextAlign.start,
           ),
-        ),
-      ),
-    );
+          trailing: IconButton(
+            onPressed: () {
+              _sendMessage([
+                ((favTeacherProFile != null) ? favTeacherProFile!.id ?? 0 : 0)
+              ], widget.id);
+            },
+            icon: Transform(
+              alignment: Alignment.center,
+              transform: isEn ? Matrix4.rotationY(pi) : Matrix4.rotationY(0),
+              child: Icon(
+                Icons.send,
+                color: AppColor.txtColor4,
+              ),
+            ),
+          ),
+        )
+      ];
+    } else {
+      return [Container()];
+    }
   }
 
   _teachers(int index, Results results) {
     return ListTile(
       leading: Container(
         margin: const EdgeInsets.all(4),
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
         child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
           child: FadeInImage(
             fit: BoxFit.cover,
-            width: 60,
-            height: 60,
+            width: 50,
+            height: 50,
             placeholder: AssetImage(AppImages.duserImage),
             image: NetworkImage(
               results.image ??
@@ -246,7 +244,29 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
     }
   }
 
-  void _sendMessage(List<int> list) {
-    cubit?.sendMessage(list);
+  void _sendMessage(List<int> list, int id) async {
+    cubit?.sendMessage(list, id)!.then((message) {
+      Get.back();
+      if (message != null) {
+        print('object $message');
+        Get.snackbar(message, message,
+            backgroundColor: AppColor.lightBlue, colorText: AppColor.txtColor2);
+      }
+    });
+  }
+
+  _tabView(BuildContext context) {
+    return SearchBarApp(
+      backIcon: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+      title: 'Teacher Center',
+      onSearch: (val) {
+        BlocProvider.of<TeachersendCubit>(context).filter(qurey: val);
+      },
+    );
   }
 }

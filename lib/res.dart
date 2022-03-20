@@ -5,15 +5,19 @@ class Res {
   static const String ads2 = 'assets/images/ads2.jpg';
   static const String allah_names = 'assets/fonts/allah_names.ttf';
   static const String ar = 'assets/lang/ar.json';
-  static const String assets_fonts_El_Messiri_OFL = 'assets/fonts/El_Messiri/OFL.txt';
-  static const String assets_images_facebook_icon = 'assets/images/facebook_icon.png';
-  static const String assets_images_twitter_icon = 'assets/images/twitter_icon.png';
+  static const String assets_fonts_El_Messiri_OFL =
+      'assets/fonts/El_Messiri/OFL.txt';
+  static const String assets_images_facebook_icon =
+      'assets/images/facebook_icon.png';
+  static const String assets_images_twitter_icon =
+      'assets/images/twitter_icon.png';
   static const String back1 = 'assets/images/back1.jpg';
   static const String back2 = 'assets/images/back2.png';
   static const String bubble = 'assets/icons/bubble.png';
   static const String Cairo_Black = 'assets/fonts/Cairo/Cairo-Black.ttf';
   static const String Cairo_Bold = 'assets/fonts/Cairo/Cairo-Bold.ttf';
-  static const String Cairo_ExtraLight = 'assets/fonts/Cairo/Cairo-ExtraLight.ttf';
+  static const String Cairo_ExtraLight =
+      'assets/fonts/Cairo/Cairo-ExtraLight.ttf';
   static const String Cairo_Light = 'assets/fonts/Cairo/Cairo-Light.ttf';
   static const String Cairo_Regular = 'assets/fonts/Cairo/Cairo-Regular.ttf';
   static const String Cairo_SemiBold = 'assets/fonts/Cairo/Cairo-SemiBold.ttf';
@@ -21,10 +25,14 @@ class Res {
   static const String discussion = 'assets/icons/discussion.png';
   static const String done = 'assets/icons/done.png';
   static const String download = 'assets/icons/download.png';
-  static const String ElMessiri_Bold = 'assets/fonts/El_Messiri/ElMessiri-Bold.ttf';
-  static const String ElMessiri_Medium = 'assets/fonts/El_Messiri/ElMessiri-Medium.ttf';
-  static const String ElMessiri_Regular = 'assets/fonts/El_Messiri/ElMessiri-Regular.ttf';
-  static const String ElMessiri_SemiBold = 'assets/fonts/El_Messiri/ElMessiri-SemiBold.ttf';
+  static const String ElMessiri_Bold =
+      'assets/fonts/El_Messiri/ElMessiri-Bold.ttf';
+  static const String ElMessiri_Medium =
+      'assets/fonts/El_Messiri/ElMessiri-Medium.ttf';
+  static const String ElMessiri_Regular =
+      'assets/fonts/El_Messiri/ElMessiri-Regular.ttf';
+  static const String ElMessiri_SemiBold =
+      'assets/fonts/El_Messiri/ElMessiri-SemiBold.ttf';
   static const String empty = 'assets/icons/empty.png';
   static const String en = 'assets/lang/en.json';
   static const String facebook_icon = 'assets/icons/facebook_icon.png';
@@ -49,11 +57,18 @@ class Res {
   static const String profile = 'assets/icons/profile.png';
   static const String quality = 'assets/icons/quality.png';
   static const String quality2 = 'assets/icons/quality2.png';
-  static const String Quicksand_Bold = 'assets/fonts/Quicksand/Quicksand-Bold.ttf';
-  static const String Quicksand_Light = 'assets/fonts/Quicksand/Quicksand-Light.ttf';
-  static const String Quicksand_Medium = 'assets/fonts/Quicksand/Quicksand-Medium.ttf';
-  static const String Quicksand_Regular = 'assets/fonts/Quicksand/Quicksand-Regular.ttf';
-  static const String Quicksand_SemiBold = 'assets/fonts/Quicksand/Quicksand-SemiBold.ttf';
+
+  static const String Quicksand_Bold =
+      'assets/fonts/Quicksand/Quicksand-Bold.ttf';
+  static const String Quicksand_Light =
+      'assets/fonts/Quicksand/Quicksand-Light.ttf';
+  static const String Quicksand_Medium =
+      'assets/fonts/Quicksand/Quicksand-Medium.ttf';
+  static const String Quicksand_Regular =
+      'assets/fonts/Quicksand/Quicksand-Regular.ttf';
+  static const String Quicksand_SemiBold =
+      'assets/fonts/Quicksand/Quicksand-SemiBold.ttf';
+
   static const String quran = 'assets/icons/quran.png';
   static const String quran2 = 'assets/icons/quran2.png';
   static const String quran3 = 'assets/icons/quran3.png';
@@ -68,15 +83,24 @@ class Res {
   static const String user = 'assets/icons/user.png';
   static const String user_img = 'assets/images/user_img.png';
   static const String user_img2 = 'assets/images/user_img2.jpg';
-  static const String uthmanic_bazzi1_ver07 = 'assets/fonts/uthmanic_bazzi1_ver07.ttf';
-  static const String uthmanic_doori1ver09 = 'assets/fonts/uthmanic_doori1ver09.ttf';
-  static const String uthmanic_hafs1_ver15 = 'assets/fonts/uthmanic_hafs1_ver15.ttf';
-  static const String uthmanic_hafs1_ver17 = 'assets/fonts/uthmanic_hafs1_ver17.ttf';
-  static const String uthmanic_qaloon1_ver10 = 'assets/fonts/uthmanic_qaloon1_ver10.ttf';
-  static const String uthmanic_qumbul1_ver07 = 'assets/fonts/uthmanic_qumbul1_ver07.ttf';
-  static const String uthmanic_shouba1_ver08 = 'assets/fonts/uthmanic_shouba1_ver08.ttf';
-  static const String uthmanic_soosi1_ver09 = 'assets/fonts/uthmanic_soosi1_ver09.ttf';
-  static const String uthmanic_warsh1_ver10 = 'assets/fonts/uthmanic_warsh1_ver10.ttf';
+  static const String uthmanic_bazzi1_ver07 =
+      'assets/fonts/uthmanic_bazzi1_ver07.ttf';
+  static const String uthmanic_doori1ver09 =
+      'assets/fonts/uthmanic_doori1ver09.ttf';
+  static const String uthmanic_hafs1_ver15 =
+      'assets/fonts/uthmanic_hafs1_ver15.ttf';
+  static const String uthmanic_hafs1_ver17 =
+      'assets/fonts/uthmanic_hafs1_ver17.ttf';
+  static const String uthmanic_qaloon1_ver10 =
+      'assets/fonts/uthmanic_qaloon1_ver10.ttf';
+  static const String uthmanic_qumbul1_ver07 =
+      'assets/fonts/uthmanic_qumbul1_ver07.ttf';
+  static const String uthmanic_shouba1_ver08 =
+      'assets/fonts/uthmanic_shouba1_ver08.ttf';
+  static const String uthmanic_soosi1_ver09 =
+      'assets/fonts/uthmanic_soosi1_ver09.ttf';
+  static const String uthmanic_warsh1_ver10 =
+      'assets/fonts/uthmanic_warsh1_ver10.ttf';
   static const String uthmantn1ver10_0 = 'assets/fonts/uthmantn1ver10_0.ttf';
   static const String uthmantn8b_ver10 = 'assets/fonts/uthmantn8b_ver10.ttf';
   //static const String waveform = "assets/audio/waveform.mp3";

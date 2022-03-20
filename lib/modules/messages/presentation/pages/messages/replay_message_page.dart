@@ -8,11 +8,9 @@ import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.d
 import 'package:flutter_base/modules/messages/presentation/widgets/selectable_message_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class ReplayMesaagePage extends StatelessWidget {
   const ReplayMesaagePage({Key? key}) : super(key: key);
   static const routeName = '/message/replay';
-
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +96,7 @@ class ReplayMesaagePage extends StatelessWidget {
                                 onPressed: () {},
                               )
                             : IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.keyboard_voice,
                                   color: Colors.blueAccent,
                                 ),

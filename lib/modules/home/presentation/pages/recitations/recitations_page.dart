@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
@@ -14,7 +13,6 @@ import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_ap
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class RecitationsPage extends StatefulWidget {
   const RecitationsPage({Key? key}) : super(key: key);
@@ -115,9 +113,8 @@ class _RecitationsPageState extends State<RecitationsPage> {
                       ? () {
                           Get.back();
                           Get.bottomSheet(
-                            BlocProvider(
-                              create: (_) => TeachersendCubit(),
-                              child: const PopupChooseTeacherSend(),
+                            PopupChooseTeacherSend(
+                              id: results.id ?? 0,
                             ),
                           );
                         }

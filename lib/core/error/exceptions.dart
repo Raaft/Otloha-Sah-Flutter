@@ -37,6 +37,8 @@ class SomeThingWentWrong implements Exception {}
 
 class ExceptionHandling {
   static handleDioExceprion(DioError e) {
+    print('handleExceptionToFaliure $e');
+
     if (e.type == DioErrorType.other) {
       print(e);
       throw NetworkConnectionException();
@@ -61,6 +63,7 @@ class ExceptionHandling {
   }
 
   static handleExceptionToFaliure(Exception e) {
+    print('handleExceptionToFaliure $e');
     if (e is NetworkConnectionException) {
       return NetworkFailure();
     } else if (e is InvalidData) {

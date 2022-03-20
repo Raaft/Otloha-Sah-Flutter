@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:get/get.dart';
 
 import 'package:flutter_base/core/utils/themes/color.dart';
 
@@ -147,7 +143,6 @@ class _MessageDetailsState extends State<MessageDetails> {
           textAlign: TextAlign.start,
           action: () {
             Navigator.of(context).pushNamed(ReplayMesaagePage.routeName);
-
           },
           // overflow: TextOverflow.ellipsis,
         ),

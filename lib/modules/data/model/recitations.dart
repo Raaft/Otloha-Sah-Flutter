@@ -80,6 +80,7 @@ class Results {
   Results.fromJson(dynamic json) {
     id = json['id'];
     record = json['record'];
+    showInGeneral = json['show_in_general'];
     wave = json['wave'];
     narrationId = int.parse(json['narration_id'] ?? '0');
     versesID = List<int>.from(jsonDecode(json['verse_ids']));
@@ -116,6 +117,7 @@ class Results {
     map['record'] = record;
     map['wave'] = wave;
     map['narration_id'] = narrationId;
+    map['show_in_general'] = showInGeneral;
     map['verse_ids'] = jsonEncode(versesID);
     if (owner != null) {
       map['owner'] = owner?.toJson();

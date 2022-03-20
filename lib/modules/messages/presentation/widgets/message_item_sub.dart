@@ -138,7 +138,7 @@ class SubMessageItem extends StatelessWidget {
                               if (hasMenu)
                                 GestureDetector(
                                     onTap: showPopup,
-                                    child: const Icon(Icons.more_vert))
+                                    child: const Icon(Icons.settings))
                             ],
                           ),
                         ],
