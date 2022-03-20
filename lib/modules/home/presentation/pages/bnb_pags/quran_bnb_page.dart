@@ -4,7 +4,6 @@ import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/floatin_button_widget.dart';
 import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
@@ -209,4 +208,3 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
     );
   }
 }
-///////////commit proplem

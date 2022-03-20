@@ -43,4 +43,18 @@ class UserApi extends UserRepository {
 
     return teachers;
   }
+
+  @override
+  Future? sendMessage(int id, int msgId, List<int> users) async {
+    Response? response = await ApiBaseHelper().postHTTP(
+        '/api/v1/recitations/$id/messges/$msgId/send/', {'users', users});
+
+    if ((response.statusCode == 201 || response.statusCode == 200)) {
+      if (response.data != null) {
+        print(response.data);
+      }
+    } else {
+      print('Error Api ' + response.data.toString());
+    }
+  }
 }
