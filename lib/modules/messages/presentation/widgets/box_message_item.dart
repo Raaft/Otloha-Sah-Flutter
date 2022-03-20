@@ -14,12 +14,14 @@ class BoxMessageItem extends StatelessWidget {
     required this.ayahInfo,
     this.color = AppColor.selectColor1,
     this.action,
+    this.narrationName,
     this.isRead = false,
   }) : super(key: key);
 
   final String userName;
   final String userImage;
   final String? dateStr;
+  final String? narrationName;
   final String ayah;
   final String ayahInfo;
   final Color color;
@@ -39,6 +41,7 @@ class BoxMessageItem extends StatelessWidget {
           userName: userName,
           dateStr: dateStr,
           ayah: ayah,
+          narrationName: narrationName,
           ayahInfo: ayahInfo),
     );
   }

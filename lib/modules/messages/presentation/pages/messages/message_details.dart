@@ -146,12 +146,8 @@ class _MessageDetailsState extends State<MessageDetails> {
           colorText: AppColor.txtColor4,
           textAlign: TextAlign.start,
           action: () {
-            Get.to(
-              BlocProvider(
-                create: (context) => ReplyCubit(),
-                child: const ReplayMessagePage(),
-              ),
-            );
+            Navigator.of(context).pushNamed(ReplayMesaagePage.routeName);
+
           },
           // overflow: TextOverflow.ellipsis,
         ),

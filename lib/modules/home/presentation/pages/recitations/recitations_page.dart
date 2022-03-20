@@ -109,6 +109,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
                       Get.back();
                     }
                   : null,
+              isGeneral: results.showInGeneral ?? false,
               send:
                   (results.finishedAt != null && results.finishedAt!.isNotEmpty)
                       ? () {
@@ -147,6 +148,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
       ),
       likeCount: results.likes!.length,
       commentCount: results.comments!.length,
+      remarkableCount: results.remarkable!.length,
       isLike: (index % 2 == 0),
       trggelPlay: () {
         setState(() {

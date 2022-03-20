@@ -48,6 +48,7 @@ class QuranChangeChapter extends HomeState {}
 class CheckIsVerseEmptyState extends HomeState {}
 
 class DoneCheckIsVerseEmptyState extends HomeState {}
+class ChangeIsLogInStateState extends HomeState {}
 
 class HomeChangeIndex extends HomeState {
   final int index;

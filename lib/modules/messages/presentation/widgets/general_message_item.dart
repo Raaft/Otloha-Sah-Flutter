@@ -25,6 +25,7 @@ class GeneralMessageItem extends StatelessWidget {
     required this.recordPath,
     required this.wavePath,
     this.commentCount = 0,
+    this.remarkableCount = 0,
   }) : super(key: key);
 
   final SubMessageItem boxMessageItem;
@@ -36,6 +37,7 @@ class GeneralMessageItem extends StatelessWidget {
   final Function()? goReMraker;
   final int likeCount;
   final int commentCount;
+  final int remarkableCount;
 
   final bool isPlay;
   final bool isLocal;
@@ -99,7 +101,7 @@ class GeneralMessageItem extends StatelessWidget {
                   onTap: liked,
                 ),
                 TextView(
-                  text: likeCount.toString(),
+                  text: (likeCount > 1) ? likeCount.toString() : '',
                   colorText: AppColor.txtColor4d,
                   sizeText: 16,
                   weightText: FontWeight.bold,
@@ -118,7 +120,7 @@ class GeneralMessageItem extends StatelessWidget {
                         height: 20,
                       ),
                       TextView(
-                        text: commentCount.toString(),
+                        text: (commentCount > 1) ? commentCount.toString() : '',
                         colorText: AppColor.txtColor4d,
                         sizeText: 16,
                         weightText: FontWeight.bold,
@@ -138,7 +140,9 @@ class GeneralMessageItem extends StatelessWidget {
                         height: 20,
                       ),
                       TextView(
-                        text: commentCount.toString(),
+                        text: (remarkableCount > 1)
+                            ? remarkableCount.toString()
+                            : '',
                         colorText: AppColor.txtColor4d,
                         sizeText: 16,
                         weightText: FontWeight.bold,
