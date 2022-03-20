@@ -36,6 +36,8 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
+
+
   Future<void> userRegister(
       {email, username, password1, password2, birthdate, phone, gender}) async {
     emit(RegisterLoadingState());

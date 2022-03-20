@@ -33,6 +33,15 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of(context);
   bool checkVersesValue = false;
 
+  bool isLogin=CacheHelper.getData(key: 'isLogin')??false;
+
+  changeIsLogin({required bool isLogin}){
+    CacheHelper.saveData(key: 'isLogin', value: this.isLogin);
+    emit(ChangeIsLogInStateState());
+  }
+
+
+
   isVerSelected(bool? verses) {
     if (verses == null || verses == false) {
       checkVersesValue = false;

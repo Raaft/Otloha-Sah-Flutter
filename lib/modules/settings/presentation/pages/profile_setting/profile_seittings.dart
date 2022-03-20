@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/register_as_techer.dart';
@@ -9,11 +8,8 @@ import 'package:get/get.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
-import '../../../../../../core/widgets/password_form_field.dart';
-import '../../../../../../core/widgets/text_from_fielid.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../../core/widgets/text_view.dart';
-import '../../../../auth_module/presentation/widget/auth_button.dart';
 import '../../../data/update_profile_web_servises.dart';
 import 'change_Password.dart';
 
@@ -30,7 +26,6 @@ class ProfileSettings extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (ctx, state) {
-        var cubit = SettingsCubit.get(context);
 
         return Scaffold(
           body: SafeArea(

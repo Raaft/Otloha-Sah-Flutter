@@ -4,20 +4,16 @@ import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/change_Password.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/profile_seittings.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/register_as_techer.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_email.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_phone.dart';
+
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_sub.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:expandable/expandable.dart';
 
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
-import '../../data/update_profile_web_servises.dart';
+import '../../../home/business_logic/cubit/home_cubit.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -44,44 +40,52 @@ class _SettingsPageState extends State<SettingsPage> {
             _downloadSettings(context),
             const Divider(),
             _titleSection('Settings'),
-            TextView(
-              text: 'Update Profile',
-              textAlign: TextAlign.start,
-              colorText: AppColor.txtColor3,
-              sizeText: 19,
-              weightText: FontWeight.bold,
-              action: () {
-                Get.to(() => ProfileSettings());
-              },
-            ),
-            BlocProvider(
-              create: (context) => AuthCubit(),
-              child: BlocConsumer<AuthCubit, AuthState>(
-                listener: (context, state) {
-                  if (state is LogOutSuccessState) {
-                    Get.to(() => LoginPage());
-                  }
+            BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+              var homeCubit = HomeCubit.get(context);
+              return (homeCubit.isLogin)
+                  ? TextView(
+                text: 'Update Profile',
+                textAlign: TextAlign.start,
+                colorText: AppColor.txtColor3,
+                sizeText: 19,
+                weightText: FontWeight.bold,
+                action: () {
+                  Get.to(() => ProfileSettings());
                 },
-                builder: (context, state) {
-                  var cubit = AuthCubit.get(context);
+              ):Text('');
+            }),
+            BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
+              if (state is LogOutSuccessState) {
+                Get.to(() => LoginPage());
+              }
+            }, builder: (context, state) {
+              var cubit = AuthCubit.get(context);
 
-                  return TextViewIcon(
-                    text: 'Log Out',
-                    textAlign: TextAlign.start,
-                    colorText: AppColor.txtColor3,
-                    sizeText: 19,
-                    weightText: FontWeight.w700,
-                    icon: Icon(
-                      Icons.logout,
-                      color: AppColor.txtColor3,
-                    ),
-                    action: () {
-                      cubit.userLogOut();
-                    },
-                  );
+              return BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  var homeCubit = HomeCubit.get(context);
+                  return (homeCubit.isLogin)
+                      ? TextViewIcon(
+                          text: 'Log Out',
+                          textAlign: TextAlign.start,
+                          colorText: AppColor.txtColor3,
+                          sizeText: 19,
+                          weightText: FontWeight.w700,
+                          icon: Icon(
+                            Icons.logout,
+                            color: AppColor.txtColor3,
+                          ),
+                          action: () {
+                            cubit.userLogOut();
+                            if (state is LogOutSuccessState) {
+                              homeCubit.changeIsLogin(isLogin: false);
+                            }
+                          },
+                        )
+                      : Text('');
                 },
-              ),
-            ),
+              );
+            })
           ]),
     ));
   }
