@@ -8,6 +8,7 @@ const String fontFamily2 = 'ElMessiri';
 const String baseUrl = 'http://otlohasah.noug.co';
 
 String token = '';
+bool isLogin = false;
 
 var isEn = false;
 

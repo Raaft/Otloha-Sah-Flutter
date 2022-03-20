@@ -27,4 +27,10 @@ abstract class MessagesRepository {
     required int positition_to,
     required String error_type,
   });
+
+
+  Future<Response> markAsRead();
+  Future<Response> markAsAccepted();
+  Future<Response> markAsRemarkable();
+
 }

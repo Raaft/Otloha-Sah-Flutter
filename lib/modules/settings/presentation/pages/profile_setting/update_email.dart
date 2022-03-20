@@ -48,7 +48,7 @@ class UpdateEmail extends StatelessWidget {
                             }
                             return null;
                           },
-                          onSaved: (value) {}),
+                         ),
                       PasswordFormField(
                         controller: passwordController,
                         title: 'Password',

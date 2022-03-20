@@ -3,6 +3,7 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/profile_seittings.dart';
 
@@ -11,6 +12,7 @@ import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/utils/constant/constants.dart';
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
 import '../../../home/business_logic/cubit/home_cubit.dart';
@@ -28,72 +30,71 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-          child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              shrinkWrap: true,
-              children: [
-                _topView(context),
-                _titleSection('Main Section'),
-                _mainSettings(context),
-                const Divider(),
-                _titleSection('Download Center'),
-                _downloadSettings(context),
-                const Divider(),
-                BlocBuilder<HomeCubit, HomeState>(
-                  builder: (context, state) {
-                    var homeCubit = HomeCubit.get(context);
-                    return (homeCubit.isLogin)
-                        ? _titleSection('Settings'): const Text('');
-                  },
-                ),
-                BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-                  var homeCubit = HomeCubit.get(context);
-                  return (homeCubit.isLogin)
-                      ? TextView(
-                    text: 'Update Profile',
-                    textAlign: TextAlign.start,
-                    colorText: AppColor.txtColor3,
-                    sizeText: 19,
-                    weightText: FontWeight.bold,
-                    action: () {
-                      Get.to(() => ProfileSettings());
-                    },
-                  ) : const Text('');
-                }),
-                BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
-                  if (state is LogOutSuccessState) {
-                    Get.to(() => LoginPage());
-                  }
-                }, builder: (context, state) {
-                  var cubit = AuthCubit.get(context);
+      child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          shrinkWrap: true,
+          children: [
+            _topView(context),
+            _titleSection('Main Section'),
+            _mainSettings(context),
+            const Divider(),
+            _titleSection('Download Center'),
+            _downloadSettings(context),
+            const Divider(),
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                var homeCubit = HomeCubit.get(context);
+                return (isLogin) ? _titleSection('Settings') : const Text('');
+              },
+            ),
+            BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+              var homeCubit = HomeCubit.get(context);
+              return (isLogin)
+                  ? TextView(
+                      text: 'Update Profile',
+                      textAlign: TextAlign.start,
+                      colorText: AppColor.txtColor3,
+                      sizeText: 19,
+                      weightText: FontWeight.bold,
+                      action: () {
+                        Get.to(() => ProfileSettings());
+                      },
+                    )
+                  : const Text('');
+            }),
+            BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
+              if (state is LogOutSuccessState) {
+                var cubit = AuthCubit.get(context);
 
-                  return BlocBuilder<HomeCubit, HomeState>(
-                    builder: (context, state) {
-                      var homeCubit = HomeCubit.get(context);
-                      return (homeCubit.isLogin)
-                          ? TextViewIcon(
-                        text: 'Log Out',
-                        textAlign: TextAlign.start,
-                        colorText: AppColor.txtColor3,
-                        sizeText: 19,
-                        weightText: FontWeight.w700,
-                        icon: Icon(
-                          Icons.logout,
-                          color: AppColor.txtColor3,
-                        ),
-                        action: () {
-                          cubit.userLogOut();
-                          if (state is LogOutSuccessState) {
-                            homeCubit.changeIsLogin(isLogin: false);
-                          }
-                        },
-                      )
-                          : const Text('');
-                    },
-                  );
-                })
-              ]),
-        ));
+                cubit.changeIsLogin(isLog: false).then((value) {
+                  Get.to(() => const OnBoardPage());
+                });
+              }
+            }, builder: (context, state) {
+              var cubit = AuthCubit.get(context);
+
+              return (isLogin)
+                  ? TextViewIcon(
+                      text: 'Log Out',
+                      textAlign: TextAlign.start,
+                      colorText: AppColor.txtColor3,
+                      sizeText: 19,
+                      weightText: FontWeight.w700,
+                      icon: Icon(
+                        Icons.logout,
+                        color: AppColor.txtColor3,
+                      ),
+                      action: () {
+                        cubit.userLogOut();
+                        if (state is LogOutSuccessState) {
+                          cubit.changeIsLogin(isLog: false);
+                        }
+                      },
+                    )
+                  : const Text('');
+            })
+          ]),
+    ));
   }
 
   SizedBox _titleSection(String title) {

@@ -19,6 +19,8 @@ import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiac
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/constant/constants.dart';
+
 class HomeBNBPage extends StatefulWidget {
   const HomeBNBPage({Key? key}) : super(key: key);
 
@@ -179,7 +181,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               padding: const EdgeInsets.all(2),
               textAlign: TextAlign.start,
             ),
-            if(cubit.isLogin)
+            if(isLogin)
 
               TextView(
               text: 'Shady',
@@ -191,7 +193,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             ),
           ],
         ),
-        if(cubit.isLogin)
+        if(isLogin)
 
           UserProgressReading(
           userProgressIndicator: UserProgressIndicator(
@@ -209,7 +211,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
   Widget _toolBarFun(HomeCubit cubit) {
     return Row(
       children: [
-        if(cubit.isLogin)
+        if(isLogin)
 
           GestureDetector(
           onTap: () {

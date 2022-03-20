@@ -112,7 +112,7 @@ class _SignFormState extends State<SignForm> {
                 FieldValidation(
                   error: (state is RegisterErrorState)
                       ? state.error['username']
-                      : [],
+                      :[''],
                   textField: TextFormFieldApp(
                       color: AppColor.lightBlue,
                       controller: userNameController,
@@ -124,7 +124,7 @@ class _SignFormState extends State<SignForm> {
                         }
                         return null;
                       },
-                      onSaved: (value) {}),
+                      ),
                 ),
                 FieldValidation(
                   error:
@@ -140,7 +140,7 @@ class _SignFormState extends State<SignForm> {
                         }
                         return null;
                       },
-                      onSaved: (value) {}),
+                      ),
                 ),
                 FieldValidation(
                   error:
@@ -156,7 +156,7 @@ class _SignFormState extends State<SignForm> {
                         }
                         return null;
                       },
-                      onSaved: (value) {}),
+                     ),
                 ),
                 Row(
                   children: <Widget>[

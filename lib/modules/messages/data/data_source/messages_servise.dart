@@ -94,4 +94,24 @@ class GetMessages extends MessagesRepository {
       throw UnimplementedError();
     }
   }
+
+  @override
+  Future<Response> markAsAccepted() {
+    // TODO: implement markAsAccepted
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> markAsRead() {
+    // TODO: implement markAsRead
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response> markAsRemarkable() {
+    // TODO: implement markAsRemarkable
+    throw UnimplementedError();
+  }
+
+
 }
