@@ -57,69 +57,103 @@ class ReplayMesaagePage extends StatelessWidget {
     );
   }
 
-  _messageField() => BlocConsumer(
+  _messageField() => BlocConsumer<ReplyCubit, ReplyState>(
       listener: (context, state) {},
-      builder: (context, state) => Container(
-            margin: const EdgeInsets.all(15.0),
-            height: 61,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(35.0),
-                      boxShadow: const [
-                        BoxShadow(
-                          offset: Offset(0, 3),
-                          blurRadius: 5,
-                          color: Colors.grey,
-                        )
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        const Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(8),
-                              border: InputBorder.none,
-                            ),
+      builder: (context, state) {
+        ReplyCubit cubit = ReplyCubit.get(context);
+        return Container(
+          margin: const EdgeInsets.all(15.0),
+          height: 61,
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(35.0),
+                    boxShadow: const [
+                      BoxShadow(
+                        offset: Offset(0, 3),
+                        blurRadius: 5,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: cubit.messageController,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(8),
+                            border: InputBorder.none,
                           ),
                         ),
-                        (state is StartRecordingState)
-                            ? IconButton(
-                                icon: const Icon(
-                                  Icons.earbuds,
-                                  color: Colors.blueAccent,
-                                ),
-                                onPressed: () {},
-                              )
-                            : IconButton(
-                                icon: const Icon(
-                                  Icons.keyboard_voice,
-                                  color: Colors.blueAccent,
-                                ),
-                                onPressed: () {},
+                      ),
+                      if (state is StartRecordingState)
+                        IconButton(
+                          icon: const Icon(
+                            Icons.stop_circle,
+                            color: Colors.blueAccent,
+                          ),
+                          onPressed: () {
+                            cubit.stop();
+                          },
+                        ),
+
+                      if (state is EndRecordingState)
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.blueAccent,
                               ),
-                      ],
-                    ),
+                              onPressed: () {
+                                cubit.delete();
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.play_arrow,
+                                color: Colors.blueAccent,
+                              ),
+                              onPressed: () {
+                                cubit.onPlayAudio();
+                              },
+                            ),
+                          ],
+                        ),
+                      if (state is InitialReplyState ||
+                          state is DeleteRecordState)
+                        IconButton(
+                          icon: Icon(
+                            Icons.mic,
+                            color: Colors.blueAccent,
+                          ),
+                          onPressed: () {
+                            cubit.start();
+                          },
+                        ),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 15),
-                Container(
-                  padding: const EdgeInsets.all(15.0),
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent, shape: BoxShape.circle),
-                  child: InkWell(
-                    child: Icon(
-                      Icons.send,
-                      color: Colors.white,
-                    ),
-                    onLongPress: () {},
+              ),
+              const SizedBox(width: 15),
+              Container(
+                padding: const EdgeInsets.all(15.0),
+                decoration: BoxDecoration(
+                    color: Colors.blueAccent, shape: BoxShape.circle),
+                child: InkWell(
+                  child: Icon(
+                    Icons.send,
+                    color: Colors.white,
                   ),
+                  onLongPress: () {},
                 ),
-              ],
-            ),
-          ));
+              ),
+            ],
+          ),
+        );
+      });
 }

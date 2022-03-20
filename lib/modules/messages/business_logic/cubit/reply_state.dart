@@ -8,6 +8,8 @@ class EndRecordingState extends ReplyState {}
 
 class MoveToTrashState extends ReplyState {}
 
+class DeleteRecordState extends ReplyState {}
+
 class SendReplyState extends ReplyState {
   String text;
   String recordFile;
