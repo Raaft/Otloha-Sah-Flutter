@@ -17,6 +17,8 @@ class TeachersendCubit extends Cubit<TeachersendState> {
       if (value != null && value.results != null && value.results!.isNotEmpty) {
         teachers = value;
 
+        // print('teachers ' + teachers!.toString());
+
         emit(TeacherFetchedState());
       } else {
         emit(TeacherErrorState());
@@ -32,7 +34,9 @@ class TeachersendCubit extends Cubit<TeachersendState> {
     });
   }
 
-  void sendMessage(List<int> list) {
-    UserApi().sendMessage(1, 1, list);
+  filter({String? qurey}) {}
+
+  Future<String?>? sendMessage(List<int> list, int id) async {
+    return await UserApi().sendMessage(id, list);
   }
 }

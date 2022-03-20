@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class RecordedFileTool extends StatelessWidget {
   const RecordedFileTool({Key? key}) : super(key: key);
@@ -85,8 +87,13 @@ class RecordedFileTool extends StatelessWidget {
                           //  size: 40,
                         )),
                     GestureDetector(
-                      onTap: () {
-                        // cubit.shareRecitation();
+                      onTap: () async {
+                        await cubit.saveRecitation();
+                        Get.bottomSheet(
+                          PopupChooseTeacherSend(
+                            id: cubit.recitationId,
+                          ),
+                        );
                       },
                       child: Image.asset(AppIcons.shareIcon,
                           color: AppColor.white, width: 30),

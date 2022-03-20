@@ -337,7 +337,9 @@ class HomeCubit extends Cubit<HomeState> {
     await audioPlayer.play(current!.path!, isLocal: true);
   }
 
-  void saveRecitation() async {
+  int recitationId = 0;
+
+  saveRecitation() async {
     String customPath = '/File_';
     io.Directory appDocDirectory;
 
@@ -355,16 +357,19 @@ class HomeCubit extends Cubit<HomeState> {
     var userRecitation = UserRecitation(
       narrationId: narrationId,
       record: current!.path ?? '',
-      name: getName(),
-      versesID: _getVerses(),
+      name: _getName(),
+      versesID: selectedIndex![0],
+
       wavePath: wave,
     );
 
     await _initWave(userRecitation.record ?? '', userRecitation.wavePath ?? '');
 
-    await UserRecitationApi()
+    var user = await UserRecitationApi()
         .saveUserReciataion(userRecitation: userRecitation);
-
+    if (user != null) {
+      recitationId = user.id ?? 0;
+    }
     print(userRecitation);
   }
 
@@ -395,7 +400,7 @@ class HomeCubit extends Cubit<HomeState> {
     String? text = '';
 
     for (var element in page!.verses!) {
-      if (element.id == _getVerses()![0]) {
+      if (element.id == _getVerses()) {
         text = element.text;
         break;
       }
@@ -406,8 +411,9 @@ class HomeCubit extends Cubit<HomeState> {
     return getFirstWords(text ?? '', 5);
   }
 
-  List<int>? _getVerses() {
-    return selectedIndex![0];
+  int? _getVerses() {
+    print('object ${selectedIndex![0]} ${selectedIndex![0]![0]}');
+    return selectedIndex![0]![0];
   }
 
 /*

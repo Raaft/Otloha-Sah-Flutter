@@ -100,6 +100,7 @@ class ReplayMesaagePage extends StatelessWidget {
                             cubit.stop();
                           },
                         ),
+
                       if (state is EndRecordingState)
                         Row(
                           children: [

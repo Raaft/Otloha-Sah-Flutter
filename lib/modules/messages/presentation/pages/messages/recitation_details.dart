@@ -74,7 +74,9 @@ class _RecitationDetailsState extends State<RecitationDetails> {
                   Get.bottomSheet(
                     BlocProvider(
                       create: (_) => TeachersendCubit(),
-                      child: const PopupChooseTeacherSend(),
+                      child: const PopupChooseTeacherSend(
+                        id: 0,
+                      ),
                     ),
                   );
                 },

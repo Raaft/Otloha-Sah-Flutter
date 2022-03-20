@@ -73,7 +73,9 @@ class ApiBaseHelper {
           },
           onError: (DioError e, handler) async {
             String currentToken = await CacheHelper.getData(key: 'token') ?? '';
-            if (currentToken.isNotEmpty && e.response!.statusCode == 401) {
+            if (currentToken.isNotEmpty &&
+                e.response != null &&
+                e.response?.statusCode == 401) {
               String refreshToken = CacheHelper.getData(key: 'refresh') ?? '';
               var response = await baseAPI.post('/api/v1/token/refresh/',
                   data: {'refresh': refreshToken});
@@ -81,6 +83,7 @@ class ApiBaseHelper {
               await CacheHelper.saveData(key: 'token', value: t.access);
               return handler.resolve(await retryRequest(currentRequestOptions));
             }
+
             return handler.next(e);
           },
         ),
@@ -141,7 +144,7 @@ class ApiBaseHelper {
       print(response);
       return response;
     } on DioError catch (e) {
-      print(data);
+      print('DioError +' + e.message);
       ExceptionHandling.handleDioExceprion(e);
       rethrow;
     }
@@ -190,7 +193,10 @@ class ApiBaseHelperForAuth {
     responseType: ResponseType.json,
     connectTimeout: 30000,
     receiveTimeout: 30000,
-    headers: {},
+    headers: {
+      'content-type': 'application/json',
+      'Accept': 'application/json',
+    },
   );
 
   ///
