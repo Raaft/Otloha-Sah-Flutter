@@ -5,11 +5,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
-import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
+import 'package:flutter_base/modules/messages/data/models/message_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
-import 'package:quran_widget_flutter/data_source/data_source.dart';
 
 part 'messagetap_state.dart';
 
@@ -64,14 +63,14 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         print('MessageModel is ===========> $messageRecieve');
         if (messageRecieve != null && messageRecieve!.isNotEmpty) {
           for (var element in messageSendList!) {
-            element.chapterName =
-                (await DataSource.instance.fetchChapterById(element.chapterId!))
-                        ?.name ??
-                    '';
-            element.narrationName = (await DataSource.instance
-                        .fetchNarrationById(element.narrationId!))
-                    ?.name ??
-                '';
+            // element.recitation!.chapterName = (await DataSource.instance
+            //             .fetchChapterById(element.recitation!.chapterId!))
+            //         ?.name ??
+            //     '';
+            // element.recitation!.narrationName = (await DataSource.instance
+            //             .fetchNarrationById(element.recitation!.narrationId!))
+            //         ?.name ??
+            //     '';
           }
           emit(MessageRecieveSuccessState());
         } else {
@@ -102,14 +101,14 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         print('MessageModel is ===========> $messageSendList');
         if (messageSendList != null && messageSendList!.isNotEmpty) {
           for (var element in messageSendList!) {
-            element.chapterName =
-                (await DataSource.instance.fetchChapterById(element.chapterId!))
-                        ?.name ??
-                    '';
-            element.narrationName = (await DataSource.instance
-                        .fetchNarrationById(element.narrationId!))
-                    ?.name ??
-                '';
+            // element.recitation!.chapterName = (await DataSource.instance
+            //             .fetchChapterById(element.recitation!.chapterId!))
+            //         ?.name ??
+            //     '';
+            // element.recitation!.narrationName = (await DataSource.instance
+            //             .fetchNarrationById(element.recitation!.narrationId!))
+            //         ?.name ??
+            //     '';
           }
           emit(MessageSendSuccessState());
         } else {
@@ -117,6 +116,11 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         }
       } else {
         emit(const MessageSendErrorState('Error Code'));
+      }
+    }).catchError((error) {
+      if (error is AuthError) {
+        emit(NoAuthState());
+        return;
       }
     });
   }
@@ -138,6 +142,11 @@ class MessageTapCubit extends Cubit<MessageTapState> {
       }
       emit(MessageDetailsErrorState(error.toString()));
       return;
+    }).catchError((error) {
+      if (error is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
     });
     return;
   }

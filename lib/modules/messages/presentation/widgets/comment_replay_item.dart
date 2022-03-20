@@ -16,7 +16,7 @@ class CommentReplayItem extends StatelessWidget {
     required this.ayah,
     required this.ayahInfo,
     required this.color,
-    required this.errorStr,
+    this.errorStr,
     this.action,
     this.userInfo,
     this.errorType,
@@ -35,7 +35,7 @@ class CommentReplayItem extends StatelessWidget {
   final String? dateStr;
   final String ayah;
   final String ayahInfo;
-  final String errorStr;
+  final String? errorStr;
   final Color color;
   final Function()? action;
 
@@ -190,14 +190,15 @@ class CommentReplayItem extends StatelessWidget {
                           trggelPlay: trggelPlay,
                           isLocal: isLocal,
                           isPlay: isPlay),
-                      TextView(
-                        text: errorStr,
-                        padding: EdgeInsets.zero,
-                        sizeText: 14,
-                        colorText: AppColor.txtColor4,
-                        textAlign: TextAlign.start,
-                        // overflow: TextOverflow.ellipsis,
-                      ),
+                      if (errorStr != null)
+                        TextView(
+                          text: errorStr ?? '',
+                          padding: EdgeInsets.zero,
+                          sizeText: 14,
+                          colorText: AppColor.txtColor4,
+                          textAlign: TextAlign.start,
+                          // overflow: TextOverflow.ellipsis,
+                        ),
                       TextView(
                         text: 'رد',
                         padding: EdgeInsets.zero,

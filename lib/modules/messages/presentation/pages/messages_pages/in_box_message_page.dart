@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
+import 'package:flutter_base/modules/messages/data/models/message_model.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
@@ -54,14 +54,18 @@ class InBoxMessagePage extends StatelessWidget {
   Widget _getItem(int index, MessageModel messageModel) {
     return BoxMessageItem(
       isRead: messageModel.isRead ?? false,
-      ayah: messageModel.name ?? '',
-      ayahInfo: _getAyahInfo(messageModel),
-      narrationName: messageModel.name,
-      userImage: messageModel.owner?.image ?? '',
-      userName: _user(messageModel.owner),
-      dateStr: (messageModel.finishedAt != null)
+      ayah: messageModel.recitation!.name ?? '',
+      ayahInfo: _getAyahInfo(messageModel.recitation),
+      narrationName: messageModel.recitation!.narrationId.toString(),
+      userImage: messageModel.recitation!.owner?.image ?? '',
+      userName: _user(messageModel.recitation!.owner),
+      userInfo: messageModel.recitation!.owner!.level! +
+          ((messageModel.recitation!.owner!.isATeacher ?? false)
+              ? 'Teacher'
+              : 'Student'),
+      dateStr: (messageModel.recitation!.finishedAt != null)
           ? DateFormat('hh:mm dd MMM')
-              .format(DateTime.parse(messageModel.finishedAt ?? ''))
+              .format(DateTime.parse(messageModel.recitation!.finishedAt ?? ''))
           : null,
       action: () {
         Get.to(() => const MessageDetails());
@@ -69,9 +73,9 @@ class InBoxMessagePage extends StatelessWidget {
     );
   }
 
-  String _getAyahInfo(MessageModel messageModel) {
+  String _getAyahInfo(Recitation? recitation) {
     String? str =
-        'سورة ${messageModel.chapterName} من آية ${messageModel.verseIds![0]} الي آية ${messageModel.verseIds![messageModel.verseIds!.length - 1]}';
+        'سورة ${recitation!.chapterId ?? 0} من آية ${recitation.verseIds![0]} الي آية ${recitation.verseIds![recitation.verseIds!.length - 1]}';
     return str;
   }
 

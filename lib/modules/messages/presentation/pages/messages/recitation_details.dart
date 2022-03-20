@@ -7,8 +7,7 @@ import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -34,25 +33,21 @@ class _RecitationDetailsState extends State<RecitationDetails> {
   }
 
   Widget _getItem2() {
-    return GeneralMessageItem(
+    return CommentReplayItem(
       isLocal: false,
-      boxMessageItem: SubMessageItem(
-        isRead: false,
-        ayah:
-            'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
-        ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
-        userImage: AppImages.duserImage,
-        userName: 'userRecitation',
-        dateStr: '9:30 15 Nev',
-        color: AppColor.transparent,
-      ),
-      viewBottom: true,
-      isLike: true,
-      likeCount: 20,
+      isRead: false,
+      ayah:
+          'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
+      ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
+      userImage: AppImages.duserImage,
+      userName: 'userRecitation',
+      dateStr: '9:30 15 Nev',
+      color: AppColor.transparent,
       trggelPlay: () {},
-      margin: 0,
       recordPath: '',
       wavePath: '',
+      errorStr: '',
+      isPlay: false,
     );
   }
 

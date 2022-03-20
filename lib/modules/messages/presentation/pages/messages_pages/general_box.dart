@@ -78,7 +78,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
         isRead: false,
         ayah: generalResponse.name ?? '',
         userInfo: _getUserInfo(generalResponse.owner),
-        ayahInfo: generalResponse.chapterName ?? '',
+        ayahInfo: _getAyahInfo(generalResponse),
         narrationName: generalResponse.narrationName,
         userImage: generalResponse.owner!.image ?? '',
         userName: generalResponse.owner!.firstName.toString() +
@@ -164,6 +164,12 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
       isPlay: index == _selectedPlay, recordPath: '', wavePath: '',
       commentCount: 0,
     );
+  }
+
+  String _getAyahInfo(GeneralResponse generalResponse) {
+    String? str =
+        'سورة ${generalResponse.chapterName ?? 0} من آية ${generalResponse.verseIds![0]} الي آية ${generalResponse.verseIds![generalResponse.verseIds!.length - 1]}';
+    return str;
   }
 
   _getUserInfo(Owner? owner) {
