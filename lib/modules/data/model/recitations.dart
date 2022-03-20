@@ -108,6 +108,7 @@ class Results {
   String? finishedAt;
   String? name;
   List<String>? remarkable;
+  bool? showInGeneral;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

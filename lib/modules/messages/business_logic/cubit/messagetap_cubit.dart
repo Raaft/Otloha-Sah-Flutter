@@ -9,6 +9,7 @@ import 'package:flutter_base/modules/messages/data/models/MessageModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
+import 'package:quran_widget_flutter/data_source/data_source.dart';
 
 part 'messagetap_state.dart';
 
@@ -54,7 +55,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   getRecieveMessage() {
     emit(MessageRecieveSuccessLoadingState());
-    GetMessages().messgasRecieve()!.then((value) {
+    GetMessages().messgasRecieve()!.then((value) async {
       print('Status Code ${value!.statusCode}');
       if (value.statusCode == 200) {
         messageRecieve = (value.data['results'] as List)
@@ -62,6 +63,16 @@ class MessageTapCubit extends Cubit<MessageTapState> {
             .toList();
         print('MessageModel is ===========> $messageRecieve');
         if (messageRecieve != null && messageRecieve!.isNotEmpty) {
+          for (var element in messageSendList!) {
+            element.chapterName =
+                (await DataSource.instance.fetchChapterById(element.chapterId!))
+                        ?.name ??
+                    '';
+            element.narrationName = (await DataSource.instance
+                        .fetchNarrationById(element.narrationId!))
+                    ?.name ??
+                '';
+          }
           emit(MessageRecieveSuccessState());
         } else {
           emit(const MessageSendErrorState('No Data'));
@@ -81,7 +92,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   getSendMessage() {
     emit(MessageSendSuccessLoadingState());
-    GetMessages().messagesSent()!.then((value) {
+    GetMessages().messagesSent()!.then((value) async {
       print('Status Code ${value!.statusCode}');
 
       if (value.statusCode == 200) {
@@ -90,6 +101,16 @@ class MessageTapCubit extends Cubit<MessageTapState> {
             .toList();
         print('MessageModel is ===========> $messageSendList');
         if (messageSendList != null && messageSendList!.isNotEmpty) {
+          for (var element in messageSendList!) {
+            element.chapterName =
+                (await DataSource.instance.fetchChapterById(element.chapterId!))
+                        ?.name ??
+                    '';
+            element.narrationName = (await DataSource.instance
+                        .fetchNarrationById(element.narrationId!))
+                    ?.name ??
+                '';
+          }
           emit(MessageSendSuccessState());
         } else {
           emit(const MessageSendErrorState('No Data'));

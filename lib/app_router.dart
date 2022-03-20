@@ -10,6 +10,7 @@ import 'package:flutter_base/modules/home/presentation/pages/recitations/recitat
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
+import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
 import 'package:flutter_base/modules/plugin_creation/domain/plugin_cubit/plugin_cubit.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranaction_cubit.dart';
@@ -119,10 +120,10 @@ class AppRouter {
         );
       case SettingsPage.routeName:
         return MaterialPageRoute(
-          builder: (_) =>  BlocProvider(
+          builder: (_) => BlocProvider(
             create: (context) => SettingsCubit(),
-            child: const SettingsPage(),),
-
+            child: const SettingsPage(),
+          ),
           settings: settings,
         );
       case BooksPage.routeName:
@@ -201,6 +202,15 @@ class AppRouter {
           builder: (_) => BlocProvider(
             create: (context) => TajweedCubit(),
             child: const TajweedPage(),
+          ),
+          settings: settings,
+        );
+      case ReplayMesaagePage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            // TODO enter your cubit
+            create: (context) => TajweedCubit(),
+            child: const ReplayMesaagePage(),
           ),
           settings: settings,
         );

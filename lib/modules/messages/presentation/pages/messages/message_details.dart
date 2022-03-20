@@ -179,7 +179,7 @@ class _MessageDetailsState extends State<MessageDetails> {
           colorText: AppColor.txtColor4,
           textAlign: TextAlign.start,
           action: () {
-            Get.to(const ReplayMesaagePage());
+            Navigator.of(context).pushNamed(ReplayMesaagePage.routeName);
           },
           // overflow: TextOverflow.ellipsis,
         ),

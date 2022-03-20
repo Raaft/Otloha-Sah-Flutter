@@ -7,6 +7,7 @@ import 'package:flutter_base/modules/messages/presentation/widgets/selectable_me
 
 class ReplayMesaagePage extends StatelessWidget {
   const ReplayMesaagePage({Key? key}) : super(key: key);
+  static const routeName = '/message/replay';
 
   @override
   Widget build(BuildContext context) {

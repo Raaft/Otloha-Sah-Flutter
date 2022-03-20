@@ -109,7 +109,8 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
           Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 1),
       goReMraker: () =>
           Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 2),
-      likeCount: 20 + (_liked.contains(index) ? 1 : 0),
+      likeCount: (generalResponse.likes?.length ?? 0) +
+          (_liked.contains(index) ? 1 : 0),
       trggelPlay: () {
         setState(() {
           _selectedPlay = index;
@@ -117,6 +118,8 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
       },
       viewBottom: true,
       isPlay: index == _selectedPlay, recordPath: '', wavePath: '',
+      commentCount: generalResponse.comments?.length ?? 0,
+      remarkableCount: generalResponse.remarkable?.length ?? 0,
     );
   }
 
@@ -159,6 +162,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
         });
       },
       isPlay: index == _selectedPlay, recordPath: '', wavePath: '',
+      commentCount: 0,
     );
   }
 

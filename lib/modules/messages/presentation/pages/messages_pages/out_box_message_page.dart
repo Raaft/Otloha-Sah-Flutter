@@ -9,6 +9,7 @@ import 'package:flutter_base/modules/messages/presentation/widgets/box_message_i
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../messages/message_details.dart';
 
@@ -57,15 +58,39 @@ class OutBoxMessagePage extends StatelessWidget {
 
   Widget _getItem(int index, MessageModel messageModel) {
     return BoxMessageItem(
-      isRead: ((index % 3) == 0),
-      ayah: 'أن الذين كفروا سواء عليهم',
-      ayahInfo: 'Juz-1  6-Ayah البقرة',
-      userImage: AppImages.duserImage,
-      userName: 'Mohamed Ahmed',
-      dateStr: '9:30 15 Nov',
+      isRead: messageModel.isRead ?? false,
+      ayah: messageModel.name ?? '',
+      ayahInfo: _getAyahInfo(messageModel),
+      userImage: messageModel.owner?.image ?? '',
+      userName: _user(messageModel.owner),
+      narrationName: messageModel.narrationName,
+      dateStr: (messageModel.finishedAt != null)
+          ? DateFormat('hh:mm dd MMM')
+              .format(DateTime.parse(messageModel.finishedAt ?? ''))
+          : null,
       action: () {
         Get.to(() => const MessageDetails());
       },
     );
+  }
+
+  String _user(Owner? owner) {
+    if (owner != null) {
+      var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
+          ? (owner.username)
+          : '';
+      return (owner.firstName ?? '') +
+          ' ' +
+          (owner.lastName ?? '') +
+          (str ?? '');
+    } else {
+      return '';
+    }
+  }
+
+  String _getAyahInfo(MessageModel messageModel) {
+    String? str =
+        'سورة ${messageModel.chapterName} من آية ${messageModel.verseIds![0]} الي آية ${messageModel.verseIds![messageModel.verseIds!.length - 1]}';
+    return str;
   }
 }
