@@ -1,11 +1,14 @@
 // ignore_for_file: library_prefixes
 
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +82,16 @@ void main() async {
 
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
+  try {
+    myProFile ==
+        UserProfile.fromJson(jsonDecode(
+            await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
+    favTeacherProFile = UserProfile.fromJson(
+        jsonDecode(await otloha_shaerd.CacheHelper.getData(key: favTeacher)));
+  } catch (e) {
+    print('no user login');
+  }
+
   BlocOverrides.runZoned(
     () => runApp(
       EasyLocalization(
@@ -125,9 +138,11 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => SettingsCubit(),
-        ), BlocProvider(
+        ),
+        BlocProvider(
           create: (context) => HomeCubit(),
-        ),BlocProvider(
+        ),
+        BlocProvider(
           create: (context) => AuthCubit(),
         ),
       ],

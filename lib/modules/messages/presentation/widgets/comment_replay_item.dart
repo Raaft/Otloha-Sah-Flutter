@@ -29,7 +29,6 @@ class CommentReplayItem extends StatelessWidget {
     required this.trggelPlay,
     required this.recordPath,
     required this.wavePath,
-
   }) : super(key: key);
 
   final String userName;
@@ -150,17 +149,16 @@ class CommentReplayItem extends StatelessWidget {
                             ],
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(2),
                               color: AppColor.gradient1,
                             ),
                             child: TextView(
                               padding: EdgeInsets.zero,
                               text: errorType ?? 'نوع الخطاء : تجويد',
                               sizeText: 11,
-                              colorText: AppColor.txtColor4,
+                              colorText: AppColor.txtColor2,
                               textAlign: TextAlign.start,
                             ),
                           ),

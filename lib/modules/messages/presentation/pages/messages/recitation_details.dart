@@ -4,8 +4,13 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
+import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
+import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class RecitationDetails extends StatefulWidget {
   const RecitationDetails({Key? key}) : super(key: key);
@@ -60,6 +65,25 @@ class _RecitationDetailsState extends State<RecitationDetails> {
         },
       ),
       title: translate('Recitation Details'),
+      actionIcon: IconButton(
+          onPressed: () {
+            Get.bottomSheet(
+              PopupRecitation(
+                finish: () {
+                  Get.back();
+                  Get.bottomSheet(
+                    BlocProvider(
+                      create: (_) => TeachersendCubit(),
+                      child: const PopupChooseTeacherSend(),
+                    ),
+                  );
+                },
+                delete: () {},
+              ),
+              enableDrag: true,
+            );
+          },
+          icon: const Icon(Icons.more_vert)),
     );
   }
 }

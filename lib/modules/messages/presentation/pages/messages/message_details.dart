@@ -64,15 +64,34 @@ class _MessageDetailsState extends State<MessageDetails> {
     );
   }
 
-  Widget _topView(BuildContext context) {
+  Widget _topView(BuildContext ctx) {
     return ToolBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.of(ctx).pop();
         },
       ),
       title: translate('تفاصيل الرسالة'),
+      // actionIcon: IconButton(
+      //     onPressed: () {
+      //       Get.bottomSheet(
+      //         PopupRecitation(
+      //           finish: () {
+      //             Get.back();
+      //             Get.bottomSheet(
+      //               BlocProvider(
+      //                 create: (_) => TeachersendCubit(),
+      //                 child: const PopupChooseTeacherSend(),
+      //               ),
+      //             );
+      //           },
+      //           delete: () {},
+      //         ),
+      //         enableDrag: true,
+      //       );
+      //     },
+      //     icon: const Icon(Icons.more_vert)),
     );
   }
 

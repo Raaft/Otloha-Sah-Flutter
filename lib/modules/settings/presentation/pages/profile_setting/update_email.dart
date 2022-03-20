@@ -10,7 +10,6 @@ import '../../../../../../core/widgets/text_from_fielid.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../auth_module/presentation/widget/auth_button.dart';
 
-
 class UpdateEmail extends StatelessWidget {
   UpdateEmail({Key? key}) : super(key: key);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -22,10 +21,9 @@ class UpdateEmail extends StatelessWidget {
     return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (ctx, state) {
         // TODO: implement listener
-
       },
       builder: (ctx, state) {
-        var cubit=SettingsCubit.get(context);
+        var cubit = SettingsCubit.get(context);
 
         return Scaffold(
           body: SafeArea(
@@ -39,7 +37,6 @@ class UpdateEmail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-
                       TextFormFieldApp(
                           color: AppColor.lightBlue,
                           controller: emailController,
@@ -63,21 +60,26 @@ class UpdateEmail extends StatelessWidget {
                         },
                         onSaved: (val) {},
                       ),
-                      (state is UpdateEmailLoadingState)?const Center( child: CircularProgressIndicator(),):
-                      AuthButton(
-                        buttonText: tr('Update'),
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            debugPrint('validate');
-                            cubit.updateEmail(email: emailController.text, password: passwordController.text);
-                          }
-                        },
-                        width: double.infinity,
-                        colors: [
-                          AppColor.darkBlue,
-                          AppColor.lightBlue,
-                        ],
-                      ),
+                      (state is UpdateEmailLoadingState)
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : AuthButton(
+                              buttonText: tr('Update'),
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  debugPrint('validate');
+                                  cubit.updateEmail(
+                                      email: emailController.text,
+                                      password: passwordController.text);
+                                }
+                              },
+                              width: double.infinity,
+                              colors: [
+                                AppColor.darkBlue,
+                                AppColor.lightBlue,
+                              ],
+                            ),
                     ],
                   ),
                 )

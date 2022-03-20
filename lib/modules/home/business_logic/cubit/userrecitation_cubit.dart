@@ -1,6 +1,5 @@
 // ignore_for_file: empty_catches
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
 import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
