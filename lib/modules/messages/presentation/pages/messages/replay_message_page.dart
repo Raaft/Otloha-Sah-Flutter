@@ -56,7 +56,7 @@ class ReplayMessagePage extends StatelessWidget {
     );
   }
 
-  _messageField() => BlocConsumer(
+  _messageField() => BlocConsumer<ReplyCubit, ReplyState>(
       listener: (context, state) {},
       builder: (context, state) => Container(
             margin: const EdgeInsets.all(15.0),
