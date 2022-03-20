@@ -111,7 +111,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
                       ),
                       IconButton(
                         onPressed: () {
-                          _sendMessage([1]);
+                          _sendMessage(list);
                         },
                         icon: Transform(
                           alignment: Alignment.center,
@@ -173,7 +173,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
       ),
       trailing: IconButton(
         onPressed: () {
-          _sendMessage([1]);
+          _sendMessage([favTeacherProFile!.id ?? 0]);
         },
         icon: Transform(
           alignment: Alignment.center,
