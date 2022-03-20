@@ -69,11 +69,9 @@ class PagesLikedPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   var verse = state.verses[index];
                   return _itemBuild(verse.textFristVerse ?? '', null, () {
-                    Scaffold.of(context).showBottomSheet(
-                      (context) => NoteItemView(
-                        arg == 1,
-                      ),
-                      backgroundColor: AppColor.transparent,
+                    Navigator.of(context).pushReplacementNamed(
+                      HomePage.routeName,
+                      arguments: 1,
                     );
                   });
                 },
@@ -86,12 +84,10 @@ class PagesLikedPage extends StatelessWidget {
                   var verse = state.verses[index];
                   return _itemBuild(verse.textFristVerse ?? '', verse.noteText,
                       () {
-                    Scaffold.of(context).showBottomSheet(
-                      (context) => NoteItemView(
-                        arg == 1,
-                      ),
-                      backgroundColor: AppColor.transparent,
-                    );
+                        Navigator.of(context).pushReplacementNamed(
+                          HomePage.routeName,
+                          arguments: 1,
+                        );
                   });
                 },
               );
