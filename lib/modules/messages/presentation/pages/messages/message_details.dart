@@ -44,7 +44,13 @@ class _MessageDetailsState extends State<MessageDetails> {
       body: SafeArea(
         child: Column(
           children: [
-            _topView(context),
+            _topView(context,
+                msgId: widget.msgId, recitationId: widget.recitationId),
+            /*=======_topView(context,)
+            messageDetailsNew(context),
+            _viewTitle(),
+            _viewData()
+>>>>>>> main */
             BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
               builder: (context, state) {
                 if (state is MessageFetchedState) {
@@ -58,7 +64,6 @@ class _MessageDetailsState extends State<MessageDetails> {
                 return const ViewError(error: 'Not Found Data');
               },
             ),
-
           ],
         ),
       ),
@@ -99,7 +104,8 @@ class _MessageDetailsState extends State<MessageDetails> {
     );
   }
 
-  Widget _topView(BuildContext ctx, {required int msgId,required int recitationId}) {
+  Widget _topView(BuildContext ctx,
+      {required int msgId, required int recitationId}) {
     return ToolBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -110,7 +116,10 @@ class _MessageDetailsState extends State<MessageDetails> {
       title: translate('تفاصيل الرسالة'),
       actionIcon: IconButton(
           onPressed: () {
-            Get.bottomSheet( PopupMessageDetails( msgId: msgId,recitationId: recitationId,));
+            Get.bottomSheet(PopupMessageDetails(
+              msgId: msgId,
+              recitationId: recitationId,
+            ));
           },
           icon: Icon(Icons.more_vert)),
     );
