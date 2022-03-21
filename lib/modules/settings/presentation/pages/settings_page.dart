@@ -5,6 +5,7 @@ import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart'
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/profile_seittings.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/register_as_techer.dart';
 
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_sub.dart';
@@ -40,15 +41,16 @@ class _SettingsPageState extends State<SettingsPage> {
             _titleSection('Download Center'),
             _downloadSettings(context),
             const Divider(),
-            BlocBuilder<HomeCubit, HomeState>(
+            BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {
-                var homeCubit = HomeCubit.get(context);
-                return (isLogin) ? _titleSection('Settings') : const Text('');
+                var cubit = AuthCubit.get(context);
+                return (cubit.isLogin) ? _titleSection('Settings') : const Text('');
               },
             ),
-            BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-              var homeCubit = HomeCubit.get(context);
-              return (isLogin)
+            BlocBuilder<AuthCubit, AuthState>(
+                builder: (context, state) {
+                  var cubit = AuthCubit.get(context);
+                  return (cubit.isLogin)
                   ? TextView(
                       text: 'Update Profile',
                       textAlign: TextAlign.start,
@@ -61,18 +63,33 @@ class _SettingsPageState extends State<SettingsPage> {
                     )
                   : const Text('');
             }),
+            TextViewIcon(
+              text: 'Register up As Teacher ',
+              textAlign: TextAlign.start,
+              colorText: AppColor.txtColor3,
+              sizeText: 17,
+              weightText: FontWeight.w700,
+              icon: Icon(
+                Icons.person_add_alt,
+                color: AppColor.txtColor3,
+              ),
+              action: () {
+                Get.to(RegisterAsTeacher());
+              },
+            ),
+
             BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
               if (state is LogOutSuccessState) {
                 var cubit = AuthCubit.get(context);
 
-                cubit.changeIsLogin(isLog: false).then((value) {
+                cubit.changeIsLogin().then((value) {
                   Get.to(() => const OnBoardPage());
                 });
               }
             }, builder: (context, state) {
               var cubit = AuthCubit.get(context);
 
-              return (isLogin)
+              return (cubit.isLogin)
                   ? TextViewIcon(
                       text: 'Log Out',
                       textAlign: TextAlign.start,
@@ -86,7 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       action: () {
                         cubit.userLogOut();
                         if (state is LogOutSuccessState) {
-                          cubit.changeIsLogin(isLog: false);
+                          cubit.changeIsLogin();
                         }
                       },
                     )

@@ -90,20 +90,6 @@ class ProfileSettings extends StatelessWidget {
                         },
                       ),
                     ),
-                    TextViewIcon(
-                      text: 'Register up As Teacher ',
-                      textAlign: TextAlign.start,
-                      colorText: AppColor.txtColor3,
-                      sizeText: 17,
-                      weightText: FontWeight.w700,
-                      icon: Icon(
-                        Icons.person_add_alt,
-                        color: AppColor.txtColor3,
-                      ),
-                      action: () {
-                        Get.to(RegisterAsTeacher());
-                      },
-                    ),
                   ],
                 ),
               ],

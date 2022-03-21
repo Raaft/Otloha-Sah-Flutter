@@ -45,7 +45,7 @@ void main() async {
   await otloha_shaerd.CacheHelper.init();
   await CacheHelper.init();
   token = await CacheHelper.getData(key: 'token') ?? '';
-  isLogin = await CacheHelper.getData(key: 'isLogin') ?? false;
+ // isLogin = await CacheHelper.getData(key: 'isLogin') ?? false;
 
 /*
   for (var item in List.generate(10, (index) => index)) {
@@ -86,15 +86,16 @@ void main() async {
 
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
-  try {
-    myProFile = UserProfile.fromJson(jsonDecode(
-        await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
-    print('My Profile ==> ' + myProFile.toString());
+
+  /* try {
+    myProFile =
+        UserProfile.fromJson(jsonDecode(
+            await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
     favTeacherProFile = UserProfile.fromJson(
         jsonDecode(await otloha_shaerd.CacheHelper.getData(key: favTeacher)));
   } catch (e) {
     print('no user login');
-  }
+  }  */
 
   BlocOverrides.runZoned(
     () => runApp(

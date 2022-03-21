@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/home/shady/snap/flutter/common/flutter"
-export "FLUTTER_APPLICATION_PATH=/media/shady/My Paograms1/Ceartion Project/Fritill/new/Otloha-Sah-FlutterWithPackage"
+export "FLUTTER_ROOT=/Users/youssedfwilliam/development/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/youssedfwilliam/Desktop/fritill/Otloha-Sah-Flutter"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"

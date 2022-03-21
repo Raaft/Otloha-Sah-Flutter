@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ValidationErrorText extends StatelessWidget {
-  final String? error;
+  final String error;
   const ValidationErrorText({Key? key, required this.error}) : super(key: key);
 
   @override
@@ -9,7 +9,7 @@ class ValidationErrorText extends StatelessWidget {
     return Align(
       alignment: AlignmentDirectional.bottomStart,
       child: Text(
-        error ?? '',
+        error,
         style: const TextStyle(
           height: 1.2,
           color: Colors.red,

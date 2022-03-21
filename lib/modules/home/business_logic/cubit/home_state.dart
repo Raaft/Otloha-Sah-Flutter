@@ -30,8 +30,11 @@ class GetDurationState extends HomeState {}
 class ChangeDurationState extends HomeState {}
 
 class IsFloatingTrueMenuState extends HomeState {}
+
 class GetChapterByIdLoadingState extends HomeState {}
-class  GetChapterByIdSucssState extends HomeState {}
+
+class GetChapterByIdSucssState extends HomeState {}
+
 class GetChapterByIdErrorState extends HomeState {}
 
 class IsFloatingFalseMenuState extends HomeState {}
@@ -42,7 +45,13 @@ class ChangeIsSelectedVerseState extends HomeState {}
 
 class ChangeIsPlayingState extends HomeState {}
 
-class ChangePlayPauseState extends HomeState {}
+class PlayVersesState extends HomeState {}
+
+class PauseVersesState extends HomeState {}
+
+class BackToPreviousVerse extends HomeState {}
+
+class GoToNextVerse extends HomeState {}
 
 class ChangePageState extends HomeState {}
 

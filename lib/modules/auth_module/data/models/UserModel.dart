@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_new, unnecessary_this, file_names
-
 class UserModel {
   String? accessToken;
   String? refreshToken;
@@ -10,14 +8,14 @@ class UserModel {
   UserModel.fromJson(Map<String, dynamic> json) {
     accessToken = json['access_token'];
     refreshToken = json['refresh_token'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['access_token'] = accessToken;
     data['refresh_token'] = refreshToken;
-    if (this.user != null) {
+    if (user != null) {
       data['user'] = user!.toJson();
     }
     return data;
@@ -42,9 +40,9 @@ class User {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['pk'] = pk;
-    data['email'] = this.email;
+    data['email'] = email;
     data['first_name'] = firstName;
-    data['last_name'] = this.lastName;
+    data['last_name'] = lastName;
     return data;
   }
 }

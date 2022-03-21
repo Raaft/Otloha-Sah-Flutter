@@ -42,9 +42,12 @@ class LoginPage extends StatelessWidget {
       listener: (context, state) {
         if (state is LogInSuccessState) {
           var cubit = AuthCubit.get(context);
-          cubit.changeIsLogin(isLog: true).then((value) {
-            Get.to(() => const HomePage());
-          } );
+          cubit.changeIsLogin(islog: true).then((value) {
+            cubit.saveProfile().then((value) {
+              Get.offAll(() => const HomePage());
+            });
+
+          });
         }
       },
       builder: (context, state) {
@@ -52,10 +55,7 @@ class LoginPage extends StatelessWidget {
         return SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(35),
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
+            height: MediaQuery.of(context).size.height,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,32 +82,55 @@ class LoginPage extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              TextFormFieldApp(
-                  color: AppColor.lightBlue,
-                  controller: emailController,
-                  keyType: TextInputType.emailAddress,
-                  title: 'Email',
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'please enter your email address';
-                    }
-                    return null;
-                  },
-               ),
-              PasswordFormField(
-                controller: passwordController,
-                title: 'Password',
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'please enter your email address';
-                  }
-                  return null;
-                },
-                onSaved: (val) {},
+              Column(
+                children: [
+                  TextFormFieldApp(
+                    color: AppColor.lightBlue,
+                    controller: emailController,
+                    keyType: TextInputType.emailAddress,
+                    title: tr('Email'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter your email address';
+                      }
+                      return null;
+                    },
+                  ),
+                  (state is LogInErrorState)
+                      ? ValidationErrorText(
+                      error: (state.error['email'] != null)
+                          ? state.error['email'][0]
+                          : '')
+                      : const SizedBox(),
+                ],
+              ),
+              Column(
+                children: [
+                  PasswordFormField(
+                    controller: passwordController,
+                    title: 'Password',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter your email address';
+                      }
+                      return null;
+                    },
+                    onSaved: (val) {},
+                  ),
+                  (state is LogInErrorState)
+                      ? ValidationErrorText(
+                      error: (state.error['password'] != null)
+                          ? state.error['password'][0]
+                          : '')
+                      : const SizedBox(),
+
+                ],
               ),
               (state is LogInErrorState)
                   ? ValidationErrorText(
-                  error: state.error['non_field_errors'][0].toString())
+                      error: (state.error['non_field_errors'] != null)
+                          ? state.error['non_field_errors'][0]
+                          : '')
                   : const SizedBox(),
               TextView(
                 text: tr('ForgotPassword') + ' ?',
@@ -123,38 +146,35 @@ class LoginPage extends StatelessWidget {
                 builder: (context, state) {
                   return (state is LogInLoadingState)
                       ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+                          child: CircularProgressIndicator(),
+                        )
                       : BlocBuilder<HomeCubit, HomeState>(
-                    builder: (context, state) {
+                          builder: (context, state) {
+                            var homeCubit = HomeCubit.get(context);
+                            return AuthButton(
+                              buttonText: tr('Login'),
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  debugPrint('validate');
 
-                      var homeCubit=HomeCubit.get(context);
-                      return AuthButton(
-                        buttonText: tr('Login'),
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            debugPrint('validate');
-
-                            cubit
-                                .userLogIn(
-                                email: emailController.text,
-                                password: passwordController.text)
-                                .then((value) {
-                              token = CacheHelper.getData(key: 'token') ?? '';
-
-                            }).catchError((e) {
-                              print('ERROR IN LOG IN IS $e');
-                            });
-                          }
-                        },
-                        width: double.infinity,
-                        colors: [
-                          AppColor.darkBlue,
-                          AppColor.lightBlue,
-                        ],
-                      );
-                    },
-                  );
+                                  cubit
+                                      .userLogIn(
+                                          email: emailController.text,
+                                          password: passwordController.text)
+                                      .then((value) {
+                                    token =
+                                        CacheHelper.getData(key: 'token') ?? '';
+                                  });
+                                }
+                              },
+                              width: double.infinity,
+                              colors: [
+                                AppColor.darkBlue,
+                                AppColor.lightBlue,
+                              ],
+                            );
+                          },
+                        );
                 },
               ),
               Row(

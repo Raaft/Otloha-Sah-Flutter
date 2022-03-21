@@ -4,15 +4,18 @@ part of 'auth_cubit.dart';
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
-class ChangeIsLogInStateState extends AuthState {}
 
+class ChangeIsLogInTrueStateState extends AuthState {}
+
+class ChangeIsLogInFalseStateState extends AuthState {}
 
 class LogInLoadingState extends AuthState {}
 
 class LogInSuccessState extends AuthState {}
 
 class LogInErrorState extends AuthState {
-  final Map<String,dynamic> error;
+  final Map<String, dynamic> error;
+
   LogInErrorState(this.error);
 }
 
@@ -27,11 +30,12 @@ class LogOutErrorState extends AuthState {
 }
 
 class RegisterLoadingState extends AuthState {}
+class ThenAuthState extends AuthState {}
 
 class RegisterSuccessState extends AuthState {}
 
 class RegisterErrorState extends AuthState {
-  final Map<String,dynamic> error;
+  final Map<String, dynamic> error;
 
   RegisterErrorState(this.error);
 }

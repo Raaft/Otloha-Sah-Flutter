@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_base/modules/settings/data/models/setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,9 +44,9 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(UpdateEmailErrorState(error));
     });
   }
-  regiAsTeacher() {
+  regiAsTeacher({required FormData data}) {
     emit(RegisterAsTeacherLoadingState());
-    UpdateProfile().registerAsATeacher().then((value) {
+    UpdateProfile().registerAsATeacher(data).then((value) {
       print('RegisterAsTeacher is ===========> $value');
       emit(RegisterAsTeacherSuccessState(value));
     }).catchError((error) {
@@ -68,4 +71,18 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(ChangePasswordErrorState(error));
     });
   }
+
+  Future<File?>? uploadFile()async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      emit(state);
+      return file;
+    } else {
+      // User canceled the picker
+    }
+    return null;
+  }
+
 }

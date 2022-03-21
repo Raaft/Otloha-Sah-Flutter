@@ -6,6 +6,7 @@ import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/indicator.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
@@ -42,29 +43,35 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _toolBarFun(cubit),
-              _headerProgress(cubit),
-              _sectionMain(context),
-              SizedBox(
-                width: double.infinity,
-                child: Semantics(
-                  label: translate('PopularActions'),
-                  child: TextView(
-                    text: translate('PopularActions'),
-                    colorText: AppColor.txtColor3,
-                    sizeText: 16,
-                    weightText: FontWeight.w700,
-                    padding: const EdgeInsets.all(4),
-                    textAlign: TextAlign.start,
+          return BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              var authCubit = AuthCubit.get(context);
+
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _toolBarFun(cubit,authCubit),
+                  _headerProgress(cubit,authCubit),
+                  _sectionMain(context,authCubit),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Semantics(
+                      label: translate('PopularActions'),
+                      child: TextView(
+                        text: translate('PopularActions'),
+                        colorText: AppColor.txtColor3,
+                        sizeText: 16,
+                        weightText: FontWeight.w700,
+                        padding: const EdgeInsets.all(4),
+                        textAlign: TextAlign.start,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              _subSections(context),
-              _adsConView(context),
-            ],
+                  _subSections(context),
+                  _adsConView(context),
+                ],
+              );
+            },
           );
         },
       ),
@@ -111,7 +118,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  Row _sectionMain(BuildContext context) {
+  Row _sectionMain(BuildContext context, AuthCubit authCubit) {
     return Row(
       children: [
         _sections(
@@ -121,6 +128,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppColor.gradient3,
           AppColor.gradient1,
           actionTo: ComingSoonPage.routeName,
+          authCubit: authCubit
         ),
         _sections(
           context,
@@ -129,6 +137,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppColor.gradient3,
           AppColor.gradient4,
           actionTo: RecitationsPage.routeName,
+          authCubit: authCubit
         ),
         _sections(
           context,
@@ -137,6 +146,8 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppColor.gradient1,
           AppColor.gradient2,
           actionTo: ComingSoonPage.routeName,
+          authCubit: authCubit
+
         ),
       ],
     );
@@ -149,16 +160,18 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     Color gradient1,
     Color gradient2, {
     String? actionTo,
+        required AuthCubit authCubit
   }) {
     return HomeMainSection(
       title: title,
       image: image,
       gradient1: gradient1,
       gradient2: gradient2,
-      userProgressIndicator: const UserProgressIndicator(
-        name: 'Shady',
+      userProgressIndicator:  UserProgressIndicator(
+        name:authCubit.proFile.firstName??'' ,
         type: 'Juz1-3',
-        value: 0,
+
+        value: 0.0,
       ),
       action: () {
         //Get.bottomSheet(const PopupChooseTeacherSend());
@@ -167,7 +180,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  Row _headerProgress(HomeCubit cubit) {
+  Row _headerProgress(HomeCubit cubit, AuthCubit authCubit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -181,9 +194,10 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               padding: const EdgeInsets.all(2),
               textAlign: TextAlign.start,
             ),
-            if (isLogin)
+
+            if (authCubit.isLogin)
               TextView(
-                text: 'Shady',
+                text: authCubit.proFile.firstName??'',
                 colorText: AppColor.txtColor1,
                 sizeText: 20,
                 weightText: FontWeight.w900,
@@ -192,10 +206,11 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               ),
           ],
         ),
-        if (isLogin)
+
+        if (authCubit.isLogin)
           UserProgressReading(
             userProgressIndicator: UserProgressIndicator(
-              name: 'Shady',
+              name: authCubit.proFile.firstName??'',
               type: 'Juz1-3',
               value: 0,
               width: MediaQuery.of(context).size.width * .35,
@@ -206,10 +221,11 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  Widget _toolBarFun(HomeCubit cubit) {
+  Widget _toolBarFun(HomeCubit cubit,AuthCubit authCubit) {
     return Row(
       children: [
-        if (isLogin)
+
+        if (authCubit.isLogin)
           GestureDetector(
             onTap: () {
               // Get.to(const OnBoardPage());
@@ -217,7 +233,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             child: CircleAvatar(
               radius: 24,
               backgroundColor: AppColor.conColor3,
-              foregroundImage: AssetImage(AppImages.duserImage),
+
+              foregroundImage:NetworkImage(authCubit.proFile.image??'')
+                //AssetImage(AppImages.duserImage),
             ),
           ),
         const Expanded(child: SizedBox()),
