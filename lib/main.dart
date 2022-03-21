@@ -11,6 +11,7 @@ import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +45,7 @@ void main() async {
   await otloha_shaerd.CacheHelper.init();
   await CacheHelper.init();
   token = await CacheHelper.getData(key: 'token') ?? '';
-  isLogin=await CacheHelper.getData(key: 'isLogin')??false;
+  isLogin = await CacheHelper.getData(key: 'isLogin') ?? false;
 
 /*
   for (var item in List.generate(10, (index) => index)) {
@@ -153,6 +154,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TeachersendCubit(),
+        ),
+        BlocProvider(
+          create: (context) => MessagedetailsCubit(),
         ),
       ],
       child: GetMaterialApp(

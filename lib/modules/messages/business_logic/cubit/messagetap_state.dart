@@ -1,10 +1,7 @@
 part of 'messagetap_cubit.dart';
 
-abstract class MessageTapState extends Equatable {
+abstract class MessageTapState {
   const MessageTapState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class MessageTapInitial extends MessageTapState {}
