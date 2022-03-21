@@ -64,6 +64,36 @@ class SendMessageErrorState extends MessageTapState {
   const SendMessageErrorState(this.error);
 }
 
+class MarkAsAcceptLoadingState extends MessageTapState {}
+
+class MarkAsAcceptSuccessState extends MessageTapState {}
+
+class MarkAsAcceptErrorState extends MessageTapState {
+  final String error;
+
+  const MarkAsAcceptErrorState(this.error);
+}
+
+class MarkAsReadLoadingState extends MessageTapState {}
+
+class MarkAsReadSuccessState extends MessageTapState {}
+
+class MarkAsReadErrorState extends MessageTapState {
+  final String error;
+
+  const MarkAsReadErrorState(this.error);
+}
+
+class MarkAsRemarkableLoadingState extends MessageTapState {}
+
+class MarkAsRemarkableSuccessState extends MessageTapState {}
+
+class MarkAsRemarkableErrorState extends MessageTapState {
+  final String error;
+
+  const MarkAsRemarkableErrorState(this.error);
+}
+
 class NoAuthState extends MessageTapState {}
 
 class GenaralLoadingState extends MessageTapState {}

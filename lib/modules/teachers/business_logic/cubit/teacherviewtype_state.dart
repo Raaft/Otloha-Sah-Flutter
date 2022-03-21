@@ -6,13 +6,18 @@ abstract class TeacherviewtypeState {
 
 class TeacherviewtypeInitial extends TeacherviewtypeState {}
 
-class TeacherFetchedState extends TeacherviewtypeState {}
 
 class TeacherLoadingState extends TeacherviewtypeState {}
 
-class NoAuthState extends TeacherviewtypeState {}
+class TeacherFetchedState extends TeacherviewtypeState {}
 
 class TeacherErrorState extends TeacherviewtypeState {}
+
+class MarkAsFavTeacherLoadingState extends TeacherviewtypeState {}
+
+class MarkAsFavTeacherFetchedState extends TeacherviewtypeState {}
+
+class MarkAsFavTeacherErrorState extends TeacherviewtypeState {}
 
 class TeacherviewtypeChange extends TeacherviewtypeState {
   final bool type;
@@ -20,3 +25,5 @@ class TeacherviewtypeChange extends TeacherviewtypeState {
     required this.type,
   });
 }
+
+class NoAuthState extends TeacherviewtypeState {}

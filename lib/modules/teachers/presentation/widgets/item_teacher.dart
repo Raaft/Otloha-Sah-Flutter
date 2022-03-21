@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/model/recitations.dart';
+import '../../business_logic/cubit/teacherviewtype_cubit.dart';
 
 class ItemTeacher extends StatelessWidget {
   const ItemTeacher({
@@ -16,9 +22,9 @@ class ItemTeacher extends StatelessWidget {
     this.isCertified = false,
     this.setFav,
     this.isFav,
-    this.isStudent = false,
+    this.isStudent = false,  this.results,
   }) : super(key: key);
-
+ final Results? results;
   final bool typeView;
   final bool isCertified;
   final bool? isFav;
@@ -38,6 +44,7 @@ class ItemTeacher extends StatelessWidget {
 
     if (typeView) {
       view = Row(
+
         /// crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _userImage(),
@@ -208,13 +215,22 @@ class ItemTeacher extends StatelessWidget {
         color: AppColor.iconColor3,
         size: size,
       ),
-      GestureDetector(
-        onTap: setFav,
-        child: Icon(
-          (isFav ?? false) ? Icons.favorite : Icons.favorite_border,
-          color: (isFav ?? false) ? AppColor.iconColor2 : AppColor.iconColor,
-          size: size,
-        ),
+      BlocBuilder<TeacherviewtypeCubit, TeacherviewtypeState>(
+        builder: (context, state) {
+          var cubit = TeacherviewtypeCubit.get(context);
+          return GestureDetector(
+            onTap: () {
+             // cubit.markAsFavTeacher(id:cubit.teachers!);
+              setFav;
+            },
+            child: Icon(
+              (isFav ?? false) ? Icons.favorite : Icons.favorite_border,
+              color: (isFav ?? false) ? AppColor.iconColor2 : AppColor
+                  .iconColor,
+              size: size,
+            ),
+          );
+        },
       ),
     ];
   }

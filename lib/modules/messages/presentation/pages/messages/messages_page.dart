@@ -9,9 +9,7 @@ import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/
 import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/out_box_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/private_message_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
-import 'message_details.dart';
 
 class MessagesPage extends StatefulWidget {
   const MessagesPage({Key? key}) : super(key: key);

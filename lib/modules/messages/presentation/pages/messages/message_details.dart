@@ -14,6 +14,8 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_popup.dart';
+import 'package:get/get.dart';
 
 class MessageDetails extends StatefulWidget {
   const MessageDetails(
@@ -56,6 +58,7 @@ class _MessageDetailsState extends State<MessageDetails> {
                 return const ViewError(error: 'Not Found Data');
               },
             ),
+
           ],
         ),
       ),
@@ -96,7 +99,7 @@ class _MessageDetailsState extends State<MessageDetails> {
     );
   }
 
-  Widget _topView(BuildContext ctx) {
+  Widget _topView(BuildContext ctx, {required int msgId,required int recitationId}) {
     return ToolBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -105,6 +108,11 @@ class _MessageDetailsState extends State<MessageDetails> {
         },
       ),
       title: translate('تفاصيل الرسالة'),
+      actionIcon: IconButton(
+          onPressed: () {
+            Get.bottomSheet( PopupMessageDetails( msgId: msgId,recitationId: recitationId,));
+          },
+          icon: Icon(Icons.more_vert)),
     );
   }
 

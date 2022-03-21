@@ -170,6 +170,68 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     return;
   }
 
+
+  markAsAccept({required int messageId,required int reciId}) {
+    emit(MarkAsAcceptLoadingState());
+    GetMessages().markAsAccepted(messageId: messageId).then((value) {
+      messages = (value.data['results'] as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
+      print('MessageModel is ===========> $sendMessage');
+      emit(MarkAsAcceptSuccessState());
+      return;
+    }).catchError((error) {
+      print(error.toString());
+      if (error is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
+      emit(MarkAsAcceptErrorState(error.toString()));
+      return;
+    });
+    return;
+  }
+  markAsRead({required int messageId,required int reciId}) {
+    emit(MarkAsReadLoadingState());
+    GetMessages().markAsAccepted(messageId: messageId).then((value) {
+      messages = (value.data['results'] as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
+      print('MessageModel is ===========> $sendMessage');
+      emit(MarkAsReadSuccessState());
+      return;
+    }).catchError((error) {
+      print(error.toString());
+      if (error is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
+      emit(MarkAsReadErrorState(error.toString()));
+      return;
+    });
+    return;
+  }
+  markAsRemarkable({required int messageId,required int reciId}) {
+    emit(MarkAsRemarkableLoadingState());
+    GetMessages().markAsAccepted(messageId: messageId).then((value) {
+      messages = (value.data['results'] as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
+      print('MessageModel is ===========> $sendMessage');
+      emit(MarkAsRemarkableSuccessState());
+      return;
+    }).catchError((error) {
+      print(error.toString());
+      if (error is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
+      emit(MarkAsRemarkableErrorState(error.toString()));
+      return;
+    });
+    return;
+  }
+
   getGeneraBoXMessage() async {
     emit(GenaralLoadingState());
     UserRecitationApi().getGeneraBoXMessage()!.then((value) async {
