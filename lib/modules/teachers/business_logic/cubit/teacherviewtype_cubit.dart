@@ -3,6 +3,8 @@ import 'package:flutter_base/modules/data/data_source/remote/data_source/user_ap
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/data_sourse/teacher_servises.dart';
+
 part 'teacherviewtype_state.dart';
 
 class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
@@ -10,6 +12,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
   TeacherResponse? teachers;
 
   static TeacherviewtypeCubit get(context) => BlocProvider.of(context);
+
   changeType(bool type) {
     emit(TeacherviewtypeChange(type: type));
   }
@@ -38,6 +41,20 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         return;
       }
       emit(TeacherErrorState());
+    });
+  }
+
+  markAsFavTeacher({ int? id}) async {
+    emit(MarkAsFavTeacherLoadingState());
+    TeacherDataService().markAsFavTeacher(id: id)!.then((value) {
+      return value;
+    }).catchError((e) {
+      print('Error $e');
+      //  print('Error G ' + e.toString());
+      if (e is AuthError) {
+        emit(NoAuthState());
+      }
+      emit(MarkAsFavTeacherErrorState());
     });
   }
 
