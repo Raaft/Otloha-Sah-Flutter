@@ -29,7 +29,7 @@ class SelectableMessageItem extends StatelessWidget {
   final String ayahInfo;
   final Color color;
   final Function()? action;
-  final Function(String) selectedText;
+  final Function(TextSelection) selectedText;
 
   final String? userInfo;
   final String? narrationName;
@@ -145,16 +145,16 @@ class SelectableMessageItem extends StatelessWidget {
                         textAlign: TextAlign.start,
                         showCursor: true,
                         cursorRadius: const Radius.circular(16),
-                        cursorWidth: 3,
+                        cursorWidth: 1,
                         onSelectionChanged: sele,
                         toolbarOptions:
-                            const ToolbarOptions(copy: true, selectAll: true),
+                            const ToolbarOptions(copy: false, selectAll: false),
                         style: AppStyle().textStyle1.copyWith(
-                              fontSize: 16,
-                              color: AppColor.txtColor4,
-                              fontWeight: FontWeight.bold,
-                              wordSpacing: .5,
-                            ),
+                            fontSize: 20,
+                            color: AppColor.txtColor4,
+                            fontWeight: FontWeight.bold,
+                            wordSpacing: .5,
+                            fontFamily: 'Hafs17'),
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -179,6 +179,6 @@ class SelectableMessageItem extends StatelessWidget {
   }
 
   void sele(TextSelection selection, SelectionChangedCause? cause) {
-    selectedText(selection.toString());
+    selectedText(selection);
   }
 }

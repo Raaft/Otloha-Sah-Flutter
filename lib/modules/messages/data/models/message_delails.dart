@@ -1,67 +1,21 @@
 import 'dart:convert';
 
-import 'package:flutter_base/modules/messages/data/models/relpay.dart';
-
-/// count : 7
-/// next : null
-/// previous : null
-/// results : [{"id":10,"addressee":{"id":3,"first_name":"Alexis","last_name":"Williams","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_NnSyxMx.jpg","teacher_type":"Paid"},"addresser":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"is_read":false,"is_sent":true,"recitation":{"id":202,"record":"/media/get_upload_record/File_1647817935652_RQv4GsW.wav","wave":null,"narration_id":"1","verse_ids":"[1,2,3,4,5,6]","owner":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-20T23:12:42.351753Z","name":"بسم الله الرحمن الرحيم"},"replies":[],"is_remarkable":false,"is_accepted":false},{"id":9,"addressee":{"id":1,"first_name":"Victoria","last_name":"Phillips","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_L0qjaT8.jpg","teacher_type":"Paid"},"addresser":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"is_read":false,"is_sent":true,"recitation":{"id":202,"record":"/media/get_upload_record/File_1647817935652_RQv4GsW.wav","wave":null,"narration_id":"1","verse_ids":"[1,2,3,4,5,6]","owner":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-20T23:12:42.351753Z","name":"بسم الله الرحمن الرحيم"},"replies":[],"is_remarkable":false,"is_accepted":false},{"id":8,"addressee":{"id":2,"first_name":"Brenda","last_name":"Hoffman","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_AwdtprD.jpg","teacher_type":"Paid"},"addresser":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"is_read":false,"is_sent":true,"recitation":{"id":202,"record":"/media/get_upload_record/File_1647817935652_RQv4GsW.wav","wave":null,"narration_id":"1","verse_ids":"[1,2,3,4,5,6]","owner":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-20T23:12:42.351753Z","name":"بسم الله الرحمن الرحيم"},"replies":[],"is_remarkable":false,"is_accepted":false},{"id":7,"addressee":{"id":1,"first_name":"Victoria","last_name":"Phillips","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_L0qjaT8.jpg","teacher_type":"Paid"},"addresser":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"is_read":false,"is_sent":true,"recitation":{"id":202,"record":"/media/get_upload_record/File_1647817935652_RQv4GsW.wav","wave":null,"narration_id":"1","verse_ids":"[1,2,3,4,5,6]","owner":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-20T23:12:42.351753Z","name":"بسم الله الرحمن الرحيم"},"replies":[],"is_remarkable":false,"is_accepted":false},{"id":6,"addressee":{"id":3,"first_name":"Alexis","last_name":"Williams","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_NnSyxMx.jpg","teacher_type":"Paid"},"addresser":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"is_read":false,"is_sent":true,"recitation":{"id":202,"record":"/media/get_upload_record/File_1647817935652_RQv4GsW.wav","wave":null,"narration_id":"1","verse_ids":"[1,2,3,4,5,6]","owner":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-20T23:12:42.351753Z","name":"بسم الله الرحمن الرحيم"},"replies":[],"is_remarkable":false,"is_accepted":false},{"id":5,"addressee":{"id":2,"first_name":"Brenda","last_name":"Hoffman","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_AwdtprD.jpg","teacher_type":"Paid"},"addresser":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"is_read":false,"is_sent":true,"recitation":{"id":202,"record":"/media/get_upload_record/File_1647817935652_RQv4GsW.wav","wave":null,"narration_id":"1","verse_ids":"[1,2,3,4,5,6]","owner":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-20T23:12:42.351753Z","name":"بسم الله الرحمن الرحيم"},"replies":[],"is_remarkable":false,"is_accepted":false},{"id":4,"addressee":{"id":1,"first_name":"Victoria","last_name":"Phillips","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_L0qjaT8.jpg","teacher_type":"Paid"},"addresser":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"is_read":false,"is_sent":true,"recitation":{"id":202,"record":"/media/get_upload_record/File_1647817935652_RQv4GsW.wav","wave":null,"narration_id":"1","verse_ids":"[1,2,3,4,5,6]","owner":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-20T23:12:42.351753Z","name":"بسم الله الرحمن الرحيم"},"replies":[],"is_remarkable":false,"is_accepted":false}]
-
-MessageDelails testttFromJson(String str) =>
-    MessageDelails.fromJson(json.decode(str));
-String testttToJson(MessageDelails data) => json.encode(data.toJson());
-
-class MessageDelails {
-  MessageDelails({
-    this.count,
-    this.next,
-    this.previous,
-    this.results,
-  });
-
-  MessageDelails.fromJson(dynamic json) {
-    count = json['count'];
-    next = json['next'];
-    previous = json['previous'];
-    if (json['results'] != null) {
-      results = [];
-      json['results'].forEach((v) {
-        results?.add(Results.fromJson(v));
-      });
-    }
-  }
-  int? count;
-  dynamic next;
-  dynamic previous;
-  List<Results>? results;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['count'] = count;
-    map['next'] = next;
-    map['previous'] = previous;
-    if (results != null) {
-      map['results'] = results?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-}
-
-/// id : 10
-/// addressee : {"id":3,"first_name":"Alexis","last_name":"Williams","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_NnSyxMx.jpg","teacher_type":"Paid"}
-/// addresser : {"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"}
+/// id : 4
+/// addressee : {"id":2,"first_name":"Colleen","last_name":"Johns","level":"Beginner","is_a_teacher":true,"narration_id":null,"image":"/media/users/2022/20/03/-example_jaSLCYW.jpg","teacher_type":"Volunteer"}
+/// addresser : {"id":41,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"}
 /// is_read : false
 /// is_sent : true
-/// recitation : {"id":202,"record":"/media/get_upload_record/File_1647817935652_RQv4GsW.wav","wave":null,"narration_id":"1","verse_ids":"[1,2,3,4,5,6]","owner":{"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-20T23:12:42.351753Z","name":"بسم الله الرحمن الرحيم"}
-/// replies : []
+/// recitation : {"id":201,"record":"/media/get_upload_record/booking_Y6dGQtv.png","wave":null,"narration_id":"1","verse_ids":"[1,2,3]","owner":{"id":41,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"chapter_id":null,"finished_at":"2022-03-21T13:10:38.232721Z","name":"الحمد لله رب العالمين"}
+/// replies : [{"id":3,"text":null,"record":"/media/messages/4/3d3193b9-9794-4780-9215-ee282128966d-record-booking.png","wave":"/media/messages/4/3d3193b9-9794-4780-9215-ee282128966d-wave-bubble.png","comment":null,"error_type":"","position_from":null,"position_to":null,"owner":{"id":41,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"},"parent":null,"children":[]}]
 /// is_remarkable : false
 /// is_accepted : false
 
-Results resultsFromJson(String str) => Results.fromJson(json.decode(str));
-String resultsToJson(Results data) => json.encode(data.toJson());
+MessageDelails msgdetailsFromJson(String str) =>
+    MessageDelails.fromJson(json.decode(str));
+String msgdetailsToJson(MessageDelails data) => json.encode(data.toJson());
 
-class Results {
-  Results({
+class MessageDelails {
+  MessageDelails({
     this.id,
     this.addressee,
     this.addresser,
@@ -73,7 +27,7 @@ class Results {
     this.isAccepted,
   });
 
-  Results.fromJson(dynamic json) {
+  MessageDelails.fromJson(dynamic json) {
     id = json['id'];
     addressee = json['addressee'] != null
         ? Addressee.fromJson(json['addressee'])
@@ -89,7 +43,7 @@ class Results {
     if (json['replies'] != null) {
       replies = [];
       json['replies'].forEach((v) {
-        replies?.add(Reply.fromJson(v));
+        replies?.add(Replies.fromJson(v));
       });
     }
     isRemarkable = json['is_remarkable'];
@@ -101,7 +55,7 @@ class Results {
   bool? isRead;
   bool? isSent;
   Recitation? recitation;
-  List<Reply>? replies;
+  List<Replies>? replies;
   bool? isRemarkable;
   bool? isAccepted;
 
@@ -128,72 +82,88 @@ class Results {
   }
 }
 
-/// id : 202
-/// record : "/media/get_upload_record/File_1647817935652_RQv4GsW.wav"
-/// wave : null
-/// narration_id : "1"
-/// verse_ids : "[1,2,3,4,5,6]"
-/// owner : {"id":42,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"}
-/// chapter_id : null
-/// finished_at : "2022-03-20T23:12:42.351753Z"
-/// name : "بسم الله الرحمن الرحيم"
+/// id : 3
+/// text : null
+/// record : "/media/messages/4/3d3193b9-9794-4780-9215-ee282128966d-record-booking.png"
+/// wave : "/media/messages/4/3d3193b9-9794-4780-9215-ee282128966d-wave-bubble.png"
+/// comment : null
+/// error_type : ""
+/// position_from : null
+/// position_to : null
+/// owner : {"id":41,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"}
+/// parent : null
+/// children : []
 
-Recitation recitationFromJson(String str) =>
-    Recitation.fromJson(json.decode(str));
-String recitationToJson(Recitation data) => json.encode(data.toJson());
+Replies repliesFromJson(String str) => Replies.fromJson(json.decode(str));
+String repliesToJson(Replies data) => json.encode(data.toJson());
 
-class Recitation {
-  Recitation({
+class Replies {
+  Replies({
     this.id,
+    this.text,
     this.record,
     this.wave,
-    this.narrationId,
-    this.verseIds,
+    this.comment,
+    this.errorType,
+    this.positionFrom,
+    this.positionTo,
     this.owner,
-    this.chapterId,
-    this.finishedAt,
-    this.name,
+    this.parent,
+    this.children,
   });
 
-  Recitation.fromJson(dynamic json) {
+  Replies.fromJson(dynamic json) {
     id = json['id'];
+    text = json['text'];
     record = json['record'];
     wave = json['wave'];
-    narrationId = json['narration_id'];
-    verseIds = List<int>.from(jsonDecode(json['verse_ids']));
+    comment = json['comment'];
+    errorType = json['error_type'];
+    positionFrom = json['position_from'];
+    positionTo = json['position_to'];
     owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
-    chapterId = json['chapter_id'];
-    finishedAt = json['finished_at'];
-    name = json['name'];
+    parent = json['parent'];
+    if (json['children'] != null) {
+      children = [];
+      json['children'].forEach((v) {
+        children?.add(Replies.fromJson(v));
+      });
+    }
   }
   int? id;
+  String? text;
   String? record;
-  dynamic wave;
-  String? narrationId;
-  List<int>? verseIds;
+  String? wave;
+  String? comment;
+  String? errorType;
+  int? positionFrom;
+  int? positionTo;
   Owner? owner;
-  dynamic chapterId;
-  String? finishedAt;
-  String? name;
+  int? parent;
+  List<Replies>? children;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
+    map['text'] = text;
     map['record'] = record;
     map['wave'] = wave;
-    map['narration_id'] = narrationId;
-    map['verse_ids'] = verseIds;
+    map['comment'] = comment;
+    map['error_type'] = errorType;
+    map['position_from'] = positionFrom;
+    map['position_to'] = positionTo;
     if (owner != null) {
       map['owner'] = owner?.toJson();
     }
-    map['chapter_id'] = chapterId;
-    map['finished_at'] = finishedAt;
-    map['name'] = name;
+    map['parent'] = parent;
+    if (children != null) {
+      map['children'] = children?.map((v) => v.toJson()).toList();
+    }
     return map;
   }
 }
 
-/// id : 42
+/// id : 41
 /// username : "Shadyd"
 /// first_name : ""
 /// last_name : ""
@@ -224,7 +194,7 @@ class Owner {
     lastName = json['last_name'];
     level = json['level'];
     isATeacher = json['is_a_teacher'];
-    narrationId = json['narration_id'];
+    narrationId = int.parse(json['narration_id'] ?? '0');
     image = json['image'];
   }
   int? id;
@@ -233,7 +203,7 @@ class Owner {
   String? lastName;
   String? level;
   bool? isATeacher;
-  dynamic narrationId;
+  int? narrationId;
   String? image;
 
   Map<String, dynamic> toJson() {
@@ -250,7 +220,72 @@ class Owner {
   }
 }
 
-/// id : 42
+/// id : 201
+/// record : "/media/get_upload_record/booking_Y6dGQtv.png"
+/// wave : null
+/// narration_id : "1"
+/// verse_ids : "[1,2,3]"
+/// owner : {"id":41,"username":"Shadyd","first_name":"","last_name":"","level":"Beginner","is_a_teacher":false,"narration_id":null,"image":"/media/default/images/profile.png"}
+/// chapter_id : null
+/// finished_at : "2022-03-21T13:10:38.232721Z"
+/// name : "الحمد لله رب العالمين"
+
+Recitation recitationFromJson(String str) =>
+    Recitation.fromJson(json.decode(str));
+String recitationToJson(Recitation data) => json.encode(data.toJson());
+
+class Recitation {
+  Recitation({
+    this.id,
+    this.record,
+    this.wave,
+    this.narrationId,
+    this.verseIds,
+    this.owner,
+    this.chapterId,
+    this.finishedAt,
+    this.name,
+  });
+
+  Recitation.fromJson(dynamic json) {
+    id = json['id'];
+    record = json['record'];
+    wave = json['wave'];
+    narrationId = int.parse(json['narration_id'] ?? '0');
+    verseIds = List<int>.from(jsonDecode(json['verse_ids']));
+    owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
+    chapterId = json['chapter_id'];
+    finishedAt = json['finished_at'];
+    name = json['name'];
+  }
+  int? id;
+  String? record;
+  String? wave;
+  int? narrationId;
+  List<int>? verseIds;
+  Owner? owner;
+  int? chapterId;
+  String? finishedAt;
+  String? name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['id'] = id;
+    map['record'] = record;
+    map['wave'] = wave;
+    map['narration_id'] = narrationId;
+    map['verse_ids'] = verseIds;
+    if (owner != null) {
+      map['owner'] = owner?.toJson();
+    }
+    map['chapter_id'] = chapterId;
+    map['finished_at'] = finishedAt;
+    map['name'] = name;
+    return map;
+  }
+}
+
+/// id : 41
 /// username : "Shadyd"
 /// first_name : ""
 /// last_name : ""
@@ -281,7 +316,7 @@ class Addresser {
     lastName = json['last_name'];
     level = json['level'];
     isATeacher = json['is_a_teacher'];
-    narrationId = json['narration_id'];
+    narrationId = int.parse(json['narration_id'] ?? '0');
     image = json['image'];
   }
   int? id;
@@ -290,7 +325,7 @@ class Addresser {
   String? lastName;
   String? level;
   bool? isATeacher;
-  dynamic narrationId;
+  int? narrationId;
   String? image;
 
   Map<String, dynamic> toJson() {
@@ -307,14 +342,14 @@ class Addresser {
   }
 }
 
-/// id : 3
-/// first_name : "Alexis"
-/// last_name : "Williams"
+/// id : 2
+/// first_name : "Colleen"
+/// last_name : "Johns"
 /// level : "Beginner"
 /// is_a_teacher : true
 /// narration_id : null
-/// image : "/media/users/2022/20/03/-example_NnSyxMx.jpg"
-/// teacher_type : "Paid"
+/// image : "/media/users/2022/20/03/-example_jaSLCYW.jpg"
+/// teacher_type : "Volunteer"
 
 Addressee addresseeFromJson(String str) => Addressee.fromJson(json.decode(str));
 String addresseeToJson(Addressee data) => json.encode(data.toJson());
@@ -337,7 +372,7 @@ class Addressee {
     lastName = json['last_name'];
     level = json['level'];
     isATeacher = json['is_a_teacher'];
-    narrationId = json['narration_id'];
+    narrationId = int.parse(json['narration_id'] ?? '0');
     image = json['image'];
     teacherType = json['teacher_type'];
   }
@@ -346,7 +381,7 @@ class Addressee {
   String? lastName;
   String? level;
   bool? isATeacher;
-  dynamic narrationId;
+  int? narrationId;
   String? image;
   String? teacherType;
 

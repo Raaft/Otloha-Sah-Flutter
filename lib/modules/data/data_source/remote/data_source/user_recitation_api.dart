@@ -16,9 +16,18 @@ class UserRecitationApi extends UserRecitationRepository {
     var map = userRecitation.toMap();
 
     File file = File(userRecitation.record ?? '');
+    File wave = File(userRecitation.wavePath ?? '');
 
     map['record'] = await MultipartFile.fromFile(file.path,
         filename: file.path.split('/').last);
+
+    try {
+      map['wave'] = await MultipartFile.fromFile(wave.path,
+          filename: wave.path.split('/').last);
+    } catch (e) {
+      print(e);
+    }
+
     Response response =
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);
 

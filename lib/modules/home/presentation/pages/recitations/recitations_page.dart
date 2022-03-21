@@ -86,6 +86,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
   }
 
   Widget _getItem(Results results, int index) {
+    print('object id ${results.id}');
     return GeneralMessageItem(
       boxMessageItem: SubMessageItem(
         hasMenu: true,
@@ -131,16 +132,21 @@ class _RecitationsPageState extends State<RecitationsPage> {
         ayahInfo: _getAyahInfo(results),
         narrationName: results.narrationName,
         userImage: results.owner!.image ?? '',
-        userName: results.owner!.firstName! + results.owner!.lastName!,
+        userName: _user(results.owner),
         dateStr: (results.finishedAt != null)
             ? DateFormat('hh:mm dd MMM')
                 .format(DateTime.parse(results.finishedAt ?? ''))
             : null,
         color: AppColor.transparent,
         userInfo: (results.owner!.level ?? '') +
-            (results.owner!.isATeacher ?? false ? ' Teacher' : ' Student'),
+            ' ' +
+            (results.owner!.isATeacher ?? false
+                ? translate('Teacher')
+                : translate('Student')),
         action: () {
-          Get.to(const RecitationDetails());
+          Get.to(RecitationDetailsPage(
+            recitationId: results.id ?? 0,
+          ));
         },
       ),
       likeCount: results.likes!.length,
@@ -158,6 +164,20 @@ class _RecitationsPageState extends State<RecitationsPage> {
       wavePath: results.wave,
       isLocal: false,
     );
+  }
+
+  String _user(Owner? owner) {
+    if (owner != null) {
+      var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
+          ? (owner.username)
+          : '';
+      return (owner.firstName ?? '') +
+          ' ' +
+          (owner.lastName ?? '') +
+          (str ?? '');
+    } else {
+      return '';
+    }
   }
 
   _getAyahInfo(Results results) {

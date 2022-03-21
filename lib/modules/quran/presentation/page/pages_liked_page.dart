@@ -6,7 +6,6 @@ import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/data/model/page_marked.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/getuserquranaction_cubit.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/note_item_view.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/user_like.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,10 +83,10 @@ class PagesLikedPage extends StatelessWidget {
                   var verse = state.verses[index];
                   return _itemBuild(verse.textFristVerse ?? '', verse.noteText,
                       () {
-                        Navigator.of(context).pushReplacementNamed(
-                          HomePage.routeName,
-                          arguments: 1,
-                        );
+                    Navigator.of(context).pushReplacementNamed(
+                      HomePage.routeName,
+                      arguments: 1,
+                    );
                   });
                 },
               );

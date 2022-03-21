@@ -47,21 +47,18 @@ class UserApi extends UserRepository {
 
   @override
   Future<String?>? sendMessage(int id, List<int> users) async {
-    ApiBaseHelper().postHTTP(
+    var response = await ApiBaseHelper().postHTTP(
       '/api/v1/recitations/$id/messages/send/',
       {'users': users},
-    ).then((response) {
-      if ((response.statusCode == 201 || response.statusCode == 200)) {
-        if (response.data != null && response.data['message'] != null) {
-          print(' Future<String?>? sendMessage ' + response.data['message']);
-          return response.data['message'];
-        }
-      } else {
-        print('Error Api ' + response.data.toString());
+    );
+    if ((response.statusCode == 201 || response.statusCode == 200)) {
+      if (response.data != null && response.data['message'] != null) {
+        print(' Future<String?>? sendMessage ' + response.data['message']);
+        return response.data['message'];
       }
-    }).catchError((error) {
-      print('error $error');
-    });
+    } else {
+      print('Error Api ' + response.data.toString());
+    }
     return null;
   }
 }

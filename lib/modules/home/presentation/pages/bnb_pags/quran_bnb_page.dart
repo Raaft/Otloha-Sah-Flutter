@@ -142,6 +142,8 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
 
                       cubit.changeOpacity(.5);
                       cubit.addSelected(values);
+
+                      print('Get Name ' + cubit.getName());
                       cubit.setSelectedVerses(selectedVerses!);
                       Future.delayed(const Duration(seconds: 5), () {
                         cubit.changeOpacity(.2);
@@ -154,6 +156,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                       cubit.changeIsSelectedVerse();
                       cubit.changeIsOnTruePressed();
                       cubit.addSelected(values);
+                      print('Get Name ' + cubit.getName());
                       cubit.setSelectedVerses(selectedVerses!);
                     },
                     getPage: (page) {

@@ -75,7 +75,7 @@ class OutBoxMessagePage extends StatelessWidget {
         print(messageModel.id.toString() +
             ' ' +
             messageModel.recitation!.id.toString());
-        Get.to(() => MessageDetails(
+        Get.to(() => MessageDetailsPage(
               msgId: messageModel.id ?? 0,
               recitationId: messageModel.recitation!.id ?? 0,
             ));
@@ -85,7 +85,7 @@ class OutBoxMessagePage extends StatelessWidget {
 
   String _getAyahInfo(Recitation? recitation) {
     String? str =
-        'سورة ${recitation!.chapterId ?? 0} من آية ${recitation.verseIds![0]} الي آية ${recitation.verseIds![recitation.verseIds!.length - 1]}';
+        'سورة ${recitation!.chapterName ?? 0} من آية ${recitation.verseIds![0]} الي آية ${recitation.verseIds![recitation.verseIds!.length - 1]}';
     return str;
   }
 

@@ -80,6 +80,7 @@ class ApiBaseHelper {
                   data: {'refresh': refreshToken});
               RefreshTokenModel? t = RefreshTokenModel.fromJson(response.data);
               await CacheHelper.saveData(key: 'token', value: t.access);
+
               return handler.resolve(await retryRequest(currentRequestOptions));
             }
 
@@ -252,6 +253,7 @@ class ApiBaseHelperForAuth {
               print(response.data);
               RefreshTokenModel? t = RefreshTokenModel.fromJson(response.data);
               token = t.access!;
+              print('refresh' + token);
               await retryRequest(currentRequestOptions);
             } else {
               return handler.next(e);

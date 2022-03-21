@@ -126,7 +126,7 @@ List<BottomBarData> homeMenuItems = [
 ];
 
 String _user() {
-  if (myProFile != null) {
+  if (favTeacherProFile != null) {
     var str = (favTeacherProFile!.lastName!.isEmpty &&
             favTeacherProFile!.firstName!.isEmpty)
         ? (favTeacherProFile!.username)

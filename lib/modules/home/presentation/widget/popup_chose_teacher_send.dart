@@ -146,7 +146,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
                 placeholder: AssetImage(AppImages.duserImage),
                 image: NetworkImage(
                   (favTeacherProFile != null)
-                      ? favTeacherProFile!.image ?? ''
+                      ? baseUrl + (favTeacherProFile!.image ?? '')
                       : 'https://media-exp1.licdn.com/dms/image/C4D03AQHuILHolmwcsw/profile-displayphoto-shrink_200_200/0/1635605885835?e=2147483647&v=beta&t=QPucLhzpuEWgVZbpTislGr8cr8wtfyeuumpE0jGH9MM',
                 ),
               ),
@@ -198,8 +198,9 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
             height: 50,
             placeholder: AssetImage(AppImages.duserImage),
             image: NetworkImage(
-              results.image ??
-                  'https://media-exp1.licdn.com/dms/image/C4D03AQHuILHolmwcsw/profile-displayphoto-shrink_200_200/0/1635605885835?e=2147483647&v=beta&t=QPucLhzpuEWgVZbpTislGr8cr8wtfyeuumpE0jGH9MM',
+              (results.image!.isNotEmpty)
+                  ? (baseUrl + (results.image ?? ''))
+                  : 'https://media-exp1.licdn.com/dms/image/C4D03AQHuILHolmwcsw/profile-displayphoto-shrink_200_200/0/1635605885835?e=2147483647&v=beta&t=QPucLhzpuEWgVZbpTislGr8cr8wtfyeuumpE0jGH9MM',
             ),
           ),
         ),

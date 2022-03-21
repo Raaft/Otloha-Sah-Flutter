@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
@@ -35,6 +37,7 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of(context);
   bool checkVersesValue = false;
   List<Verse> selectedVerses = [];
+
 
   setSelectedVerses(List<Verse> verses) {
     selectedVerses = verses;
@@ -389,7 +392,7 @@ class HomeCubit extends Cubit<HomeState> {
       narrationId: narrationId,
       record: current!.path ?? '',
       name: getName(),
-      versesID: selectedIndex![0],
+      versesID: getVerseIds(),
       wavePath: wave,
     );
 
@@ -428,15 +431,11 @@ class HomeCubit extends Cubit<HomeState> {
   getName() {
     print(page!.verses.toString());
     String? text = '';
-
-    for (var element in page!.verses!) {
-      if (element.id == _getVerses()) {
-        text = element.text;
-        break;
-      }
+    try {
+      text = page!.verses![_getVerses() ?? -1].uthmanicText;
+    } catch (e) {
+      print(e);
     }
-
-    print('name ' + getFirstWords(text ?? '', 5));
 
     return getFirstWords(text ?? '', 5);
   }
@@ -471,5 +470,14 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       return sentence;
     }
+  }
+
+  getVerseIds() {
+    List<int> list = [];
+    for (var element in selectedIndex![0]!) {
+      list.add(page!.verses![element].id ?? element);
+    }
+
+    return list;
   }
 }

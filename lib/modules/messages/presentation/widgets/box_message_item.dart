@@ -145,11 +145,12 @@ class ViewOld extends StatelessWidget {
                   TextView(
                     padding: const EdgeInsets.all(1),
                     text: ayah,
-                    sizeText: 17,
+                    sizeText: 20,
                     weightText: FontWeight.w800,
                     colorText:
                         isActive ? AppColor.txtColor3 : AppColor.txtColor4,
                     textAlign: TextAlign.end,
+                    fontFamily: 'Hafs17',
                   ),
                   TextView(
                     padding: const EdgeInsets.all(1),

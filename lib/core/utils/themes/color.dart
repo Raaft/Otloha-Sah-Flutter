@@ -35,6 +35,7 @@ class AppColor {
   static Color conColor3l = const Color(0xffECEDEF);
   static Color conColor4 = const Color(0xffFF0000);
   static Color conColor4l = const Color(0xffFF00bc);
+  static Color conColorO = const Color(0xffff6600);
   static Color conColor5 = const Color(0xff066ab2);
 
   /////

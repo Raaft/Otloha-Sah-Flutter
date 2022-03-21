@@ -86,6 +86,7 @@ void main() async {
 
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
+
   /* try {
     myProFile =
         UserProfile.fromJson(jsonDecode(
@@ -157,6 +158,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => MessagedetailsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ReplyCubit(),
         ),
       ],
       child: GetMaterialApp(

@@ -1,54 +1,150 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/modules/data/model/recitaion_details.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class RecitationDetails extends StatefulWidget {
-  const RecitationDetails({Key? key}) : super(key: key);
+class RecitationDetailsPage extends StatefulWidget {
+  const RecitationDetailsPage({Key? key, required this.recitationId})
+      : super(key: key);
 
+  final int recitationId;
   @override
-  State<RecitationDetails> createState() => _RecitationDetailsState();
+  State<RecitationDetailsPage> createState() => _RecitationDetailsPageState();
 }
 
-class _RecitationDetailsState extends State<RecitationDetails> {
+class _RecitationDetailsPageState extends State<RecitationDetailsPage> {
+  MessagedetailsCubit? cubit;
+  @override
+  void initState() {
+    super.initState();
+    cubit = MessagedetailsCubit.get(context);
+    cubit!.fetchRecitation(widget.recitationId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        children: [
-          _topView(context),
-          _getItem2(),
-        ],
-      )),
+        child: Column(
+          children: [
+            _topView(context),
+            _getBody(),
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _getItem2() {
+  Widget _getBody() {
+    return BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
+      builder: (context, state) {
+        if (state is MessageFetchedState) {
+          return _getItem2(cubit!.recitationDetails);
+        }
+        if (state is MessageLoadingState) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return const ViewError(error: 'Not Found Data');
+      },
+    );
+  }
+
+  Widget _getItem2(RecitationDetails? recitationDetails) {
+    print('object id ${recitationDetails!.id}');
+    return GeneralMessageItem(
+      boxMessageItem: SubMessageItem(
+        isRead: false,
+        ayah: cubit!.ayah,
+        ayahInfo: _getAyahInfo(recitationDetails),
+        narrationName: recitationDetails.narrationName,
+        userImage: recitationDetails.owner!.image ?? '',
+        userName: _user(recitationDetails.owner),
+        dateStr: (recitationDetails.finishedAt != null)
+            ? DateFormat('hh:mm dd MMM')
+                .format(DateTime.parse(recitationDetails.finishedAt ?? ''))
+            : null,
+        color: AppColor.transparent,
+        userInfo: (recitationDetails.owner!.level ?? '') +
+            (recitationDetails.owner!.isATeacher ?? false
+                ? ' Teacher'
+                : ' Student'),
+        action: () {
+          Get.to(RecitationDetailsPage(
+            recitationId: recitationDetails.id ?? 0,
+          ));
+        },
+      ),
+      likeCount: recitationDetails.likes!.length,
+      commentCount: recitationDetails.comments!.length,
+      remarkableCount: recitationDetails.remarkable!.length,
+      viewBottom: true,
+      recordPath: recitationDetails.record,
+      wavePath: recitationDetails.wave,
+      isLocal: false,
+      trggelPlay: () {},
+      isLike: false,
+    );
+  }
+
+  Widget _getItem() {
     return CommentReplayItem(
       isLocal: false,
       isRead: false,
-      ayah:
-          'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ (1)الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ (2) الرَّحْمَنِ الرَّحِيمِ (3) مَالِكِ يَوْمِ الدِّينِ (4) إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ (5) اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ (6) صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ (7)',
-      ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
-      userImage: AppImages.duserImage,
-      userName: 'userRecitation',
-      dateStr: '9:30 15 Nev',
+      ayah: cubit!.ayah,
+      ayahInfo: _getAyahInfo(cubit!.recitationDetails),
+      userImage: cubit!.recitationDetails!.owner!.image ?? '',
+      userName: _user(cubit!.recitationDetails!.owner),
+      dateStr: (cubit!.recitationDetails!.finishedAt != null)
+          ? DateFormat('hh:mm dd MMM').format(
+              DateTime.parse(cubit!.recitationDetails!.finishedAt ?? ''))
+          : null,
       color: AppColor.transparent,
       trggelPlay: () {},
-      recordPath: '',
-      wavePath: '',
-      errorStr: '',
-      isPlay: false,
+      userInfo: cubit!.recitationDetails!.owner!.level! +
+          ' ' +
+          ((cubit!.recitationDetails!.owner!.isATeacher ?? false)
+              ? translate('Teacher')
+              : translate('Student')),
+      recordPath: cubit!.recitationDetails!.record,
+      wavePath: cubit!.recitationDetails!.wave ?? '',
+      //  errorStr: '',
+      isPlay: false, actionReply: () {},
     );
+  }
+
+  String _getAyahInfo(RecitationDetails? recitation) {
+    String? str =
+        'سورة ${recitation!.chapterId ?? 0} من آية ${recitation.verseIds![0]} الي آية ${recitation.verseIds![recitation.verseIds!.length - 1]}';
+    return str;
+  }
+
+  String _user(Owner? owner) {
+    if (owner != null) {
+      var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
+          ? (owner.username)
+          : '';
+      return (owner.firstName ?? '') +
+          ' ' +
+          (owner.lastName ?? '') +
+          (str ?? '');
+    } else {
+      return '';
+    }
   }
 
   Widget _topView(BuildContext context) {
@@ -59,25 +155,44 @@ class _RecitationDetailsState extends State<RecitationDetails> {
           Navigator.of(context).pop();
         },
       ),
-      title: translate('Recitation Details'),
+      title: translate('RecitationDetails'),
       actionIcon: IconButton(
           onPressed: () {
             Get.bottomSheet(
               PopupRecitation(
-                finish: () {
+                finish: (cubit!.recitationDetails!.finishedAt == null ||
+                        cubit!.recitationDetails!.finishedAt!.isEmpty)
+                    ? () {
+                        cubit!
+                            .markAsFinished(cubit!.recitationDetails!.id ?? 0);
+                        Get.back();
+                      }
+                    : null,
+                general: ((cubit!.recitationDetails!.finishedAt != null &&
+                        cubit!.recitationDetails!.finishedAt!.isNotEmpty))
+                    ? () {
+                        cubit!.addToGeneral(cubit!.recitationDetails!.id ?? 0);
+
+                        Get.back();
+                      }
+                    : null,
+                isGeneral: cubit!.recitationDetails!.showInGeneral ?? false,
+                send: (cubit!.recitationDetails!.finishedAt != null &&
+                        cubit!.recitationDetails!.finishedAt!.isNotEmpty)
+                    ? () {
+                        Get.back();
+                        Get.bottomSheet(
+                          PopupChooseTeacherSend(
+                            id: cubit!.recitationDetails!.id ?? 0,
+                          ),
+                        );
+                      }
+                    : null,
+                delete: () {
+                  cubit!.deleteRecitations(cubit!.recitationDetails!.id ?? 0);
                   Get.back();
-                  Get.bottomSheet(
-                    BlocProvider(
-                      create: (_) => TeachersendCubit(),
-                      child: const PopupChooseTeacherSend(
-                        id: 0,
-                      ),
-                    ),
-                  );
                 },
-                delete: () {},
               ),
-              enableDrag: true,
             );
           },
           icon: const Icon(Icons.more_vert)),

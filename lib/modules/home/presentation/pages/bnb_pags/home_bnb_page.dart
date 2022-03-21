@@ -170,6 +170,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
       userProgressIndicator:  UserProgressIndicator(
         name:authCubit.proFile.firstName??'' ,
         type: 'Juz1-3',
+
         value: 0.0,
       ),
       action: () {
@@ -193,6 +194,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               padding: const EdgeInsets.all(2),
               textAlign: TextAlign.start,
             ),
+
             if (authCubit.isLogin)
               TextView(
                 text: authCubit.proFile.firstName??'',
@@ -204,6 +206,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               ),
           ],
         ),
+
         if (authCubit.isLogin)
           UserProgressReading(
             userProgressIndicator: UserProgressIndicator(
@@ -221,6 +224,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
   Widget _toolBarFun(HomeCubit cubit,AuthCubit authCubit) {
     return Row(
       children: [
+
         if (authCubit.isLogin)
           GestureDetector(
             onTap: () {
@@ -229,6 +233,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             child: CircleAvatar(
               radius: 24,
               backgroundColor: AppColor.conColor3,
+
               foregroundImage:NetworkImage(authCubit.proFile.image??'')
                 //AssetImage(AppImages.duserImage),
             ),

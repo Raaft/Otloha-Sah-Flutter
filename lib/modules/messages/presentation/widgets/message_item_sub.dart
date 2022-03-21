@@ -69,7 +69,9 @@ class SubMessageItem extends StatelessWidget {
                         height: 60,
                         placeholder: AssetImage(AppImages.duserImage),
                         image: NetworkImage(
-                          baseUrl + userImage,
+                          (userImage.isNotEmpty)
+                              ? (baseUrl + userImage)
+                              : imgaTest,
                         )),
                   ),
                 ),
@@ -138,7 +140,10 @@ class SubMessageItem extends StatelessWidget {
                               if (hasMenu)
                                 GestureDetector(
                                     onTap: showPopup,
-                                    child: const Icon(Icons.settings))
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Icon(Icons.settings),
+                                    ))
                             ],
                           ),
                         ],
@@ -162,11 +167,12 @@ class SubMessageItem extends StatelessWidget {
                       TextView(
                         padding: EdgeInsets.zero,
                         text: ayah,
-                        sizeText: 16,
+                        sizeText: 20,
                         weightText: FontWeight.bold,
                         colorText:
                             isRead ? AppColor.txtColor3 : AppColor.txtColor4,
                         textAlign: TextAlign.start,
+                        fontFamily: 'Hafs17',
                         // fontFamily: Q.hafs15,
                       ),
                       SizedBox(

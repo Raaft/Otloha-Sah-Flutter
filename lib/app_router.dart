@@ -214,15 +214,7 @@ class AppRouter {
           ),
           settings: settings,
         );
-      case ReplayMesaagePage.routeName:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            // TODO enter your cubit
-            create: (context) => ReplyCubit(),
-            child: const ReplayMesaagePage(),
-          ),
-          settings: settings,
-        );
+
       case NotifiactionsPage.routeName:
         return MaterialPageRoute(
           builder: (_) => const NotifiactionsPage(),
