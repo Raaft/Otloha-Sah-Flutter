@@ -18,6 +18,10 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
   UserModel? userModel;
 
+
+  bool isLogin=true ;
+
+
   Future<void> userLogIn({@required email, @required password}) async {
     emit(LogInLoadingState());
     await Auth()
@@ -27,8 +31,11 @@ class AuthCubit extends Cubit<AuthState> {
     )!
         .then((value) async {
       userModel = UserModel.fromJson(value!.data);
+      token=CacheHelper.getData(key: 'token');
       CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
       CacheHelper.saveData(key: 'refresh', value: userModel!.refreshToken);
+      isLogin=true;
+      changeIsLogin(islog: true);
       print(
           'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
 
@@ -36,13 +43,11 @@ class AuthCubit extends Cubit<AuthState> {
 
       emit(LogInSuccessState());
     }).catchError((error) {
-      //  print('emit error=========');
+       print('emit error=========');
 
       emit(LogInErrorState(error.errors));
     });
   }
-
-
 
   saveUsers() async {
     UserProfile? user = await ProfileServ().myProfile();
@@ -61,7 +66,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-
   Future<void> userRegister(
       {email, username, password1, password2, birthdate, phone, gender}) async {
     emit(RegisterLoadingState());
@@ -76,12 +80,13 @@ class AuthCubit extends Cubit<AuthState> {
             username: username)
         .then((value) async {
       userModel = UserModel.fromJson(value.data);
-
       CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
       token = userModel!.accessToken.toString();
+     isLogin=true;
+     changeIsLogin(islog: true);
       print(
           'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
-      await saveUsers();
+     await saveUsers();
       emit(RegisterSuccessState());
     }).catchError((error) {
       // print('in cubit' + .toString());
@@ -95,6 +100,9 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LogOutLoadingState());
     await Auth().logOut().then((value) {
       CacheHelper.clearData(key: 'token');
+      token='';
+      isLogin=false;
+      changeIsLogin(islog: false);
       print('LogOut Done');
       emit(LogOutSuccessState());
     }).catchError((error) {
@@ -104,12 +112,19 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  Future<void> changeIsLogin({required bool isLog}) async {
-    await CacheHelper.saveData(key: 'isLogin', value: isLog);
+  Future<void> changeIsLogin({bool? islog}) async {
 
-    isLogin = isLog;
-    print('Is Login Booooooooooool $isLogin');
-    emit(ChangeIsLogInStateState());
+    if (token.isEmpty || token == ''||islog==false) {
+      isLogin = false;
+      emit(ChangeIsLogInFalseStateState());
+      print('Is Login Booooooooooool $isLogin');
+
+    } else {
+      isLogin = true;
+     emit(ChangeIsLogInTrueStateState());
+      print('Is Login Booooooooooool $isLogin');
+
+    }
+
   }
-
 }

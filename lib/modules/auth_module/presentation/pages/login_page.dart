@@ -42,7 +42,7 @@ class LoginPage extends StatelessWidget {
       listener: (context, state) {
         if (state is LogInSuccessState) {
           var cubit = AuthCubit.get(context);
-          cubit.changeIsLogin(isLog: true).then((value) {
+          cubit.changeIsLogin(islog: true).then((value) {
             Get.to(() => const HomePage());
           } );
         }
@@ -107,7 +107,7 @@ class LoginPage extends StatelessWidget {
               ),
               (state is LogInErrorState)
                   ? ValidationErrorText(
-                  error: state.error['non_field_errors'][0].toString())
+                  error: state.error['non_field_errors'].toString())
                   : const SizedBox(),
               TextView(
                 text: tr('ForgotPassword') + ' ?',
@@ -142,8 +142,6 @@ class LoginPage extends StatelessWidget {
                                 .then((value) {
                               token = CacheHelper.getData(key: 'token') ?? '';
 
-                            }).catchError((e) {
-                              print('ERROR IN LOG IN IS $e');
                             });
                           }
                         },

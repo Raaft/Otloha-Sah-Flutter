@@ -29,9 +29,13 @@ class SignUpPage extends StatelessWidget {
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             var cubit = AuthCubit.get(context);
-            cubit.changeIsLogin(isLog: true).then((value) {
-              Get.to(() => const HomePage());
-            } );
+
+            if (state is RegisterSuccessState) {
+              cubit.changeIsLogin(islog: true).then((value) {
+                Get.to(() => const HomePage());
+
+              });
+            }
           },
           builder: (context, state) {
             var cubit = AuthCubit.get(context);
@@ -112,52 +116,54 @@ class _SignFormState extends State<SignForm> {
               children: [
                 FieldValidation(
                   error: (state is RegisterErrorState)
-                      ? state.error['username']
-                      :[''],
+                      ? state.error['username']??['']
+                      : [''],
                   textField: TextFormFieldApp(
-                      color: AppColor.lightBlue,
-                      controller: userNameController,
-                      keyType: TextInputType.name,
-                      title: 'User Name',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'please enter your Full Name';
-                        }
-                        return null;
-                      },
-                      ),
+                    color: AppColor.lightBlue,
+                    controller: userNameController,
+                    keyType: TextInputType.name,
+                    title: 'User Name',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter your Full Name';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 FieldValidation(
-                  error:
-                      (state is RegisterErrorState) ? state.error['email'] : [],
+                  error: (state is RegisterErrorState)
+                      ? state.error['email']??['']
+                      : [''],
                   textField: TextFormFieldApp(
-                      color: AppColor.lightBlue,
-                      controller: emailController,
-                      keyType: TextInputType.emailAddress,
-                      title: 'Email',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'please enter your Email';
-                        }
-                        return null;
-                      },
-                      ),
+                    color: AppColor.lightBlue,
+                    controller: emailController,
+                    keyType: TextInputType.emailAddress,
+                    title: 'Email',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter your Email';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 FieldValidation(
-                  error:
-                      (state is RegisterErrorState) ? state.error['phone'] : [],
+                  error: (state is RegisterErrorState)
+                      ? state.error['phone']??['']
+                      : [''],
                   textField: TextFormFieldApp(
-                      color: AppColor.lightBlue,
-                      controller: phoneController,
-                      keyType: TextInputType.phone,
-                      title: 'Mobile',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'please enter your Mobile';
-                        }
-                        return null;
-                      },
-                     ),
+                    color: AppColor.lightBlue,
+                    controller: phoneController,
+                    keyType: TextInputType.phone,
+                    title: 'Mobile',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter your Mobile';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 Row(
                   children: <Widget>[
@@ -171,28 +177,43 @@ class _SignFormState extends State<SignForm> {
                       print(currentDate.toString());
                     },
                     child: const Text('Choice your birthDate')),
-                PasswordFormField(
-                  controller: passwordController,
-                  title: 'Password',
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'please enter your Password';
-                    }
-                    return null;
-                  },
-                  onSaved: (val) {},
+                FieldValidation(
+                  error: (state is RegisterErrorState)
+                      ? state.error['password1']??['']
+                      : [''],
+                  textField:                 PasswordFormField(
+                    controller: passwordController,
+                    title: 'Password',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter your Password';
+                      }
+                      return null;
+                    },
+                    onSaved: (val) {},
+                  ),
+
                 ),
-                PasswordFormField(
-                  controller: confirmPasswordController,
-                  title: 'Confirm Password',
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'please enter your Confirm Password';
-                    }
-                    return null;
-                  },
-                  onSaved: (val) {},
+                FieldValidation(
+                  error: (state is RegisterErrorState)
+                      ? state.error['password2']??['']
+                      : [''],
+                  textField:                               PasswordFormField(
+                    controller: confirmPasswordController,
+                    title: 'Confirm Password',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter your Confirm Password';
+                      }
+                      return null;
+                    },
+                    onSaved: (val) {},
+                  ),
+
+
                 ),
+
+
                 BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
                   return (state is LogInLoadingState)
                       ? const Center(
@@ -216,6 +237,8 @@ class _SignFormState extends State<SignForm> {
                                       birthdate: formattedDate)
                                   .then((value) {
                                 token = CacheHelper.getData(key: 'token') ?? '';
+
+                              //  widget.cubit.changeIsLogin();
                                 formKey.currentState!.reset();
                               }).catchError((e) {
                                 print('ERROR IN LOG IN IS $e');
