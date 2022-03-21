@@ -26,7 +26,7 @@ class Reply {
     positionFrom = json['position_from'];
     positionTo = json['position_to'];
     owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
-    parent = json['parent'];
+    parent = int.parse(json['parent'] ?? '0');
     if (json['children'] != null) {
       children = [];
       json['children'].forEach((v) {
@@ -42,7 +42,7 @@ class Reply {
   int? positionFrom;
   int? positionTo;
   Owner? owner;
-  String? parent;
+  int? parent;
   List<Reply>? children;
 
   Map<String, dynamic> toJson() {

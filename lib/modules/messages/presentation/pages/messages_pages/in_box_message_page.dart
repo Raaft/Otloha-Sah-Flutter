@@ -68,7 +68,7 @@ class InBoxMessagePage extends StatelessWidget {
               .format(DateTime.parse(messageModel.recitation!.finishedAt ?? ''))
           : null,
       action: () {
-        Get.to(() => MessageDetails(
+        Get.to(() => MessageDetailsPage(
               msgId: messageModel.id ?? 0,
               recitationId: messageModel.recitation!.id ?? 0,
             ));

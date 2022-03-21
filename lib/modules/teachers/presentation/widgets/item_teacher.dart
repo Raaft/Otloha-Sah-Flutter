@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/model/recitations.dart';
@@ -22,9 +20,10 @@ class ItemTeacher extends StatelessWidget {
     this.isCertified = false,
     this.setFav,
     this.isFav,
-    this.isStudent = false,  this.results,
+    this.isStudent = false,
+    this.results,
   }) : super(key: key);
- final Results? results;
+  final Results? results;
   final bool typeView;
   final bool isCertified;
   final bool? isFav;
@@ -44,7 +43,6 @@ class ItemTeacher extends StatelessWidget {
 
     if (typeView) {
       view = Row(
-
         /// crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _userImage(),
@@ -69,12 +67,13 @@ class ItemTeacher extends StatelessWidget {
                           const SizedBox(
                             width: 8,
                           ),
-                          Image.asset(
-                            AppIcons.qualityIcon,
-                            color: AppColor.iconColor5,
-                            width: 16,
-                            height: 16,
-                          ),
+                          if (!isStudent && isCertified)
+                            Image.asset(
+                              AppIcons.qualityIcon,
+                              color: AppColor.iconColor5,
+                              width: 16,
+                              height: 16,
+                            ),
                         ],
                       ),
                       Row(
@@ -150,6 +149,7 @@ class ItemTeacher extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextView(
                 text: userId,
@@ -220,13 +220,13 @@ class ItemTeacher extends StatelessWidget {
           var cubit = TeacherviewtypeCubit.get(context);
           return GestureDetector(
             onTap: () {
-             // cubit.markAsFavTeacher(id:cubit.teachers!);
+              // cubit.markAsFavTeacher(id:cubit.teachers!);
               setFav;
             },
             child: Icon(
               (isFav ?? false) ? Icons.favorite : Icons.favorite_border,
-              color: (isFav ?? false) ? AppColor.iconColor2 : AppColor
-                  .iconColor,
+              color:
+                  (isFav ?? false) ? AppColor.iconColor2 : AppColor.iconColor,
               size: size,
             ),
           );

@@ -1,24 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+
 import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
 import 'package:flutter_base/modules/messages/data/models/message_delails.dart';
-import 'package:flutter_base/modules/messages/data/models/relpay.dart' as reply;
+import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
-
-import 'package:flutter_base/core/utils/themes/color.dart';
-
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_popup.dart';
-import 'package:get/get.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 
-class MessageDetails extends StatefulWidget {
-  const MessageDetails(
+class MessageDetailsPage extends StatefulWidget {
+  const MessageDetailsPage(
       {Key? key, required this.msgId, required this.recitationId})
       : super(key: key);
 
@@ -26,10 +25,10 @@ class MessageDetails extends StatefulWidget {
   final int recitationId;
 
   @override
-  State<MessageDetails> createState() => _MessageDetailsState();
+  State<MessageDetailsPage> createState() => _MessageDetailsPageState();
 }
 
-class _MessageDetailsState extends State<MessageDetails> {
+class _MessageDetailsPageState extends State<MessageDetailsPage> {
   MessagedetailsCubit? cubit;
   @override
   void initState() {
@@ -84,9 +83,9 @@ class _MessageDetailsState extends State<MessageDetails> {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: cubit!.messageModel!.results![0].replies!.length,
+      itemCount: cubit!.messageDetails!.replies!.length,
       itemBuilder: (context, index) =>
-          _viewItem(index, cubit!.messageModel!.results![0].replies![index]),
+          _viewItem(index, cubit!.messageDetails!.replies![index]),
     );
   }
 
@@ -121,7 +120,7 @@ class _MessageDetailsState extends State<MessageDetails> {
               recitationId: recitationId,
             ));
           },
-          icon: Icon(Icons.more_vert)),
+          icon: const Icon(Icons.more_vert)),
     );
   }
 
@@ -172,25 +171,35 @@ class _MessageDetailsState extends State<MessageDetails> {
         isLocal: false,
         isRead: false,
         ayah: cubit!.ayah,
-        ayahInfo: _getAyahInfo(cubit!.messageModel!.results![0].recitation),
-        userImage:
-            cubit!.messageModel!.results![0].recitation!.owner!.image ?? '',
-        userName: _user(cubit!.messageModel!.results![0].recitation!.owner),
-        userInfo: cubit!.messageModel!.results![0].recitation!.owner!.level! +
-            ((cubit!.messageModel!.results![0].recitation!.owner!.isATeacher ??
-                    false)
+        ayahInfo: _getAyahInfo(cubit!.messageDetails!.recitation),
+        userImage: cubit!.messageDetails!.recitation!.owner!.image,
+        userName: _user(cubit!.messageDetails!.recitation!.owner),
+        userInfo: cubit!.messageDetails!.recitation!.owner!.level! +
+            ((cubit!.messageDetails!.recitation!.owner!.isATeacher ?? false)
                 ? 'Teacher'
                 : 'Student'),
-        dateStr: (cubit!.messageModel!.results![0].recitation!.finishedAt !=
-                null)
+        dateStr: (cubit!.messageDetails!.recitation!.finishedAt != null)
             ? DateFormat('hh:mm dd MMM').format(DateTime.parse(
-                cubit!.messageModel!.results![0].recitation!.finishedAt ?? ''))
+                cubit!.messageDetails!.recitation!.finishedAt ?? ''))
             : null,
         color: AppColor.selectColor1,
         trggelPlay: () {},
-        recordPath: cubit!.messageModel!.results![0].recitation!.record,
-        wavePath: cubit!.messageModel!.results![0].recitation!.wave,
+        recordPath: cubit!.messageDetails!.recitation!.record,
+        wavePath: cubit!.messageDetails!.recitation!.wave,
         isPlay: false,
+        errorType: null,
+        actionReply: () {
+          Get.to(
+            ReplayMesaagePage(
+              msgId: widget.msgId,
+              recitationId: widget.recitationId,
+              //  parentId: reply.parent,
+            ),
+          )!
+              .then((value) {
+            cubit!.fetchMessages(widget.msgId, widget.recitationId);
+          });
+        },
       ),
     );
   }
@@ -215,7 +224,7 @@ class _MessageDetailsState extends State<MessageDetails> {
     }
   }
 
-  String _user1(reply.Owner? owner) {
+  String _user1(Owner? owner) {
     if (owner != null) {
       var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
           ? (owner.username)
@@ -231,34 +240,58 @@ class _MessageDetailsState extends State<MessageDetails> {
 
   _viewItem(
     int index,
-    reply.Reply reply,
+    Replies reply,
   ) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CommentReplayItem(
-        isRead: false,
-        ayah: reply.comment ?? '',
-        ayahInfo: '',
-        userImage: reply.owner!.image ?? '',
-        userName: _user1(reply.owner),
-        userInfo: cubit!.messageModel!.results![0].recitation!.owner!.level! +
-            ((cubit!.messageModel!.results![0].recitation!.owner!.isATeacher ??
-                    false)
-                ? 'Teacher'
-                : 'Student'),
-        dateStr: (cubit!.messageModel!.results![0].recitation!.finishedAt !=
-                null)
-            ? DateFormat('hh:mm dd MMM').format(DateTime.parse(
-                cubit!.messageModel!.results![0].recitation!.finishedAt ?? ''))
-            : null,
-        color: AppColor.selectColor1,
-        isPlay: false,
-        trggelPlay: () {},
-        isReplay: false,
-        recordPath: reply.record,
-        wavePath: reply.wave,
-        errorStr: reply.comment,
-      ),
+    return ListView(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      children: [
+        CommentReplayItem(
+          isRead: false,
+          ayah: reply.text,
+          userImage: reply.owner!.image,
+          userName: _user1(reply.owner),
+          userInfo: cubit!.messageDetails!.recitation!.owner!.level! +
+              ((cubit!.messageDetails!.recitation!.owner!.isATeacher ?? false)
+                  ? ' Teacher'
+                  : ' Student'),
+          dateStr: (cubit!.messageDetails!.recitation!.finishedAt != null)
+              ? DateFormat('hh:mm dd MMM').format(DateTime.parse(
+                  cubit!.messageDetails!.recitation!.finishedAt ?? ''))
+              : null,
+          color: AppColor.selectColor1,
+          isPlay: false,
+          trggelPlay: () {},
+          isReplay: (reply.parent != null && (reply.parent ?? 0) > 0),
+          recordPath: reply.record,
+          wavePath: reply.wave,
+          errorStr: reply.comment,
+          errorType: reply.errorType,
+          actionReply: () {
+            Get.to(
+              ReplayMesaagePage(
+                msgId: widget.msgId,
+                recitationId: widget.recitationId,
+                parentId: (reply.parent != null) ? reply.parent : reply.id,
+              ),
+            )!
+                .then((value) {
+              cubit!.fetchMessages(widget.msgId, widget.recitationId);
+            });
+          },
+        ),
+        if (reply.children!.isNotEmpty) _viewDataCh(reply.children),
+      ],
+    );
+  }
+
+  ListView _viewDataCh(List<Replies>? children) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: children!.length,
+      itemBuilder: (context, index) => _viewItem(index, children[index]),
     );
   }
 }

@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:file/src/interface/file.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
+import 'package:flutter_base/modules/messages/data/models/reply_request.dart';
 import 'package:flutter_base/modules/messages/data/repositories/messages_repo.dart';
 
 class GetMessages extends MessagesRepository {
@@ -96,34 +97,42 @@ class GetMessages extends MessagesRepository {
   }
 
   @override
-  Future<Response> markAsAccepted({id,messageId}) async {
+  Future<Response> markAsAccepted({id, messageId}) async {
     try {
-      return await ApiBaseHelper()
-          .postHTTP('/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-accepted/', {});
+      return await ApiBaseHelper().postHTTP(
+          '/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-accepted/',
+          {});
     } catch (e) {
       throw UnimplementedError();
     }
   }
 
   @override
-  Future<Response> markAsRead({id,messageId}) async{
+  Future<Response> markAsRead({id, messageId}) async {
     try {
-      return await ApiBaseHelper()
-          .postHTTP('/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-read/', {});
+      return await ApiBaseHelper().postHTTP(
+          '/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-read/',
+          {});
     } catch (e) {
       throw UnimplementedError();
     }
   }
 
   @override
-  Future<Response> markAsRemarkable({id,messageId}) async{
+  Future<Response> markAsRemarkable({id, messageId}) async {
     try {
-      return await ApiBaseHelper()
-          .postHTTP('/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-remarkable/', {});
+      return await ApiBaseHelper().postHTTP(
+          '/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-remarkable/',
+          {});
     } catch (e) {
       throw UnimplementedError();
     }
   }
 
-
+  @override
+  Future<Response>? replyMessages(ReplyRequest replyRequest) async {
+    return ApiBaseHelper().postPhotoHTTP(
+        '/api/v1/recitations/${replyRequest.recitationId}/messages/${replyRequest.messageId}/replies/',
+        await replyRequest.toMap());
+  }
 }

@@ -87,9 +87,9 @@ void main() async {
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
   try {
-    myProFile ==
-        UserProfile.fromJson(jsonDecode(
-            await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
+    myProFile = UserProfile.fromJson(jsonDecode(
+        await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
+    print('My Profile ==> ' + myProFile.toString());
     favTeacherProFile = UserProfile.fromJson(
         jsonDecode(await otloha_shaerd.CacheHelper.getData(key: favTeacher)));
   } catch (e) {
@@ -157,6 +157,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => MessagedetailsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ReplyCubit(),
         ),
       ],
       child: GetMaterialApp(

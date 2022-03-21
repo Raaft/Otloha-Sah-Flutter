@@ -158,7 +158,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
       userProgressIndicator: const UserProgressIndicator(
         name: 'Shady',
         type: 'Juz1-3',
-        value: .57,
+        value: 0,
       ),
       action: () {
         //Get.bottomSheet(const PopupChooseTeacherSend());
@@ -181,29 +181,27 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               padding: const EdgeInsets.all(2),
               textAlign: TextAlign.start,
             ),
-            if(isLogin)
-
+            if (isLogin)
               TextView(
-              text: 'Shady',
-              colorText: AppColor.txtColor1,
-              sizeText: 20,
-              weightText: FontWeight.w900,
-              padding: const EdgeInsets.all(2),
-              textAlign: TextAlign.start,
-            ),
+                text: 'Shady',
+                colorText: AppColor.txtColor1,
+                sizeText: 20,
+                weightText: FontWeight.w900,
+                padding: const EdgeInsets.all(2),
+                textAlign: TextAlign.start,
+              ),
           ],
         ),
-        if(isLogin)
-
+        if (isLogin)
           UserProgressReading(
-          userProgressIndicator: UserProgressIndicator(
-            name: 'Shady',
-            type: 'Juz1-3',
-            value: .57,
-            width: MediaQuery.of(context).size.width * .35,
-            fontSize: 16,
+            userProgressIndicator: UserProgressIndicator(
+              name: 'Shady',
+              type: 'Juz1-3',
+              value: 0,
+              width: MediaQuery.of(context).size.width * .35,
+              fontSize: 16,
+            ),
           ),
-        ),
       ],
     );
   }
@@ -211,18 +209,17 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
   Widget _toolBarFun(HomeCubit cubit) {
     return Row(
       children: [
-        if(isLogin)
-
+        if (isLogin)
           GestureDetector(
-          onTap: () {
-            // Get.to(const OnBoardPage());
-          },
-          child: CircleAvatar(
-            radius: 24,
-            backgroundColor: AppColor.conColor3,
-            foregroundImage: AssetImage(AppImages.duserImage),
+            onTap: () {
+              // Get.to(const OnBoardPage());
+            },
+            child: CircleAvatar(
+              radius: 24,
+              backgroundColor: AppColor.conColor3,
+              foregroundImage: AssetImage(AppImages.duserImage),
+            ),
           ),
-        ),
         const Expanded(child: SizedBox()),
         GestureDetector(
           onTap: () {

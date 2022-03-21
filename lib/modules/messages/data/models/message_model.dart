@@ -30,12 +30,12 @@ class MessageModel {
     recitation = json['recitation'] != null
         ? Recitation.fromJson(json['recitation'])
         : null;
-    if (json['replies'] != null) {
-      replies = [];
-      json['replies'].forEach((v) {
-        replies?.add(Reply.fromJson(v));
-      });
-    }
+    // if (json['replies'] != null) {
+    //   replies = [];
+    //   json['replies'].forEach((v) {
+    //     replies?.add(Reply.fromJson(v));
+    //   });
+    // }
   }
   int? id;
   Addressee? addressee;

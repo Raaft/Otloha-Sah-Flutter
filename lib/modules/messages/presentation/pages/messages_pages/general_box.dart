@@ -72,6 +72,20 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
     );
   }
 
+  String _user(Owner? owner) {
+    if (owner != null) {
+      var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
+          ? (owner.username)
+          : '';
+      return (owner.firstName ?? '') +
+          ' ' +
+          (owner.lastName ?? '') +
+          (str ?? '');
+    } else {
+      return '';
+    }
+  }
+
   Widget _getItem(int index, GeneralResponse generalResponse) {
     return GeneralMessageItem(
       boxMessageItem: SubMessageItem(
@@ -81,9 +95,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
         ayahInfo: _getAyahInfo(generalResponse),
         narrationName: generalResponse.narrationName,
         userImage: generalResponse.owner!.image ?? '',
-        userName: generalResponse.owner!.firstName.toString() +
-            ' ' +
-            generalResponse.owner!.lastName.toString(),
+        userName: _user(generalResponse.owner),
         dateStr: (generalResponse.finishedAt != null)
             ? DateFormat('hh:mm dd MMM')
                 .format(DateTime.parse(generalResponse.finishedAt ?? ''))
@@ -137,7 +149,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
         color: AppColor.transparent,
         action: () {
           print('prcess ');
-          Get.to(const RecitationDetails());
+          //Get.to(const RecitationDetails());
         },
       ),
 

@@ -60,7 +60,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
       waveFile2 = File(widget.wavePath ?? '');
     } else {
       waveFile2 = await FileStorage().download2(
-          url: widget.wavePath ?? '',
+          url: baseUrl + (widget.wavePath ?? ''),
           savePath: 'temp/wave',
           showDownloadProgress: (v, t) {});
     }
@@ -100,11 +100,14 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
             onTap: () {
               _playPause();
             },
-            child: Image.asset(
-              _isPlay ? AppIcons.pauseIcon : AppIcons.play2Icon,
-              width: 20,
-              height: 20,
-              color: AppColor.iconColor2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                _isPlay ? AppIcons.pauseIcon : AppIcons.play2Icon,
+                width: 20,
+                height: 20,
+                color: AppColor.iconColor2,
+              ),
             ),
           ),
         ),
@@ -186,20 +189,18 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
     });
   }
 
-  Future<void> playSound(String path) async {
+  Future<void> playSound() async {
     print('isLocal ${widget.isLocal}');
     if (widget.isLocal) {
-      Uint8List byteData = (await FileStorage().download2(
-              url: widget.recordPath ?? '',
-              savePath: 'temp/record',
-              showDownloadProgress: (v, t) {}))!
-          .readAsBytesSync();
-      int result = await audioPlayer.playBytes(byteData);
+      Uint8List? byteData = await FileStorage().download(
+          url: baseUrl + (widget.recordPath ?? ''),
+          showDownloadProgress: (v, t) {});
+      int result = await audioPlayer.playBytes(byteData!);
       if (result == 1) {
         // success
       }
     } else {
-      int result = await audioPlayer.play(widget.recordPath ?? '',
+      int result = await audioPlayer.play(baseUrl + (widget.recordPath ?? ''),
           isLocal: widget.isLocal);
       if (result == 1) {
         // success
@@ -208,7 +209,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
   }
 
   void startNewRoute() async {
-    await playSound('waveform.mp3');
+    await playSound();
   }
 
   Widget _audioWave(Waveform waveform, Duration? position) {

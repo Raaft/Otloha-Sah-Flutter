@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/messages/data/models/error_type.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
 
 class CommentReplayItem extends StatelessWidget {
@@ -14,7 +14,7 @@ class CommentReplayItem extends StatelessWidget {
     required this.userImage,
     this.dateStr,
     required this.ayah,
-    required this.ayahInfo,
+    this.ayahInfo,
     required this.color,
     this.errorStr,
     this.action,
@@ -26,15 +26,16 @@ class CommentReplayItem extends StatelessWidget {
     required this.isRead,
     required this.isPlay,
     required this.trggelPlay,
+    required this.actionReply,
     required this.recordPath,
     required this.wavePath,
   }) : super(key: key);
 
-  final String userName;
-  final String userImage;
+  final String? userName;
+  final String? userImage;
   final String? dateStr;
-  final String ayah;
-  final String ayahInfo;
+  final String? ayah;
+  final String? ayahInfo;
   final String? errorStr;
   final Color color;
   final Function()? action;
@@ -52,9 +53,11 @@ class CommentReplayItem extends StatelessWidget {
   final bool isReplay;
 
   final Function() trggelPlay;
+  final Function() actionReply;
 
   @override
   Widget build(BuildContext context) {
+    var errorTypeActiv = _check(errorType) ?? ErrorType.errors[0];
     return GestureDetector(
       onTap: action,
       child: Container(
@@ -80,7 +83,7 @@ class CommentReplayItem extends StatelessWidget {
                   height: 40,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: Image.asset(userImage),
+                    child: Image.asset(userImage ?? ''),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -94,7 +97,7 @@ class CommentReplayItem extends StatelessWidget {
                           Row(
                             children: [
                               TextView(
-                                text: userName,
+                                text: userName ?? '',
                                 weightText: FontWeight.w900,
                                 padding: EdgeInsets.zero,
                                 sizeText: 12,
@@ -147,49 +150,43 @@ class CommentReplayItem extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                              color: AppColor.gradient1,
+                          if (errorType != null && errorType!.isNotEmpty)
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(2),
+                                color: errorTypeActiv.color,
+                              ),
+                              child: TextView(
+                                padding: EdgeInsets.zero,
+                                text: 'نوع الخطاء : ' +
+                                    (errorTypeActiv.value ?? 'تجويد'),
+                                sizeText: 11,
+                                colorText: AppColor.txtColor2,
+                                textAlign: TextAlign.start,
+                              ),
                             ),
-                            child: TextView(
-                              padding: EdgeInsets.zero,
-                              text: errorType ?? 'نوع الخطاء : تجويد',
-                              sizeText: 11,
-                              colorText: AppColor.txtColor2,
-                              textAlign: TextAlign.start,
-                            ),
-                          ),
                         ],
                       ),
-                      TextView(
-                        padding: EdgeInsets.zero,
-                        text: ayah,
-                        sizeText: 16,
-                        weightText: FontWeight.bold,
-                        colorText:
-                            isRead ? AppColor.txtColor3 : AppColor.txtColor4,
-                        textAlign: TextAlign.start,
-                        //  fontFamily: Q.hafs15,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: TextView(
+                      if (ayah != null)
+                        TextView(
                           padding: EdgeInsets.zero,
-                          text:
-                              ayahInfo + ' - رواية ' + (narrationName ?? 'حفص'),
-                          sizeText: 11,
-                          colorText: AppColor.txtColor4,
+                          text: ayah ?? '',
+                          sizeText: 18,
+                          weightText: FontWeight.bold,
+                          colorText:
+                              isRead ? AppColor.txtColor3 : AppColor.txtColor4,
                           textAlign: TextAlign.start,
+                          fontFamily: 'Hafs17',
                         ),
-                      ),
-                      WaveViewPlayAudio(
-                          recordPath: recordPath,
-                          wavePath: wavePath,
-                          trggelPlay: trggelPlay,
-                          isLocal: isLocal,
-                          isPlay: isPlay),
+                      if (recordPath != null)
+                        WaveViewPlayAudio(
+                            recordPath: recordPath,
+                            wavePath: wavePath,
+                            trggelPlay: trggelPlay,
+                            isLocal: isLocal,
+                            isPlay: isPlay),
                       if (errorStr != null)
                         TextView(
                           text: errorStr ?? '',
@@ -207,8 +204,7 @@ class CommentReplayItem extends StatelessWidget {
                         colorText: AppColor.txtColor4,
                         textAlign: TextAlign.start,
                         action: () {
-                          Navigator.of(context)
-                              .pushNamed(ReplayMesaagePage.routeName);
+                          actionReply();
                         },
                         // overflow: TextOverflow.ellipsis,
                       ),
@@ -221,5 +217,14 @@ class CommentReplayItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  ErrorType? _check(String? errorType) {
+    for (var element in ErrorType.errors) {
+      if (errorType == element.key) {
+        return element;
+      }
+    }
+    return null;
   }
 }

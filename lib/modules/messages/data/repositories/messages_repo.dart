@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:file/file.dart';
+import 'package:flutter_base/modules/messages/data/models/reply_request.dart';
 
 abstract class MessagesRepository {
   Future<Response?>? getMessageListing();
@@ -28,9 +29,9 @@ abstract class MessagesRepository {
     required String error_type,
   });
 
+  Future<Response> markAsRead({id, messageId});
+  Future<Response> markAsAccepted({id, messageId});
+  Future<Response> markAsRemarkable({id, messageId});
 
-  Future<Response> markAsRead({id,messageId});
-  Future<Response> markAsAccepted({id,messageId});
-  Future<Response> markAsRemarkable({id,messageId});
-
+  Future<Response>? replyMessages(ReplyRequest replyRequest);
 }
