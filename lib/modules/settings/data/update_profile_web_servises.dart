@@ -51,9 +51,9 @@ class UpdateProfile extends UpdateProfileRepos {
   }
 
   @override
-  Future<Response> registerAsATeacher() async{
+  Future<Response> registerAsATeacher(data) async{
     try {
-      return await ApiBaseHelper().postHTTP('/api/v1/users/register-as-a-teacher/', {});
+      return await ApiBaseHelper().postHTTP('/api/v1/users/register-as-a-teacher/', data);
     } catch (e) {
       throw UnimplementedError();
     }

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_api.dart';
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
@@ -82,5 +85,19 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
       }
       emit(TeacherErrorState());
     });
+  }
+
+
+  Future<File?>? uploadFile()async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      emit(state);
+     return file;
+    } else {
+      // User canceled the picker
+    }
+    return null;
   }
 }

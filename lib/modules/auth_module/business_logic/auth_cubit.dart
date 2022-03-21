@@ -8,6 +8,7 @@ import 'package:flutter_base/modules/home/data/profile_servise/profile_servises.
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../home/data/models/user/LogInErrorModel.dart';
 import '../data/models/UserModel.dart';
 
 part 'auth_state.dart';
@@ -18,52 +19,49 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
   UserModel? userModel;
 
+  bool isLogin = true;
 
-  bool isLogin=true ;
+  LogInErrorModel? logInErrorModel;
+
+  thenAuth(value) {
+    userModel = UserModel.fromJson(value.data);
+    CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
+    token = userModel!.accessToken.toString();
+    isLogin = true;
+    changeIsLogin(islog: true);
+    print(
+        'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
+    emit(ThenAuthState());
+  }
+  UserProfile proFile=UserProfile();
+  Future saveProfile()async{
+    try {
+      proFile =
+          UserProfile.fromJson(jsonDecode(
+              await CacheHelper.getData(key: userProfileLogined)));
+    favTeacherProFile = UserProfile.fromJson(
+    jsonDecode(await CacheHelper.getData(key: favTeacher)));
+    } catch (e) {
+    print('no user login');
+    }
+  }
 
 
   Future<void> userLogIn({@required email, @required password}) async {
     emit(LogInLoadingState());
-    await Auth()
+    Auth()
         .userLogIn(
       email: email,
       password: password,
-    )!
-        .then((value) async {
-      userModel = UserModel.fromJson(value!.data);
-      token=CacheHelper.getData(key: 'token');
-      CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
-      CacheHelper.saveData(key: 'refresh', value: userModel!.refreshToken);
-      isLogin=true;
-      changeIsLogin(islog: true);
-      print(
-          'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
-
+    )
+        .then((value) async{
+      thenAuth(value);
       await saveUsers();
 
       emit(LogInSuccessState());
     }).catchError((error) {
-       print('emit error=========');
-
       emit(LogInErrorState(error.errors));
     });
-  }
-
-  saveUsers() async {
-    UserProfile? user = await ProfileServ().myProfile();
-
-    if (user != null) {
-      CacheHelper.saveData(
-          key: userProfileLogined, value: jsonEncode(userModel!.toJson()));
-      if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
-        var teacher =
-            await ProfileServ().userProfile(user.favoriteTeacher ?? 0);
-        if (teacher != null) {
-          CacheHelper.saveData(
-              key: favTeacher, value: jsonEncode(teacher.toJson()));
-        }
-      }
-    }
   }
 
   Future<void> userRegister(
@@ -78,30 +76,44 @@ class AuthCubit extends Cubit<AuthState> {
             password2: password2,
             phone: phone,
             username: username)
-        .then((value) async {
-      userModel = UserModel.fromJson(value.data);
-      CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
-      token = userModel!.accessToken.toString();
-     isLogin=true;
-     changeIsLogin(islog: true);
-      print(
-          'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
+        .then((value) async{
+      thenAuth(value);
      await saveUsers();
       emit(RegisterSuccessState());
     }).catchError((error) {
-      // print('in cubit' + .toString());
-      // print();
-      // print('emit error=========');
-      emit(RegisterErrorState(error.errors));
+
+      emit(RegisterErrorState(error));
     });
+  }
+
+  saveUsers() async {
+    UserProfile? user = await ProfileServ().myProfile();
+    try {
+      if (user != null) {
+        CacheHelper.saveData(
+            key: userProfileLogined, value: jsonEncode(userModel!.toJson()));
+        if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
+          var teacher =
+              await ProfileServ().userProfile(user.favoriteTeacher ?? 0);
+          if (teacher != null) {
+            CacheHelper.saveData(
+                key: favTeacher, value: jsonEncode(teacher.toJson()));
+          }
+        }
+      }
+      print('Save done ${user!.username}');
+
+    } catch (e) {
+      print('Save data error $e');
+    }
   }
 
   Future<void> userLogOut() async {
     emit(LogOutLoadingState());
     await Auth().logOut().then((value) {
       CacheHelper.clearData(key: 'token');
-      token='';
-      isLogin=false;
+      token = '';
+      isLogin = false;
       changeIsLogin(islog: false);
       print('LogOut Done');
       emit(LogOutSuccessState());
@@ -113,18 +125,14 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> changeIsLogin({bool? islog}) async {
-
-    if (token.isEmpty || token == ''||islog==false) {
+    if (token.isEmpty || token == '' || islog == false) {
       isLogin = false;
       emit(ChangeIsLogInFalseStateState());
       print('Is Login Booooooooooool $isLogin');
-
     } else {
       isLogin = true;
-     emit(ChangeIsLogInTrueStateState());
+      emit(ChangeIsLogInTrueStateState());
       print('Is Login Booooooooooool $isLogin');
-
     }
-
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
@@ -41,9 +42,9 @@ class _TeacherPageState extends State<TeacherPage> {
             if (state is TeacherviewtypeChange) {
               _type = state.type;
             }
-var cubit =TeacherviewtypeCubit.get(context);
+            var cubit = TeacherviewtypeCubit.get(context);
             return Column(
-              children: [_topView(), _viewDate(state,cubit)],
+              children: [_topView(), _viewDate(state, cubit)],
             );
           },
         ),
@@ -78,24 +79,28 @@ var cubit =TeacherviewtypeCubit.get(context);
 
   ///test
 
-  ItemTeacher _itemView(int index, Results results) {
-    return ItemTeacher(
-
-      userName:
-          (results.firstName ?? 'Add') + ' ' + (results.lastName ?? 'add'),
-      rate: "${results.rate ?? ''}",
-      userId: (results.teacherType ?? '') + ' Teacher',
-      userbio: results.bio ?? '',
-      action: () {},
-      typeView: _type,
-      isCertified: results.isCertified ?? false,
-      isFav: index == _selected,
-     //  results: results,
-      setFav: () {
-        setState(() {
-
-          _selected = index;
-        });
+  _itemView(int index, Results results) {
+    return BlocBuilder<TeacherviewtypeCubit, TeacherviewtypeState>(
+      builder: (context, state) {
+        var teacherViewCubit = TeacherviewtypeCubit.get(context);
+        return ItemTeacher(
+          userName:
+              (results.firstName ?? 'Add') + ' ' + (results.lastName ?? 'add'),
+          rate: "${results.rate ?? ''}",
+          userId: (results.teacherType ?? '') + ' Teacher',
+          userbio: results.bio ?? '',
+          action: () {},
+          typeView: _type,
+          isCertified: results.isCertified ?? false,
+          isFav: index == _selected,
+          //  results: results,
+          setFav: () {
+            setState(() {
+              teacherViewCubit.markAsFavTeacher(id: myProFile!.id);
+              _selected = index;
+            });
+          },
+        );
       },
     );
   }
@@ -118,7 +123,7 @@ var cubit =TeacherviewtypeCubit.get(context);
     );
   }
 
-  _viewDate(TeacherviewtypeState state,TeacherviewtypeCubit cubit ) {
+  _viewDate(TeacherviewtypeState state, TeacherviewtypeCubit cubit) {
     if (state is TeacherErrorState) {
       return const Expanded(child: ViewError(error: 'No Data'));
     } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {

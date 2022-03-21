@@ -9,7 +9,7 @@ abstract class UpdateProfileRepos {
 
   Future<Response> changePassword(
       {required oldPassword, required newPassword, required confirmPassword});
-  Future<Response> registerAsATeacher();
+  Future<Response> registerAsATeacher(data);
 
 
 }

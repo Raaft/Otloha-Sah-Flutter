@@ -32,8 +32,11 @@ class SignUpPage extends StatelessWidget {
 
             if (state is RegisterSuccessState) {
               cubit.changeIsLogin(islog: true).then((value) {
-                Get.to(() => const HomePage());
+                cubit.saveProfile();
 
+                cubit.saveProfile().then((value) {
+                  Get.offAll(() => const HomePage());
+                });
               });
             }
           },
@@ -116,7 +119,7 @@ class _SignFormState extends State<SignForm> {
               children: [
                 FieldValidation(
                   error: (state is RegisterErrorState)
-                      ? state.error['username']??['']
+                      ? state.error['username'] ?? ['']
                       : [''],
                   textField: TextFormFieldApp(
                     color: AppColor.lightBlue,
@@ -133,7 +136,7 @@ class _SignFormState extends State<SignForm> {
                 ),
                 FieldValidation(
                   error: (state is RegisterErrorState)
-                      ? state.error['email']??['']
+                      ? state.error['email'] ?? ['']
                       : [''],
                   textField: TextFormFieldApp(
                     color: AppColor.lightBlue,
@@ -150,7 +153,7 @@ class _SignFormState extends State<SignForm> {
                 ),
                 FieldValidation(
                   error: (state is RegisterErrorState)
-                      ? state.error['phone']??['']
+                      ? state.error['phone'] ?? ['']
                       : [''],
                   textField: TextFormFieldApp(
                     color: AppColor.lightBlue,
@@ -179,9 +182,9 @@ class _SignFormState extends State<SignForm> {
                     child: const Text('Choice your birthDate')),
                 FieldValidation(
                   error: (state is RegisterErrorState)
-                      ? state.error['password1']??['']
+                      ? state.error['password1'] ?? ['']
                       : [''],
-                  textField:                 PasswordFormField(
+                  textField: PasswordFormField(
                     controller: passwordController,
                     title: 'Password',
                     validator: (value) {
@@ -192,13 +195,12 @@ class _SignFormState extends State<SignForm> {
                     },
                     onSaved: (val) {},
                   ),
-
                 ),
                 FieldValidation(
                   error: (state is RegisterErrorState)
-                      ? state.error['password2']??['']
+                      ? state.error['password2'] ?? ['']
                       : [''],
-                  textField:                               PasswordFormField(
+                  textField: PasswordFormField(
                     controller: confirmPasswordController,
                     title: 'Confirm Password',
                     validator: (value) {
@@ -209,11 +211,7 @@ class _SignFormState extends State<SignForm> {
                     },
                     onSaved: (val) {},
                   ),
-
-
                 ),
-
-
                 BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
                   return (state is LogInLoadingState)
                       ? const Center(
@@ -238,7 +236,7 @@ class _SignFormState extends State<SignForm> {
                                   .then((value) {
                                 token = CacheHelper.getData(key: 'token') ?? '';
 
-                              //  widget.cubit.changeIsLogin();
+                                //  widget.cubit.changeIsLogin();
                                 formKey.currentState!.reset();
                               }).catchError((e) {
                                 print('ERROR IN LOG IN IS $e');
