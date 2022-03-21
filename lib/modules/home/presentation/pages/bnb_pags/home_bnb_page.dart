@@ -52,7 +52,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
                 children: [
                   _toolBarFun(cubit,authCubit),
                   _headerProgress(cubit,authCubit),
-                  _sectionMain(context),
+                  _sectionMain(context,authCubit),
                   SizedBox(
                     width: double.infinity,
                     child: Semantics(
@@ -118,7 +118,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  Row _sectionMain(BuildContext context) {
+  Row _sectionMain(BuildContext context, AuthCubit authCubit) {
     return Row(
       children: [
         _sections(
@@ -128,6 +128,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppColor.gradient3,
           AppColor.gradient1,
           actionTo: ComingSoonPage.routeName,
+          authCubit: authCubit
         ),
         _sections(
           context,
@@ -136,6 +137,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppColor.gradient3,
           AppColor.gradient4,
           actionTo: RecitationsPage.routeName,
+          authCubit: authCubit
         ),
         _sections(
           context,
@@ -144,6 +146,8 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           AppColor.gradient1,
           AppColor.gradient2,
           actionTo: ComingSoonPage.routeName,
+          authCubit: authCubit
+
         ),
       ],
     );
@@ -156,16 +160,17 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     Color gradient1,
     Color gradient2, {
     String? actionTo,
+        required AuthCubit authCubit
   }) {
     return HomeMainSection(
       title: title,
       image: image,
       gradient1: gradient1,
       gradient2: gradient2,
-      userProgressIndicator: const UserProgressIndicator(
-        name: 'Shady',
+      userProgressIndicator:  UserProgressIndicator(
+        name:authCubit.proFile.firstName??'' ,
         type: 'Juz1-3',
-        value: .57,
+        value: 0.0,
       ),
       action: () {
         //Get.bottomSheet(const PopupChooseTeacherSend());
@@ -190,7 +195,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             ),
             if (authCubit.isLogin)
               TextView(
-                text: 'Shady',
+                text: authCubit.proFile.firstName??'',
                 colorText: AppColor.txtColor1,
                 sizeText: 20,
                 weightText: FontWeight.w900,
@@ -202,9 +207,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         if (authCubit.isLogin)
           UserProgressReading(
             userProgressIndicator: UserProgressIndicator(
-              name: 'Shady',
+              name: authCubit.proFile.firstName??'',
               type: 'Juz1-3',
-              value: .57,
+              value: 0,
               width: MediaQuery.of(context).size.width * .35,
               fontSize: 16,
             ),
@@ -224,7 +229,8 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             child: CircleAvatar(
               radius: 24,
               backgroundColor: AppColor.conColor3,
-              foregroundImage: AssetImage(AppImages.duserImage),
+              foregroundImage:NetworkImage(authCubit.proFile.image??'')
+                //AssetImage(AppImages.duserImage),
             ),
           ),
         const Expanded(child: SizedBox()),

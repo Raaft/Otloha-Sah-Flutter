@@ -86,15 +86,15 @@ void main() async {
 
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
-  try {
-    myProFile ==
+  /* try {
+    myProFile =
         UserProfile.fromJson(jsonDecode(
             await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
     favTeacherProFile = UserProfile.fromJson(
         jsonDecode(await otloha_shaerd.CacheHelper.getData(key: favTeacher)));
   } catch (e) {
     print('no user login');
-  }
+  }  */
 
   BlocOverrides.runZoned(
     () => runApp(

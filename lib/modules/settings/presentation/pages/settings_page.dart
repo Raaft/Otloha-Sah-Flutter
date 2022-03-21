@@ -5,6 +5,7 @@ import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart'
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/settings/data/models/init_data.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/profile_seittings.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/register_as_techer.dart';
 
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_sub.dart';
@@ -62,6 +63,21 @@ class _SettingsPageState extends State<SettingsPage> {
                     )
                   : const Text('');
             }),
+            TextViewIcon(
+              text: 'Register up As Teacher ',
+              textAlign: TextAlign.start,
+              colorText: AppColor.txtColor3,
+              sizeText: 17,
+              weightText: FontWeight.w700,
+              icon: Icon(
+                Icons.person_add_alt,
+                color: AppColor.txtColor3,
+              ),
+              action: () {
+                Get.to(RegisterAsTeacher());
+              },
+            ),
+
             BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
               if (state is LogOutSuccessState) {
                 var cubit = AuthCubit.get(context);

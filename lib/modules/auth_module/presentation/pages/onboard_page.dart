@@ -66,7 +66,7 @@ class OnBoardPage extends StatelessWidget {
                             width: MediaQuery.of(context).size.height * 0.5,
                             onPressed: () {
                               cubit.changeIsLogin(islog: false).then((value) {
-                                Get.to(() => const HomePage());
+                                Get.offAll(() => const HomePage());
                               });
                             },
                             colors: [
