@@ -12,5 +12,6 @@ class MessageApi extends MessageRepositroy {
       print('msg $value');
       return MessageDelails.fromJson(value!.data);
     });
+    return null;
   }
 }

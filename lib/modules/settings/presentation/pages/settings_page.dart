@@ -40,15 +40,16 @@ class _SettingsPageState extends State<SettingsPage> {
             _titleSection('Download Center'),
             _downloadSettings(context),
             const Divider(),
-            BlocBuilder<HomeCubit, HomeState>(
+            BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {
-                var homeCubit = HomeCubit.get(context);
-                return (isLogin) ? _titleSection('Settings') : const Text('');
+                var cubit = AuthCubit.get(context);
+                return (cubit.isLogin) ? _titleSection('Settings') : const Text('');
               },
             ),
-            BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-              var homeCubit = HomeCubit.get(context);
-              return (isLogin)
+            BlocBuilder<AuthCubit, AuthState>(
+                builder: (context, state) {
+                  var cubit = AuthCubit.get(context);
+                  return (cubit.isLogin)
                   ? TextView(
                       text: 'Update Profile',
                       textAlign: TextAlign.start,
@@ -65,14 +66,14 @@ class _SettingsPageState extends State<SettingsPage> {
               if (state is LogOutSuccessState) {
                 var cubit = AuthCubit.get(context);
 
-                cubit.changeIsLogin(isLog: false).then((value) {
+                cubit.changeIsLogin().then((value) {
                   Get.to(() => const OnBoardPage());
                 });
               }
             }, builder: (context, state) {
               var cubit = AuthCubit.get(context);
 
-              return (isLogin)
+              return (cubit.isLogin)
                   ? TextViewIcon(
                       text: 'Log Out',
                       textAlign: TextAlign.start,
@@ -86,7 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       action: () {
                         cubit.userLogOut();
                         if (state is LogOutSuccessState) {
-                          cubit.changeIsLogin(isLog: false);
+                          cubit.changeIsLogin();
                         }
                       },
                     )

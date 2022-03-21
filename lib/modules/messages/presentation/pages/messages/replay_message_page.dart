@@ -105,7 +105,7 @@ class ReplayMesaagePage extends StatelessWidget {
                         Row(
                           children: [
                             IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.delete,
                                 color: Colors.blueAccent,
                               ),
@@ -127,7 +127,7 @@ class ReplayMesaagePage extends StatelessWidget {
                       if (state is InitialReplyState ||
                           state is DeleteRecordState)
                         IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.mic,
                             color: Colors.blueAccent,
                           ),
@@ -142,10 +142,10 @@ class ReplayMesaagePage extends StatelessWidget {
               const SizedBox(width: 15),
               Container(
                 padding: const EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.blueAccent, shape: BoxShape.circle),
                 child: InkWell(
-                  child: Icon(
+                  child: const Icon(
                     Icons.send,
                     color: Colors.white,
                   ),

@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter_base/core/error/exceptions.dart';
+ import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:flutter_base/modules/messages/data/models/message_model.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -74,9 +75,9 @@ class HomeMainSection extends StatelessWidget {
                   ),
                 ),
               ),
-              BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-                var homeCubit = HomeCubit.get(context);
-                return (isLogin)
+              BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
+                var cubit=AuthCubit.get(context);
+                return (cubit.isLogin)
                     ? userProgressIndicator
                     : const Text('');
               })

@@ -65,7 +65,7 @@ class OnBoardPage extends StatelessWidget {
                             buttonText: 'Guest',
                             width: MediaQuery.of(context).size.height * 0.5,
                             onPressed: () {
-                              cubit.changeIsLogin(isLog: false).then((value) {
+                              cubit.changeIsLogin(islog: false).then((value) {
                                 Get.to(() => const HomePage());
                               });
                             },
