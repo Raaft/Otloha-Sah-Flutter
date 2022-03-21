@@ -29,8 +29,8 @@ abstract class MessagesRepository {
   });
 
 
-  Future<Response> markAsRead();
-  Future<Response> markAsAccepted();
-  Future<Response> markAsRemarkable();
+  Future<Response> markAsRead({id,messageId});
+  Future<Response> markAsAccepted({id,messageId});
+  Future<Response> markAsRemarkable({id,messageId});
 
 }

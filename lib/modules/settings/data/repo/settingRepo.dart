@@ -11,4 +11,5 @@ abstract class UpdateProfileRepos {
       {required oldPassword, required newPassword, required confirmPassword});
   Future<Response> registerAsATeacher();
 
+
 }

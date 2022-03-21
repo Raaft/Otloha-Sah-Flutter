@@ -10,6 +10,8 @@ import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detali
 import 'package:flutter_base/core/utils/themes/color.dart';
 
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_popup.dart';
+import 'package:get/get.dart';
 
 class MessageDetails extends StatefulWidget {
   const MessageDetails(
@@ -31,7 +33,7 @@ class _MessageDetailsState extends State<MessageDetails> {
         child: ListView(
           //  crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _topView(context),
+            _topView(context,msgId:widget.msgId,recitationId: widget.recitationId ),
             messageDetailsNew(context),
             _viewTitle(),
             _viewData()
@@ -65,7 +67,7 @@ class _MessageDetailsState extends State<MessageDetails> {
     );
   }
 
-  Widget _topView(BuildContext ctx) {
+  Widget _topView(BuildContext ctx, {required int msgId,required int recitationId}) {
     return ToolBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -74,6 +76,11 @@ class _MessageDetailsState extends State<MessageDetails> {
         },
       ),
       title: translate('تفاصيل الرسالة'),
+      actionIcon: IconButton(
+          onPressed: () {
+            Get.bottomSheet( PopupMessageDetails( msgId: msgId,recitationId: recitationId,));
+          },
+          icon: Icon(Icons.more_vert)),
     );
   }
 

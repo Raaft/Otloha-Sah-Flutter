@@ -108,11 +108,11 @@ class _AddNoteState extends State<AddNote> {
                 RegExp expEn = RegExp('[a-zA-Z]');
 
                 if (expEn.hasMatch(val.substring(val.length - 1)) &&
-                    val.substring(val.length - 1) != " ") {
+                    val.substring(val.length - 1) != ' ') {
                   setState(() {
                     textDirection = TextDirection.ltr;
                   });
-                } else if (val.substring(val.length - 1) != " " &&
+                } else if (val.substring(val.length - 1) != ' ' &&
                     !expEn.hasMatch(val.substring(val.length - 1))) {
                   setState(() {
                     textDirection = TextDirection.rtl;

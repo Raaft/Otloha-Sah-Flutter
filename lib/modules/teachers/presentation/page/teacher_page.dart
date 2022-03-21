@@ -41,9 +41,9 @@ class _TeacherPageState extends State<TeacherPage> {
             if (state is TeacherviewtypeChange) {
               _type = state.type;
             }
-
+var cubit =TeacherviewtypeCubit.get(context);
             return Column(
-              children: [_topView(), _viewDate(state)],
+              children: [_topView(), _viewDate(state,cubit)],
             );
           },
         ),
@@ -80,6 +80,7 @@ class _TeacherPageState extends State<TeacherPage> {
 
   ItemTeacher _itemView(int index, Results results) {
     return ItemTeacher(
+
       userName:
           (results.firstName ?? 'Add') + ' ' + (results.lastName ?? 'add'),
       rate: "${results.rate ?? ''}",
@@ -89,8 +90,10 @@ class _TeacherPageState extends State<TeacherPage> {
       typeView: _type,
       isCertified: results.isCertified ?? false,
       isFav: index == _selected,
+     //  results: results,
       setFav: () {
         setState(() {
+
           _selected = index;
         });
       },
@@ -115,11 +118,11 @@ class _TeacherPageState extends State<TeacherPage> {
     );
   }
 
-  _viewDate(TeacherviewtypeState state) {
+  _viewDate(TeacherviewtypeState state,TeacherviewtypeCubit cubit ) {
     if (state is TeacherErrorState) {
       return const Expanded(child: ViewError(error: 'No Data'));
     } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {
-      if (cubit!.teachers != null && cubit!.teachers!.results!.isNotEmpty) {
+      if (cubit.teachers != null && cubit.teachers!.results!.isNotEmpty) {
         return _viewItems();
       } else {
         return const Expanded(child: ViewError(error: 'No Data'));

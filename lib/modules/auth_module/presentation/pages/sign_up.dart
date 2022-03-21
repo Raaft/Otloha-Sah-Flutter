@@ -28,9 +28,10 @@ class SignUpPage extends StatelessWidget {
       child: Scaffold(
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is RegisterSuccessState) {
+            var cubit = AuthCubit.get(context);
+            cubit.changeIsLogin(isLog: true).then((value) {
               Get.to(() => const HomePage());
-            }
+            } );
           },
           builder: (context, state) {
             var cubit = AuthCubit.get(context);
