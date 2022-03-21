@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'package:quran_widget_flutter/model/page.dart' as page_obj;
 import 'package:flutter/material.dart';
+import 'package:quran_widget_flutter/model/verse.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file/local.dart';
@@ -33,9 +34,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
   bool checkVersesValue = false;
+  List<Verse> selectedVerses = [];
 
- 
+  setSelectedVerses(List<Verse> verses) {
+    selectedVerses = verses;
+  }
 
+  List<Verse> get getSelectedVerses => selectedVerses;
 
   isVerSelected(bool? verses) {
     if (verses == null || verses == false) {
@@ -119,20 +124,52 @@ class HomeCubit extends Cubit<HomeState> {
   bool isPlaying = false;
   bool playPause = true;
 
+  int lastPlayedVerseNumber = 1;
+  bool isRecitationVersesFetched = false;
+  bool isPlayerStarted = false;
+  bool isVerseCompleted = true;
+  List<RecitationVerses>? recitationVerses = [];
   double opacity = 0.0;
 
-  changePlayPause() {
-    AudioPlayer audioPlayer = AudioPlayer();
-    playPause = !playPause;
-    emit(ChangePlayPauseState());
-    print(selectedIndex);
-    if (playPause) {
-      selectedIndex!.forEach((key, value) {
-        for (int i in value) {
-          // audioPlayer.play();
-        }
-      });
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  playVerses() async {
+    playPause = true;
+    emit(PlayVersesState());
+
+    if (!isRecitationVersesFetched) {
+      recitationVerses = await DataSource.instance
+          .fetchRecitationsVersesChapterList(
+              chapterId: chapterId, recitationId: recitationId);
+      isRecitationVersesFetched = true;
     }
+
+    if (isVerseCompleted) {
+      for (var verse in selectedVerses) {
+        if (verse.verseNumber! < lastPlayedVerseNumber) continue;
+        String? url = recitationVerses!
+            .firstWhere((element) => element.verseNumber == verse.verseNumber)
+            .record;
+
+        await audioPlayer.play('http://165.232.114.22$url',
+            isLocal: false, stayAwake: true);
+        isVerseCompleted = true;
+        lastPlayedVerseNumber = verse.verseNumber!;
+      }
+    } else {
+      await audioPlayer.resume();
+      isVerseCompleted = true;
+    }
+
+    playPause = false;
+    emit(PauseVersesState());
+  }
+
+  pausePlayer() async {
+    playPause = false;
+    isVerseCompleted = false;
+    await audioPlayer.pause();
+    emit(PauseVersesState());
   }
 
   changeIsPlaying() {

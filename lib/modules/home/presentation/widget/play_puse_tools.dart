@@ -43,22 +43,23 @@ class PlayPauseTools extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                        onTap: () {
-                        },
+                        onTap: () {},
                         child: Icon(
                           Icons.arrow_back_ios,
                           color: AppColor.white,
-                           size: 30,
+                          size: 30,
                         )),
-
                     GestureDetector(
                       onTap: () {
-                        cubit.changePlayPause();
+                        cubit.isPlaying
+                            ? cubit.playVerses()
+                            : cubit.pausePlayer();
                       },
-                      child:cubit.playPause? Image.asset(AppIcons.playIcon,
-                          color: AppColor.white, width: 30): Icon(Icons.pause,size: 40,color: AppColor.white),
+                      child: cubit.playPause
+                          ? Image.asset(AppIcons.playIcon,
+                              color: AppColor.white, width: 30)
+                          : Icon(Icons.pause, size: 40, color: AppColor.white),
                     ),
-
                     GestureDetector(
                         onTap: () {
                           cubit.changeIsOnFalsePressed();
@@ -66,17 +67,15 @@ class PlayPauseTools extends StatelessWidget {
                         child: Icon(
                           Icons.stop,
                           color: AppColor.white,
-                            size: 40,
+                          size: 40,
                         )),
                     GestureDetector(
-                        onTap: () {
-                        },
+                        onTap: () {},
                         child: Icon(
                           Icons.arrow_forward_ios,
                           color: AppColor.white,
-                            size: 30,
+                          size: 30,
                         )),
-
                   ],
                 ),
               )));

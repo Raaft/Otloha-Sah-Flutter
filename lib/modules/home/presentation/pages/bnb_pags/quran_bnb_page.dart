@@ -134,7 +134,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                     chapterId: cubit.chapterId,
                     bookId: cubit.bookId,
                     narrationId: cubit.narrationId,
-                    onTap: (val, isVerSelected, values) {
+                    onTap: (val, isVerSelected, values, selectedVerses) {
                       print('onTap ' + val);
                       cubit.isVerSelected(isVerSelected);
 
@@ -142,17 +142,19 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
 
                       cubit.changeOpacity(.5);
                       cubit.addSelected(values);
+                      cubit.setSelectedVerses(selectedVerses!);
                       Future.delayed(const Duration(seconds: 5), () {
                         cubit.changeOpacity(.2);
                       });
                     },
-                    onLongTap: (val, isVerSelected, values) {
+                    onLongTap: (val, isVerSelected, values, selectedVerses) {
                       print('onLongTap ' + val);
                       cubit.isVerSelected(isVerSelected);
 
                       cubit.changeIsSelectedVerse();
                       cubit.changeIsOnTruePressed();
                       cubit.addSelected(values);
+                      cubit.setSelectedVerses(selectedVerses!);
                     },
                     getPage: (page) {
                       print('Oloha ' + page.toString());

@@ -3,9 +3,9 @@ import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
 const String fontFamily1 = 'Cairo';
 const String fontFamily2 = 'ElMessiri';
 
-const String baseUrl = 'http://192.168.1.11:8000';
+// const String baseUrl = 'http://192.168.1.11:8000';
 
-//const String baseUrl = 'http://otlohasah.noug.co';
+const String baseUrl = 'http://otlohasah.noug.co';
 
 String token = '';
 
