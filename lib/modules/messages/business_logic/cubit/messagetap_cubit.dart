@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:equatable/equatable.dart';
@@ -16,8 +17,8 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   MessageTapCubit() : super(MessageTapInitial());
 
   static MessageTapCubit get(context) => BlocProvider.of(context);
+
   changeIndex(int index) {
-    emit(MessageTapInitial());
     emit(MessageTapChange(index: index));
   }
 
@@ -112,15 +113,12 @@ class MessageTapCubit extends Cubit<MessageTapState> {
           }
           emit(MessageSendSuccessState());
         } else {
+          print('empty');
           emit(const MessageSendErrorState('No Data'));
         }
       } else {
+        print('empty2');
         emit(const MessageSendErrorState('Error Code'));
-      }
-    }).catchError((error) {
-      if (error is AuthError) {
-        emit(NoAuthState());
-        return;
       }
     });
   }

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_base/modules/messages/data/models/relpay.dart';
+
 MessageModel resultsFromJson(String str) =>
     MessageModel.fromJson(json.decode(str));
 String resultsToJson(MessageModel data) => json.encode(data.toJson());
@@ -28,7 +30,12 @@ class MessageModel {
     recitation = json['recitation'] != null
         ? Recitation.fromJson(json['recitation'])
         : null;
-    replies = json['replies'] != null ? json['replies'].cast<String>() : [];
+    if (json['replies'] != null) {
+      replies = [];
+      json['replies'].forEach((v) {
+        replies?.add(Reply.fromJson(v));
+      });
+    }
   }
   int? id;
   Addressee? addressee;
@@ -36,7 +43,7 @@ class MessageModel {
   bool? isRead;
   bool? isSent;
   Recitation? recitation;
-  List<String>? replies;
+  List<Reply>? replies;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
