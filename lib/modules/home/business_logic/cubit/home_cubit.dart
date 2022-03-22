@@ -1,10 +1,9 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:quran_widget_flutter/model/chapter.dart' as chapter;
@@ -14,7 +13,7 @@ import 'package:quran_widget_flutter/model/page.dart' as page_obj;
 import 'package:flutter/material.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:audioplayers/audioplayers.dart';
+
 import 'package:file/local.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -37,7 +36,6 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of(context);
   bool checkVersesValue = false;
   List<Verse> selectedVerses = [];
-
 
   setSelectedVerses(List<Verse> verses) {
     selectedVerses = verses;
@@ -94,7 +92,9 @@ class HomeCubit extends Cubit<HomeState> {
   chapter.Chapter? myChapter;
   Future<void> getChapterName({required int? chapterId}) async {
     emit(GetChapterByIdLoadingState());
-    await DataSource.instance.fetchChapterById(chapterId!).then((value) {
+    await DataSource.instance
+        .fetchChapterById(CacheHelper.getData(key: chapterSelectedID)!)
+        .then((value) {
       myChapter = value;
       emit(GetChapterByIdSucssState());
     }).catchError((e) {
@@ -136,6 +136,24 @@ class HomeCubit extends Cubit<HomeState> {
 
   AudioPlayer audioPlayer = AudioPlayer();
 
+  final currentSongTitleNotifier = ValueNotifier<String>('');
+  final playlistNotifier = ValueNotifier<List<String>>([]);
+  final isFirstSongNotifier = ValueNotifier<bool>(true);
+  final isLastSongNotifier = ValueNotifier<bool>(true);
+
+  late ConcatenatingAudioSource _playlist;
+
+  Future<void> _setInitialPlaylist(List<String?> uris) async {
+    const prefix = 'http://165.232.114.22';
+    List<AudioSource> audios = [];
+    for (String? uri in uris) {
+      audios.add(AudioSource.uri(Uri.parse('$prefix$uri')));
+    }
+
+    _playlist = ConcatenatingAudioSource(children: audios);
+    await audioPlayer.setAudioSource(_playlist);
+  }
+
   playVerses() async {
     playPause = true;
     emit(PlayVersesState());
@@ -147,31 +165,29 @@ class HomeCubit extends Cubit<HomeState> {
       isRecitationVersesFetched = true;
     }
 
-    if (isVerseCompleted) {
-      for (var verse in selectedVerses) {
-        if (verse.verseNumber! < lastPlayedVerseNumber) continue;
-        String? url = recitationVerses!
-            .firstWhere((element) => element.verseNumber == verse.verseNumber)
-            .record;
-
-        await audioPlayer.play('http://165.232.114.22$url',
-            isLocal: false, stayAwake: true);
-        isVerseCompleted = true;
-        lastPlayedVerseNumber = verse.verseNumber!;
-      }
-    } else {
-      await audioPlayer.resume();
-      isVerseCompleted = true;
+    List<String?> urls = [];
+    for (var verse in selectedVerses) {
+      urls.add(recitationVerses!
+          .firstWhere((element) => element.verseNumber == verse.verseNumber)
+          .record);
     }
+
+    print(urls);
+
+    await _setInitialPlaylist(urls);
+
+    await audioPlayer.play();
+    audioPlayer.setVolume(1.5);
 
     playPause = false;
     emit(PauseVersesState());
   }
 
   pausePlayer() async {
+    print('pause');
+    await audioPlayer.pause();
     playPause = false;
     isVerseCompleted = false;
-    await audioPlayer.pause();
     emit(PauseVersesState());
   }
 
@@ -367,8 +383,18 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void onPlayAudio() async {
-    AudioPlayer audioPlayer = AudioPlayer();
-    await audioPlayer.play(current!.path!, isLocal: true);
+    // AudioPlayer audioPlayer = AudioPlayer();
+    await audioPlayer.play();
+  }
+
+  void onPreviousSongButtonPressed() {
+    audioPlayer.seekToPrevious();
+    emit(BackToPreviousVerse());
+  }
+
+  void onNextSongButtonPressed() {
+    audioPlayer.seekToNext();
+    emit(GoToNextVerse());
   }
 
   int recitationId = 0;
@@ -392,7 +418,7 @@ class HomeCubit extends Cubit<HomeState> {
       narrationId: narrationId,
       record: current!.path ?? '',
       name: getName(),
-      versesID: getVerseIds(),
+      versesID: selectedIndex![0],
       wavePath: wave,
     );
 
@@ -431,11 +457,15 @@ class HomeCubit extends Cubit<HomeState> {
   getName() {
     print(page!.verses.toString());
     String? text = '';
-    try {
-      text = page!.verses![_getVerses() ?? -1].uthmanicText;
-    } catch (e) {
-      print(e);
+
+    for (var element in page!.verses!) {
+      if (element.id == _getVerses()) {
+        text = element.text;
+        break;
+      }
     }
+
+    print('name ' + getFirstWords(text ?? '', 5));
 
     return getFirstWords(text ?? '', 5);
   }
@@ -470,14 +500,5 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       return sentence;
     }
-  }
-
-  getVerseIds() {
-    List<int> list = [];
-    for (var element in selectedIndex![0]!) {
-      list.add(page!.verses![element].id ?? element);
-    }
-
-    return list;
   }
 }

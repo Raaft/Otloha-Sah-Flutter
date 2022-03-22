@@ -43,7 +43,7 @@ class PlayPauseTools extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                        onTap: () {},
+                        onTap: () => cubit.onPreviousSongButtonPressed(),
                         child: Icon(
                           Icons.arrow_back_ios,
                           color: AppColor.white,
@@ -51,9 +51,11 @@ class PlayPauseTools extends StatelessWidget {
                         )),
                     GestureDetector(
                       onTap: () {
-                        cubit.isPlaying
-                            ? cubit.playVerses()
-                            : cubit.pausePlayer();
+                        if (cubit.isPlaying) {
+                          cubit.playVerses();
+                        } else {
+                          cubit.pausePlayer();
+                        }
                       },
                       child: cubit.playPause
                           ? Image.asset(AppIcons.playIcon,
@@ -70,7 +72,7 @@ class PlayPauseTools extends StatelessWidget {
                           size: 40,
                         )),
                     GestureDetector(
-                        onTap: () {},
+                        onTap: () => cubit.onNextSongButtonPressed(),
                         child: Icon(
                           Icons.arrow_forward_ios,
                           color: AppColor.white,
