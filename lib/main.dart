@@ -1,7 +1,5 @@
 // ignore_for_file: library_prefixes
 
-import 'dart:convert';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +7,6 @@ import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart'
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
-import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
@@ -45,7 +42,7 @@ void main() async {
   await otloha_shaerd.CacheHelper.init();
   await CacheHelper.init();
   token = await CacheHelper.getData(key: 'token') ?? '';
- // isLogin = await CacheHelper.getData(key: 'isLogin') ?? false;
+  // isLogin = await CacheHelper.getData(key: 'isLogin') ?? false;
 
 /*
   for (var item in List.generate(10, (index) => index)) {
@@ -85,7 +82,6 @@ void main() async {
   }
 
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
-
 
   /* try {
     myProFile =

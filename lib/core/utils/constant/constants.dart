@@ -9,11 +9,11 @@ String token = '';
 
 var isEn = false;
 
-const String clientId = '86LIPP2PMkuZlV0SRPmhu7lZdbNa1PVPxGtpcj3M';
+const String clientId = '086mpNZlxBZycwaiCySXHbIhWNIGbsfToHMZxJhB';
 ///////
 //const String clientSecret = '7VJuQ1DrwQzbMilum88be5tLCKx3QJOZ1Rjzp3dUTwNfo2yB8ir9qLWb5Y2xRGnfKcftZxkpVPflXaeP7KjteRFIZREp8WwOcr8Trvq5WVml84DKHoIHXjktBrzy3utk';
 const String clientSecret =
-    'DmMldIID25DwljGZV2GZ1sXZqSco3VT0jQ1S1S0tAVkbUCc9KdL0oeyHxNbkpP3yZiQSjxGXCJOiJmTsI8C8SVR4kzTYyh5pyDNkibm9DIuxxdCAjxaYf8yDcGGkeHA5';
+    'to4QsL2U6OdvOzAyuPahAWDlTWQgEEDAp7WyvD3fPp3OF6Zvts8X6OBVEOh58nDzWYmJ30DYWLANDNJtL9gvSgiNZ3pdsRwJoVoARekNuk6a1y6ejPIZxXiop4CFNRty';
 
 const String languagesSelectedName = 'LanguagesSelectedName';
 const String languagesSelectedId = 'LanguagesSelectedId';
