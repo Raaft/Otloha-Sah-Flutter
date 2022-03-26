@@ -88,10 +88,12 @@ class RecordedFileTool extends StatelessWidget {
                         )),
                     GestureDetector(
                       onTap: () async {
-                        await cubit.saveRecitation();
+                        print(cubit.recitationId);
                         Get.bottomSheet(
                           PopupChooseTeacherSend(
                             id: cubit.recitationId,
+                            saveRecittion: () async =>
+                                await cubit.saveRecitation(),
                           ),
                         );
                       },

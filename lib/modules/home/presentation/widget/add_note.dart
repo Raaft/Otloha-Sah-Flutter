@@ -54,15 +54,13 @@ class _AddNoteState extends State<AddNote> {
           margin: const EdgeInsets.only(top: 40),
           decoration: BoxDecoration(
             color: AppColor.background1,
-           // color: AppColor.darkBlue,
+            // color: AppColor.darkBlue,
 
             borderRadius: const BorderRadius.only(
-
               topLeft: Radius.circular(24),
               topRight: Radius.circular(24),
             ),
           ),
-
           child: Stack(
             children: [
               _viewTop(context),
@@ -101,6 +99,7 @@ class _AddNoteState extends State<AddNote> {
                 hintText: translate('AddNote'),
                 fillColor: AppColor.white,
               ),
+              maxLines: 10,
               textAlign: TextAlign.start,
               textDirection: textDirection,
               onChanged: (val) {

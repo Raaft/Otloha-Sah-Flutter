@@ -24,7 +24,6 @@ class OutBoxMessagePage extends StatelessWidget {
       builder: (context, state) {
         if (state is NoAuthState) {
           Future.delayed(const Duration(seconds: 1), () {
-            print('object');
             Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
           });
         }
@@ -57,14 +56,16 @@ class OutBoxMessagePage extends StatelessWidget {
 
   Widget _getItem(int index, MessageModel messageModel) {
     return BoxMessageItem(
+      id: messageModel.id!,
       isRead: messageModel.isRead ?? false,
       ayah: messageModel.recitation!.name ?? '',
       ayahInfo: _getAyahInfo(messageModel.recitation),
       narrationName: messageModel.recitation!.narrationId.toString(),
-      userImage: messageModel.recitation!.owner?.image ?? '',
-      userName: _user(messageModel.recitation!.owner),
-      userInfo: messageModel.recitation!.owner!.level! +
-          ((messageModel.recitation!.owner!.isATeacher ?? false)
+      userImage: messageModel.addressee!.image ?? '',
+      userName:
+          '${messageModel.addressee!.firstName} ${messageModel.addressee!.lastName}',
+      userInfo: messageModel.addressee!.level! +
+          ((messageModel.addressee!.isATeacher ?? false)
               ? 'Teacher'
               : 'Student'),
       dateStr: (messageModel.recitation!.finishedAt != null)
@@ -77,7 +78,7 @@ class OutBoxMessagePage extends StatelessWidget {
             messageModel.recitation!.id.toString());
         Get.to(() => MessageDetailsPage(
               msgId: messageModel.id ?? 0,
-              recitationId: messageModel.recitation!.id ?? 0,
+              recitationId: messageModel.recitation!.id!,
             ));
       },
     );

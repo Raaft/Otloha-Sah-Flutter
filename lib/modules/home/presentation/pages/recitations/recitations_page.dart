@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/recitation_details.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_ap
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:quran_widget_flutter/model/verse.dart';
 
 class RecitationsPage extends StatefulWidget {
   const RecitationsPage({Key? key}) : super(key: key);
@@ -33,7 +35,6 @@ class _RecitationsPageState extends State<RecitationsPage> {
     super.initState();
 
     cubit = UserRecitationCubit.get(context);
-    cubit!.fetchRecitation();
   }
 
   @override
@@ -50,22 +51,29 @@ class _RecitationsPageState extends State<RecitationsPage> {
   }
 
   Expanded _viewItems() {
+    cubit!.fetchRecitation();
     return Expanded(
       child: BlocBuilder<UserRecitationCubit, UserRecitationState>(
         builder: (context, state) {
-          if (state is UserRecitationFetched) {
+          if (state is UserRecitationFetched ||
+              state is RemoveUserRecitationState) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
                 itemCount: cubit!.userRecitatios!.results!.length,
                 itemBuilder: (context, index) {
-                  return _getItem(
-                      cubit!.userRecitatios!.results![index], index);
+                  return _getItem(cubit!.userRecitatios!.results![index], index,
+                      cubit!.userRecitationVerses);
                 },
               ),
             );
           } else if (state is UserRecitationError) {
             return const ViewError(error: 'Not Found Data');
+          } else if (state is AuthErrorState) {
+            Future.microtask(
+              () => Navigator.of(context)
+                  .pushReplacementNamed(LoginPage.routeName),
+            );
           }
           return const Center(child: CircularProgressIndicator());
         },
@@ -85,50 +93,35 @@ class _RecitationsPageState extends State<RecitationsPage> {
     );
   }
 
-  Widget _getItem(Results results, int index) {
-    print('object id ${results.id}');
+  Widget _getItem(
+      Results results, int index, List<List<Verse>> userRecitationVerses) {
     return GeneralMessageItem(
       boxMessageItem: SubMessageItem(
         hasMenu: true,
-        showPopup: (() {
+        id: results.id!,
+        showPopup: (() async {
           Get.bottomSheet(
             PopupRecitation(
-              finish:
-                  (results.finishedAt == null || results.finishedAt!.isEmpty)
-                      ? () {
-                          cubit!.markAsFinished(results.id ?? 0);
-                          Get.back();
-                        }
-                      : null,
-              general: ((results.finishedAt != null &&
-                      results.finishedAt!.isNotEmpty))
-                  ? () {
-                      cubit!.addToGeneral(results.id ?? 0);
-
-                      Get.back();
-                    }
-                  : null,
-              isGeneral: results.showInGeneral ?? false,
-              send:
-                  (results.finishedAt != null && results.finishedAt!.isNotEmpty)
-                      ? () {
-                          Get.back();
-                          Get.bottomSheet(
-                            PopupChooseTeacherSend(
-                              id: results.id ?? 0,
-                            ),
-                          );
-                        }
-                      : null,
+              isOwner: true,
+              isTeacher: false,
+              actions: const [
+                PopupActions.delete,
+                PopupActions.addToGeneral,
+                PopupActions.send,
+                PopupActions.markAsFinished,
+              ],
               delete: () {
-                cubit!.deleteRecitations(results.id ?? 0);
-                Get.back();
+                cubit!.deleteRecitation(index);
               },
+              id: results.id!,
+              finishedAt: results.finishedAt ?? '',
+              showInGeneral: results.showInGeneral ?? false,
             ),
           );
+          await cubit!.fetchRecitation();
         }),
         isRead: false,
-        ayah: results.name ?? '',
+        ayah: userRecitationVerses[index].first.text ?? '',
         ayahInfo: _getAyahInfo(results),
         narrationName: results.narrationName,
         userImage: results.owner!.image ?? '',
@@ -143,11 +136,6 @@ class _RecitationsPageState extends State<RecitationsPage> {
             (results.owner!.isATeacher ?? false
                 ? translate('Teacher')
                 : translate('Student')),
-        action: () {
-          Get.to(RecitationDetailsPage(
-            recitationId: results.id ?? 0,
-          ));
-        },
       ),
       likeCount: results.likes!.length,
       commentCount: results.comments!.length,

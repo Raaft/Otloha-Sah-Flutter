@@ -5,14 +5,12 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/recitation_details.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 class GeneralMessagePage extends StatefulWidget {
   const GeneralMessagePage({Key? key}) : super(key: key);
@@ -90,11 +88,13 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
     return GeneralMessageItem(
       boxMessageItem: SubMessageItem(
         isRead: false,
+        id: generalResponse.id!,
         ayah: generalResponse.name ?? '',
         userInfo: _getUserInfo(generalResponse.owner),
         ayahInfo: _getAyahInfo(generalResponse),
         narrationName: generalResponse.narrationName,
         userImage: generalResponse.owner!.image ?? '',
+        owner: generalResponse.owner,
         userName: _user(generalResponse.owner),
         dateStr: (generalResponse.finishedAt != null)
             ? DateFormat('hh:mm dd MMM')
@@ -132,49 +132,6 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
       isPlay: index == _selectedPlay, recordPath: '', wavePath: '',
       commentCount: generalResponse.comments?.length ?? 0,
       remarkableCount: generalResponse.remarkable?.length ?? 0,
-    );
-  }
-
-  Widget getItem2(int index) {
-    return GeneralMessageItem(
-      isLocal: false,
-      boxMessageItem: SubMessageItem(
-        isCertic: true,
-        isRead: false,
-        ayah: 'صِرَٰطَ ٱلَّذِينَ أَنۡعَمۡتَ عَلَيۡهِمۡ غَيۡرِ ٱلۡمَغۡضُوبِ',
-        ayahInfo: 'الفاتحة من آية رقم 1 الي آية رقم 7',
-        userImage: AppImages.duserImage,
-        userName: 'userRecitation',
-        dateStr: '9:30 15 Nev',
-        color: AppColor.transparent,
-        action: () {
-          print('prcess ');
-          //Get.to(const RecitationDetails());
-        },
-      ),
-
-      viewBottom: true,
-      //  waveform: waveform,
-      isLike: _liked.contains(index),
-      liked: () {
-        setState(() {
-          _liked.add(index);
-        });
-      },
-      goLike: () =>
-          Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 0),
-      goNote: () =>
-          Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 1),
-      goReMraker: () =>
-          Navigator.of(context).pushNamed(LikedPage.routeName, arguments: 2),
-      likeCount: 20 + (_liked.contains(index) ? 1 : 0),
-      trggelPlay: () {
-        setState(() {
-          _selectedPlay = index;
-        });
-      },
-      isPlay: index == _selectedPlay, recordPath: '', wavePath: '',
-      commentCount: 0,
     );
   }
 

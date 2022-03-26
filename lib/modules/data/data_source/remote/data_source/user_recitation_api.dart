@@ -15,25 +15,21 @@ class UserRecitationApi extends UserRecitationRepository {
       {required UserRecitation userRecitation}) async {
     var map = userRecitation.toMap();
 
-    File file = File(userRecitation.record ?? '');
-    File wave = File(userRecitation.wavePath ?? '');
+    File file = File(userRecitation.record!);
+    File wave = File(userRecitation.wavePath!);
 
     map['record'] = await MultipartFile.fromFile(file.path,
         filename: file.path.split('/').last);
 
-    try {
-      map['wave'] = await MultipartFile.fromFile(wave.path,
-          filename: wave.path.split('/').last);
-    } catch (e) {
-      print(e);
-    }
+    // map['wave'] = await MultipartFile.fromFile(wave.path,
+    //     filename: wave.path.split('/').last);
 
     Response response =
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       userRecitation = UserRecitation.fromMap(response.data);
-      await AppDatabase().userRecitationDao.insert(userRecitation);
+      // await AppDatabase().userRecitationDao.insert(userRecitation);
     } else {
       print('Error Api ' + response.data.toString());
     }
@@ -48,7 +44,7 @@ class UserRecitationApi extends UserRecitationRepository {
     Recitations? userRecitatios;
 
     print(response!.data);
-    if ((response.statusCode == 201 || response.statusCode == 200)) {
+    if ((response.statusCode! >= 200 && response.statusCode! < 300)) {
       userRecitatios = Recitations.fromJson(response.data);
     } else {
       print('Error Api ' + response.data.toString());

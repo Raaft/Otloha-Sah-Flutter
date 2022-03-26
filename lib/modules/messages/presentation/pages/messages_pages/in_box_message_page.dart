@@ -38,7 +38,7 @@ class InBoxMessagePage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                itemCount: cubit!.messageSendList!.length,
+                itemCount: cubit!.messageRecieve!.length,
                 itemBuilder: (context, index) {
                   return _getItem(index, cubit!.messageRecieve![index]);
                 },
@@ -53,6 +53,7 @@ class InBoxMessagePage extends StatelessWidget {
 
   Widget _getItem(int index, MessageModel messageModel) {
     return BoxMessageItem(
+      id: messageModel.id!,
       isRead: messageModel.isRead ?? false,
       ayah: messageModel.recitation!.name ?? '',
       ayahInfo: _getAyahInfo(messageModel.recitation),

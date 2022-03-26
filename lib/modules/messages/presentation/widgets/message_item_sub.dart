@@ -1,10 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/core/widgets/cached_image.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
+import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
+import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
+import 'package:get/get.dart';
 
 class SubMessageItem extends StatelessWidget {
   const SubMessageItem({
@@ -14,7 +22,7 @@ class SubMessageItem extends StatelessWidget {
     required this.dateStr,
     required this.ayah,
     required this.ayahInfo,
-    this.color = AppColor.selectColor1,
+    this.color = AppColor.messageColor,
     this.action,
     this.userInfo,
     this.narrationName,
@@ -22,8 +30,11 @@ class SubMessageItem extends StatelessWidget {
     this.isCertic = false,
     this.showPopup,
     this.hasMenu = false,
+    this.owner,
+    required this.id,
   }) : super(key: key);
 
+  final int id;
   final String userName;
   final String userImage;
   final String? dateStr;
@@ -32,6 +43,7 @@ class SubMessageItem extends StatelessWidget {
   final Color color;
   final Function()? action;
   final Function()? showPopup;
+  final Owner? owner;
 
   final String? userInfo;
   final String? narrationName;
@@ -42,156 +54,151 @@ class SubMessageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(baseUrl + userImage);
-    return GestureDetector(
+    return InkWell(
+      onLongPress: () {
+        UserProfile user = UserProfile.fromJson(
+            json.decode(CacheHelper.getData(key: profile)));
+        print(CacheHelper.getData(key: profile));
+        if ((user.id != owner!.id) && user.isATeacher!) {
+          Get.bottomSheet(
+            PopupRecitation(
+              actions: const [
+                PopupActions.addToGeneral,
+                PopupActions.delete,
+                PopupActions.send,
+                PopupActions.createMessge,
+              ],
+              isOwner: user.id == owner!.id,
+              finishedAt: dateStr ?? '',
+              id: id,
+              isTeacher: user.isATeacher!,
+              showInGeneral: true,
+            ),
+          );
+        }
+      },
       onTap: action,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: isRead ? color : AppColor.transparent,
+          color: const Color.fromARGB(51, 212, 248, 255),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(4),
-                  width: 60,
-                  height: 60,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    child: FadeInImage(
-                        fit: BoxFit.cover,
-                        width: 60,
-                        height: 60,
-                        placeholder: AssetImage(AppImages.duserImage),
-                        image: NetworkImage(
-                          (userImage.isNotEmpty)
-                              ? (baseUrl + userImage)
-                              : imgaTest,
-                        )),
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              TextViewIcon(
-                                text: userName,
-                                weightText: FontWeight.w900,
-                                padding: EdgeInsets.zero,
-                                sizeText: 12,
-                                colorText: AppColor.txtColor4,
-                                icon: isRead
-                                    ? Container(
-                                        width: 8,
-                                        height: 8,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              AppColor.gradient1,
-                                              AppColor.gradient2
-                                            ],
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CachedImage(url: userImage, raduis: 36),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                TextViewIcon(
+                                  text: userName,
+                                  weightText: FontWeight.w900,
+                                  padding: EdgeInsets.zero,
+                                  sizeText: 12,
+                                  letterSpacing: 0.4,
+                                  colorText: AppColor.userNameColor,
+                                  icon: isRead
+                                      ? Container(
+                                          width: 8,
+                                          height: 8,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                AppColor.gradient1,
+                                                AppColor.gradient2
+                                              ],
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                            ),
                                           ),
-                                        ),
+                                        )
+                                      : null,
+                                ),
+                                const SizedBox(width: 8),
+                                if (isRead)
+                                  Image.asset(
+                                    AppIcons.qualityIcon,
+                                    color: AppColor.gradient2,
+                                    width: 12,
+                                    height: 12,
+                                  ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                if (dateStr != null)
+                                  Row(
+                                    children: [
+                                      TextView(
+                                        padding: EdgeInsets.zero,
+                                        text: dateStr!.toUpperCase(),
+                                        sizeText: 12,
+                                        colorText: AppColor.txtColor4,
+                                      ),
+                                      const Icon(
+                                        Icons.bookmark_outline,
+                                        size: 12,
+                                        color: Colors.black,
                                       )
-                                    : null,
-                              ),
-                              const SizedBox(width: 8),
-                              if (isRead)
-                                Image.asset(
-                                  AppIcons.qualityIcon,
-                                  color: AppColor.gradient2,
-                                  width: 12,
-                                  height: 12,
-                                ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              if (dateStr != null)
-                                Row(
-                                  children: [
-                                    TextView(
-                                      padding: EdgeInsets.zero,
-                                      text: dateStr ?? '',
-                                      sizeText: 11,
-                                      colorText: AppColor.txtColor4,
-                                    ),
-                                    Icon(
-                                      Icons.bookmark_outline,
-                                      size: 14,
-                                      color: AppColor.txtColor4,
-                                    )
-                                  ],
-                                ),
-                              if (hasMenu)
-                                GestureDetector(
+                                    ],
+                                  ),
+                                if (hasMenu)
+                                  GestureDetector(
                                     onTap: showPopup,
                                     child: const Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: Icon(Icons.settings),
-                                    ))
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          if (isRead)
-                            const SizedBox(
-                              width: 14,
-                              height: 8,
+                                    ),
+                                  )
+                              ],
                             ),
-                          TextView(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
-                            text: userInfo ?? 'Paid Teacher',
-                            sizeText: 11,
-                            colorText: AppColor.txtColor4,
+                          ],
+                        ),
+                        TextView(
+                          padding: EdgeInsets.zero,
+                          text: ayah,
+                          sizeText: 16,
+                          weightText: FontWeight.bold,
+                          colorText: AppColor.headTextColor,
+                          textAlign: TextAlign.start,
+                          fontFamily: 'Hafs17',
+                          // fontFamily: Q.hafs15,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: TextView(
+                            padding: EdgeInsets.zero,
+                            text: ayahInfo +
+                                ' - رواية ' +
+                                (narrationName ?? 'حفص'),
+                            sizeText: 12,
+                            colorText: AppColor.userNameColor,
                             textAlign: TextAlign.start,
                           ),
-                        ],
-                      ),
-                      TextView(
-                        padding: EdgeInsets.zero,
-                        text: ayah,
-                        sizeText: 20,
-                        weightText: FontWeight.bold,
-                        colorText:
-                            isRead ? AppColor.txtColor3 : AppColor.txtColor4,
-                        textAlign: TextAlign.start,
-                        fontFamily: 'Hafs17',
-                        // fontFamily: Q.hafs15,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: TextView(
-                          padding: EdgeInsets.zero,
-                          text:
-                              ayahInfo + ' - رواية ' + (narrationName ?? 'حفص'),
-                          sizeText: 11,
-                          colorText: AppColor.txtColor4,
-                          textAlign: TextAlign.start,
                         ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ],
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

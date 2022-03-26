@@ -6,9 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/popup_action_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -156,7 +158,10 @@ class MyApp extends StatelessWidget {
           create: (context) => MessagedetailsCubit(),
         ),
         BlocProvider(
-          create: (context) => ReplyCubit(),
+          create: (context) => MessageTapCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PopupActionsCubit(),
         ),
       ],
       child: GetMaterialApp(

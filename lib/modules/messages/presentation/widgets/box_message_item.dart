@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/widgets/cached_image.dart';
 
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_base/modules/messages/presentation/widgets/message_item_
 class BoxMessageItem extends StatelessWidget {
   const BoxMessageItem({
     Key? key,
+    required this.id,
     required this.userName,
     required this.userImage,
     required this.dateStr,
@@ -19,6 +21,7 @@ class BoxMessageItem extends StatelessWidget {
     this.isRead = false,
   }) : super(key: key);
 
+  final int id;
   final String userName;
   final String userImage;
   final String? dateStr;
@@ -36,6 +39,7 @@ class BoxMessageItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: SubMessageItem(
+          id: id,
           action: action,
           isRead: isRead,
           color: color,
@@ -85,13 +89,9 @@ class ViewOld extends StatelessWidget {
         ),
         child: Row(
           children: [
-            SizedBox(
-              width: 60,
-              height: 60,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(30)),
-                child: Image.asset(userImage),
-              ),
+            CachedImage(
+              url: userImage,
+              raduis: 60,
             ),
             Expanded(
               child: Column(

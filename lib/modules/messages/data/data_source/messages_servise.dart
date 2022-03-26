@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:file/src/interface/file.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
+import 'package:flutter_base/core/widgets/toasts.dart';
 import 'package:flutter_base/modules/messages/data/models/reply_request.dart';
 import 'package:flutter_base/modules/messages/data/repositories/messages_repo.dart';
 
@@ -68,65 +69,52 @@ class GetMessages extends MessagesRepository {
 
   @override
   Future<Response> addToGeneral(int id) async {
-    try {
-      return await ApiBaseHelper()
-          .postHTTP('/api/v1/recitations/$id/add-to-general/', {});
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    Response response = await ApiBaseHelper()
+        .postHTTP('/api/v1/recitations/$id/add-to-general/', {});
+    SuccessToast.toast(response.data['message']);
+    return response;
   }
 
   @override
   Future<Response> deleteRecitations(int id) async {
-    try {
-      return await ApiBaseHelper()
-          .deleteHTTP('/api/v1/recitations/$id/delete/');
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    Response response =
+        await ApiBaseHelper().deleteHTTP('/api/v1/recitations/$id/delete/');
+
+    return response;
   }
 
   @override
   Future<Response> markAsFinished(int id) async {
-    try {
-      return await ApiBaseHelper()
-          .postHTTP('/api/v1/recitations/$id/mark-as-finished/', {});
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    Response response = await ApiBaseHelper()
+        .postHTTP('/api/v1/recitations/$id/mark-as-finished/', {});
+    SuccessToast.toast(response.data['message']);
+    return response;
   }
 
   @override
-  Future<Response> markAsAccepted({id, messageId}) async {
-    try {
-      return await ApiBaseHelper().postHTTP(
-          '/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-accepted/',
-          {});
-    } catch (e) {
-      throw UnimplementedError();
-    }
+  Future<Response> markAsAccepted(
+      {required int id, required int messageId}) async {
+    Response response = await ApiBaseHelper().postHTTP(
+        '/api/v1/recitations/$id/messages/$messageId/mark-as-accepted/', {});
+    SuccessToast.toast(response.data['message']);
+    return response;
   }
 
   @override
-  Future<Response> markAsRead({id, messageId}) async {
-    try {
-      return await ApiBaseHelper().postHTTP(
-          '/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-read/',
-          {});
-    } catch (e) {
-      throw UnimplementedError();
-    }
+  Future<Response> markAsRead({required int id, required int messageId}) async {
+    Response response = await ApiBaseHelper().postHTTP(
+        '/api/v1/recitations/$id/messages/$messageId/mark-as-read/', {});
+    SuccessToast.toast(response.data['message']);
+    return response;
   }
 
   @override
-  Future<Response> markAsRemarkable({id, messageId}) async {
-    try {
-      return await ApiBaseHelper().postHTTP(
-          '/api/v1/recitations/id:$id/messages/message_id:$messageId/mark-as-remarkable/',
-          {});
-    } catch (e) {
-      throw UnimplementedError();
-    }
+  Future<Response> markAsRemarkable(
+      {required int id, required int messageId}) async {
+    Response response = await ApiBaseHelper().postHTTP(
+        '/api/v1/recitations/$id/messages/$messageId/mark-as-remarkable/', {});
+    SuccessToast.toast(response.data['message']);
+    return response;
   }
 
   @override
@@ -134,5 +122,20 @@ class GetMessages extends MessagesRepository {
     return ApiBaseHelper().postPhotoHTTP(
         '/api/v1/recitations/${replyRequest.recitationId}/messages/${replyRequest.messageId}/replies/',
         await replyRequest.toMap());
+  }
+
+  @override
+  Future<Response>? createMessages(int id) async {
+    Response response = await ApiBaseHelper()
+        .postHTTP('/api/v1/recitations/$id/messages/create/', {});
+    return response;
+  }
+
+  @override
+  Future<Response>? sendMessageAsTeacher(int recitationId, int msgId) async {
+    Response? response = await ApiBaseHelper().postHTTP(
+        '/api/v1/recitations/$recitationId/messages/$msgId/send/', {});
+    SuccessToast.toast(response.data['message']);
+    return response;
   }
 }

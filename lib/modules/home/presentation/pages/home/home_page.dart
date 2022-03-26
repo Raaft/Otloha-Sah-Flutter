@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/widgets/auth_navigator.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
@@ -53,52 +54,56 @@ class _HomePageState extends State<HomePage> {
               return true;
             }
           },
-          child: BlocBuilder<HomeCubit, HomeState>(
-            builder: (context, state) {
-              var cubit = HomeCubit.get(context);
-              return Stack(
-                children: [
-                  Scaffold(
-                    body: BlocBuilder<HomeCubit, HomeState>(
-                      builder: (context, state) {
-                        if (state is HomeChangeIndex) {
-                          _index = state.index;
-                        }
-                        return SafeArea(child: homeMenuItems[_index].page);
-                      },
-                    ),
-                    bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
-                      builder: (context, state) {
-                        if (state is HomeChangeIndex) {
-                          _index = state.index;
-                        }
+          child: AuthNavigator(
+            child: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                var cubit = HomeCubit.get(context);
+                return Stack(
+                  children: [
+                    Scaffold(
+                      body: BlocBuilder<HomeCubit, HomeState>(
+                        builder: (context, state) {
+                          if (state is HomeChangeIndex) {
+                            _index = state.index;
+                          }
+                          return SafeArea(child: homeMenuItems[_index].page);
+                        },
+                      ),
+                      bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
+                        builder: (context, state) {
+                          if (state is HomeChangeIndex) {
+                            _index = state.index;
+                          }
 
-                        ///
-                        return BubbleBottomBarApp(
-                          onItemTapped: (int? index) {
-                            _changePage(index).then((value) {
-                              Future.delayed(
-                                const Duration(milliseconds: 50),
-                                () {
-                                  if (index == 1) {
-                                    BlocProvider.of<HomeCubit>(context)
-                                        .changePluginPage(page: PageType.quran);
-                                  }
-                                },
-                              );
-                            });
-                          },
-                          selectedIndex: _index,
-                          items: homeMenuItems,
-                        );
-                      },
+                          ///
+                          return BubbleBottomBarApp(
+                            onItemTapped: (int? index) {
+                              _changePage(index).then((value) {
+                                Future.delayed(
+                                  const Duration(milliseconds: 50),
+                                  () {
+                                    if (index == 1) {
+                                      BlocProvider.of<HomeCubit>(context)
+                                          .changePluginPage(
+                                              page: PageType.quran);
+                                    }
+                                  },
+                                );
+                              });
+                            },
+                            selectedIndex: _index,
+                            items: homeMenuItems,
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  if (cubit.isFloatingMenu || state is IsFloatingTrueMenuState)
-                    const FloatingMenu()
-                ],
-              );
-            },
+                    if (cubit.isFloatingMenu ||
+                        state is IsFloatingTrueMenuState)
+                      const FloatingMenu()
+                  ],
+                );
+              },
+            ),
           ),
         );
       },

@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +21,7 @@ import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detala
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_popup.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import 'package:quran_widget_flutter/helper/chash_helper.dart';
 
 class MessageDetailsPage extends StatefulWidget {
   const MessageDetailsPage(
@@ -30,9 +37,11 @@ class MessageDetailsPage extends StatefulWidget {
 
 class _MessageDetailsPageState extends State<MessageDetailsPage> {
   MessagedetailsCubit? cubit;
-  @override
-  void initState() {
-    super.initState();
+  late UserProfile userProfile;
+
+  Future<void> init() async {
+    userProfile = UserProfile.fromJson(
+        jsonDecode(await CacheHelper.getData(key: profile)));
     cubit = MessagedetailsCubit.get(context);
     cubit!.fetchMessages(widget.msgId, widget.recitationId);
   }
@@ -41,30 +50,32 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            _topView(context,
-                msgId: widget.msgId, recitationId: widget.recitationId),
-            /*=======_topView(context,)
-            messageDetailsNew(context),
-            _viewTitle(),
-            _viewData()
->>>>>>> main */
-            BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
-              builder: (context, state) {
-                if (state is MessageFetchedState) {
-                  return _viewBody(context);
-                }
-                if (state is MessageLoadingState) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return const ViewError(error: 'Not Found Data');
-              },
-            ),
-          ],
-        ),
+        child: FutureBuilder(
+            future: init(),
+            builder: (context, snapshot) {
+              return snapshot.connectionState == ConnectionState.done
+                  ? Column(
+                      children: [
+                        _topView(context,
+                            msgId: widget.msgId,
+                            recitationId: widget.recitationId),
+                        BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
+                          builder: (context, state) {
+                            if (state is MessageFetchedState) {
+                              return _viewBody(context);
+                            }
+                            if (state is MessageLoadingState) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            return const ViewError(error: 'Not Found Data');
+                          },
+                        ),
+                      ],
+                    )
+                  : const SizedBox();
+            }),
       ),
     );
   }
@@ -113,14 +124,17 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
         },
       ),
       title: translate('تفاصيل الرسالة'),
-      actionIcon: IconButton(
-          onPressed: () {
-            Get.bottomSheet(PopupMessageDetails(
-              msgId: msgId,
-              recitationId: recitationId,
-            ));
-          },
-          icon: const Icon(Icons.more_vert)),
+      actionIcon: userProfile.isATeacher ?? false
+          ? IconButton(
+              onPressed: () {
+                Get.bottomSheet(PopupMessageDetails(
+                  msgId: msgId,
+                  recitationId: widget.recitationId,
+                ));
+              },
+              icon: const Icon(Icons.more_vert),
+            )
+          : const SizedBox(),
     );
   }
 

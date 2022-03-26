@@ -108,7 +108,12 @@
   "Cancel":"إلغاء",
   "DeleteChair":"حذف كرسي",
   "IsOpen":"هل مفتوح للفحص أم مغلق",
-  "Closed":"مغلق"
+  "Closed":"مغلق",
 
-
+  "SendTo": "ارسال الي",
+  "SelectToSend": "اختر المستخدمين للارسال",
+  "Delete": "ازاله",
+  "AddToGeneral":  "اضافه الي العام",
+  "RemoveFromGeneral": "ازاله من العام",
+  "MarkAsFinish": "انتهي"
 }

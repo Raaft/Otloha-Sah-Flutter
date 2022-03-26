@@ -107,7 +107,8 @@
   "IsOpen":"Is open for inspection or closed",
   "Open":"Open",
   "Cancel":"Cancel",
-  "Error":"Error"
+  "Error":"Error",
 
-
+  "SendTo": "Send To",
+  "SelectToSend": "Select for sending message"
 }

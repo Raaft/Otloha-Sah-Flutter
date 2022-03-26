@@ -35,6 +35,7 @@ const String recitationSelectedId = 'RecitationSelectedId';
 
 const String userProfileLogined = 'userProfileLogined';
 const String favTeacher = 'favTeacherUserProfileLogined';
+const String profile = 'profile';
 
 UserProfile? myProFile;
 UserProfile? favTeacherProFile;

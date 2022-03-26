@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
- import 'package:flutter_base/core/error/exceptions.dart';
+import 'package:dio/dio.dart';
+
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:flutter_base/modules/messages/data/models/message_model.dart';
@@ -51,41 +53,21 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
   }
 
-  getRecieveMessage() {
+  getRecieveMessage() async {
     emit(MessageRecieveSuccessLoadingState());
-    GetMessages().messgasRecieve()!.then((value) async {
-      print('Status Code ${value!.statusCode}');
-      if (value.statusCode == 200) {
-        messageRecieve = (value.data['results'] as List)
-            .map((data) => MessageModel.fromJson(data))
-            .toList();
-        print('MessageModel is ===========> $messageRecieve');
-        if (messageRecieve != null && messageRecieve!.isNotEmpty) {
-          for (var element in messageSendList!) {
-            // element.recitation!.chapterName = (await DataSource.instance
-            //             .fetchChapterById(element.recitation!.chapterId!))
-            //         ?.name ??
-            //     '';
-            // element.recitation!.narrationName = (await DataSource.instance
-            //             .fetchNarrationById(element.recitation!.narrationId!))
-            //         ?.name ??
-            //     '';
-          }
-          emit(MessageRecieveSuccessState());
-        } else {
-          emit(const MessageSendErrorState('No Data'));
-        }
-      } else {
-        emit(const MessageSendErrorState('Error Code'));
-      }
-    }).catchError((error) {
-      print('Error Finish' + error.toString());
-      if (error is AuthError) {
-        emit(NoAuthState());
-        return;
-      }
-      emit(MessageRecieveErrorState(error.toString()));
-    });
+    Response? response = await GetMessages().messgasRecieve();
+
+    if (response!.statusCode == 200) {
+      messageRecieve = (response.data['results'] as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
+      print(
+          'MessageModel is ===========> $messageRecieve ${messageRecieve != null}');
+
+      emit(MessageRecieveSuccessState());
+    } else {
+      emit(const MessageSendErrorState('Error Code'));
+    }
   }
 
   getSendMessage() {
@@ -168,10 +150,11 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     return;
   }
 
-
-  markAsAccept({required int messageId,required int reciId}) {
+  markAsAccept({required int messageId, required int reciId}) {
     emit(MarkAsAcceptLoadingState());
-    GetMessages().markAsAccepted(messageId: messageId).then((value) {
+    GetMessages()
+        .markAsAccepted(id: reciId, messageId: messageId)
+        .then((value) {
       messages = (value.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
@@ -189,9 +172,12 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
     return;
   }
-  markAsRead({required int messageId,required int reciId}) {
+
+  markAsRead({required int messageId, required int reciId}) {
     emit(MarkAsReadLoadingState());
-    GetMessages().markAsAccepted(messageId: messageId).then((value) {
+    GetMessages()
+        .markAsAccepted(id: reciId, messageId: messageId)
+        .then((value) {
       messages = (value.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
@@ -209,9 +195,12 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
     return;
   }
-  markAsRemarkable({required int messageId,required int reciId}) {
+
+  markAsRemarkable({required int messageId, required int reciId}) {
     emit(MarkAsRemarkableLoadingState());
-    GetMessages().markAsAccepted(messageId: messageId).then((value) {
+    GetMessages()
+        .markAsRemarkable(id: reciId, messageId: messageId)
+        .then((value) {
       messages = (value.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
@@ -228,6 +217,10 @@ class MessageTapCubit extends Cubit<MessageTapState> {
       return;
     });
     return;
+  }
+
+  sendMessageAsTeacher({required int messageId, required int reciId}) async {
+    await GetMessages().sendMessageAsTeacher(reciId, messageId);
   }
 
   getGeneraBoXMessage() async {

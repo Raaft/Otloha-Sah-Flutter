@@ -29,9 +29,11 @@ abstract class MessagesRepository {
     required String error_type,
   });
 
-  Future<Response> markAsRead({id, messageId});
-  Future<Response> markAsAccepted({id, messageId});
-  Future<Response> markAsRemarkable({id, messageId});
+  Future<Response> markAsRead({required int id, required int messageId});
+  Future<Response> markAsAccepted({required int id, required int messageId});
+  Future<Response> markAsRemarkable({required int id, required int messageId});
 
   Future<Response>? replyMessages(ReplyRequest replyRequest);
+  Future<Response>? createMessages(int id);
+  Future<Response>? sendMessageAsTeacher(int recitationId, int msgId);
 }

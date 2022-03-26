@@ -37,4 +37,6 @@ abstract class AuthRepository {
   });
 
   Future<Response> refreshToken();
+
+  Future<Response> getProfile();
 }

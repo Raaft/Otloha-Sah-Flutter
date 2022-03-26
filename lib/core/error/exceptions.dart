@@ -40,12 +40,12 @@ class ExceptionHandling {
     print('handleExceptionToFaliure $e');
 
     if (e.type == DioErrorType.other) {
-      print(e);
+      print(e.error);
       throw NetworkConnectionException();
     } else if (e.type == DioErrorType.response) {
       if (e.response!.statusCode! == 400 || e.response!.statusCode! == 422) {
         print(e.response!.data);
-        throw InvalidData(e.response!.data, e.response!.data['msg']);
+        throw InvalidData(e.response!.data, e.response!.data['message']);
       }
       if (e.response!.statusCode! >= 500) {
         print(e.response!.data);

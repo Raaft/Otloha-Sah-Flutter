@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
 
 import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/core/widgets/auth_navigator.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
@@ -50,9 +52,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _toolBarFun(cubit,authCubit),
-                  _headerProgress(cubit,authCubit),
-                  _sectionMain(context,authCubit),
+                  _toolBarFun(cubit, authCubit),
+                  _headerProgress(cubit, authCubit),
+                  _sectionMain(context, authCubit),
                   SizedBox(
                     width: double.infinity,
                     child: Semantics(
@@ -121,61 +123,36 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
   Row _sectionMain(BuildContext context, AuthCubit authCubit) {
     return Row(
       children: [
-        _sections(
-          context,
-          translate('Khatema'),
-          AppIcons.discussioncon,
-          AppColor.gradient3,
-          AppColor.gradient1,
-          actionTo: ComingSoonPage.routeName,
-          authCubit: authCubit
-        ),
-        _sections(
-          context,
-          translate('Recitations'),
-          AppIcons.discussioncon,
-          AppColor.gradient3,
-          AppColor.gradient4,
-          actionTo: RecitationsPage.routeName,
-          authCubit: authCubit
-        ),
-        _sections(
-          context,
-          translate('Tajweed'),
-          AppIcons.quran2Icon,
-          AppColor.gradient1,
-          AppColor.gradient2,
-          actionTo: ComingSoonPage.routeName,
-          authCubit: authCubit
-
-        ),
+        _sections(context, translate('Khatema'), AppIcons.discussioncon,
+            AppColor.gradient3, AppColor.gradient1,
+            actionTo: ComingSoonPage.routeName, authCubit: authCubit),
+        _sections(context, translate('Recitations'), AppIcons.discussioncon,
+            AppColor.gradient3, AppColor.gradient4,
+            actionTo: RecitationsPage.routeName, authCubit: authCubit),
+        _sections(context, translate('Tajweed'), AppIcons.quran2Icon,
+            AppColor.gradient1, AppColor.gradient2,
+            actionTo: ComingSoonPage.routeName, authCubit: authCubit),
       ],
     );
   }
 
-  _sections(
-    BuildContext context,
-    String title,
-    String image,
-    Color gradient1,
-    Color gradient2, {
-    String? actionTo,
-        required AuthCubit authCubit
-  }) {
+  _sections(BuildContext context, String title, String image, Color gradient1,
+      Color gradient2,
+      {String? actionTo, required AuthCubit authCubit}) {
     return HomeMainSection(
       title: title,
       image: image,
       gradient1: gradient1,
       gradient2: gradient2,
-      userProgressIndicator:  UserProgressIndicator(
-        name:authCubit.proFile.firstName??'' ,
+      userProgressIndicator: UserProgressIndicator(
+        name: authCubit.proFile.firstName ?? '',
         type: 'Juz1-3',
-
         value: 0.0,
       ),
-      action: () {
-        //Get.bottomSheet(const PopupChooseTeacherSend());
-        Navigator.of(context).pushNamed(actionTo ?? '');
+      action: () async {
+        bool isLogged = await CacheHelper.getData(key: 'token') == null;
+        AuthNavigator.of(context)!
+            .pushConditionally(context, actionTo!, isLogged);
       },
     );
   }
@@ -194,10 +171,9 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               padding: const EdgeInsets.all(2),
               textAlign: TextAlign.start,
             ),
-
             if (authCubit.isLogin)
               TextView(
-                text: authCubit.proFile.firstName??'',
+                text: authCubit.proFile.firstName ?? '',
                 colorText: AppColor.txtColor1,
                 sizeText: 20,
                 weightText: FontWeight.w900,
@@ -206,11 +182,10 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
               ),
           ],
         ),
-
         if (authCubit.isLogin)
           UserProgressReading(
             userProgressIndicator: UserProgressIndicator(
-              name: authCubit.proFile.firstName??'',
+              name: authCubit.proFile.firstName ?? '',
               type: 'Juz1-3',
               value: 0,
               width: MediaQuery.of(context).size.width * .35,
@@ -221,22 +196,20 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
     );
   }
 
-  Widget _toolBarFun(HomeCubit cubit,AuthCubit authCubit) {
+  Widget _toolBarFun(HomeCubit cubit, AuthCubit authCubit) {
     return Row(
       children: [
-
         if (authCubit.isLogin)
           GestureDetector(
             onTap: () {
               // Get.to(const OnBoardPage());
             },
             child: CircleAvatar(
-              radius: 24,
-              backgroundColor: AppColor.conColor3,
-
-              foregroundImage:NetworkImage(authCubit.proFile.image??'')
+                radius: 24,
+                backgroundColor: AppColor.conColor3,
+                foregroundImage: NetworkImage(authCubit.proFile.image ?? '')
                 //AssetImage(AppImages.duserImage),
-            ),
+                ),
           ),
         const Expanded(child: SizedBox()),
         GestureDetector(

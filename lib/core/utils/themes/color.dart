@@ -120,4 +120,7 @@ class AppColor {
   ///
 
   static Color bottom2Bar = const Color(0xFF01D0FF);
+
+  static const Color messageColor = Color(0xFFD4F8FF);
+  static Color userNameColor = const Color(0xFF7A7878);
 }

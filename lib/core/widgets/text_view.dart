@@ -4,19 +4,20 @@ import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/themes/text_style.dart';
 
 class TextView extends StatelessWidget {
-  const TextView(
-      {Key? key,
-      required this.text,
-      this.textAlign = TextAlign.center,
-      this.action,
-      this.padding = const EdgeInsets.all(4),
-      this.icon,
-      this.colorText,
-      this.sizeText,
-      this.weightText,
-      this.fontFamily = fontFamily1,
-      this.overflow = TextOverflow.clip})
-      : super(key: key);
+  const TextView({
+    Key? key,
+    required this.text,
+    this.textAlign = TextAlign.center,
+    this.action,
+    this.padding = const EdgeInsets.all(4),
+    this.icon,
+    this.colorText,
+    this.sizeText,
+    this.weightText,
+    this.fontFamily = fontFamily1,
+    this.overflow = TextOverflow.clip,
+    this.letterSpacing,
+  }) : super(key: key);
 
   final String text;
   final String fontFamily;
@@ -27,6 +28,7 @@ class TextView extends StatelessWidget {
   final Color? colorText;
   final double? sizeText;
   final FontWeight? weightText;
+  final double? letterSpacing;
 
   final TextOverflow? overflow;
 
@@ -39,11 +41,13 @@ class TextView extends StatelessWidget {
         child: AutoSizeText(
           text,
           style: AppStyle().textStyle1.copyWith(
-              fontSize: sizeText,
-              color: colorText,
-              fontWeight: weightText,
-              wordSpacing: .5,
-              fontFamily: fontFamily),
+                fontSize: sizeText,
+                color: colorText,
+                fontWeight: weightText,
+                wordSpacing: .5,
+                fontFamily: fontFamily,
+                letterSpacing: letterSpacing,
+              ),
           textAlign: textAlign,
           overflow: overflow,
         ),
@@ -64,6 +68,7 @@ class TextViewIcon extends StatelessWidget {
     this.sizeText,
     this.weightText,
     this.fontFamily = fontFamily1,
+    this.letterSpacing,
   }) : super(key: key);
 
   final String text;
@@ -75,6 +80,7 @@ class TextViewIcon extends StatelessWidget {
   final Color? colorText;
   final double? sizeText;
   final FontWeight? weightText;
+  final double? letterSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +103,7 @@ class TextViewIcon extends StatelessWidget {
                   fontSize: sizeText,
                   color: colorText,
                   fontWeight: weightText,
+                  letterSpacing: letterSpacing,
                   fontFamily: fontFamily),
               textAlign: textAlign,
             ),

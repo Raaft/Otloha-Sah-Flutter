@@ -2,6 +2,7 @@ import 'dart:convert';
 
 class GeneralResponse {
   GeneralResponse({
+    this.id,
     this.record,
     this.wave,
     this.narrationId,
@@ -16,6 +17,7 @@ class GeneralResponse {
   });
 
   GeneralResponse.fromJson(dynamic json) {
+    id = json['id'];
     record = json['record'];
     wave = json['wave'];
     narrationId = int.parse(json['narration_id'] ?? '0');
@@ -29,6 +31,7 @@ class GeneralResponse {
     remarkable =
         json['remarkable'] != null ? json['remarkable'].cast<String>() : [];
   }
+  int? id;
   String? record;
   String? wave;
   int? narrationId;

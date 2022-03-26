@@ -13,6 +13,7 @@ import 'package:flutter_base/modules/messages/data/data_source/messages_servise.
 import 'package:flutter_base/modules/messages/data/models/error_type.dart';
 import 'package:flutter_base/modules/messages/data/models/reply_request.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_waveform/just_waveform.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 
@@ -150,7 +151,7 @@ class ReplyCubit extends Cubit<ReplyState> {
       current = result;
       _currentStatus = current!.status!;
 
-      await _initWave(filePath!, filePathWave!);
+      // await _initWave(filePath!, filePathWave!);
       emit(EndRecordingState());
     } catch (e) {
       print(e);

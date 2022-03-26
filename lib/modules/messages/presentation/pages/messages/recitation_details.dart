@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/data/model/recitaion_details.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
+import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
+import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/profile_bnb_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
@@ -27,6 +31,7 @@ class RecitationDetailsPage extends StatefulWidget {
 
 class _RecitationDetailsPageState extends State<RecitationDetailsPage> {
   MessagedetailsCubit? cubit;
+  late UserProfile userProfile;
   @override
   void initState() {
     super.initState();
@@ -68,6 +73,7 @@ class _RecitationDetailsPageState extends State<RecitationDetailsPage> {
     print('object id ${recitationDetails!.id}');
     return GeneralMessageItem(
       boxMessageItem: SubMessageItem(
+        id: recitationDetails.id!,
         isRead: false,
         ayah: cubit!.ayah,
         ayahInfo: _getAyahInfo(recitationDetails),
@@ -160,38 +166,16 @@ class _RecitationDetailsPageState extends State<RecitationDetailsPage> {
           onPressed: () {
             Get.bottomSheet(
               PopupRecitation(
-                finish: (cubit!.recitationDetails!.finishedAt == null ||
-                        cubit!.recitationDetails!.finishedAt!.isEmpty)
-                    ? () {
-                        cubit!
-                            .markAsFinished(cubit!.recitationDetails!.id ?? 0);
-                        Get.back();
-                      }
-                    : null,
-                general: ((cubit!.recitationDetails!.finishedAt != null &&
-                        cubit!.recitationDetails!.finishedAt!.isNotEmpty))
-                    ? () {
-                        cubit!.addToGeneral(cubit!.recitationDetails!.id ?? 0);
-
-                        Get.back();
-                      }
-                    : null,
-                isGeneral: cubit!.recitationDetails!.showInGeneral ?? false,
-                send: (cubit!.recitationDetails!.finishedAt != null &&
-                        cubit!.recitationDetails!.finishedAt!.isNotEmpty)
-                    ? () {
-                        Get.back();
-                        Get.bottomSheet(
-                          PopupChooseTeacherSend(
-                            id: cubit!.recitationDetails!.id ?? 0,
-                          ),
-                        );
-                      }
-                    : null,
-                delete: () {
-                  cubit!.deleteRecitations(cubit!.recitationDetails!.id ?? 0);
-                  Get.back();
-                },
+                id: cubit!.recitationDetails!.id!,
+                actions: const [
+                  PopupActions.markAsFinished,
+                  PopupActions.addToGeneral,
+                  PopupActions.send,
+                ],
+                finishedAt: cubit!.recitationDetails!.finishedAt ?? '',
+                showInGeneral: cubit!.recitationDetails!.showInGeneral ?? false,
+                isOwner: cubit!.recitationDetails!.owner!.id == userProfile.id,
+                isTeacher: userProfile.isATeacher!,
               ),
             );
           },

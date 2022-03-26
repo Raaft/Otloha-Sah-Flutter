@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/widgets/auth_navigator.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/home/data/models/utils/sub_section_item.dart';
@@ -12,11 +14,13 @@ class HomeSubMainSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (item.action2 != null) {
           item.action2!(context);
         } else {
-          Navigator.of(context).pushNamed(item.action ?? '');
+          bool isLogged = await CacheHelper.getData(key: 'token') == null;
+          AuthNavigator.of(context)!
+              .pushConditionally(context, item.action!, isLogged);
         }
       },
       child: Container(

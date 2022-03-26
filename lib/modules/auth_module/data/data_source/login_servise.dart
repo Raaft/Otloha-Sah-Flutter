@@ -1,7 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/auth_module/data/repositories/login_repo.dart';
 
 class Auth extends AuthRepository {
@@ -9,8 +13,7 @@ class Auth extends AuthRepository {
   Future<Response> userLogIn({
     email,
     password,
-  }) async{
-
+  }) async {
     return await ApiBaseHelperForAuth().postHTTP('/api/v1/login/', {
       'email': email,
       'password': password,
@@ -20,37 +23,25 @@ class Auth extends AuthRepository {
 
   @override
   Future<Response> logOut({String? auth}) {
-    try {
-      return ApiBaseHelper().postHTTP('/api/v1/logout/', {});
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    return ApiBaseHelper().postHTTP('/api/v1/logout/', {});
   }
 
   @override
   Future<Response> passwordReset({email}) {
-    try {
-      return ApiBaseHelper().postHTTP('/api/v1/logout/', {
-        'username': email,
-      });
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    return ApiBaseHelper().postHTTP('/api/v1/logout/', {
+      'username': email,
+    });
   }
 
   @override
   Future<Response> passwordResetConfirm(
       {uid, token, new_password1, new_password2}) {
-    try {
-      return ApiBaseHelper().postHTTP('/api/v1/password/reset/confirm/', {
-        'uid': uid,
-        'token': token,
-        'new_password1': new_password1,
-        'new_password2': new_password2,
-      });
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    return ApiBaseHelper().postHTTP('/api/v1/password/reset/confirm/', {
+      'uid': uid,
+      'token': token,
+      'new_password1': new_password1,
+      'new_password2': new_password2,
+    });
   }
 
   @override
@@ -69,11 +60,7 @@ class Auth extends AuthRepository {
 
   @override
   Future<Response> refreshToken() {
-    try {
-      return ApiBaseHelper().postHTTP('/api/v1/token/refresh/', {});
-    } catch (e) {
-      throw UnimplementedError();
-    }
+    return ApiBaseHelper().postHTTP('/api/v1/token/refresh/', {});
   }
 
   @override
@@ -88,5 +75,13 @@ class Auth extends AuthRepository {
       'birthdate': birthdate,
       'gender': gender,
     });
+  }
+
+  @override
+  Future<Response> getProfile() async {
+    Response? response = await ApiBaseHelper().getHTTP('/api/v1/profile/');
+    await CacheHelper.saveData(
+        key: profile, value: json.encode(response!.data));
+    return response;
   }
 }

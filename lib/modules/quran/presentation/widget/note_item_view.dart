@@ -103,21 +103,6 @@ class NoteItemView extends StatelessWidget {
                       color: AppColor.txtColor2,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextView(
-                        text: '2. Al-Baqarah',
-                        textAlign: TextAlign.center,
-                        colorText: AppColor.txtColor2,
-                        sizeText: 17,
-                      ),
-                      Icon(
-                        Icons.expand_more,
-                        color: AppColor.txtColor2,
-                      ),
-                    ],
-                  ),
                   isAdd
                       ? IconButton(
                           onPressed: () {

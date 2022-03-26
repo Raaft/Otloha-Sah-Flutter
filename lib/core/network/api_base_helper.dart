@@ -76,12 +76,18 @@ class ApiBaseHelper {
                 e.response != null &&
                 e.response?.statusCode == 401) {
               String refreshToken = CacheHelper.getData(key: 'refresh') ?? '';
-              var response = await baseAPI.post('/api/v1/token/refresh/',
-                  data: {'refresh': refreshToken});
-              RefreshTokenModel? t = RefreshTokenModel.fromJson(response.data);
-              await CacheHelper.saveData(key: 'token', value: t.access);
 
-              return handler.resolve(await retryRequest(currentRequestOptions));
+              try {
+                var response = await baseAPI.post('/api/v1/token/refresh/',
+                    data: {'refresh': refreshToken});
+                RefreshTokenModel? t =
+                    RefreshTokenModel.fromJson(response.data);
+                await CacheHelper.saveData(key: 'token', value: t.access);
+                return handler
+                    .resolve(await retryRequest(currentRequestOptions));
+              } on DioError catch (err, _) {
+                return handler.reject(e);
+              }
             }
 
             return handler.next(e);
@@ -104,7 +110,7 @@ class ApiBaseHelper {
 
     // Get your JWT token
     /// await localDataSource.getToken();
-    String accessToken = CacheHelper.getData(key: 'token');
+    String accessToken = CacheHelper.getData(key: 'token') ?? '';
     if (accessToken.isNotEmpty) {
       options.headers[HttpHeaders.authorizationHeader] =
           'Bearer ' + accessToken;

@@ -52,7 +52,10 @@ class _ReplayMesaagePageState extends State<ReplayMesaagePage> {
         child: Column(
           children: [
             _topView(context),
-            messageDetailsNew(context),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: messageDetailsNew(context),
+            ),
             _textView(),
             _messageField(),
           ],
@@ -216,7 +219,8 @@ class _ReplayMesaagePageState extends State<ReplayMesaagePage> {
                           ],
                         ),
                       if (state is InitialReplyState ||
-                          state is DeleteRecordState)
+                          state is DeleteRecordState ||
+                          state is ReplyStateDefult)
                         IconButton(
                           icon: const Icon(
                             Icons.mic,

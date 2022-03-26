@@ -51,14 +51,14 @@ class GeneralMessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: boxMessageItem.action,
       child: Container(
         padding: const EdgeInsets.all(4),
         margin: EdgeInsets.all(margin),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: AppColor.selectColor1,
+          color: const Color.fromARGB(51, 212, 248, 255),
         ),
         child: Column(
           children: [
@@ -66,13 +66,14 @@ class GeneralMessageItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: WaveViewPlayAudio(
-                  recordPath: recordPath,
-                  wavePath: wavePath,
-                  trggelPlay: trggelPlay,
-                  isLocal: isLocal,
-                  isPlay: isPlay),
+                recordPath: recordPath,
+                wavePath: wavePath,
+                trggelPlay: trggelPlay,
+                isLocal: isLocal,
+                isPlay: isPlay,
+              ),
             ),
-            if (viewBottom) _viewBottom(context),
+            // if (viewBottom) _viewBottom(context),
             replay ?? Container(),
           ],
         ),
@@ -93,8 +94,8 @@ class GeneralMessageItem extends StatelessWidget {
               children: [
                 GestureDetector(
                   child: Image.asset(
-                    isLike ? AppIcons.like2Icon : AppIcons.likeIcon,
-                    color: isLike ? AppColor.darkBlue : AppColor.txtColor4d,
+                    true ? AppIcons.like2Icon : AppIcons.likeIcon,
+                    // color: false ? AppColor.darkBlue : AppColor.txtColor4d,
                     width: 20,
                     height: 20,
                   ),

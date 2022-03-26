@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/play_button_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_waveform/just_waveform.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:quran_widget_flutter/model/chapter.dart' as chapter;
@@ -19,6 +23,7 @@ import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:path/path.dart' as p;
 
 import '../../../../lib_edit/wave/just_waveform.dart';
 
@@ -33,12 +38,29 @@ class HomeCubit extends Cubit<HomeState> {
     //narrationId = CacheHelper.getData(key: narrationSelectedId) ?? 1;
   }
 
-  static HomeCubit get(context) => BlocProvider.of(context);
+  static HomeCubit get(context) => BlocProvider.of<HomeCubit>(context);
   bool checkVersesValue = false;
   List<Verse> selectedVerses = [];
 
   setSelectedVerses(List<Verse> verses) {
     selectedVerses = verses;
+    _playlist.clear();
+    List<AudioSource> audios = [];
+
+    if (selectedVerses == null || selectedVerses.isEmpty) {
+      for (var verse in recitationVerses!) {
+        audios.add(AudioSource.uri(Uri.parse('$prefix${verse.record}')));
+      }
+    } else {
+      for (var verse in selectedVerses) {
+        String? record = recitationVerses!
+            .firstWhere((element) => verse.verseNumber == element.verseNumber)
+            .record;
+        audios.add(AudioSource.uri(Uri.parse('$prefix$record')));
+      }
+    }
+
+    _playlist = ConcatenatingAudioSource(children: audios);
   }
 
   List<Verse> get getSelectedVerses => selectedVerses;
@@ -125,7 +147,7 @@ class HomeCubit extends Cubit<HomeState> {
   bool isFloatingMenu = false;
   bool isSelectedVerse = false;
   bool isPlaying = false;
-  bool playPause = true;
+  bool playPause = false;
 
   int lastPlayedVerseNumber = 1;
   bool isRecitationVersesFetched = false;
@@ -135,16 +157,18 @@ class HomeCubit extends Cubit<HomeState> {
   double opacity = 0.0;
 
   AudioPlayer audioPlayer = AudioPlayer();
+  ButtonState buttonState = ButtonState.paused;
 
   final currentSongTitleNotifier = ValueNotifier<String>('');
   final playlistNotifier = ValueNotifier<List<String>>([]);
   final isFirstSongNotifier = ValueNotifier<bool>(true);
   final isLastSongNotifier = ValueNotifier<bool>(true);
+  final playButtonNotifier = PlayButtonNotifier();
 
   late ConcatenatingAudioSource _playlist;
 
+  String prefix = 'http://165.232.114.22';
   Future<void> _setInitialPlaylist(List<String?> uris) async {
-    const prefix = 'http://165.232.114.22';
     List<AudioSource> audios = [];
     for (String? uri in uris) {
       audios.add(AudioSource.uri(Uri.parse('$prefix$uri')));
@@ -154,33 +178,26 @@ class HomeCubit extends Cubit<HomeState> {
     await audioPlayer.setAudioSource(_playlist);
   }
 
-  playVerses() async {
-    playPause = true;
-    emit(PlayVersesState());
-
+  initRecitationVerses() async {
     if (!isRecitationVersesFetched) {
       recitationVerses = await DataSource.instance
           .fetchRecitationsVersesChapterList(
               chapterId: chapterId, recitationId: recitationId);
       isRecitationVersesFetched = true;
     }
-
     List<String?> urls = [];
-    for (var verse in selectedVerses) {
-      urls.add(recitationVerses!
-          .firstWhere((element) => element.verseNumber == verse.verseNumber)
-          .record);
+    for (var verse in recitationVerses!) {
+      urls.add(verse.record);
     }
-
-    print(urls);
-
     await _setInitialPlaylist(urls);
+  }
 
-    await audioPlayer.play();
-    audioPlayer.setVolume(1.5);
-
-    playPause = false;
-    emit(PauseVersesState());
+  playVerses() async {
+    print('play');
+    emit(PlayVersesState());
+    audioPlayer.play().whenComplete(() {
+      emit(PauseVersesState());
+    });
   }
 
   pausePlayer() async {
@@ -366,7 +383,9 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future pause() async {
-    await _recorder!.pause();
+    var result = await _recorder!.stop();
+    current = result;
+    _currentStatus = current!.status!;
   }
 
   Future stop() async {
@@ -409,26 +428,28 @@ class HomeCubit extends Cubit<HomeState> {
       appDocDirectory = (await getExternalStorageDirectory())!;
     }
 
-    var wave = appDocDirectory.path +
-        customPath +
-        DateTime.now().millisecondsSinceEpoch.toString() +
-        '.wave';
+    final waveFile = File(p.join(
+        appDocDirectory.path, '${DateTime.now().microsecondsSinceEpoch}.wave'));
 
+    await _initWave(current!.path!, waveFile);
+
+    List<int> recordedVersesId = [];
+    for (var verse in selectedVerses) {
+      recordedVersesId.add(verse.id!);
+    }
     var userRecitation = UserRecitation(
       narrationId: narrationId,
       record: current!.path ?? '',
       name: getName(),
-      versesID: selectedIndex![0],
-      wavePath: wave,
+      versesID: recordedVersesId,
+      wavePath: waveFile.path,
     );
-
-    await _initWave(userRecitation.record ?? '', userRecitation.wavePath ?? '');
 
     var user = await UserRecitationApi()
         .saveUserReciataion(userRecitation: userRecitation);
-    if (user != null) {
-      recitationId = user.id ?? 0;
-    }
+
+    recitationId = user!.id!;
+    return recitationId;
     print(userRecitation);
   }
 
@@ -439,19 +460,15 @@ class HomeCubit extends Cubit<HomeState> {
   final BehaviorSubject<WaveformProgress> progressStream =
       BehaviorSubject<WaveformProgress>();
 
-  Future<void> _initWave(String path, String wavePath) async {
+  Future<void> _initWave(String path, File waveFile) async {
     final audioFile = io.File(path);
-    try {
-      final waveFile = io.File(wavePath);
-
-      JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile)
-          .listen(progressStream.add, onError: progressStream.addError);
-
-      //    JustWaveform.parse(waveFile);
-    } catch (e) {
-      debugPrint('Eror audio' + e.toString());
-      progressStream.addError(e);
-    }
+    final progressStream = JustWaveform.extract(
+      audioInFile: audioFile,
+      waveOutFile: waveFile,
+      zoom: const WaveformZoom.pixelsPerSecond(100),
+    );
+    print(progressStream);
+    // await JustWaveform.parse(waveFile);
   }
 
   getName() {

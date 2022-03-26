@@ -11,3 +11,7 @@ class UserRecitationFetched extends UserRecitationState {}
 class UserRecitationError extends UserRecitationState {}
 
 class UserRecitationLoading extends UserRecitationState {}
+
+class AuthErrorState extends UserRecitationState {}
+
+class RemoveUserRecitationState extends UserRecitationState {}

@@ -1,19 +1,23 @@
 // ignore_for_file: empty_catches
 
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
 import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_widget_flutter/data_source/data_source.dart';
+import 'package:quran_widget_flutter/model/verse.dart';
 
 part 'userrecitation_state.dart';
 
 class UserRecitationCubit extends Cubit<UserRecitationState> {
   UserRecitationCubit() : super(UserRecitationInitial());
   Recitations? userRecitatios;
+  List<List<Verse>> userRecitationVerses = [];
 
   static UserRecitationCubit get(context) => BlocProvider.of(context);
 
-  fetchRecitation() async {
+  Future fetchRecitation() async {
     Recitations? userRec;
 
     try {
@@ -25,34 +29,24 @@ class UserRecitationCubit extends Cubit<UserRecitationState> {
           userRec = value;
         }
       });
-    } catch (e) {
-      print(e);
+    } on AuthError catch (_) {
+      emit(AuthErrorState());
+      return;
     }
-/*
-    await AppDatabase()
-        .userRecitationDao
-        .findAllUserRecitations()
-        .then((values) {
-      if (values != null) {
-        userRec.addAll(values);
-      }
-    });*/
 
     if (userRec != null &&
         userRec!.results != null &&
         userRec!.results!.isNotEmpty) {
-      for (var element in userRec!.results!) {
-        /* element.narrationName = (await DataSource.instance
-                .fetchNarrationById(element.narrationId ?? 0))!
-            .name;
-
-    if (userRec != null && userRec.isNotEmpty) {
-        element.chapterName = (await DataSource.instance
-                .fetchChapterById(element.chapterId ?? 0))!
-            .name;*/
-      }
       userRecitatios = userRec;
-      print(userRec);
+      for (var recitation in userRec!.results!) {
+        List<Verse> verses = [];
+        for (int verseId in recitation.versesID!) {
+          print(await DataSource.instance.fetchVerseById(verseId));
+          Verse? verse = await DataSource.instance.fetchVerseById(verseId);
+          verses.add(verse!);
+        }
+        userRecitationVerses.add(verses);
+      }
       emit(UserRecitationFetched());
     } else {
       print('Error ' + userRec.toString());
@@ -60,27 +54,12 @@ class UserRecitationCubit extends Cubit<UserRecitationState> {
     }
   }
 
-  markAsFinished(int id) async {
-    await GetMessages().markAsFinished(id);
-    fetchRecitation();
-  }
-
-  addToGeneral(int id) async {
-    await GetMessages().addToGeneral(id);
-    fetchRecitation();
-  }
-
-  deleteRecitations(int id) async {
-    await GetMessages().deleteRecitations(id);
-    fetchRecitation();
+  deleteRecitation(int index) {
+    userRecitatios!.results!.removeAt(index);
+    if (userRecitatios!.results!.isEmpty) {
+      emit(UserRecitationError());
+    } else {
+      emit(RemoveUserRecitationState());
+    }
   }
 }
-/**
- *  Get.bottomSheet(PopupRecitation(finish: () {
-          
-        }, general: () {
-          GetMessages().addToGeneral(results.owner!.id ?? 0, results.id ?? 0);
-        }, delete: () {
-          GetMessages().deleteRecitations(results.id ?? 0);
-        }));
- */

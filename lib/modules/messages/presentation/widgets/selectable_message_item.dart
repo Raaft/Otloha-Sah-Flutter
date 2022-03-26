@@ -150,11 +150,12 @@ class SelectableMessageItem extends StatelessWidget {
                         toolbarOptions:
                             const ToolbarOptions(copy: false, selectAll: false),
                         style: AppStyle().textStyle1.copyWith(
-                            fontSize: 20,
-                            color: AppColor.txtColor4,
-                            fontWeight: FontWeight.bold,
-                            wordSpacing: .5,
-                            fontFamily: 'Hafs17'),
+                              fontSize: 20,
+                              color: AppColor.headTextColor,
+                              fontWeight: FontWeight.bold,
+                              wordSpacing: .5,
+                              fontFamily: 'Hafs17',
+                            ),
                       ),
                       SizedBox(
                         width: double.infinity,

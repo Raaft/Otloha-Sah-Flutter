@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/modules/auth_module/data/data_source/login_servise.dart';
 import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
@@ -33,35 +35,35 @@ class AuthCubit extends Cubit<AuthState> {
         'UserModel is ===========> $userModel user model token= ${userModel!.accessToken} ');
     emit(ThenAuthState());
   }
-  UserProfile proFile=UserProfile();
-  Future saveProfile()async{
+
+  UserProfile proFile = UserProfile();
+  Future saveProfile() async {
     try {
-      proFile =
-          UserProfile.fromJson(jsonDecode(
-              await CacheHelper.getData(key: userProfileLogined)));
-    favTeacherProFile = UserProfile.fromJson(
-    jsonDecode(await CacheHelper.getData(key: favTeacher)));
+      proFile = UserProfile.fromJson(
+          jsonDecode(await CacheHelper.getData(key: userProfileLogined)));
+      favTeacherProFile = UserProfile.fromJson(
+          jsonDecode(await CacheHelper.getData(key: favTeacher)));
     } catch (e) {
-    print('no user login');
+      print('no user login');
     }
   }
 
-
   Future<void> userLogIn({@required email, @required password}) async {
     emit(LogInLoadingState());
-    Auth()
-        .userLogIn(
-      email: email,
-      password: password,
-    )
-        .then((value) async{
-      thenAuth(value);
-      await saveUsers();
 
+    try {
+      Response response = await Auth().userLogIn(
+        email: email,
+        password: password,
+      );
+      await thenAuth(response);
+      await saveUsers();
       emit(LogInSuccessState());
-    }).catchError((error) {
-      emit(LogInErrorState(error.errors));
-    });
+    } on InvalidData catch (error) {
+      emit(LogInErrorState(error.errors!));
+    }
+
+    print(await Auth().getProfile());
   }
 
   Future<void> userRegister(
@@ -76,12 +78,11 @@ class AuthCubit extends Cubit<AuthState> {
             password2: password2,
             phone: phone,
             username: username)
-        .then((value) async{
+        .then((value) async {
       thenAuth(value);
-     await saveUsers();
+      await saveUsers();
       emit(RegisterSuccessState());
     }).catchError((error) {
-
       emit(RegisterErrorState(error));
     });
   }
@@ -102,7 +103,6 @@ class AuthCubit extends Cubit<AuthState> {
         }
       }
       print('Save done ${user!.username}');
-
     } catch (e) {
       print('Save data error $e');
     }

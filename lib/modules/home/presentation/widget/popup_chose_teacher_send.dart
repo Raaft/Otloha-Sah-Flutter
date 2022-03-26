@@ -8,6 +8,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
@@ -15,9 +16,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class PopupChooseTeacherSend extends StatefulWidget {
-  const PopupChooseTeacherSend({Key? key, required this.id}) : super(key: key);
+  const PopupChooseTeacherSend({Key? key, required this.id, this.saveRecittion})
+      : super(key: key);
 
   final int id;
+  final Function? saveRecittion;
 
   @override
   State<PopupChooseTeacherSend> createState() => _PopupChooseTeacherSendState();
@@ -27,6 +30,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   List<int> list = [];
 
   late TeachersendCubit? cubit;
+  int recitationId = 0;
 
   @override
   void initState() {
@@ -52,7 +56,6 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
           }
           if (state is NoAuthState) {
             Future.delayed(const Duration(seconds: 1), () {
-              print('object');
               Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
             });
           }
@@ -74,33 +77,41 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
             _tabView(context),
             ..._favTeacher(),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(right: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextView(
-                    text: translate('Select to Send to a Teachers'),
+                    text: translate('SelectToSend'),
                     colorText: AppColor.txtColor3,
                     sizeText: 16,
                     weightText: FontWeight.w700,
                     padding: const EdgeInsets.all(4),
                     textAlign: TextAlign.start,
                   ),
-                  IconButton(
-                    onPressed: () {
+                  MaterialButton(
+                    onPressed: () async {
                       List<int> users = [];
                       for (var element in list) {
                         users.add(teachers!.results![element].id ?? 0);
                       }
-                      _sendMessage(users, widget.id);
+                      if (widget.saveRecittion != null) {
+                        recitationId = await widget.saveRecittion!();
+                      } else {
+                        recitationId = widget.id;
+                      }
+                      _sendMessage(users);
                     },
-                    icon: Transform(
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(12),
+                    shape: const CircleBorder(),
+                    child: Transform(
                       alignment: Alignment.center,
                       transform:
                           isEn ? Matrix4.rotationY(pi) : Matrix4.rotationY(0),
-                      child: Icon(
+                      child: const Icon(
                         Icons.send,
-                        color: AppColor.txtColor4,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -166,7 +177,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
             onPressed: () {
               _sendMessage([
                 ((favTeacherProFile != null) ? favTeacherProFile!.id ?? 0 : 0)
-              ], widget.id);
+              ]);
             },
             icon: Transform(
               alignment: Alignment.center,
@@ -244,8 +255,8 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
     }
   }
 
-  void _sendMessage(List<int> list, int id) async {
-    cubit?.sendMessage(list, id)!.then((message) {
+  void _sendMessage(List<int> list) async {
+    cubit?.sendMessage(list, recitationId)!.then((message) {
       Get.back();
       if (message != null) {
         print('object $message');
@@ -263,7 +274,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
           Navigator.of(context).pop();
         },
       ),
-      title: 'Teacher Center',
+      title: translate('SendTo'),
       onSearch: (val) {
         BlocProvider.of<TeachersendCubit>(context).filter(qurey: val);
       },
