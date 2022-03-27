@@ -11,7 +11,6 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
-import 'package:flutter_base/modules/messages/data/models/message_delails.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
@@ -21,6 +20,7 @@ import 'package:flutter_base/modules/settings/presentation/widgets/view_error.da
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 
 import '../../../../../data_source/models/home_models/user_prfile.dart';
+import '../../../../../data_source/models/message_model/message_delails.dart';
 
 class MessageDetailsPage extends StatefulWidget {
   const MessageDetailsPage(

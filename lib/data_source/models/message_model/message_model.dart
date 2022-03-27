@@ -1,6 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter_base/modules/messages/data/models/relpay.dart';
+import 'package:flutter_base/data_source/models/message_model/relpay.dart';
+
+
+
 
 MessageModel resultsFromJson(String str) =>
     MessageModel.fromJson(json.decode(str));

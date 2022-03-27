@@ -1,7 +1,8 @@
 import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_base/modules/data/data_source/remote/repositories/message_repositroy.dart';
 import 'package:flutter_base/modules/data/model/recitaion_details.dart';
-import 'package:flutter_base/modules/messages/data/models/message_delails.dart';
+
+import '../../../../../data_source/models/message_model/message_delails.dart';
 
 class MessageApi extends MessageRepositroy {
   @override
