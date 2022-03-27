@@ -12,10 +12,8 @@ import 'package:flutter_base/modules/settings/presentation/widgets/item_setting_
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/utils/constant/constants.dart';
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
-import '../../../home/business_logic/cubit/home_cubit.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -74,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 color: AppColor.txtColor3,
               ),
               action: () {
-                Get.to(RegisterAsTeacher());
+                Get.to(const RegisterAsTeacher());
               },
             ),
 

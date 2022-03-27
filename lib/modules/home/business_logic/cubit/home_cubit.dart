@@ -25,7 +25,6 @@ import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:path/path.dart' as p;
 
-import '../../../../lib_edit/wave/just_waveform.dart';
 
 part 'home_state.dart';
 

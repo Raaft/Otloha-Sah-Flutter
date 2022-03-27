@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_single_quotes
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -14,7 +16,7 @@ import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../auth_module/presentation/widget/auth_button.dart';
 
 class RegisterAsTeacher extends StatefulWidget {
-  RegisterAsTeacher({Key? key}) : super(key: key);
+  const RegisterAsTeacher({Key? key}) : super(key: key);
 
   @override
   State<RegisterAsTeacher> createState() => _RegisterAsTeacherState();
