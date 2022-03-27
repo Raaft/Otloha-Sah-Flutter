@@ -4,14 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/modules/auth_module/data/data_source/login_servise.dart';
 import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
 import 'package:flutter_base/modules/home/data/profile_servise/profile_servises.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../data_source/data_source.dart';
+import '../../../data_source/models/user_model.dart';
 import '../../home/data/models/user/LogInErrorModel.dart';
-import '../data/models/UserModel.dart';
 
 part 'auth_state.dart';
 
@@ -37,6 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   UserProfile proFile = UserProfile();
+
   Future saveProfile() async {
     try {
       proFile = UserProfile.fromJson(
@@ -52,7 +53,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LogInLoadingState());
 
     try {
-      Response response = await Auth().userLogIn(
+      Response response = await DataSource().userLogIn(
         email: email,
         password: password,
       );
@@ -63,13 +64,13 @@ class AuthCubit extends Cubit<AuthState> {
       emit(LogInErrorState(error.errors!));
     }
 
-    print(await Auth().getProfile());
+    print(DataSource().getProfile());
   }
 
   Future<void> userRegister(
       {email, username, password1, password2, birthdate, phone, gender}) async {
     emit(RegisterLoadingState());
-    await Auth()
+    await DataSource()
         .userRegister(
             birthdate: birthdate,
             email: email,
@@ -110,7 +111,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> userLogOut() async {
     emit(LogOutLoadingState());
-    await Auth().logOut().then((value) {
+    await DataSource().logOut().then((value) {
       CacheHelper.clearData(key: 'token');
       token = '';
       isLogin = false;
