@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
+import 'package:flutter_base/data_source/data_source.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_api.dart';
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/data_sourse/teacher_servises.dart';
 
 part 'teacherviewtype_state.dart';
 
@@ -49,7 +49,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
 
   markAsFavTeacher({ int? id}) async {
     emit(MarkAsFavTeacherLoadingState());
-    TeacherDataService().markAsFavTeacher(id: id)!.then((value) {
+    DataSource().markAsFavTeacher(id: id).then((value) {
       return value;
     }).catchError((e) {
       print('Error $e');

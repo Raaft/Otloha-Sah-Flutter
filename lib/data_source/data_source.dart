@@ -6,6 +6,7 @@ import 'package:flutter_base/data_source/models/home_models/user_prfile.dart';
 import 'package:flutter_base/data_source/models/message_model/reply_request.dart';
 import 'package:flutter_base/data_source/remote/messages_service.dart';
 import 'package:flutter_base/data_source/remote/profile_services.dart';
+import 'package:flutter_base/data_source/remote/teacher_servises.dart';
 import 'package:flutter_base/data_source/remote/update_profile_web_servises.dart';
 
 import 'repository/auth_repo.dart';
@@ -15,8 +16,15 @@ class DataSource {
   final ProfileServices _profileServices = ProfileServices();
   final GetMessages _getMessages = GetMessages();
   final UpdateProfile _updateProfile = UpdateProfile();
+  final TeacherDataService _teacherDataService = TeacherDataService();
 
-   changePassword(
+
+   markAsFavTeacher({required int? id}) async {
+ return _teacherDataService.markAsFavTeacher(id: id);
+  }
+
+
+  changePassword(
       {required oldPassword,
         required newPassword,
         required confirmPassword})  {
