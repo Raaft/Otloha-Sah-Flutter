@@ -36,11 +36,9 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
   Widget build(BuildContext context) {
     return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (ctx, state) {
-        if(state is   RegisterAsTeacherSuccessState){
-          if(state is   RegisterAsTeacherSuccessState){
-            Get.Get.showSnackbar(const Get.GetSnackBar(duration:Duration(seconds: 3) ,
-            message: 'Your request to be a teacher is created successfully',));
-          }
+        if (state is   RegisterAsTeacherSuccessState ) {
+          Get.Get.showSnackbar(const Get.GetSnackBar(duration:Duration(seconds: 3) ,
+          message: 'Your request to be a teacher is created successfully',));
         }
       },
       builder: (ctx, state) {
