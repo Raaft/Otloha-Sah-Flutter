@@ -61,10 +61,8 @@ class _StudentsPageState extends State<StudentsPage> {
     }
 
     if (state is NoAuthState) {
-      Future.delayed(const Duration(seconds: 1), () {
-        print('object');
-        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-      });
+      Future.microtask(() =>
+          Navigator.of(context).pushReplacementNamed(LoginPage.routeName));
     }
     return const Expanded(
       child: Center(
@@ -100,7 +98,6 @@ class _StudentsPageState extends State<StudentsPage> {
 
   ItemTeacher _itemView(int index, Results results) {
     return ItemTeacher(
-
       userName: results.firstName! + ' ' + results.lastName!,
       rate: "${results.rate ?? ''}",
       userId: (results.level ?? '') + ' Student',
@@ -110,7 +107,6 @@ class _StudentsPageState extends State<StudentsPage> {
       isCertified: results.isCertified ?? false,
       isFav: false,
       isStudent: true,
-
     );
   }
 

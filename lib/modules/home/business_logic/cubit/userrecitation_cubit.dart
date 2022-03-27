@@ -3,7 +3,6 @@
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
-import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/data_source/data_source.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
