@@ -4,13 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/data_source/data_source.dart';
 import 'package:flutter_base/modules/auth_module/data/data_source/login_servise.dart';
-import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
-import 'package:flutter_base/modules/home/data/profile_servise/profile_servises.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../home/data/models/user/LogInErrorModel.dart';
+import '../../../data_source/models/home_models/LogInErrorModel.dart';
+import '../../../data_source/models/home_models/user_prfile.dart';
 import '../data/models/UserModel.dart';
 
 part 'auth_state.dart';
@@ -88,21 +88,21 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   saveUsers() async {
-    UserProfile? user = await ProfileServ().myProfile();
+    UserProfile? user = await DataSource().myProfile();
     try {
       if (user != null) {
         CacheHelper.saveData(
             key: userProfileLogined, value: jsonEncode(userModel!.toJson()));
         if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
           var teacher =
-              await ProfileServ().userProfile(user.favoriteTeacher ?? 0);
+              await DataSource().userProfile(user.favoriteTeacher ?? 0);
           if (teacher != null) {
             CacheHelper.saveData(
                 key: favTeacher, value: jsonEncode(teacher.toJson()));
           }
         }
       }
-      print('Save done ${user!.username}');
+      print('Save done ${user.username}');
     } catch (e) {
       print('Save data error $e');
     }

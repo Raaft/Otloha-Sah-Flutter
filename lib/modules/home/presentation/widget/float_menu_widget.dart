@@ -147,7 +147,6 @@ Positioned floatBall(BuildContext context, HomeCubit cubit) {
                                         textVerse: cubit.myChapter!.name,
                                         idPage: cubit.page!.id ,
                                       ));
-                                      ;
                                     });
                                   },
                                   child: Icon(

@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/data/chash_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
 
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/data/model/recitaion_details.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
-import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
-import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/profile_bnb_page.dart';
-import 'package:flutter_base/modules/home/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
@@ -19,6 +13,8 @@ import 'package:flutter_base/modules/settings/presentation/widgets/view_error.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../../data_source/models/home_models/user_prfile.dart';
 
 class RecitationDetailsPage extends StatefulWidget {
   const RecitationDetailsPage({Key? key, required this.recitationId})
