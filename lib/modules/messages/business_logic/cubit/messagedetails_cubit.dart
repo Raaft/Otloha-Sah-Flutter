@@ -1,10 +1,12 @@
 import 'package:flutter_base/modules/data/data_source/remote/data_source/message_api.dart';
 import 'package:flutter_base/modules/data/model/recitaion_details.dart';
-import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
-import 'package:flutter_base/modules/messages/data/models/message_delails.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/data_source/data_source.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
+
+import '../../../../data_source/models/message_model/message_delails.dart';
+import '../../../../data_source/remote/messages_service.dart';
 
 part 'messagedetails_state.dart';
 

@@ -6,6 +6,8 @@
 /// gender : ["\"\" ليست واحدة من الخيارات الصالحة."]
 /// birthdate : ["صيغة التاريخ غير صحيحة. عليك أن تستخدم واحدة من هذه الصيغ التالية: YYYY-MM-DD."]
 
+// ignore_for_file: file_names
+
 class SignUpErrorModel {
   SignUpErrorModel({
       this.username, 

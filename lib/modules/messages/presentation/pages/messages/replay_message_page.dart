@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
-import 'package:flutter_base/modules/messages/data/models/error_type.dart';
-import 'package:flutter_base/modules/messages/data/models/message_delails.dart';
+
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +14,9 @@ import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.d
 import 'package:flutter_base/modules/messages/presentation/widgets/selectable_message_item.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../../data_source/models/message_model/error_type.dart';
+import '../../../../../data_source/models/message_model/message_delails.dart';
 
 class ReplayMesaagePage extends StatefulWidget {
   const ReplayMesaagePage({

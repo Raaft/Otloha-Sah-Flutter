@@ -6,10 +6,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
-import 'package:flutter_base/modules/messages/data/models/message_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
+import '../../../../data_source/models/message_model/message_model.dart';
+import '../../../../data_source/remote/messages_service.dart';
+
 
 part 'messagetap_state.dart';
 
@@ -32,7 +33,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   getListMessages() {
     emit(MessageLoadingState());
-    GetMessages().getMessageListing()!.then((value) {
+    GetMessages().getMessageListing().then((value) {
       if (value!.data != null) {
         messages = (value.data['results'] as List)
             .map((data) => MessageModel.fromJson(data))
@@ -72,7 +73,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   getSendMessage() {
     emit(MessageSendSuccessLoadingState());
-    GetMessages().messagesSent()!.then((value) async {
+    GetMessages().messagesSent().then((value) async {
       print('Status Code ${value!.statusCode}');
 
       if (value.statusCode == 200) {

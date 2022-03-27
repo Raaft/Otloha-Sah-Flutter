@@ -7,17 +7,18 @@ import 'package:dio/dio.dart';
 import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
-import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
-import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
-import 'package:flutter_base/modules/messages/data/models/error_type.dart';
-import 'package:flutter_base/modules/messages/data/models/reply_request.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_waveform/just_waveform.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 
 import 'package:rxdart/rxdart.dart';
+
+import '../../../../data_source/models/message_model/error_type.dart';
+import '../../../../data_source/models/message_model/reply_request.dart';
+import '../../../../data_source/remote/messages_service.dart';
 
 class ReplyCubit extends Cubit<ReplyState> {
   ReplyCubit() : super(InitialReplyState());

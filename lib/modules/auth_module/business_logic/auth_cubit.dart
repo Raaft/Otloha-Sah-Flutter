@@ -4,14 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
-import 'package:flutter_base/modules/home/data/profile_servise/profile_servises.dart';
+import 'package:flutter_base/data_source/data_source.dart';
+import 'package:flutter_base/data_source/models/auth_model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../data_source/data_source.dart';
-import '../../../data_source/models/user_model.dart';
-import '../../home/data/models/user/LogInErrorModel.dart';
+import '../../../data_source/models/home_models/LogInErrorModel.dart';
+import '../../../data_source/models/home_models/user_prfile.dart';
 
 part 'auth_state.dart';
 
@@ -37,7 +36,6 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   UserProfile proFile = UserProfile();
-
   Future saveProfile() async {
     try {
       proFile = UserProfile.fromJson(
@@ -53,7 +51,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LogInLoadingState());
 
     try {
-      Response response = await DataSource().userLogIn(
+      Response response = await Auth().userLogIn(
         email: email,
         password: password,
       );
@@ -64,13 +62,13 @@ class AuthCubit extends Cubit<AuthState> {
       emit(LogInErrorState(error.errors!));
     }
 
-    print(DataSource().getProfile());
+    print(await Auth().getProfile());
   }
 
   Future<void> userRegister(
       {email, username, password1, password2, birthdate, phone, gender}) async {
     emit(RegisterLoadingState());
-    await DataSource()
+    await Auth()
         .userRegister(
             birthdate: birthdate,
             email: email,
@@ -89,21 +87,21 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   saveUsers() async {
-    UserProfile? user = await ProfileServ().myProfile();
+    UserProfile? user = await DataSource().myProfile();
     try {
       if (user != null) {
         CacheHelper.saveData(
             key: userProfileLogined, value: jsonEncode(userModel!.toJson()));
         if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
           var teacher =
-              await ProfileServ().userProfile(user.favoriteTeacher ?? 0);
+              await DataSource().userProfile(user.favoriteTeacher ?? 0);
           if (teacher != null) {
             CacheHelper.saveData(
                 key: favTeacher, value: jsonEncode(teacher.toJson()));
           }
         }
       }
-      print('Save done ${user!.username}');
+      print('Save done ${user.username}');
     } catch (e) {
       print('Save data error $e');
     }
@@ -111,7 +109,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> userLogOut() async {
     emit(LogOutLoadingState());
-    await DataSource().logOut().then((value) {
+    await Auth().logOut().then((value) {
       CacheHelper.clearData(key: 'token');
       token = '';
       isLogin = false;

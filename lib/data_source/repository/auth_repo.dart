@@ -3,13 +3,12 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_base/data_source/remote/login_services.dart';
+import 'package:flutter_base/data_source/remote/auth_services.dart';
 
 import '../../core/data/chash_helper.dart';
 import '../../core/utils/constant/constants.dart';
 
 class AuthRepository {
-
   final AuthApi authApi = AuthApi();
 
   Future<Response>? userLogIn({
@@ -29,7 +28,8 @@ class AuthRepository {
 
   Future<Response> passwordResetConfirm(
       {uid, token, new_password1, new_password2}) {
-    return authApi.passwordResetConfirm(uid: uid,
+    return authApi.passwordResetConfirm(
+        uid: uid,
         new_password1: new_password1,
         new_password2: new_password2,
         token: token);
@@ -37,7 +37,8 @@ class AuthRepository {
 
   Future<Response> passwordChange(
       {old_password, new_password1, new_password2}) {
-    return authApi.passwordChange(old_password: old_password,
+    return authApi.passwordChange(
+        old_password: old_password,
         new_password2: new_password2,
         new_password1: new_password1);
   }
@@ -48,7 +49,8 @@ class AuthRepository {
 
   Future<Response> userRegister(
       {email, username, password1, password2, birthdate, phone, gender}) async {
-    return authApi.userRegister(email: email,
+    return authApi.userRegister(
+        email: email,
         birthdate: birthdate,
         gender: gender,
         password1: password1,
@@ -59,10 +61,7 @@ class AuthRepository {
 
   Future<Response> getProfile() async {
     Response response = await authApi.getProfile();
-    await CacheHelper.saveData(
-        key: profile, value: json.encode(response.data));
+    await CacheHelper.saveData(key: profile, value: json.encode(response.data));
     return response;
   }
-
-
 }
