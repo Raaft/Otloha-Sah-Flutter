@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/register_as_techer.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_email.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_phone.dart';
+import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +10,6 @@ import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../../core/widgets/text_view.dart';
-import '../../../data/update_profile_web_servises.dart';
 import 'change_Password.dart';
 
 class ProfileSettings extends StatelessWidget {

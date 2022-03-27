@@ -6,6 +6,7 @@ import 'package:flutter_base/data_source/models/home_models/user_prfile.dart';
 import 'package:flutter_base/data_source/models/message_model/reply_request.dart';
 import 'package:flutter_base/data_source/remote/messages_service.dart';
 import 'package:flutter_base/data_source/remote/profile_services.dart';
+import 'package:flutter_base/data_source/remote/update_profile_web_servises.dart';
 
 import 'repository/auth_repo.dart';
 
@@ -13,6 +14,32 @@ class DataSource {
   final AuthRepository _authRepository = AuthRepository();
   final ProfileServices _profileServices = ProfileServices();
   final GetMessages _getMessages = GetMessages();
+  final UpdateProfile _updateProfile = UpdateProfile();
+
+   changePassword(
+      {required oldPassword,
+        required newPassword,
+        required confirmPassword})  {
+    return _updateProfile.changePassword(oldPassword: oldPassword, newPassword: newPassword, confirmPassword: confirmPassword);
+  }
+
+   updateEmail({required email, required password})  {
+    return   _updateProfile.updateEmail(email: email, password: password);
+  }
+
+   updatePhone({required phone, required password})  {
+    return   _updateProfile.updatePhone(phone: phone, password: password);
+  }
+
+   updateProfile({required email, required password}) {
+    // TODO: implement updateProfile
+    throw UnimplementedError();
+  }
+
+   registerAsATeacher(data) {
+     return _updateProfile.registerAsATeacher(data);
+  }
+
 
   getMessageListing() {
     return _getMessages.getMessageListing();
