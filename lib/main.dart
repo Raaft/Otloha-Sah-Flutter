@@ -172,7 +172,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         initialRoute:
-            (token.isNotEmpty) ? HomePage.routeName : OnBoardPage.routeName,
+            (token.isNotEmpty||token=='') ? HomePage.routeName : OnBoardPage.routeName,
         onGenerateRoute: appRouter.generateRoute,
       ),
     );

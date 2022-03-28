@@ -42,6 +42,7 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
   Future<void> init() async {
     userProfile = UserProfile.fromJson(
         jsonDecode(await CacheHelper.getData(key: profile)));
+    print('fgfd gfdgd $userProfile');
     cubit = MessagedetailsCubit.get(context);
     cubit!.fetchMessages(widget.msgId, widget.recitationId);
   }
