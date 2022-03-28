@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/data/model/verse_like.dart';
-import 'package:flutter_base/modules/data/repository/database_repository.dart';
+
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/add_note.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,8 @@ import 'package:quran_widget_flutter/model/verse.dart';
 
 import '../../../../core/utils/res/icons_app.dart';
 import '../../../../core/widgets/alert_dialog_full_screen.dart';
+import '../../../../data_source/local/database/database_repository.dart';
+import '../../../../data_source/models/database_model/verse_like.dart';
 
 class ToolBotton extends StatefulWidget {
   const ToolBotton({Key? key}) : super(key: key);

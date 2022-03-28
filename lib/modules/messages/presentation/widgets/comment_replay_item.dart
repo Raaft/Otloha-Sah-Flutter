@@ -4,8 +4,9 @@ import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/messages/data/models/error_type.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
+
+import '../../../../data_source/models/message_model/error_type.dart';
 
 class CommentReplayItem extends StatelessWidget {
   const CommentReplayItem({

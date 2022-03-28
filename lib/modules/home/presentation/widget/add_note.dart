@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/data/model/verse_note.dart';
-import 'package:flutter_base/modules/data/repository/database_repository.dart';
+import 'package:flutter_base/data_source/local/database/database_repository.dart';
+
+import '../../../../data_source/models/database_model/verse_note.dart';
+
 
 class AddNote extends StatefulWidget {
   const AddNote({

@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
-import 'package:flutter_base/modules/data/model/user_recitation.dart';
+
 import 'package:flutter_base/modules/home/business_logic/cubit/play_button_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
@@ -21,9 +20,13 @@ import 'package:rxdart/rxdart.dart';
 import 'package:file/local.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
-import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:path/path.dart' as p;
+
+import '../../../../data_source/models/database_model/user_recitation.dart';
+import '../../../../data_source/remote/recitation_services.dart';
+
 
 part 'home_state.dart';
 
@@ -45,7 +48,7 @@ class HomeCubit extends Cubit<HomeState> {
     _playlist.clear();
     List<AudioSource> audios = [];
 
-    if (selectedVerses == null || selectedVerses.isEmpty) {
+    if (selectedVerses.isEmpty) {
       for (var verse in recitationVerses!) {
         audios.add(AudioSource.uri(Uri.parse('$prefix${verse.record}')));
       }
@@ -417,7 +420,7 @@ class HomeCubit extends Cubit<HomeState> {
   int recitationId = 0;
 
   saveRecitation() async {
-    String customPath = '/File_';
+    // String customPath = '/File_';
     io.Directory appDocDirectory;
 
     if (io.Platform.isIOS) {
@@ -448,7 +451,6 @@ class HomeCubit extends Cubit<HomeState> {
 
     recitationId = user!.id!;
     return recitationId;
-    print(userRecitation);
   }
 
   void addSelected(Map<int, List<int>>? values) {

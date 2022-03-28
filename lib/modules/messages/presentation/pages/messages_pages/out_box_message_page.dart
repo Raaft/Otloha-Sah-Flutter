@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_base/data_source/models/message_model/message_model.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/data/models/message_model.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,17 +90,4 @@ class OutBoxMessagePage extends StatelessWidget {
     return str;
   }
 
-  String _user(Owner? owner) {
-    if (owner != null) {
-      var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
-          ? (owner.username)
-          : '';
-      return (owner.firstName ?? '') +
-          ' ' +
-          (owner.lastName ?? '') +
-          (str ?? '');
-    } else {
-      return '';
-    }
-  }
 }

@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:flutter_base/modules/data/repository/database_repository.dart';
-import 'package:flutter_base/modules/data/model/page_marked.dart';
-import 'package:flutter_base/modules/data/model/verse_like.dart';
-import 'package:flutter_base/modules/data/model/verse_note.dart';
+import '../../../../data_source/local/database/database_repository.dart';
+import '../../../../data_source/models/database_model/page_marked.dart';
+import '../../../../data_source/models/database_model/verse_like.dart';
+import '../../../../data_source/models/database_model/verse_note.dart';
+
+
 
 part 'getuserquranaction_state.dart';
 
