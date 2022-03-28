@@ -46,9 +46,6 @@ class AppDataSource {
 
   sendMessage(int id, List<int> users) => _userApi.sendMessage(id, users);
 
-  messageRecitationDetails(int msgId, int recitationId) =>
-      _messageApi.messageDetails(msgId, recitationId);
-
   recitationDetails(int recitationId) =>
       _messageApi.recitationDetails(recitationId);
 
