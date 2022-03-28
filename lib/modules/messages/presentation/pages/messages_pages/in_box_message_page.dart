@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../core/exception_indicators/error_indicator.dart';
 import '../../../business_logic/cubit/messagetap_cubit.dart';
 import '../../widgets/box_message_item.dart';
 
@@ -33,7 +34,6 @@ class InBoxMessagePage extends StatelessWidget {
             child: Center(child: CircularProgressIndicator()),
           );
         }
-
         if (state is MessageRecieveSuccessState) {
           return Expanded(
             child: Padding(
@@ -47,7 +47,10 @@ class InBoxMessagePage extends StatelessWidget {
             ),
           );
         }
-        return const Expanded(child: ViewError(error: 'No Data'));
+        if (state is MessageRecieveErrorState) {
+          return  Expanded(child: ErrorIndicator(error: state.error));
+        }
+        return   const Expanded(child: Center(child: CircularProgressIndicator()));
       },
     );
   }

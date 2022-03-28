@@ -19,6 +19,8 @@ class InvalidData implements Exception {
 
 class ServerError implements Exception {}
 
+class EmptyListException implements Exception {}
+
 class AuthError implements Exception {
   String error;
   AuthError({
