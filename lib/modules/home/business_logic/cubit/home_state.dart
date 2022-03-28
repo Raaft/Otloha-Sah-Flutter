@@ -1,65 +1,10 @@
 part of 'home_cubit.dart';
 
-abstract class HomeState extends Equatable {
+abstract class HomeState {
   const HomeState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class HomeInitial extends HomeState {}
-
-class IsLikedTrueState extends HomeState {}
-
-class IsLikedFalseState extends HomeState {}
-
-class IsOnPressFalseState extends HomeState {}
-
-class IsOnPressTrueState extends HomeState {}
-
-class IsBookMarkTrueState extends HomeState {}
-
-class IsBookMarkFalseState extends HomeState {}
-
-class IsRecordedState extends HomeState {}
-
-class IsRecordedFileState extends HomeState {}
-
-class GetDurationState extends HomeState {}
-
-class ChangeDurationState extends HomeState {}
-
-class IsFloatingTrueMenuState extends HomeState {}
-
-class GetChapterByIdLoadingState extends HomeState {}
-
-class GetChapterByIdSucssState extends HomeState {}
-
-class GetChapterByIdErrorState extends HomeState {}
-
-class IsFloatingFalseMenuState extends HomeState {}
-
-class ChangeOpacityState extends HomeState {}
-
-class ChangeIsSelectedVerseState extends HomeState {}
-
-class ChangeIsPlayingState extends HomeState {}
-
-class PlayVersesState extends HomeState {}
-
-class PauseVersesState extends HomeState {}
-
-class BackToPreviousVerse extends HomeState {}
-
-class GoToNextVerse extends HomeState {}
-
-class ChangePageState extends HomeState {}
-
-class QuranChangeChapter extends HomeState {}
-
-class CheckIsVerseEmptyState extends HomeState {}
-
-class DoneCheckIsVerseEmptyState extends HomeState {}
 
 class HomeChangeIndex extends HomeState {
   final int index;
@@ -67,23 +12,10 @@ class HomeChangeIndex extends HomeState {
   const HomeChangeIndex(this.index);
 }
 
-class RecordHasPermission extends HomeState {
-  final bool hasPermission;
-  const RecordHasPermission({
-    required this.hasPermission,
-  });
-}
+class IsFloatingTrueMenuState extends HomeState {}
 
-class RecordIsPlay extends HomeState {
-  final bool isPlay;
-  const RecordIsPlay({
-    required this.isPlay,
-  });
-}
+class ChangePageState extends HomeState {}
 
-class RecordIsRecord extends HomeState {
-  final bool isRecord;
-  const RecordIsRecord({
-    required this.isRecord,
-  });
-}
+class ChangePageFalseState extends HomeState {}
+
+class ChangeOpacityState extends HomeState {}

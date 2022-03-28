@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
+<<<<<<< HEAD:lib/modules/quran/presentation/widget/tool_botton.dart
+import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
+import 'package:flutter_base/modules/data/model/verse_like.dart';
+import 'package:flutter_base/modules/data/repository/database_repository.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/add_note.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
+=======
 
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/add_note.dart';
+>>>>>>> main:lib/modules/home/presentation/widget/tool_botton.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
 
+<<<<<<< HEAD:lib/modules/quran/presentation/widget/tool_botton.dart
+=======
 import '../../../../core/utils/res/icons_app.dart';
 import '../../../../core/widgets/alert_dialog_full_screen.dart';
 import '../../../../data_source/local/database/database_repository.dart';
 import '../../../../data_source/models/database_model/verse_like.dart';
 
+>>>>>>> main:lib/modules/home/presentation/widget/tool_botton.dart
 class ToolBotton extends StatefulWidget {
   const ToolBotton({Key? key}) : super(key: key);
 
@@ -23,11 +36,11 @@ class ToolBotton extends StatefulWidget {
 class _ToolBottonState extends State<ToolBotton> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<QuranViewCubit, QuranViewState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
-        Map<int, List<int>>? selectedVerse = cubit.selectedIndex;
+        var cubit = QuranViewCubit.get(context);
+        var cubitRecitation = RecitationAddCubit.get(context);
         return Positioned(
           child: Align(
             alignment: Alignment.bottomCenter,
@@ -68,9 +81,9 @@ class _ToolBottonState extends State<ToolBotton> {
                   if (!cubit.isSelectedVerse)
                     GestureDetector(
                         onTap: () async {
-                          await cubit.init();
-                          cubit.changeIsRecorded();
-                          cubit.start();
+                          await cubitRecitation.init();
+                          await cubit.changeIsRecorded();
+                          await cubitRecitation.start();
                         },
                         child: const Icon(
                           Icons.mic_none_outlined,
@@ -93,11 +106,8 @@ class _ToolBottonState extends State<ToolBotton> {
                         (context) => AddNote(
                           title: '',
                           textFristVerse: cubit.getFirstWords(
-                              cubit.page!.verses![selectedVerse![0]![0]].text
-                                  .toString(),
-                              5),
+                              cubit.selectedVerses.first.uthmanicText ?? '', 5),
                         ),
-                        //TODO Add Parmeter To Add Note Widget!!
                         backgroundColor: AppColor.transparent,
                       );
                     },
@@ -134,18 +144,11 @@ class _ToolBottonState extends State<ToolBotton> {
 
                       DatabaseRepository().insertVerseLiked(
                         VerseLiked(
-                          idFromVerse:
-                              cubit.page!.verses![selectedVerse![0]![0]].id,
+                          idFromVerse: cubit.selectedVerses.first.id,
                           pageNumber: 20,
                           textFristVerse: cubit.getFirstWords(
-                              cubit.page!.verses![selectedVerse[0]![0]].text
-                                  .toString(),
-                              5),
-                          idToVerse: cubit
-                              .page!
-                              .verses![
-                                  selectedVerse[0]![selectedVerse.length - 1]]
-                              .id,
+                              cubit.selectedVerses.first.uthmanicText ?? '', 5),
+                          idToVerse: cubit.selectedVerses.first.id,
                           idPage: cubit.page!.id,
                         ),
                       );

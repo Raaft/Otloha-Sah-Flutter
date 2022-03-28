@@ -10,8 +10,13 @@ import 'package:flutter_base/data_source/models/auth_model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+<<<<<<< HEAD
+import '../../home/data/models/user/LogInErrorModel.dart';
+import '../data/models/user_model.dart';
+=======
 import '../../../data_source/models/auth_model/user_model.dart';
 import '../../../data_source/models/home_models/user_profile.dart';
+>>>>>>> main
 
 part 'auth_state.dart';
 

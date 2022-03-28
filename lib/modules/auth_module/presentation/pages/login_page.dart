@@ -46,7 +46,6 @@ class LoginPage extends StatelessWidget {
             cubit.saveProfile().then((value) {
               Get.offAll(() => const HomePage());
             });
-
           });
         }
       },
@@ -98,9 +97,9 @@ class LoginPage extends StatelessWidget {
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(
-                      error: (state.error['email'] != null)
-                          ? state.error['email'][0]
-                          : '')
+                          error: (state.error['email'] != null)
+                              ? state.error['email'][0]
+                              : '')
                       : const SizedBox(),
                 ],
               ),
@@ -119,11 +118,10 @@ class LoginPage extends StatelessWidget {
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(
-                      error: (state.error['password'] != null)
-                          ? state.error['password'][0]
-                          : '')
+                          error: (state.error['password'] != null)
+                              ? state.error['password'][0]
+                              : '')
                       : const SizedBox(),
-
                 ],
               ),
               (state is LogInErrorState)

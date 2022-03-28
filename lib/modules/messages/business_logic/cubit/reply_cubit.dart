@@ -10,7 +10,6 @@ import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:just_waveform/just_waveform.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 
@@ -159,8 +158,8 @@ class ReplyCubit extends Cubit<ReplyState> {
     }
   }
 
-  final BehaviorSubject<WaveformProgress> progressStream =
-      BehaviorSubject<WaveformProgress>();
+  // final BehaviorSubject<WaveformProgress> progressStream =
+  //     BehaviorSubject<WaveformProgress>();
 
   // Future<void> _initWave(String path, String wavePath) async {
   //   final audioFile = io.File(path);

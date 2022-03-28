@@ -6,8 +6,8 @@ import 'package:flutter_base/core/utils/constant/utils.dart';
 
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/popup_action_cubit.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/popup_actions_state.dart';
+import 'package:flutter_base/modules/recitations/business_logic/cubit/popup_action_cubit.dart';
+import 'package:flutter_base/modules/recitations/business_logic/cubit/popup_actions_state.dart';
 import 'package:flutter_base/modules/recitations/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

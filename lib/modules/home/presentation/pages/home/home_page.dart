@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/auth_navigator.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
+<<<<<<< HEAD
+import 'package:flutter_base/modules/quran/presentation/widget/float_menu_widget.dart';
+=======
 import '../../widget/float_menu_widget.dart';
 import '../../widget/init_data.dart';
+>>>>>>> main
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home';
@@ -37,14 +42,19 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = HomeCubit.get(context);
+        var cubitView = QuranViewCubit.get(context);
         return WillPopScope(
           onWillPop: () async {
             if (cubit.isFloatingMenu || state is IsFloatingTrueMenuState) {
               cubit.changeIsOnTruePressed();
+              cubitView.changeIsOnTruePressed();
               cubit.changeOpacity(1);
+              cubitView.changeOpacity(1);
               Future.delayed(const Duration(seconds: 5), () {
                 cubit.changeIsOnFalsePressed();
+                cubitView.changeIsOnFalsePressed();
                 cubit.changeOpacity(.2);
+                cubitView.changeOpacity(.2);
               });
               return false;
             } else if (_index > 0) {

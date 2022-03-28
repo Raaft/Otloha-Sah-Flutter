@@ -66,12 +66,6 @@
 @import just_audio;
 #endif
 
-#if __has_include(<just_waveform/JustWaveformPlugin.h>)
-#import <just_waveform/JustWaveformPlugin.h>
-#else
-@import just_waveform;
-#endif
-
 #if __has_include(<network_info_plus/FLTNetworkInfoPlusPlugin.h>)
 #import <network_info_plus/FLTNetworkInfoPlusPlugin.h>
 #else
@@ -115,7 +109,6 @@
   [FluttertoastPlugin registerWithRegistrar:[registry registrarForPlugin:@"FluttertoastPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [JustAudioPlugin registerWithRegistrar:[registry registrarForPlugin:@"JustAudioPlugin"]];
-  [JustWaveformPlugin registerWithRegistrar:[registry registrarForPlugin:@"JustWaveformPlugin"]];
   [FLTNetworkInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTNetworkInfoPlusPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
   [RecordPlugin registerWithRegistrar:[registry registrarForPlugin:@"RecordPlugin"]];
