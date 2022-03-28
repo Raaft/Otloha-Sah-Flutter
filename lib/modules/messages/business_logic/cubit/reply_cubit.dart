@@ -13,8 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 
-import 'package:rxdart/rxdart.dart';
-
 import '../../../../data_source/models/message_model/error_type.dart';
 import '../../../../data_source/models/message_model/reply_request.dart';
 import '../../../../data_source/remote/messages_service.dart';
