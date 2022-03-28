@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 
-import '../../data/models/setting.dart';
+import '../../../../data_source/models/setting_model/setting.dart';
 
 class ItemSubSetting extends StatelessWidget {
   const ItemSubSetting({

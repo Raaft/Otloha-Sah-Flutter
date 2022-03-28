@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/modules/home/data/models/utils/sub_section_item.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';
 
-import 'package:flutter_base/modules/settings/data/models/setting.dart';
+import 'package:flutter_base/data_source/models/setting_model/setting.dart';
+
+import '../../../home/presentation/widget/sub_section_item.dart';
 
 class ItemSetting extends StatelessWidget {
   const ItemSetting({Key? key, required this.settings, required this.change})
