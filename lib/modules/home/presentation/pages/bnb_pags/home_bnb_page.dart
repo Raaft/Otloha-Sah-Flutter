@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_base/core/data/chash_helper.dart';
+=======
+import 'package:flutter_base/data_source/cache_helper.dart';
+
+>>>>>>> main
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
@@ -8,7 +13,6 @@ import 'package:flutter_base/core/widgets/indicator.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/ads_item_view.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_main_sction.dart';
@@ -20,6 +24,11 @@ import 'package:flutter_base/modules/recitations/presentation/page/recitations_p
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+<<<<<<< HEAD
+=======
+import '../../widget/init_data.dart';
+
+>>>>>>> main
 class HomeBNBPage extends StatefulWidget {
   const HomeBNBPage({Key? key}) : super(key: key);
 

@@ -1,15 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_base/app_router.dart';
-import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
-import 'package:flutter_base/core/data/chash_helper.dart' as otloha_shaerd;
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/data_source/local/database/database_repository.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
-import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
@@ -35,6 +29,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+import 'package:flutter_base/data_source/cache_helper.dart' as otloha_shaerd;
+
+import 'package:flutter_base/app_router.dart';
+import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,36 +55,6 @@ void main() async {
   await otloha_shaerd.CacheHelper.init();
   await CacheHelper.init();
   token = await CacheHelper.getData(key: 'token') ?? '';
-  // isLogin = await CacheHelper.getData(key: 'isLogin') ?? false;
-
-/*
-  for (var item in List.generate(10, (index) => index)) {
-    FileStorage().download2(
-      'https://cdn-icons-png.flaticon.com/512/1581/1581942.png',
-      '/docs/text.png',
-      (received, total) {
-        if (total != -1) {
-          print('Downloads Main $item ' +
-              (received / total * 100).toStringAsFixed(0) +
-              '%');
-        }
-      },
-    ).then(
-      (value) {
-        print('File Path' + value!.path);
-      },
-    );
-  }
-
-  FileStorage.writeCounter('deoc/text.png',
-          'https://cdn-icons-png.flaticon.com/512/1581/1581942.png')
-      .then(
-    (value) {
-      print('File Path' + value!.path);
-    },
-  );
-  
-  **/
 
   var index = (CacheHelper.getData(key: languagesSelectedId) as int?) ?? 1;
 
@@ -229,8 +200,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute:
-            (token.isNotEmpty) ? HomePage.routeName : OnBoardPage.routeName,
+        initialRoute: (token.isNotEmpty || token == '')
+            ? HomePage.routeName
+            : OnBoardPage.routeName,
         onGenerateRoute: appRouter.generateRoute,
       ),
     );

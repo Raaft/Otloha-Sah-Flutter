@@ -17,7 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../core/data/chash_helper.dart';
+import '../../../../data_source/cache_helper.dart';
 import '../../../../core/utils/constant/constants.dart';
 import '../../../home/presentation/pages/home/home_page.dart';
 
@@ -148,6 +148,7 @@ class LoginPage extends StatelessWidget {
                         )
                       : BlocBuilder<HomeCubit, HomeState>(
                           builder: (context, state) {
+                            // var homeCubit = HomeCubit.get(context);
                             return AuthButton(
                               buttonText: tr('Login'),
                               onPressed: () {
