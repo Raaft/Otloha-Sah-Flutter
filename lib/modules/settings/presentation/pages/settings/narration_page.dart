@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/data_source/models/setting_model/init_data.dart';
-import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -14,6 +13,8 @@ import 'package:flutter_base/modules/settings/business_logic/narration/narration
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+
+import '../../../../../data_source/enums/download_types.dart';
 
 class NarrationPage extends StatefulWidget {
   const NarrationPage({Key? key}) : super(key: key);

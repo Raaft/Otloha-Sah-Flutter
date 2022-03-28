@@ -24,7 +24,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   updatePhone({required phone, required password}) {
     emit(UpdatePhoneLoadingState());
-    DataSource().updatePhone(phone: phone, password: password).then((value) {
+    AppDataSource().updatePhone(phone: phone, password: password).then((value) {
       print('UserRecitation is ===========> $value');
       emit(UpdatePhoneSuccessState(value));
     }).catchError((error) {
@@ -37,7 +37,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   updateEmail({required email, required password}) {
     emit(UpdateEmailLoadingState());
-    DataSource().updateEmail(email: email, password: password).then((value) {
+    AppDataSource().updateEmail(email: email, password: password).then((value) {
       print('UserRecitation is ===========> $value');
       emit(UpdateEmailSuccessState(value));
     }).catchError((error) {
@@ -47,7 +47,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
   regiAsTeacher({required FormData data}) {
     emit(RegisterAsTeacherLoadingState());
-    DataSource().registerAsATeacher(data).then((value) {
+    AppDataSource().registerAsATeacher(data).then((value) {
       print('RegisterAsTeacher is ===========> $value');
       emit(RegisterAsTeacherSuccessState(value));
     }).catchError((error) {
@@ -59,7 +59,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   changePassword(
       {required oldPassword, required newPassword, required confirmPassword}) {
     emit(ChangePasswordLoadingState());
-    DataSource()
+    AppDataSource()
         .changePassword(
             oldPassword: oldPassword,
             newPassword: newPassword,

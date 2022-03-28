@@ -1,10 +1,10 @@
-import 'package:flutter_base/modules/data/data_source/remote/data_source/message_api.dart';
-import 'package:flutter_base/modules/data/model/recitaion_details.dart';
+import 'package:flutter_base/data_source/data_source.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/data_source/data_source.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
 
+import '../../../../data_source/models/database_model/recitaion_details.dart';
 import '../../../../data_source/models/message_model/message_delails.dart';
 import '../../../../data_source/remote/messages_service.dart';
 
@@ -21,7 +21,7 @@ class MessagedetailsCubit extends Cubit<MessagedetailsState> {
   fetchMessages(int msgId, int recitationId) async {
     ayah = '';
     emit(MessageLoadingState());
-    MessageApi().messageDetails(msgId, recitationId).then((value) async {
+    AppDataSource().messageDetails(messageId: recitationId,  ).then((value) async {
       print('object $value');
       if (value != null) {
         messageDetails = value;
@@ -50,7 +50,7 @@ class MessagedetailsCubit extends Cubit<MessagedetailsState> {
   fetchRecitation(int recitationId) async {
     ayah = '';
     emit(MessageLoadingState());
-    MessageApi().recitationDetails(recitationId).then((value) async {
+    AppDataSource().recitationDetails(recitationId).then((value) async {
       print('object $value');
       if (value != null) {
         recitationDetails = value;

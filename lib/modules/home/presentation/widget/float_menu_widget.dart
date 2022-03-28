@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/data/model/page_marked.dart';
-import 'package:flutter_base/modules/data/model/verse_like.dart';
-import 'package:flutter_base/modules/data/model/verse_note.dart';
-import 'package:flutter_base/modules/data/repository/database_repository.dart';
+
 
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +8,10 @@ import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import '../../../../core/utils/res/icons_app.dart';
 import '../../../../core/utils/themes/color.dart';
+import '../../../../data_source/local/database/database_repository.dart';
+import '../../../../data_source/models/database_model/page_marked.dart';
+import '../../../../data_source/models/database_model/verse_like.dart';
+import '../../../../data_source/models/database_model/verse_note.dart';
 import '../../business_logic/cubit/home_cubit.dart';
 
 class FloatingMenu extends StatelessWidget {

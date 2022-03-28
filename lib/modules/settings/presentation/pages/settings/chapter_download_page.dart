@@ -5,7 +5,6 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings/narration_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings/reciters_page.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
@@ -16,6 +15,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/data_source/local/local_data_source/chapter_download_data_source.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+
+import '../../../../../data_source/enums/download_types.dart';
 
 class ChapterDownloadPage extends StatefulWidget {
   const ChapterDownloadPage({Key? key}) : super(key: key);

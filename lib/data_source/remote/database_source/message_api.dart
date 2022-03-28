@@ -1,11 +1,10 @@
 import 'package:flutter_base/core/network/api_base_helper.dart';
-import 'package:flutter_base/modules/data/data_source/remote/repositories/message_repositroy.dart';
-import 'package:flutter_base/modules/data/model/recitaion_details.dart';
+import 'package:flutter_base/data_source/models/database_model/recitaion_details.dart';
 
 import '../../../../../data_source/models/message_model/message_delails.dart';
 
-class MessageApi extends MessageRepositroy {
-  @override
+class MessageApi  {
+
   Future<MessageDelails?> messageDetails(int msgId, int recitationId) async {
     print('msg $msgId rcitation $recitationId');
     var value = await ApiBaseHelper()
@@ -16,7 +15,7 @@ class MessageApi extends MessageRepositroy {
     return msg;
   }
 
-  @override
+
   Future<RecitationDetails?> recitationDetails(int recitationId) async {
     print('rcitation $recitationId');
     var value =
