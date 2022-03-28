@@ -4,13 +4,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 
 import 'package:flutter_base/core/error/exceptions.dart';
-import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
-import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../data_source/data_source.dart';
+import '../../../../data_source/models/database_model/GeneralResponse.dart';
 import '../../../../data_source/models/message_model/message_model.dart';
 import '../../../../data_source/remote/messages_service.dart';
-
 
 part 'messagetap_state.dart';
 
@@ -104,9 +104,11 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     });
   }
 
-  getDetailsMessage({required int messageId}) {
+  getDetailsMessage({required int messageId, required int recitationId}) {
     emit(MessageDetailsLoadingState());
-    GetMessages().messageDetails(messageId: messageId).then((value) {
+    GetMessages()
+        .messageDetails(messageId: messageId, recitationId: recitationId)
+        .then((value) {
       messages = (value!.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
@@ -226,7 +228,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   getGeneraBoXMessage() async {
     emit(GenaralLoadingState());
-    UserRecitationApi().getGeneraBoXMessage()!.then((value) async {
+    AppDataSource().getGeneraBoXMessage()!.then((value) async {
       if (value != null) {
         generalResponses = value;
         /*  for (var element in generalResponses!) {

@@ -5,8 +5,6 @@ import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart'
 import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/constant/constants.dart';
-import '../../business_logic/cubit/home_cubit.dart';
 
 ///////////commit
 class HomeMainSection extends StatelessWidget {

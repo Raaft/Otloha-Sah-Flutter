@@ -1,9 +1,11 @@
-import 'package:flutter_base/modules/data/model/page_marked.dart';
-import 'package:flutter_base/modules/data/model/user.dart';
-import 'package:flutter_base/modules/data/model/user_recitation.dart';
-import 'package:flutter_base/modules/data/model/verse_like.dart';
-import 'package:flutter_base/modules/data/model/verse_note.dart';
+
+import 'package:flutter_base/data_source/models/database_model/page_marked.dart';
+import 'package:flutter_base/data_source/models/database_model/verse_like.dart';
+import 'package:flutter_base/data_source/models/database_model/verse_note.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../../../models/database_model/user.dart';
+import '../../../models/database_model/user_recitation.dart';
 
 part 'run_query.dart';
 part '../dao/dao_user.dart';

@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
-import 'package:flutter_base/modules/data/model/user_recitation.dart';
+
 import 'package:flutter_base/modules/home/business_logic/cubit/play_button_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
@@ -25,7 +24,9 @@ import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:path/path.dart' as p;
 
-import '../../../../lib_edit/wave/just_waveform.dart';
+import '../../../../data_source/models/database_model/user_recitation.dart';
+import '../../../../data_source/remote/database_source/user_recitation_api.dart';
+
 
 part 'home_state.dart';
 

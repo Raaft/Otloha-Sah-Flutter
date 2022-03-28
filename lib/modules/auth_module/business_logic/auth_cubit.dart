@@ -5,10 +5,12 @@ import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/data_source/data_source.dart';
+
 import 'package:flutter_base/data_source/models/auth_model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../data_source/models/auth_model/user_model.dart';
 import '../../../data_source/models/home_models/LogInErrorModel.dart';
 import '../../../data_source/models/home_models/user_prfile.dart';
 
@@ -51,7 +53,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LogInLoadingState());
 
     try {
-      Response response = await Auth().userLogIn(
+      Response response = await AppDataSource().userLogIn(
         email: email,
         password: password,
       );
@@ -62,13 +64,13 @@ class AuthCubit extends Cubit<AuthState> {
       emit(LogInErrorState(error.errors!));
     }
 
-    print(await Auth().getProfile());
+    print(await AppDataSource().getProfile());
   }
 
   Future<void> userRegister(
       {email, username, password1, password2, birthdate, phone, gender}) async {
     emit(RegisterLoadingState());
-    await Auth()
+    await AppDataSource()
         .userRegister(
             birthdate: birthdate,
             email: email,
@@ -87,14 +89,14 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   saveUsers() async {
-    UserProfile? user = await DataSource().myProfile();
+    UserProfile? user = await AppDataSource().myProfile();
     try {
       if (user != null) {
         CacheHelper.saveData(
             key: userProfileLogined, value: jsonEncode(userModel!.toJson()));
         if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
           var teacher =
-              await DataSource().userProfile(user.favoriteTeacher ?? 0);
+              await AppDataSource().userProfile(user.favoriteTeacher ?? 0);
           if (teacher != null) {
             CacheHelper.saveData(
                 key: favTeacher, value: jsonEncode(teacher.toJson()));
@@ -109,7 +111,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> userLogOut() async {
     emit(LogOutLoadingState());
-    await Auth().logOut().then((value) {
+    await AppDataSource().logOut().then((value) {
       CacheHelper.clearData(key: 'token');
       token = '';
       isLogin = false;

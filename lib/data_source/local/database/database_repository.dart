@@ -1,7 +1,9 @@
-import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
-import 'package:flutter_base/modules/data/model/page_marked.dart';
-import 'package:flutter_base/modules/data/model/verse_like.dart';
-import 'package:flutter_base/modules/data/model/verse_note.dart';
+
+
+import 'package:flutter_base/data_source/local/database/database/database.dart';
+import 'package:flutter_base/data_source/models/database_model/verse_note.dart';
+
+import '../../models/database_model/verse_like.dart';
 
 class DatabaseRepository {
   static final AppDatabase _database = AppDatabase();
@@ -21,9 +23,9 @@ class DatabaseRepository {
   // Verse Liked
   findAllVerseLikeds() async => await verseLikedDao!.findAll();
   findVerseLikedById(int id) async => await verseLikedDao!.findById(id);
-  insertVerseLiked(VerseLiked verseLiked) async =>
+  insertVerseLiked( verseLiked) async =>
       await verseLikedDao!.insert(verseLiked);
-  updateVerseLiked(VerseLiked verseLiked) async =>
+  updateVerseLiked( verseLiked) async =>
       await verseLikedDao!.update(verseLiked);
   deleteVerseLiked(int id) async => await verseLikedDao!.delete(id);
 
@@ -39,9 +41,9 @@ class DatabaseRepository {
   // Page Marked
   findAllPageMarkeds() async => await pageMarkedDao!.findAll();
   findPageMarkedById(int id) async => await pageMarkedDao!.findById(id);
-  insertPageMarked(PageMarked pageMarked) async =>
+  insertPageMarked( pageMarked) async =>
       await pageMarkedDao!.insert(pageMarked);
-  updatePageMarked(PageMarked pageMarked) async =>
+  updatePageMarked( pageMarked) async =>
       await pageMarkedDao!.update(pageMarked);
   deletePageMarked(int id) async => await pageMarkedDao!.delete(id);
 

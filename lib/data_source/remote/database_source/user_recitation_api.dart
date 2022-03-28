@@ -3,14 +3,13 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
-import 'package:flutter_base/modules/data/data_source/remote/repositories/user_recitation_repository.dart';
-import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
-import 'package:flutter_base/modules/data/model/recitations.dart';
-import 'package:flutter_base/modules/data/model/user_recitation.dart';
+import 'package:flutter_base/data_source/models/database_model/GeneralResponse.dart';
+import 'package:flutter_base/data_source/models/database_model/recitations.dart';
+import 'package:flutter_base/data_source/models/database_model/user_recitation.dart';
 
-class UserRecitationApi extends UserRecitationRepository {
-  @override
+
+class UserRecitationApi  {
+
   Future<UserRecitation>? saveUserReciataion(
       {required UserRecitation userRecitation}) async {
     var map = userRecitation.toMap();
@@ -37,7 +36,7 @@ class UserRecitationApi extends UserRecitationRepository {
     return userRecitation;
   }
 
-  @override
+
   Future<Recitations?>? getUserReciataions() async {
     Response? response = await ApiBaseHelper().getHTTP('/api/v1/recitations/');
 
@@ -53,7 +52,7 @@ class UserRecitationApi extends UserRecitationRepository {
     return userRecitatios;
   }
 
-  @override
+
   Future<List<GeneralResponse>?>? getGeneraBoXMessage() async {
     Response? response =
         await ApiBaseHelper().getHTTP('$baseUrl/api/v1/recitations/general/');

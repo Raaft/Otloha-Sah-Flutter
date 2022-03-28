@@ -1,16 +1,123 @@
+import 'package:dio/dio.dart';
 import 'package:file/src/interface/file.dart';
+import 'package:flutter_base/data_source/local/database/database_repository.dart';
+import 'package:flutter_base/data_source/models/database_model/page_marked.dart';
+import 'package:flutter_base/data_source/models/database_model/recitaion_details.dart';
+import 'package:flutter_base/data_source/models/database_model/user_recitation.dart';
+import 'package:flutter_base/data_source/models/database_model/verse_like.dart';
+import 'package:flutter_base/data_source/models/database_model/verse_note.dart';
 
 import 'package:flutter_base/data_source/models/home_models/user_prfile.dart';
+import 'package:flutter_base/data_source/models/message_model/message_delails.dart';
 import 'package:flutter_base/data_source/models/message_model/reply_request.dart';
+import 'package:flutter_base/data_source/remote/database_source/message_api.dart';
+import 'package:flutter_base/data_source/remote/database_source/user_api.dart';
+import 'package:flutter_base/data_source/remote/database_source/user_recitation_api.dart';
 import 'package:flutter_base/data_source/remote/messages_service.dart';
 import 'package:flutter_base/data_source/remote/profile_services.dart';
+import 'package:flutter_base/data_source/remote/teacher_servises.dart';
+import 'package:flutter_base/data_source/remote/update_profile_web_servises.dart';
 
-import 'repository/auth_repo.dart';
+import 'remote/auth_services.dart';
 
-class DataSource {
-  final AuthRepository _authRepository = AuthRepository();
+class AppDataSource {
+  final AuthApi _authApi = AuthApi();
   final ProfileServices _profileServices = ProfileServices();
   final GetMessages _getMessages = GetMessages();
+  final UpdateProfile _updateProfile = UpdateProfile();
+  final TeacherDataService _teacherDataService = TeacherDataService();
+  final DatabaseRepository _databaseRepository = DatabaseRepository();
+  final MessageApi _messageApi = MessageApi();
+  final UserApi _userApi = UserApi();
+  final UserRecitationApi _userRecitationApi = UserRecitationApi();
+
+  saveUserReciataion({required userRecitation}) =>
+      _userRecitationApi.saveUserReciataion(userRecitation: userRecitation);
+
+  getUserReciataions() => _userRecitationApi.getUserReciataions();
+
+  getGeneraBoXMessage() => _userRecitationApi.getGeneraBoXMessage();
+
+  getRecitationTeacher() => _userRecitationApi.getTeacher();
+
+  getTeacher() => _userApi.getTeacher();
+
+  getStudents() => _userApi.getStudents();
+
+  sendMessage(int id, List<int> users) => _userApi.sendMessage(id, users);
+
+  messageRecitationDetails(int msgId, int recitationId) =>
+      _messageApi.messageDetails(msgId, recitationId);
+
+  recitationDetails(int recitationId) =>
+      _messageApi.recitationDetails(recitationId);
+
+  // Verse Liked
+
+  findAllVerseLikeds() => _databaseRepository.findAllVerseLikeds();
+
+  findVerseLikedById(int id) => _databaseRepository.findVerseLikedById(id);
+
+  insertVerseLiked(verseLiked) =>
+      _databaseRepository.insertVerseLiked(verseLiked);
+
+  updateVerseLiked(verseLiked) =>
+      _databaseRepository.updateVerseLiked(verseLiked);
+
+  deleteVerseLiked(int id) => _databaseRepository.deleteVerseLiked(id);
+
+  // Verse Note
+  findAllVerseNotes() => _databaseRepository.findAllVerseNotes();
+
+  findVerseNoteById(int id) => _databaseRepository.findVerseNoteById(id);
+
+  insertVerseNote(verseNote) => _databaseRepository.insertVerseNote(verseNote);
+
+  updateVerseNote(verseNote) => _databaseRepository.updateVerseNote(verseNote);
+
+  deleteVerseNote(int id) => _databaseRepository.deleteVerseNote(id);
+
+  // Page Marked
+  findAllPageMarkeds() => _databaseRepository.findAllPageMarkeds();
+
+  findPageMarkedById(int id) => _databaseRepository.findPageMarkedById(id);
+
+  insertPageMarked(pageMarked) =>
+      _databaseRepository.insertPageMarked(pageMarked);
+
+  updatePageMarked(pageMarked) =>
+      _databaseRepository.updatePageMarked(pageMarked);
+
+  deletePageMarked(int id) => _databaseRepository.deletePageMarked(id);
+
+  markAsFavTeacher({required int? id}) async {
+    return _teacherDataService.markAsFavTeacher(id: id);
+  }
+
+  changePassword(
+      {required oldPassword, required newPassword, required confirmPassword}) {
+    return _updateProfile.changePassword(
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        confirmPassword: confirmPassword);
+  }
+
+  updateEmail({required email, required password}) {
+    return _updateProfile.updateEmail(email: email, password: password);
+  }
+
+  updatePhone({required phone, required password}) {
+    return _updateProfile.updatePhone(phone: phone, password: password);
+  }
+
+  updateProfile({required email, required password}) {
+    // TODO: implement updateProfile
+    throw UnimplementedError();
+  }
+
+  registerAsATeacher(data) {
+    return _updateProfile.registerAsATeacher(data);
+  }
 
   getMessageListing() {
     return _getMessages.getMessageListing();
@@ -24,11 +131,13 @@ class DataSource {
     return _getMessages.messgasRecieve();
   }
 
-  messageDetails({required int messageId}) {
-    return _getMessages.messageDetails(messageId: messageId);
+  Future<Response<dynamic>?> messageDetails(
+      {required int messageId, required int recitationId}) {
+    return _getMessages.messageDetails(
+        messageId: messageId, recitationId: recitationId);
   }
 
-  sendMessage({required int messageId}) async {
+  sendRecitationsMessage({required int messageId}) async {
     return _getMessages.sendMessage(messageId: messageId);
   }
 
@@ -94,30 +203,30 @@ class DataSource {
   Future<UserProfile> userProfile(int id) => _profileServices.myProfile();
 
   userLogIn({email, password}) =>
-      _authRepository.userLogIn(email: email, password: password);
+      _authApi.userLogIn(email: email, password: password);
 
-  logOut({String? auth}) => _authRepository.logOut(auth: auth);
+  logOut({String? auth}) => _authApi.logOut(auth: auth);
 
-  passwordReset({email}) => _authRepository.passwordReset(email: email);
+  passwordReset({email}) => _authApi.passwordReset(email: email);
 
   passwordResetConfirm({uid, token, new_password1, new_password2}) =>
-      _authRepository.passwordResetConfirm(
+      _authApi.passwordResetConfirm(
           uid: uid,
           new_password1: new_password1,
           new_password2: new_password2,
           token: token);
 
   passwordChange({old_password, new_password1, new_password2}) =>
-      _authRepository.passwordChange(
+      _authApi.passwordChange(
           old_password: old_password,
           new_password2: new_password2,
           new_password1: new_password1);
 
-  refreshToken() => _authRepository.refreshToken();
+  refreshToken() => _authApi.refreshToken();
 
   userRegister(
           {email, username, password1, password2, birthdate, phone, gender}) =>
-      _authRepository.userRegister(
+      _authApi.userRegister(
           email: email,
           birthdate: birthdate,
           gender: gender,
@@ -126,5 +235,5 @@ class DataSource {
           phone: phone,
           username: username);
 
-  getProfile() => _authRepository.getProfile();
+  getProfile() => _authApi.getProfile();
 }

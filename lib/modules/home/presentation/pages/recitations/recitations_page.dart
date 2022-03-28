@@ -1,13 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/data/model/recitations.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/recitation_details.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
@@ -15,6 +12,8 @@ import 'package:flutter_base/modules/settings/presentation/widgets/view_error.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
+
+import '../../../../../data_source/models/database_model/recitations.dart';
 
 class RecitationsPage extends StatefulWidget {
   const RecitationsPage({Key? key}) : super(key: key);

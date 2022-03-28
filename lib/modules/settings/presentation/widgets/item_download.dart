@@ -5,8 +5,9 @@ import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/data/enums/download_types.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+
+import '../../../../data_source/enums/download_types.dart';
 
 class ItemDownload extends StatefulWidget {
   const ItemDownload({

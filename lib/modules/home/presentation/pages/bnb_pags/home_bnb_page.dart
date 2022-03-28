@@ -20,7 +20,6 @@ import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiac
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utils/constant/constants.dart';
 import '../../widget/init_data.dart';
 
 class HomeBNBPage extends StatefulWidget {

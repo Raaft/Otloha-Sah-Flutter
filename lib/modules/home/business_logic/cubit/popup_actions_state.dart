@@ -1,4 +1,5 @@
-import 'package:flutter_base/modules/data/model/recitations.dart';
+
+import '../../../../data_source/models/database_model/recitations.dart';
 
 abstract class PopupActionsState {}
 

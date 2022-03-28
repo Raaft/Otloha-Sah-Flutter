@@ -9,9 +9,9 @@ import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
-import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
 import 'package:get/get.dart';
 
+import '../../../../data_source/models/database_model/GeneralResponse.dart';
 import '../../../../data_source/models/home_models/user_prfile.dart';
 
 class SubMessageItem extends StatelessWidget {

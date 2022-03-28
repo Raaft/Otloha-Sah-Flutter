@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:just_waveform/just_waveform.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import 'package:rxdart/rxdart.dart';
