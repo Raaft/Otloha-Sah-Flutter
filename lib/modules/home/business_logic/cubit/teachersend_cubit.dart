@@ -1,9 +1,9 @@
 import 'package:flutter_base/core/error/exceptions.dart';
+import 'package:flutter_base/data_source/data_source.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../data_source/models/database_model/teacher_response_entity.dart';
-import '../../../../data_source/remote/database_source/user_api.dart';
 
 part 'teachersend_state.dart';
 
@@ -15,7 +15,7 @@ class TeachersendCubit extends Cubit<TeachersendState> {
 
   getTeacher() {
     emit(TeacherLoadingState());
-    UserApi().getTeacher()!.then((value) async {
+    AppDataSource().getTeacher()!.then((value) async {
       if (value != null && value.results != null && value.results!.isNotEmpty) {
         teachers = value as TeacherResponse?;
 
@@ -39,6 +39,6 @@ class TeachersendCubit extends Cubit<TeachersendState> {
   filter({String? qurey}) {}
 
   Future<String?>? sendMessage(List<int> list, int id) async {
-    return await UserApi().sendMessage(id, list);
+    return await AppDataSource().sendMessage(id, list);
   }
 }

@@ -25,7 +25,7 @@ import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:path/path.dart' as p;
 
 import '../../../../data_source/models/database_model/user_recitation.dart';
-import '../../../../data_source/remote/database_source/user_recitation_api.dart';
+import '../../../../data_source/remote/user_recitation_api.dart';
 
 
 part 'home_state.dart';
