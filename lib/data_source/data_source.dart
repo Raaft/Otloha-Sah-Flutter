@@ -9,10 +9,10 @@ import 'package:flutter_base/data_source/remote/profile_services.dart';
 import 'package:flutter_base/data_source/remote/teacher_servises.dart';
 import 'package:flutter_base/data_source/remote/update_profile_web_servises.dart';
 
-import 'repository/auth_repo.dart';
+import 'remote/auth_services.dart';
 
 class DataSource {
-  final AuthRepository _authRepository = AuthRepository();
+  final AuthApi _authApi = AuthApi();
   final ProfileServices _profileServices = ProfileServices();
   final GetMessages _getMessages = GetMessages();
   final UpdateProfile _updateProfile = UpdateProfile();
@@ -131,30 +131,30 @@ class DataSource {
   Future<UserProfile> userProfile(int id) => _profileServices.myProfile();
 
   userLogIn({email, password}) =>
-      _authRepository.userLogIn(email: email, password: password);
+      _authApi.userLogIn(email: email, password: password);
 
-  logOut({String? auth}) => _authRepository.logOut(auth: auth);
+  logOut({String? auth}) => _authApi.logOut(auth: auth);
 
-  passwordReset({email}) => _authRepository.passwordReset(email: email);
+  passwordReset({email}) => _authApi.passwordReset(email: email);
 
   passwordResetConfirm({uid, token, new_password1, new_password2}) =>
-      _authRepository.passwordResetConfirm(
+      _authApi.passwordResetConfirm(
           uid: uid,
           new_password1: new_password1,
           new_password2: new_password2,
           token: token);
 
   passwordChange({old_password, new_password1, new_password2}) =>
-      _authRepository.passwordChange(
+      _authApi.passwordChange(
           old_password: old_password,
           new_password2: new_password2,
           new_password1: new_password1);
 
-  refreshToken() => _authRepository.refreshToken();
+  refreshToken() => _authApi.refreshToken();
 
   userRegister(
           {email, username, password1, password2, birthdate, phone, gender}) =>
-      _authRepository.userRegister(
+      _authApi.userRegister(
           email: email,
           birthdate: birthdate,
           gender: gender,
@@ -163,5 +163,5 @@ class DataSource {
           phone: phone,
           username: username);
 
-  getProfile() => _authRepository.getProfile();
+  getProfile() => _authApi.getProfile();
 }

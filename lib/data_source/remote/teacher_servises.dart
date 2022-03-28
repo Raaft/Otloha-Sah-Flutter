@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
-import 'package:flutter_base/modules/teachers/data/teacher_repo/teacher_repo.dart';
 
 class TeacherDataService {
   @override
