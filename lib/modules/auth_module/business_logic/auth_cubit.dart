@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data_source/models/auth_model/user_model.dart';
-import '../../../data_source/models/home_models/user_prfile.dart';
+import '../../../data_source/models/home_models/user_profile.dart';
 
 part 'auth_state.dart';
 

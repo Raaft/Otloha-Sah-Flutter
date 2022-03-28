@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../data_source/models/database_model/recitaion_details.dart';
-import '../../../../../data_source/models/home_models/user_prfile.dart';
+import '../../../../../data_source/models/home_models/user_profile.dart';
 
 class RecitationDetailsPage extends StatefulWidget {
   const RecitationDetailsPage({Key? key, required this.recitationId})

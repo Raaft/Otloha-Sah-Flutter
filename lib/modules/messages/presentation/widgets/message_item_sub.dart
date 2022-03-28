@@ -12,7 +12,7 @@ import 'package:flutter_base/modules/recitations/presentation/widget/popup_recit
 import 'package:get/get.dart';
 
 import '../../../../data_source/models/database_model/GeneralResponse.dart';
-import '../../../../data_source/models/home_models/user_prfile.dart';
+import '../../../../data_source/models/home_models/user_profile.dart';
 
 class SubMessageItem extends StatelessWidget {
   const SubMessageItem({

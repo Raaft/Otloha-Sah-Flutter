@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/data_source/local/database/database_repository.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
@@ -37,8 +36,10 @@ import 'package:flutter_base/modules/teachers/presentation/page/students_page.da
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'data_source/local/database/database_repository.dart';
+
 class AppRouter {
-  late DatabaseRepository databaseRepository;
+   late DatabaseRepository databaseRepository;
 
   AppRouter() {
     databaseRepository = DatabaseRepository();

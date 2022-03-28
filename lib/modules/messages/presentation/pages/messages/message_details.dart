@@ -19,7 +19,7 @@ import 'package:flutter_base/modules/messages/presentation/widgets/message_popup
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 
-import '../../../../../data_source/models/home_models/user_prfile.dart';
+import '../../../../../data_source/models/home_models/user_profile.dart';
 import '../../../../../data_source/models/message_model/message_delails.dart';
 
 class MessageDetailsPage extends StatefulWidget {

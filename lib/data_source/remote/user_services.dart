@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
-import 'package:flutter_base/data_source/models/home_models/user_prfile.dart';
+import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
 
 import '../../core/network/api_base_helper.dart';
 

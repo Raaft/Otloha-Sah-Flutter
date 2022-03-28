@@ -5,7 +5,7 @@ import 'package:file/src/interface/file.dart';
 import 'package:flutter_base/data_source/local/database/database_repository.dart';
 
 
-import 'package:flutter_base/data_source/models/home_models/user_prfile.dart';
+import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
 import 'package:flutter_base/data_source/models/message_model/reply_request.dart';
 import 'package:flutter_base/data_source/remote/recitation_services.dart';
 import 'package:flutter_base/data_source/remote/messages_service.dart';
