@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:quran_widget_flutter/model/page.dart' as page_obj;
@@ -26,6 +28,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
   FlutterAudioRecorder2? _recorder;
   Recording? _current;
   RecordingStatus _currentStatus = RecordingStatus.Unset;
+  AudioPlayer audioPlayer = AudioPlayer();
 
   int _narrationId = 1;
   int _recitationId = 1;
@@ -33,7 +36,6 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
   bool checkVersesValue = false;
   List<Verse> selectedVerses = [];
 
-  Map<int, List<int>>? selectedIndex = {};
   page_obj.Page? page;
 
   final BehaviorSubject<WaveformProgress> progressStream =
@@ -56,7 +58,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
       bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
 
       if (hasPermission) {
-        String customPath = '/File_';
+        String customPath = '/FilesGeneratedRecoed';
         Directory appDocDirectory;
 
         if (Platform.isIOS) {
@@ -86,8 +88,13 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
         print('You must accept permissions');
       }
     } catch (e) {
-      print('init Error' + e.toString());
+      print('init Error ' + e.toString());
     }
+  }
+
+  void onPlayAudio() async {
+    audioPlayer = AudioPlayer();
+    await audioPlayer.play(current!.path!, isLocal: true);
   }
 
   Future<Stream?> start() async {
@@ -97,7 +104,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
 
       _current = recording;
 
-      const tick = Duration(milliseconds: 50);
+      const tick = Duration(milliseconds: 500);
       Timer.periodic(tick, (Timer t) async {
         if (_currentStatus == RecordingStatus.Stopped) {
           t.cancel();
@@ -140,7 +147,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
   }
 
   saveRecitation() async {
-    String customPath = '/FilesGenerated/';
+    String customPath = '/FilesGeneratedWave';
     Directory appDocDirectory;
 
     if (Platform.isIOS) {
@@ -152,7 +159,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
     final waveFile = File(p.join(appDocDirectory.path,
         '$customPath${DateTime.now().microsecondsSinceEpoch}.wave'));
 
-    await _initWave(_current!.path!, waveFile);
+    // await _initWave(_current!.path!, waveFile);
 
     List<int> recordedVersesId = [];
     for (var verse in selectedVerses) {
@@ -175,25 +182,18 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
     return _recitationId;
   }
 
-  getName() {
-    print(page!.verses.toString());
-    String? text = '';
+  setSelectedVerses(List<Verse> verses) {
+    print('setSelectedVerses ' + verses.toString());
+    selectedVerses.addAll(verses);
+    emit(state);
+  }
 
-    for (var element in page!.verses!) {
-      if (element.id == _getVerses()) {
-        text = element.text;
-        break;
-      }
-    }
+  getName() {
+    String? text = selectedVerses.first.uthmanicText;
 
     print('name ' + getFirstWords(text ?? '', 5));
 
     return getFirstWords(text ?? '', 5);
-  }
-
-  int? _getVerses() {
-    print('object ${selectedIndex![0]} ${selectedIndex![0]![0]}');
-    return selectedIndex![0]![0];
   }
 
   String getFirstWords(String sentence, int wordCounts) {

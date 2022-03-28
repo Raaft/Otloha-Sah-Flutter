@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/data/model/page_marked.dart';
-import 'package:flutter_base/modules/data/model/verse_like.dart';
-import 'package:flutter_base/modules/data/model/verse_note.dart';
-import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
 

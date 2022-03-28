@@ -48,7 +48,7 @@ class RecordedFileTool extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        cubit.onPlayAudio();
+                        cubitRecitation.onPlayAudio();
                       },
                       child: Image.asset(AppIcons.playIcon,
                           color: AppColor.white, width: 30),

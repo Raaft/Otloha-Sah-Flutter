@@ -27,7 +27,6 @@ class _ToolBottonState extends State<ToolBotton> {
       builder: (context, state) {
         var cubit = QuranViewCubit.get(context);
         var cubitRecitation = RecitationAddCubit.get(context);
-        Map<int, List<int>>? selectedVerse = cubit.selectedIndex;
         return Positioned(
           child: Align(
             alignment: Alignment.bottomCenter,
@@ -69,8 +68,8 @@ class _ToolBottonState extends State<ToolBotton> {
                     GestureDetector(
                         onTap: () async {
                           await cubitRecitation.init();
-                          cubit.changeIsRecorded();
-                          cubitRecitation.start();
+                          await cubit.changeIsRecorded();
+                          await cubitRecitation.start();
                         },
                         child: const Icon(
                           Icons.mic_none_outlined,
@@ -93,9 +92,7 @@ class _ToolBottonState extends State<ToolBotton> {
                         (context) => AddNote(
                           title: '',
                           textFristVerse: cubit.getFirstWords(
-                              cubit.page!.verses![selectedVerse![0]![0]].text
-                                  .toString(),
-                              5),
+                              cubit.selectedVerses.first.uthmanicText ?? '', 5),
                         ),
                         backgroundColor: AppColor.transparent,
                       );
@@ -133,18 +130,11 @@ class _ToolBottonState extends State<ToolBotton> {
 
                       DatabaseRepository().insertVerseLiked(
                         VerseLiked(
-                          idFromVerse:
-                              cubit.page!.verses![selectedVerse![0]![0]].id,
+                          idFromVerse: cubit.selectedVerses.first.id,
                           pageNumber: 20,
                           textFristVerse: cubit.getFirstWords(
-                              cubit.page!.verses![selectedVerse[0]![0]].text
-                                  .toString(),
-                              5),
-                          idToVerse: cubit
-                              .page!
-                              .verses![
-                                  selectedVerse[0]![selectedVerse.length - 1]]
-                              .id,
+                              cubit.selectedVerses.first.uthmanicText ?? '', 5),
+                          idToVerse: cubit.selectedVerses.first.id,
                           idPage: cubit.page!.id,
                         ),
                       );

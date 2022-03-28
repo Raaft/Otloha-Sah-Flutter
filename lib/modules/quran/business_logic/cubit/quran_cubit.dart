@@ -89,8 +89,7 @@ class QuranViewCubit extends Cubit<QuranViewState> {
         ((CacheHelper.getData(key: chapterSelectedName) ?? '') as String);
     emit(QuranChangeChapter());
   }
-
-  Map<int, List<int>>? selectedIndex = {};
+  
   page_obj.Page? page;
 
   chapter.Chapter? myChapter;
@@ -148,7 +147,6 @@ class QuranViewCubit extends Cubit<QuranViewState> {
 
   late ConcatenatingAudioSource _playlist;
 
-  String prefix = 'http://165.232.114.22';
   Future<void> _setInitialPlaylist(List<String?> uris) async {
     List<AudioSource> audios = [];
     for (String? uri in uris) {
@@ -293,29 +291,12 @@ class QuranViewCubit extends Cubit<QuranViewState> {
 
   int recitationId = 0;
 
-  void addSelected(Map<int, List<int>>? values) {
-    selectedIndex = values;
-  }
-
   getName() {
-    print(page!.verses.toString());
-    String? text = '';
-
-    for (var element in page!.verses!) {
-      if (element.id == _getVerses()) {
-        text = element.text;
-        break;
-      }
-    }
+    String? text = selectedVerses.first.uthmanicText;
 
     print('name ' + getFirstWords(text ?? '', 5));
 
     return getFirstWords(text ?? '', 5);
-  }
-
-  int? _getVerses() {
-    print('object ${selectedIndex![0]} ${selectedIndex![0]![0]}');
-    return selectedIndex![0]![0];
   }
 
 /*
@@ -345,10 +326,10 @@ class QuranViewCubit extends Cubit<QuranViewState> {
     changeIsLiked();
     DatabaseRepository().insertVerseLiked(
       VerseLiked(
-        idFromVerse: selectedVerses[0].id,
+        idFromVerse: selectedVerses.first.id,
         pageNumber: page!.pageNumber ?? 0,
         textFristVerse: getName(),
-        idToVerse: selectedVerses[selectedVerses.length - 1].id,
+        idToVerse: selectedVerses.last.id,
         idPage: page!.id ?? 0,
       ),
     );
