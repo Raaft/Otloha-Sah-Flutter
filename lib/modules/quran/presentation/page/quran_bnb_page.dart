@@ -143,15 +143,16 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                     onTap: (val, isVerSelected, values, selectedVerses) {
                       print('onTap ' + val);
                       // cubit.changeIsOnTruePressed();
-                      // cubit.changeOpacity(.5);
+                      cubit!.changeOpacity(.5);
+
                       //print(selectedVerses);
                       addCubit!.setSelectedVerses(selectedVerses!);
                       cubit!.setSelectedVerses(selectedVerses);
                       print('Get Name ' + cubit!.getName());
                       cubit!.isVerSelected(isVerSelected);
-                      // Future.delayed(const Duration(seconds: 5), () {
-                      //   cubit.changeOpacity(.2);
-                      // });
+                      Future.delayed(const Duration(seconds: 5), () {
+                        cubit!.changeOpacity(.2);
+                      });
                     },
                     onLongTap: (val, isVerSelected, values, selectedVerses) {
                       print('onLongTap ' + val);
