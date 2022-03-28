@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:dio/dio.dart';
 import 'package:file/src/interface/file.dart';
 import 'package:flutter_base/data_source/local/database/database_repository.dart';

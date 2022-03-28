@@ -213,18 +213,6 @@ class PagesBookMarkPage extends StatelessWidget {
     );
   }
 
-  Widget _itemBuild(
-    String name,
-    String? note,
-    Function() action,
-  ) {
-    return UserLiked(
-      userName: name,
-      userImage: AppIcons.quran2Icon,
-      note: note,
-      action: action,
-    );
-  }
 }
 
 class ItemBookMark extends StatelessWidget {

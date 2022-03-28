@@ -48,7 +48,7 @@ class HomeCubit extends Cubit<HomeState> {
     _playlist.clear();
     List<AudioSource> audios = [];
 
-    if (selectedVerses == null || selectedVerses.isEmpty) {
+    if (selectedVerses.isEmpty) {
       for (var verse in recitationVerses!) {
         audios.add(AudioSource.uri(Uri.parse('$prefix${verse.record}')));
       }
