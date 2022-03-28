@@ -9,7 +9,7 @@ import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
-import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
+import 'package:flutter_base/modules/data/model/general_response.dart';
 import 'package:flutter_base/modules/recitations/presentation/widget/popup_recitation.dart';
 import 'package:get/get.dart';
 

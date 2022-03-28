@@ -1,10 +1,7 @@
 part of 'getuserquranaction_cubit.dart';
 
-abstract class GetUserQuranActionState extends Equatable {
+abstract class GetUserQuranActionState {
   const GetUserQuranActionState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class GetUserQuranActionInitial extends GetUserQuranActionState {}

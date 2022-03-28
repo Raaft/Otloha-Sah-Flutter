@@ -51,14 +51,10 @@ class OnBoardPage extends StatelessWidget {
                     ],
                   ),
                   BlocConsumer<AuthCubit, AuthState>(
-                    listener: (context, state) {
-                      // TODO: implement listener
-                    },
+                    listener: (context, state) {},
                     builder: (context, state) {
                       return BlocConsumer<AuthCubit, AuthState>(
-                        listener: (context, state) {
-                          // TODO: implement listener
-                        },
+                        listener: (context, state) {},
                         builder: (context, state) {
                           var cubit = AuthCubit.get(context);
                           return AuthButton(

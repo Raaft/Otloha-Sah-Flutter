@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../home/data/models/user/LogInErrorModel.dart';
-import '../data/models/UserModel.dart';
+import '../data/models/user_model.dart';
 
 part 'auth_state.dart';
 

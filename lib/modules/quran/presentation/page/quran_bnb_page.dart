@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran_widget_flutter/quran_widget_flutter.dart';
-
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/widget/floatin_button_widget.dart';
-import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
-import 'package:flutter_base/modules/home/presentation/widget/play_puse_tools.dart';
-import 'package:flutter_base/modules/home/presentation/widget/recorded_file_setting.dart';
-import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
-import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
+import 'package:flutter_base/modules/quran/presentation/page/chapters/index_surah_page.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/floatin_button_widget.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/play_botton.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/play_puse_tools.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/recorded_file_setting.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/tool_botton.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class QuranBNBPage extends StatefulWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
@@ -22,20 +23,23 @@ class QuranBNBPage extends StatefulWidget {
 class _QuranBNBPageState extends State<QuranBNBPage> {
   int chapter = 1;
 
-  late HomeCubit cubit;
+  QuranViewCubit? cubit;
+  RecitationAddCubit? addCubit;
 
   @override
   void initState() {
     super.initState();
-    cubit = HomeCubit.get(context);
+    cubit = QuranViewCubit.get(context);
+    addCubit = RecitationAddCubit.get(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<QuranViewCubit, QuranViewState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
+        var cubit = QuranViewCubit.get(context);
+        var homeCubit = HomeCubit.get(context);
         return Scaffold(
           body: Stack(
             alignment: Alignment.center,
@@ -58,7 +62,10 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
               if (cubit.isRecordedFile) const RecordedFileTool(),
               if (cubit.isPlaying) const PlayPauseTools(),
               if (cubit.opacity != 0)
-                floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
+                floatingButton(
+                    cubit: cubit,
+                    isPressed: cubit.isOnPressed,
+                    homeCubit: homeCubit)
             ],
           ),
         );
@@ -66,7 +73,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
     );
   }
 
-  Widget _viewLikeMarked(HomeCubit cubit) {
+  Widget _viewLikeMarked(QuranViewCubit cubit) {
     return Positioned(
       top: 50,
       child: Row(
@@ -107,14 +114,14 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextView(
-                    text: ' سورة ' + (cubit.chapterName ?? 'الفاتحة'),
+                    text: ' سورة ' + (cubit!.chapterName ?? 'الفاتحة'),
                     textAlign: TextAlign.center,
                     colorText: AppColor.txtColor1,
                     sizeText: 17,
                     padding: const EdgeInsets.only(top: 12),
                   ),
                   TextView(
-                    text: cubit.juz,
+                    text: cubit!.juz,
                     textAlign: TextAlign.center,
                     colorText: AppColor.txtColor1,
                     sizeText: 17,
@@ -125,43 +132,41 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
             ),
             //Image.asset(AppImages.page016Image),
             Expanded(
-              child: BlocConsumer<HomeCubit, HomeState>(
-                listener: (context, state) {},
+              child: BlocBuilder<QuranViewCubit, QuranViewState>(
                 builder: (context, state) {
-                  print('Chapter Cubit ${cubit.chapterId}');
+                  print('Chapter Cubit ${cubit!.chapterId}');
                   return QuranWidget(
-                    page: cubit.pageType,
-                    chapterId: cubit.chapterId,
-                    bookId: cubit.bookId,
-                    narrationId: cubit.narrationId,
+                    page: cubit!.pageType,
+                    chapterId: cubit!.chapterId,
+                    bookId: cubit!.bookId,
+                    narrationId: cubit!.narrationId,
                     onTap: (val, isVerSelected, values, selectedVerses) {
                       print('onTap ' + val);
-                      cubit.isVerSelected(isVerSelected);
-
                       // cubit.changeIsOnTruePressed();
+                      cubit!.changeOpacity(.5);
 
-                      cubit.changeOpacity(.5);
-                      cubit.addSelected(values);
-
-                      print('Get Name ' + cubit.getName());
-                      cubit.setSelectedVerses(selectedVerses!);
+                      //print(selectedVerses);
+                      addCubit!.setSelectedVerses(selectedVerses!);
+                      cubit!.setSelectedVerses(selectedVerses);
+                      print('Get Name ' + cubit!.getName());
+                      cubit!.isVerSelected(isVerSelected);
                       Future.delayed(const Duration(seconds: 5), () {
-                        cubit.changeOpacity(.2);
+                        cubit!.changeOpacity(.2);
                       });
                     },
                     onLongTap: (val, isVerSelected, values, selectedVerses) {
                       print('onLongTap ' + val);
-                      cubit.isVerSelected(isVerSelected);
+                      cubit!.isVerSelected(isVerSelected);
 
-                      cubit.changeIsSelectedVerse();
-                      cubit.changeIsOnTruePressed();
-                      cubit.addSelected(values);
-                      print('Get Name ' + cubit.getName());
-                      cubit.setSelectedVerses(selectedVerses!);
+                      cubit!.changeIsSelectedVerse();
+                      cubit!.changeIsOnTruePressed();
+                      addCubit!.setSelectedVerses(selectedVerses!);
+                      cubit!.setSelectedVerses(selectedVerses);
+                      print('Get Name ' + cubit!.getName());
                     },
                     getPage: (page) {
                       print('Oloha ' + page.toString());
-                      cubit.changeJuz(
+                      cubit!.changeJuz(
                           page.partId ?? 1, page.chapters![0].id ?? 1, page);
                     },
                   );
@@ -181,7 +186,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
         onTap: () => Navigator.of(context)
             .pushNamed(IndexSurahPage.routeName)
             .then((value) {
-          cubit.changeChapter((value ?? 1) as int);
+          cubit!.changeChapter((value ?? 1) as int);
         }),
         child: Container(
           padding: const EdgeInsets.only(bottom: 40, top: 8),
@@ -197,7 +202,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextView(
-                text: ' سورة ' + (cubit.chapterName ?? 'الفاتحة'),
+                text: ' سورة ' + (cubit!.chapterName ?? 'الفاتحة'),
                 textAlign: TextAlign.center,
                 colorText: AppColor.txtColor2,
                 sizeText: 17,

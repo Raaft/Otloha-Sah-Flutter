@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/modules/data/data_source/remote/data_source/user_recitation_api.dart';
-import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
+import 'package:flutter_base/modules/data/model/general_response.dart';
 import 'package:flutter_base/modules/messages/data/models/message_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

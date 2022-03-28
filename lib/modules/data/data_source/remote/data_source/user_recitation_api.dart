@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/modules/data/data_source/local/database/database/database.dart';
 import 'package:flutter_base/modules/data/data_source/remote/repositories/user_recitation_repository.dart';
-import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
+import 'package:flutter_base/modules/data/model/general_response.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 
@@ -16,13 +15,17 @@ class UserRecitationApi extends UserRecitationRepository {
     var map = userRecitation.toMap();
 
     File file = File(userRecitation.record!);
-    File wave = File(userRecitation.wavePath!);
+    // File wave = File(userRecitation.wavePath!);
 
     map['record'] = await MultipartFile.fromFile(file.path,
         filename: file.path.split('/').last);
 
-    // map['wave'] = await MultipartFile.fromFile(wave.path,
-    //     filename: wave.path.split('/').last);
+    // try {
+    //   map['wave'] = await MultipartFile.fromFile(wave.path,
+    //       filename: wave.path.split('/').last);
+    // } catch (e) {
+    //   print(e);
+    // }
 
     Response response =
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);
