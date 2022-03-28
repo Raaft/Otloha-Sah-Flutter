@@ -18,8 +18,8 @@ import 'package:flutter_base/modules/settings/business_logic/recitation/recitati
 import 'package:flutter_base/modules/settings/business_logic/reciter/reciter_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings/chapter_download_page.dart';
-import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
-import 'package:flutter_base/modules/quran/presentation/page/pages_liked_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/chapters/index_surah_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/action_pages/pages_liked_page.dart';
 import 'package:flutter_base/modules/settings/business_logic/book/book_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/language/language_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/narration/narration_cubit.dart';

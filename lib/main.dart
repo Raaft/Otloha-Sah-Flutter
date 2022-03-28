@@ -1,28 +1,30 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_base/app_router.dart';
+import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
+import 'package:flutter_base/core/data/chash_helper.dart' as otloha_shaerd;
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
+import 'package:flutter_base/modules/data/repository/database_repository.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/popup_action_cubit.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quranplayer_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
+import 'package:flutter_base/modules/recitations/business_logic/cubit/popup_action_cubit.dart';
+import 'package:flutter_base/modules/recitations/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
-import 'package:flutter_base/core/data/chash_helper.dart' as otloha_shaerd;
-
-import 'package:flutter_base/app_router.dart';
-import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/data/repository/database_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -160,6 +162,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PopupActionsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => QuranViewCubit(),
+        ),
+        BlocProvider(
+          create: (context) => RecitationAddCubit(),
+        ),
+        BlocProvider(
+          create: (context) => QuranPlayerCubit(),
         ),
       ],
       child: GetMaterialApp(

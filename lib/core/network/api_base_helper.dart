@@ -8,7 +8,7 @@ import 'package:flutter_base/core/network/network_info.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import 'RefreshTokenModel.dart';
+import 'refresh_token_model.dart';
 
 class ApiBaseHelper {
   static const String url = baseUrl;

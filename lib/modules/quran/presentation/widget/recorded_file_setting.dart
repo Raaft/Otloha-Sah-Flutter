@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
 import 'package:flutter_base/modules/recitations/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -11,10 +12,12 @@ class RecordedFileTool extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
+    return BlocConsumer<QuranViewCubit, QuranViewState>(
+        listener: (context, state) {
       // TO DO: implement listener
     }, builder: (context, state) {
-      var cubit = HomeCubit.get(context);
+      var cubit = QuranViewCubit.get(context);
+      var cubitRecitation = RecitationAddCubit.get(context);
       return Positioned(
           child: Align(
               alignment: Alignment.bottomCenter,
@@ -52,9 +55,9 @@ class RecordedFileTool extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () async {
-                          await cubit.init();
+                          await cubitRecitation.init();
                           cubit.changeIsRecorded();
-                          cubit.start();
+                          cubitRecitation.start();
                         },
                         child: Icon(
                           Icons.mic_none,
@@ -63,7 +66,7 @@ class RecordedFileTool extends StatelessWidget {
                         )),
                     GestureDetector(
                       onTap: () {
-                        cubit.saveRecitation();
+                        cubitRecitation.saveRecitation();
                         cubit.changeIsOnTruePressed();
                       },
                       child: Icon(
@@ -74,7 +77,7 @@ class RecordedFileTool extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () {
-                          cubit.stop();
+                          cubitRecitation.stop();
 
                           cubit.changeIsOnTruePressed();
                           Future.delayed(const Duration(seconds: 5), () {
@@ -93,7 +96,7 @@ class RecordedFileTool extends StatelessWidget {
                           PopupChooseTeacherSend(
                             id: cubit.recitationId,
                             saveRecittion: () async =>
-                                await cubit.saveRecitation(),
+                                await cubitRecitation.saveRecitation(),
                           ),
                         );
                       },

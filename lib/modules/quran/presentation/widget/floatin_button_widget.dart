@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
 
-import '../../../../core/utils/themes/color.dart';
-import '../../business_logic/cubit/home_cubit.dart';
-
-Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
+Widget floatingButton(
+    {required QuranViewCubit cubit,
+    HomeCubit? homeCubit,
+    required bool isPressed}) {
   if (isPressed) {
     cubit.changeOpacity(1);
   } else {
@@ -18,6 +21,7 @@ Widget floatingButton({required HomeCubit cubit, required bool isPressed}) {
       child: GestureDetector(
         onTap: () async {
           cubit.changeTrueFloating();
+          homeCubit!.changeTrueFloating();
           cubit.changeOpacity(.0);
         },
         child: ball(),

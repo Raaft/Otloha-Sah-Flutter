@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-///////////commit
 
 class RecordTool extends StatelessWidget {
   const RecordTool({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<QuranViewCubit, QuranViewState>(
       listener: (context, state) {
         // TO DO: implement listener
       },
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
+        var cubit = QuranViewCubit.get(context);
+        var cubitAdd = RecitationAddCubit.get(context);
         return Positioned(
             child: Align(
                 alignment: Alignment.bottomCenter,
@@ -44,7 +45,7 @@ class RecordTool extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        '${cubit.current!.duration!.inMinutes.remainder(60)}:${cubit.current!.duration!.inSeconds.remainder(60)}',
+                        '${cubitAdd.current!.duration!.inMinutes.remainder(60)}:${cubitAdd.current!.duration!.inSeconds.remainder(60)}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: AppColor.lightYellow, fontSize: 20),
@@ -58,7 +59,7 @@ class RecordTool extends StatelessWidget {
                           )),
                       GestureDetector(
                           onTap: () {
-                            cubit.stop();
+                            cubitAdd.stop();
                             cubit.changeIsRecordedFile();
                           },
                           child: Icon(
@@ -68,7 +69,7 @@ class RecordTool extends StatelessWidget {
                           )),
                       GestureDetector(
                           onTap: () {
-                            cubit.stop();
+                            cubitAdd.stop();
                             cubit.changeIsOnTruePressed();
                             Future.delayed(const Duration(seconds: 5), () {
                               cubit.changeIsOnFalsePressed();

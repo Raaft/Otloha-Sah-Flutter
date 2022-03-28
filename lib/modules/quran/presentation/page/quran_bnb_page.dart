@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quran_widget_flutter/quran_widget_flutter.dart';
-
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/widget/floatin_button_widget.dart';
-import 'package:flutter_base/modules/home/presentation/widget/play_botton.dart';
-import 'package:flutter_base/modules/home/presentation/widget/play_puse_tools.dart';
-import 'package:flutter_base/modules/home/presentation/widget/recorded_file_setting.dart';
-import 'package:flutter_base/modules/home/presentation/widget/tool_botton.dart';
-import 'package:flutter_base/modules/quran/presentation/page/index_surah_page.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import 'package:flutter_base/modules/quran/presentation/page/chapters/index_surah_page.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/floatin_button_widget.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/play_botton.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/play_puse_tools.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/recorded_file_setting.dart';
+import 'package:flutter_base/modules/quran/presentation/widget/tool_botton.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class QuranBNBPage extends StatefulWidget {
   const QuranBNBPage({Key? key}) : super(key: key);
@@ -22,20 +22,21 @@ class QuranBNBPage extends StatefulWidget {
 class _QuranBNBPageState extends State<QuranBNBPage> {
   int chapter = 1;
 
-  late HomeCubit cubit;
+  late QuranViewCubit cubit;
 
   @override
   void initState() {
     super.initState();
-    cubit = HomeCubit.get(context);
+    cubit = QuranViewCubit.get(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<QuranViewCubit, QuranViewState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
+        var cubit = QuranViewCubit.get(context);
+        var homeCubit = HomeCubit.get(context);
         return Scaffold(
           body: Stack(
             alignment: Alignment.center,
@@ -58,7 +59,10 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
               if (cubit.isRecordedFile) const RecordedFileTool(),
               if (cubit.isPlaying) const PlayPauseTools(),
               if (cubit.opacity != 0)
-                floatingButton(cubit: cubit, isPressed: cubit.isOnPressed)
+                floatingButton(
+                    cubit: cubit,
+                    isPressed: cubit.isOnPressed,
+                    homeCubit: homeCubit)
             ],
           ),
         );
@@ -66,7 +70,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
     );
   }
 
-  Widget _viewLikeMarked(HomeCubit cubit) {
+  Widget _viewLikeMarked(QuranViewCubit cubit) {
     return Positioned(
       top: 50,
       child: Row(
@@ -125,7 +129,7 @@ class _QuranBNBPageState extends State<QuranBNBPage> {
             ),
             //Image.asset(AppImages.page016Image),
             Expanded(
-              child: BlocConsumer<HomeCubit, HomeState>(
+              child: BlocConsumer<QuranViewCubit, QuranViewState>(
                 listener: (context, state) {},
                 builder: (context, state) {
                   print('Chapter Cubit ${cubit.chapterId}');

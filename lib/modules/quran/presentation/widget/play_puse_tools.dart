@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/res/icons_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/play_button_state.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import 'package:flutter_base/modules/quran/business_logic/cubit/quranplayer_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlayPauseTools extends StatefulWidget {
@@ -15,23 +16,25 @@ class PlayPauseTools extends StatefulWidget {
 class _PlayPauseToolsState extends State<PlayPauseTools> {
   @override
   void initState() {
-    HomeCubit.get(context).initRecitationVerses();
+    QuranViewCubit.get(context).initRecitationVerses();
     super.initState();
   }
 
   @override
   void dispose() {
-    HomeCubit.get(context).audioPlayer.stop();
+    QuranViewCubit.get(context).audioPlayer.stop();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
+    return BlocConsumer<QuranPlayerCubit, QuranPlayerState>(
+        listener: (context, state) {
       // TO DO: implement listener
     }, builder: (context, state) {
-      var cubit = HomeCubit.get(context);
+      var cubit = QuranPlayerCubit.get(context);
+      var cubitView = QuranViewCubit.get(context);
       return ValueListenableBuilder<ButtonState>(
           valueListenable: cubit.playButtonNotifier,
           builder: (_, value, __) {
@@ -77,6 +80,7 @@ class _PlayPauseToolsState extends State<PlayPauseTools> {
                                 cubit.playVerses();
                               } else {
                                 cubit.pausePlayer();
+                                cubitView.pausePlayer();
                               }
                             },
                             child: !cubit.audioPlayer.playing
@@ -87,7 +91,7 @@ class _PlayPauseToolsState extends State<PlayPauseTools> {
                           ),
                           GestureDetector(
                               onTap: () {
-                                cubit.changeIsOnFalsePressed();
+                                cubitView.changeIsOnFalsePressed();
                               },
                               child: Icon(
                                 Icons.stop,

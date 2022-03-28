@@ -1,4 +1,4 @@
-import 'package:flutter_base/modules/data/model/GeneralResponse.dart';
+import 'package:flutter_base/modules/data/model/general_response.dart';
 import 'package:flutter_base/modules/data/model/recitations.dart';
 import 'package:flutter_base/modules/data/model/user_recitation.dart';
 
