@@ -8,9 +8,7 @@ import 'package:flutter_base/data_source/models/database_model/recitaion_details
 import 'package:flutter_base/data_source/models/database_model/recitations.dart';
 import 'package:flutter_base/data_source/models/database_model/user_recitation.dart';
 
-
-class UserRecitationApi  {
-
+class UserRecitationApi {
   Future<UserRecitation>? saveUserReciataion(
       {required UserRecitation userRecitation}) async {
     var map = userRecitation.toMap();
@@ -27,16 +25,11 @@ class UserRecitationApi  {
     Response response =
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);
 
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      userRecitation = UserRecitation.fromMap(response.data);
-      // await AppDatabase().userRecitationDao.insert(userRecitation);
-    } else {
-      print('Error Api ' + response.data.toString());
-    }
+    userRecitation = UserRecitation.fromMap(response.data);
+    // await AppDatabase().userRecitationDao.insert(userRecitation);
 
     return userRecitation;
   }
-
 
   Future<Recitations?>? getUserReciataions() async {
     Response? response = await ApiBaseHelper().getHTTP('/api/v1/recitations/');
@@ -53,24 +46,14 @@ class UserRecitationApi  {
     return userRecitatios;
   }
 
-
   Future<List<GeneralResponse>?>? getGeneraBoXMessage() async {
     Response? response =
         await ApiBaseHelper().getHTTP('$baseUrl/api/v1/recitations/general/');
 
     List<GeneralResponse>? generalResponses;
-
-    if (response != null &&
-        (response.statusCode == 201 || response.statusCode == 200)) {
-      if (response.data != null) {
-        print('data ${response.data}');
-        generalResponses = (response.data as List)
-            .map((data) => GeneralResponse.fromJson(data))
-            .toList();
-      }
-    } else {
-      print('Error Api ' + response!.data.toString());
-    }
+    generalResponses = (response!.data as List)
+        .map((data) => GeneralResponse.fromJson(data))
+        .toList();
 
     return generalResponses;
   }
@@ -80,27 +63,15 @@ class UserRecitationApi  {
         await ApiBaseHelper().getHTTP('/api/v1/recitations/general/');
 
     UserRecitation? userRecitatios;
-
-    if (response != null &&
-        (response.statusCode == 201 || response.statusCode == 200)) {
-      if (response.data != null) {
-        userRecitatios = UserRecitation.fromMap(response.data);
-      }
-    } else {
-      print('Error Api ' + response!.data.toString());
-    }
+    userRecitatios = UserRecitation.fromMap(response!.data);
 
     return userRecitatios;
   }
 
   Future<RecitationDetails?> recitationDetails(int recitationId) async {
-    print('rcitation $recitationId');
     var value =
-    await ApiBaseHelper().getHTTP('/api/v1/recitations/$recitationId');
-    print('msg $value');
+        await ApiBaseHelper().getHTTP('/api/v1/recitations/$recitationId');
     RecitationDetails msg = RecitationDetails.fromJson(value!.data);
-    print('msg ' + msg.name.toString());
     return msg;
   }
-
 }
