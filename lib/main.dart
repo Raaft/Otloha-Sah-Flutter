@@ -1,5 +1,3 @@
-// ignore_for_file: library_prefixes
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -124,7 +122,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ReplyCubit(),
         ),
         BlocProvider(
-          create: (context) => TeachersendCubit(),
+          create: (context) => TeacherSendCubit(),
         ),
         BlocProvider(
           create: (context) => MessagedetailsCubit(),

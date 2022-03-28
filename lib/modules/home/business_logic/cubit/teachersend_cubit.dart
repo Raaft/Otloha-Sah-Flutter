@@ -7,11 +7,11 @@ import '../../../../data_source/models/database_model/teacher_response_entity.da
 
 part 'teachersend_state.dart';
 
-class TeachersendCubit extends Cubit<TeachersendState> {
-  TeachersendCubit() : super(TeachersendInitial());
+class TeacherSendCubit extends Cubit<TeacherSendState> {
+  TeacherSendCubit() : super(TeacherSendInitial());
   TeacherResponse? teachers;
 
-  static TeachersendCubit get(context) => BlocProvider.of(context);
+  static TeacherSendCubit get(context) => BlocProvider.of(context);
 
   getTeacher() {
     emit(TeacherLoadingState());

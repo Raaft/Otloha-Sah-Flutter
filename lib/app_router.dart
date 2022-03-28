@@ -3,10 +3,10 @@ import 'package:flutter_base/data_source/local/database/database_repository.dart
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/userrecitation_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
-import 'package:flutter_base/modules/home/presentation/pages/recitations/recitations_page.dart';
+import 'package:flutter_base/modules/recitations/business_logic/cubit/userrecitation_cubit.dart';
+import 'package:flutter_base/modules/recitations/presentation/page/recitations_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';

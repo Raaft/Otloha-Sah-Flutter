@@ -1,15 +1,15 @@
 part of 'teachersend_cubit.dart';
 
-abstract class TeachersendState {
-  const TeachersendState();
+abstract class TeacherSendState {
+  const TeacherSendState();
 }
 
-class TeachersendInitial extends TeachersendState {}
+class TeacherSendInitial extends TeacherSendState {}
 
-class TeacherFetchedState extends TeachersendState {}
+class TeacherFetchedState extends TeacherSendState {}
 
-class TeacherLoadingState extends TeachersendState {}
+class TeacherLoadingState extends TeacherSendState {}
 
-class NoAuthState extends TeachersendState {}
+class NoAuthState extends TeacherSendState {}
 
-class TeacherErrorState extends TeachersendState {}
+class TeacherErrorState extends TeacherSendState {}
