@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'teachersend_state.dart';
 
-class TeachersendCubit extends Cubit<TeachersendState> {
-  TeachersendCubit() : super(TeachersendInitial());
+class TeacherSendCubit extends Cubit<TeacherSendState> {
+  TeacherSendCubit() : super(TeacherSendInitial());
   TeacherResponse? teachers;
 
-  static TeachersendCubit get(context) => BlocProvider.of(context);
+  static TeacherSendCubit get(context) => BlocProvider.of(context);
 
   getTeacher() {
     emit(TeacherLoadingState());

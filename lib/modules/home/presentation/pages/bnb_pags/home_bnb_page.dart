@@ -12,7 +12,7 @@ import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart'
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
-import 'package:flutter_base/modules/home/presentation/pages/recitations/recitations_page.dart';
+import 'package:flutter_base/modules/recitations/presentation/page/recitations_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/ads_item_view.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_main_sction.dart';
 import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';

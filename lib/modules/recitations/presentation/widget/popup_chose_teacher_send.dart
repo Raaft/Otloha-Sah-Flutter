@@ -8,7 +8,6 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
@@ -29,13 +28,13 @@ class PopupChooseTeacherSend extends StatefulWidget {
 class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   List<int> list = [];
 
-  late TeachersendCubit? cubit;
+  late TeacherSendCubit? cubit;
   int recitationId = 0;
 
   @override
   void initState() {
     super.initState();
-    cubit = TeachersendCubit.get(context);
+    cubit = TeacherSendCubit.get(context);
     cubit!.getTeacher();
     Future.delayed(const Duration(seconds: 1), () {});
   }
@@ -44,7 +43,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.white,
-      child: BlocBuilder<TeachersendCubit, TeachersendState>(
+      child: BlocBuilder<TeacherSendCubit, TeacherSendState>(
         builder: (context, state) {
           if (state is TeacherErrorState) {
             return const ViewError(error: 'No Data');
@@ -276,7 +275,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
       ),
       title: translate('SendTo'),
       onSearch: (val) {
-        BlocProvider.of<TeachersendCubit>(context).filter(qurey: val);
+        BlocProvider.of<TeacherSendCubit>(context).filter(qurey: val);
       },
     );
   }

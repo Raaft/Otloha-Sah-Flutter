@@ -1,8 +1,6 @@
 part of 'userrecitation_cubit.dart';
 
-abstract class UserRecitationState {
-  const UserRecitationState();
-}
+abstract class UserRecitationState {}
 
 class UserRecitationInitial extends UserRecitationState {}
 
