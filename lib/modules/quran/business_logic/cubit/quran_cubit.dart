@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/core/data/chash_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/modules/data/model/page_marked.dart';
-import 'package:flutter_base/modules/data/model/verse_like.dart';
-import 'package:flutter_base/modules/data/repository/database_repository.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
+import 'package:flutter_base/data_source/local/database/database_repository.dart';
+import 'package:flutter_base/data_source/models/database_model/page_marked.dart';
+import 'package:flutter_base/data_source/models/database_model/verse_like.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/play_button_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
@@ -89,7 +89,7 @@ class QuranViewCubit extends Cubit<QuranViewState> {
         ((CacheHelper.getData(key: chapterSelectedName) ?? '') as String);
     emit(QuranChangeChapter());
   }
-  
+
   page_obj.Page? page;
 
   chapter.Chapter? myChapter;

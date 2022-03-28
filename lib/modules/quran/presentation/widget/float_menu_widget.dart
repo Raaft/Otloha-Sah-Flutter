@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD:lib/modules/quran/presentation/widget/float_menu_widget.dart
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
-=======
-
->>>>>>> main:lib/modules/home/presentation/widget/float_menu_widget.dart
 
 import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,14 +7,8 @@ import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import '../../../../core/utils/res/icons_app.dart';
 import '../../../../core/utils/themes/color.dart';
-<<<<<<< HEAD:lib/modules/quran/presentation/widget/float_menu_widget.dart
-=======
 import '../../../../data_source/local/database/database_repository.dart';
 import '../../../../data_source/models/database_model/page_marked.dart';
-import '../../../../data_source/models/database_model/verse_like.dart';
-import '../../../../data_source/models/database_model/verse_note.dart';
-import '../../business_logic/cubit/home_cubit.dart';
->>>>>>> main:lib/modules/home/presentation/widget/float_menu_widget.dart
 
 class FloatingMenu extends StatelessWidget {
   const FloatingMenu({Key? key}) : super(key: key);

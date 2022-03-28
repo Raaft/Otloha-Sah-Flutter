@@ -48,6 +48,7 @@ dependencies:
   search_page: ^2.0.0+1
   shared_preferences: ^2.0.12
   sqflite: ^2.0.2
+  just_waveform: 
 
 
 flutter_icons:
