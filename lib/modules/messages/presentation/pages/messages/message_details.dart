@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +11,6 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
-import 'package:flutter_base/modules/messages/data/models/message_delails.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
@@ -20,6 +18,9 @@ import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detali
 import 'package:flutter_base/modules/messages/presentation/widgets/message_popup.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
+
+import '../../../../../data_source/models/home_models/user_profile.dart';
+import '../../../../../data_source/models/message_model/message_delails.dart';
 
 class MessageDetailsPage extends StatefulWidget {
   const MessageDetailsPage(
@@ -40,6 +41,7 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
   Future<void> init() async {
     userProfile = UserProfile.fromJson(
         jsonDecode(await CacheHelper.getData(key: profile)));
+    print('fgfd gfdgd $userProfile');
     cubit = MessagedetailsCubit.get(context);
     cubit!.fetchMessages(widget.msgId, widget.recitationId);
   }

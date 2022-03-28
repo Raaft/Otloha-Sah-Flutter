@@ -2,9 +2,10 @@ import 'package:dio/dio.dart' as dio;
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/widgets/toasts.dart';
 import 'package:flutter_base/modules/recitations/business_logic/cubit/popup_actions_state.dart';
-import 'package:flutter_base/modules/messages/data/data_source/messages_servise.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+
+import '../../../../data_source/remote/messages_service.dart';
 
 class PopupActionsCubit extends Cubit<PopupActionsState> {
   PopupActionsCubit() : super(PopupInitialState());

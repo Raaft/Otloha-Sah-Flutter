@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_single_quotes
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -5,7 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart'as Get;
+import 'package:get/get.dart'as _get;
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
@@ -14,7 +16,7 @@ import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../auth_module/presentation/widget/auth_button.dart';
 
 class RegisterAsTeacher extends StatefulWidget {
-  RegisterAsTeacher({Key? key}) : super(key: key);
+  const RegisterAsTeacher({Key? key}) : super(key: key);
 
   @override
   State<RegisterAsTeacher> createState() => _RegisterAsTeacherState();
@@ -34,11 +36,9 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
   Widget build(BuildContext context) {
     return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (ctx, state) {
-        if(state is   RegisterAsTeacherSuccessState){
-          if(state is   RegisterAsTeacherSuccessState){
-            Get.Get.showSnackbar(const Get.GetSnackBar(duration:Duration(seconds: 3) ,
-            message: 'Your request to be a teacher is created successfully',));
-          }
+        if (state is   RegisterAsTeacherSuccessState ) {
+          _get.Get.showSnackbar(const _get.GetSnackBar(duration:Duration(seconds: 3) ,
+          message: 'Your request to be a teacher is created successfully',));
         }
       },
       builder: (ctx, state) {

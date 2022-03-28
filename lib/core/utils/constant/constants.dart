@@ -1,4 +1,5 @@
-import 'package:flutter_base/modules/home/data/models/user/user_prfile.dart';
+
+import '../../../data_source/models/home_models/user_profile.dart';
 
 const String fontFamily1 = 'Cairo';
 const String fontFamily2 = 'ElMessiri';

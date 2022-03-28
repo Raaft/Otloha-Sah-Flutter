@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
+
+import '../../../../data_source/models/database_model/teacher_response_entity.dart';
 
 class StudentsPage extends StatefulWidget {
   static const routeName = '/students';

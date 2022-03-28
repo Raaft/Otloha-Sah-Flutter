@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
 
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/network/network_info.dart';

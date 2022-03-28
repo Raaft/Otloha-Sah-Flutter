@@ -21,8 +21,14 @@ import 'package:flutter_base/modules/settings/presentation/pages/settings/tajwee
 import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 
+import 'data_source/local/database/database_repository.dart';
+
 class AppRouter {
-  AppRouter();
+  late DatabaseRepository databaseRepository;
+
+  AppRouter() {
+    databaseRepository = DatabaseRepository();
+  }
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/auth_navigator.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/data/models/utils/init_data.dart';
 import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
+import 'package:flutter_base/modules/home/presentation/widget/init_data.dart';
 import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';

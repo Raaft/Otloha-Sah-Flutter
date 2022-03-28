@@ -7,12 +7,14 @@ import 'package:flutter_base/core/utils/res/images_app.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/data/model/teacher_response_entity.dart';
 import 'package:flutter_base/modules/recitations/business_logic/cubit/teachersend_cubit.dart';
+
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+
+import '../../../../data_source/models/database_model/teacher_response_entity.dart';
 
 class PopupChooseTeacherSend extends StatefulWidget {
   const PopupChooseTeacherSend({Key? key, required this.id, this.saveRecittion})

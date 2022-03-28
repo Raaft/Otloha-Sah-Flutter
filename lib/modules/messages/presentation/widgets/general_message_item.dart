@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
 
@@ -81,143 +77,143 @@ class GeneralMessageItem extends StatelessWidget {
     );
   }
 
-  Padding _viewBottom(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Row(
-              children: [
-                GestureDetector(
-                  child: Image.asset(
-                    true ? AppIcons.like2Icon : AppIcons.likeIcon,
-                    // color: false ? AppColor.darkBlue : AppColor.txtColor4d,
-                    width: 20,
-                    height: 20,
-                  ),
-                  onTap: liked,
-                ),
-                TextView(
-                  text: (likeCount > 1) ? likeCount.toString() : '',
-                  colorText: AppColor.txtColor4d,
-                  sizeText: 16,
-                  weightText: FontWeight.bold,
-                  action: goLike,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                ),
-                //const SizedBox(width: 8),
-                GestureDetector(
-                  onTap: goNote,
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        AppIcons.bubbleIcon,
-                        color: AppColor.iconColor,
-                        width: 20,
-                        height: 20,
-                      ),
-                      TextView(
-                        text: (commentCount > 1) ? commentCount.toString() : '',
-                        colorText: AppColor.txtColor4d,
-                        sizeText: 16,
-                        weightText: FontWeight.bold,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                      ),
-                    ],
-                  ),
-                ),
-                // const SizedBox(width: 8),
-                GestureDetector(
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        AppIcons.quality2Icon,
-                        color: AppColor.iconColor,
-                        width: 20,
-                        height: 20,
-                      ),
-                      TextView(
-                        text: (remarkableCount > 1)
-                            ? remarkableCount.toString()
-                            : '',
-                        colorText: AppColor.txtColor4d,
-                        sizeText: 16,
-                        weightText: FontWeight.bold,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                      ),
-                    ],
-                  ),
-                  onTap: goReMraker,
-                ),
-              ],
-            ),
-          ),
-          if (likeCount > 0)
-            GestureDetector(
-              onTap: goLike,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * .25,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: const Alignment(-1, 0),
-                      child: _circalUser(),
-                    ),
-                    Align(
-                      alignment: const Alignment(-.62, 0),
-                      child: _circalUser(),
-                    ),
-                    Align(
-                      alignment: const Alignment(-.24, 0),
-                      child: _circalUser(),
-                    ),
-                    Align(
-                      alignment: const Alignment(.14, 0),
-                      child: _circalUser(),
-                    ),
-                    Align(
-                      alignment: const Alignment(.52, 0),
-                      child: _circalUser(),
-                    ),
-                    Align(
-                      alignment: const Alignment(.95, 0),
-                      child: Container(
-                        width: 20,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            colors: [AppColor.gradient6, AppColor.gradient3],
-                          ),
-                        ),
-                        child: TextView(
-                          text: '+9',
-                          colorText: AppColor.txtColor2,
-                          sizeText: 10,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-        ],
-      ),
-    );
-  }
+// Padding _viewBottom(BuildContext context) {
+//   return Padding(
+//     padding: const EdgeInsets.symmetric(horizontal: 4),
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 4),
+//           child: Row(
+//             children: [
+//               GestureDetector(
+//                 child: Image.asset(
+//                   AppIcons.like2Icon,
+//                   // color: false ? AppColor.darkBlue : AppColor.txtColor4d,
+//                   width: 20,
+//                   height: 20,
+//                 ),
+//                 onTap: liked,
+//               ),
+//               TextView(
+//                 text: (likeCount > 1) ? likeCount.toString() : '',
+//                 colorText: AppColor.txtColor4d,
+//                 sizeText: 16,
+//                 weightText: FontWeight.bold,
+//                 action: goLike,
+//                 padding: const EdgeInsets.symmetric(horizontal: 8),
+//               ),
+//               //const SizedBox(width: 8),
+//               GestureDetector(
+//                 onTap: goNote,
+//                 child: Row(
+//                   children: [
+//                     Image.asset(
+//                       AppIcons.bubbleIcon,
+//                       color: AppColor.iconColor,
+//                       width: 20,
+//                       height: 20,
+//                     ),
+//                     TextView(
+//                       text: (commentCount > 1) ? commentCount.toString() : '',
+//                       colorText: AppColor.txtColor4d,
+//                       sizeText: 16,
+//                       weightText: FontWeight.bold,
+//                       padding: const EdgeInsets.symmetric(horizontal: 8),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               // const SizedBox(width: 8),
+//               GestureDetector(
+//                 child: Row(
+//                   children: [
+//                     Image.asset(
+//                       AppIcons.quality2Icon,
+//                       color: AppColor.iconColor,
+//                       width: 20,
+//                       height: 20,
+//                     ),
+//                     TextView(
+//                       text: (remarkableCount > 1)
+//                           ? remarkableCount.toString()
+//                           : '',
+//                       colorText: AppColor.txtColor4d,
+//                       sizeText: 16,
+//                       weightText: FontWeight.bold,
+//                       padding: const EdgeInsets.symmetric(horizontal: 8),
+//                     ),
+//                   ],
+//                 ),
+//                 onTap: goReMraker,
+//               ),
+//             ],
+//           ),
+//         ),
+//         if (likeCount > 0)
+//           GestureDetector(
+//             onTap: goLike,
+//             child: SizedBox(
+//               width: MediaQuery.of(context).size.width * .25,
+//               child: Stack(
+//                 children: [
+//                   Align(
+//                     alignment: const Alignment(-1, 0),
+//                     child: _circalUser(),
+//                   ),
+//                   Align(
+//                     alignment: const Alignment(-.62, 0),
+//                     child: _circalUser(),
+//                   ),
+//                   Align(
+//                     alignment: const Alignment(-.24, 0),
+//                     child: _circalUser(),
+//                   ),
+//                   Align(
+//                     alignment: const Alignment(.14, 0),
+//                     child: _circalUser(),
+//                   ),
+//                   Align(
+//                     alignment: const Alignment(.52, 0),
+//                     child: _circalUser(),
+//                   ),
+//                   Align(
+//                     alignment: const Alignment(.95, 0),
+//                     child: Container(
+//                       width: 20,
+//                       height: 20,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(10),
+//                         gradient: LinearGradient(
+//                           colors: [AppColor.gradient6, AppColor.gradient3],
+//                         ),
+//                       ),
+//                       child: TextView(
+//                         text: '+9',
+//                         colorText: AppColor.txtColor2,
+//                         sizeText: 10,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           )
+//       ],
+//     ),
+//   );
+// }
 
-  SizedBox _circalUser() {
-    return SizedBox(
-      width: 20,
-      height: 20,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Image.asset(AppImages.duserImage),
-      ),
-    );
-  }
+// SizedBox _circalUser() {
+//   return SizedBox(
+//     width: 20,
+//     height: 20,
+//     child: ClipRRect(
+//       borderRadius: BorderRadius.circular(10),
+//       child: Image.asset(AppImages.duserImage),
+//     ),
+//   );
+// }
 }

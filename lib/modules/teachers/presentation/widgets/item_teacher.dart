@@ -5,7 +5,7 @@ import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/model/recitations.dart';
+import '../../../../data_source/models/database_model/teacher_response_entity.dart';
 import '../../business_logic/cubit/teacherviewtype_cubit.dart';
 
 class ItemTeacher extends StatelessWidget {
@@ -217,7 +217,7 @@ class ItemTeacher extends StatelessWidget {
       ),
       BlocBuilder<TeacherviewtypeCubit, TeacherviewtypeState>(
         builder: (context, state) {
-          var cubit = TeacherviewtypeCubit.get(context);
+          // var cubit = TeacherviewtypeCubit.get(context);
           return GestureDetector(
             onTap: () {
               // cubit.markAsFavTeacher(id:cubit.teachers!);
