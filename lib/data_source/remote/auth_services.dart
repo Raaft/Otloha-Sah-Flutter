@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 

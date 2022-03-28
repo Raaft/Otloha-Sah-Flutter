@@ -162,20 +162,20 @@ class ReplyCubit extends Cubit<ReplyState> {
   final BehaviorSubject<WaveformProgress> progressStream =
       BehaviorSubject<WaveformProgress>();
 
-  Future<void> _initWave(String path, String wavePath) async {
-    final audioFile = io.File(path);
-    try {
-      final waveFile = io.File(wavePath);
-
-      JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile)
-          .listen(progressStream.add, onError: progressStream.addError);
-
-      //    JustWaveform.parse(waveFile);
-    } catch (e) {
-      debugPrint('Eror audio' + e.toString());
-      progressStream.addError(e);
-    }
-  }
+  // Future<void> _initWave(String path, String wavePath) async {
+  //   final audioFile = io.File(path);
+  //   try {
+  //     final waveFile = io.File(wavePath);
+  //
+  //     JustWaveform.extract(audioInFile: audioFile, waveOutFile: waveFile)
+  //         .listen(progressStream.add, onError: progressStream.addError);
+  //
+  //     //    JustWaveform.parse(waveFile);
+  //   } catch (e) {
+  //     debugPrint('Eror audio' + e.toString());
+  //     progressStream.addError(e);
+  //   }
+  // }
 
   Future delete() async {
     File file = File(current!.path!);

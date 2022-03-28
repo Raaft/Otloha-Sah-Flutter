@@ -20,7 +20,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:file/local.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
-import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:path/path.dart' as p;
 
@@ -420,7 +420,7 @@ class HomeCubit extends Cubit<HomeState> {
   int recitationId = 0;
 
   saveRecitation() async {
-    String customPath = '/File_';
+    // String customPath = '/File_';
     io.Directory appDocDirectory;
 
     if (io.Platform.isIOS) {
@@ -451,7 +451,6 @@ class HomeCubit extends Cubit<HomeState> {
 
     recitationId = user!.id!;
     return recitationId;
-    print(userRecitation);
   }
 
   void addSelected(Map<int, List<int>>? values) {

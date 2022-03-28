@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/data_source/data_source.dart';
@@ -11,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data_source/models/auth_model/user_model.dart';
-import '../../../data_source/models/home_models/LogInErrorModel.dart';
 import '../../../data_source/models/home_models/user_prfile.dart';
 
 part 'auth_state.dart';
@@ -23,8 +22,6 @@ class AuthCubit extends Cubit<AuthState> {
   UserModel? userModel;
 
   bool isLogin = true;
-
-  LogInErrorModel? logInErrorModel;
 
   thenAuth(value) {
     userModel = UserModel.fromJson(value.data);
@@ -38,6 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   UserProfile proFile = UserProfile();
+
   Future saveProfile() async {
     try {
       proFile = UserProfile.fromJson(
@@ -91,17 +89,13 @@ class AuthCubit extends Cubit<AuthState> {
   saveUsers() async {
     UserProfile? user = await AppDataSource().myProfile();
     try {
-      if (user != null) {
+      CacheHelper.saveData(
+          key: userProfileLogined, value: jsonEncode(userModel!.toJson()));
+      if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
+        var teacher =
+            await AppDataSource().userProfile(user.favoriteTeacher ?? 0);
         CacheHelper.saveData(
-            key: userProfileLogined, value: jsonEncode(userModel!.toJson()));
-        if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
-          var teacher =
-              await AppDataSource().userProfile(user.favoriteTeacher ?? 0);
-          if (teacher != null) {
-            CacheHelper.saveData(
-                key: favTeacher, value: jsonEncode(teacher.toJson()));
-          }
-        }
+            key: favTeacher, value: jsonEncode(teacher.toJson()));
       }
       print('Save done ${user.username}');
     } catch (e) {

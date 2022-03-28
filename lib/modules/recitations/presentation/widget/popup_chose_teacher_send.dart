@@ -30,13 +30,13 @@ class PopupChooseTeacherSend extends StatefulWidget {
 class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   List<int> list = [];
 
-  late TeachersendCubit? cubit;
+  late TeacherSendCubit? cubit;
   int recitationId = 0;
 
   @override
   void initState() {
     super.initState();
-    cubit = TeachersendCubit.get(context);
+    cubit = TeacherSendCubit.get(context);
     cubit!.getTeacher();
     Future.delayed(const Duration(seconds: 1), () {});
   }
@@ -45,7 +45,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.white,
-      child: BlocBuilder<TeachersendCubit, TeachersendState>(
+      child: BlocBuilder<TeacherSendCubit, TeacherSendState>(
         builder: (context, state) {
           if (state is TeacherErrorState) {
             return const ViewError(error: 'No Data');
@@ -277,7 +277,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
       ),
       title: translate('SendTo'),
       onSearch: (val) {
-        BlocProvider.of<TeachersendCubit>(context).filter(qurey: val);
+        BlocProvider.of<TeacherSendCubit>(context).filter(qurey: val);
       },
     );
   }

@@ -6,7 +6,7 @@ import 'package:flutter_base/modules/settings/presentation/widgets/view_error.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import 'package:flutter_base/core/data/chash_helper.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
 import 'package:flutter_base/core/widgets/loading.dart';

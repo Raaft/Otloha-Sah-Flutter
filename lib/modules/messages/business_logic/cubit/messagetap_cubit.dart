@@ -82,16 +82,16 @@ class MessageTapCubit extends Cubit<MessageTapState> {
             .toList();
         print('MessageModel is ===========> $messageSendList');
         if (messageSendList != null && messageSendList!.isNotEmpty) {
-          for (var element in messageSendList!) {
-            // element.recitation!.chapterName = (await DataSource.instance
-            //             .fetchChapterById(element.recitation!.chapterId!))
-            //         ?.name ??
-            //     '';
-            // element.recitation!.narrationName = (await DataSource.instance
-            //             .fetchNarrationById(element.recitation!.narrationId!))
-            //         ?.name ??
-            //     '';
-          }
+          // for (var element in messageSendList!) {
+          //   // element.recitation!.chapterName = (await DataSource.instance
+          //   //             .fetchChapterById(element.recitation!.chapterId!))
+          //   //         ?.name ??
+          //   //     '';
+          //   // element.recitation!.narrationName = (await DataSource.instance
+          //   //             .fetchNarrationById(element.recitation!.narrationId!))
+          //   //         ?.name ??
+          //   //     '';
+          // }
           emit(MessageSendSuccessState());
         } else {
           print('empty');

@@ -7,7 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart'as Get;
+import 'package:get/get.dart'as _get;
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
@@ -37,7 +37,7 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
     return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (ctx, state) {
         if (state is   RegisterAsTeacherSuccessState ) {
-          Get.Get.showSnackbar(const Get.GetSnackBar(duration:Duration(seconds: 3) ,
+          _get.Get.showSnackbar(const _get.GetSnackBar(duration:Duration(seconds: 3) ,
           message: 'Your request to be a teacher is created successfully',));
         }
       },

@@ -12,7 +12,6 @@ import 'package:intl/intl.dart';
 import '../../../business_logic/cubit/messagetap_cubit.dart';
 import '../../widgets/box_message_item.dart';
 
-
 class InBoxMessagePage extends StatelessWidget {
   InBoxMessagePage({Key? key}) : super(key: key);
 
@@ -86,16 +85,9 @@ class InBoxMessagePage extends StatelessWidget {
   }
 
   String _user(Owner owner) {
-    if (owner != null) {
-      var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
-          ? (owner.username)
-          : '';
-      return (owner.firstName ?? '') +
-          ' ' +
-          (owner.lastName ?? '') +
-          (str ?? '');
-    } else {
-      return '';
-    }
+    var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
+        ? (owner.username)
+        : '';
+    return (owner.firstName ?? '') + ' ' + (owner.lastName ?? '') + (str ?? '');
   }
 }

@@ -90,17 +90,4 @@ class OutBoxMessagePage extends StatelessWidget {
     return str;
   }
 
-  String _user(Owner? owner) {
-    if (owner != null) {
-      var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
-          ? (owner.username)
-          : '';
-      return (owner.firstName ?? '') +
-          ' ' +
-          (owner.lastName ?? '') +
-          (str ?? '');
-    } else {
-      return '';
-    }
-  }
 }

@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/home/presentation/widget/popup_recitation.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import 'package:flutter_base/modules/recitations/presentation/widget/popup_recitation.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -102,32 +101,32 @@ class _RecitationDetailsPageState extends State<RecitationDetailsPage> {
       isLike: false,
     );
   }
-
-  Widget _getItem() {
-    return CommentReplayItem(
-      isLocal: false,
-      isRead: false,
-      ayah: cubit!.ayah,
-      ayahInfo: _getAyahInfo(cubit!.recitationDetails),
-      userImage: cubit!.recitationDetails!.owner!.image ?? '',
-      userName: _user(cubit!.recitationDetails!.owner),
-      dateStr: (cubit!.recitationDetails!.finishedAt != null)
-          ? DateFormat('hh:mm dd MMM').format(
-              DateTime.parse(cubit!.recitationDetails!.finishedAt ?? ''))
-          : null,
-      color: AppColor.transparent,
-      trggelPlay: () {},
-      userInfo: cubit!.recitationDetails!.owner!.level! +
-          ' ' +
-          ((cubit!.recitationDetails!.owner!.isATeacher ?? false)
-              ? translate('Teacher')
-              : translate('Student')),
-      recordPath: cubit!.recitationDetails!.record,
-      wavePath: cubit!.recitationDetails!.wave ?? '',
-      //  errorStr: '',
-      isPlay: false, actionReply: () {},
-    );
-  }
+  //
+  // Widget _getItem() {
+  //   return CommentReplayItem(
+  //     isLocal: false,
+  //     isRead: false,
+  //     ayah: cubit!.ayah,
+  //     ayahInfo: _getAyahInfo(cubit!.recitationDetails),
+  //     userImage: cubit!.recitationDetails!.owner!.image ?? '',
+  //     userName: _user(cubit!.recitationDetails!.owner),
+  //     dateStr: (cubit!.recitationDetails!.finishedAt != null)
+  //         ? DateFormat('hh:mm dd MMM').format(
+  //             DateTime.parse(cubit!.recitationDetails!.finishedAt ?? ''))
+  //         : null,
+  //     color: AppColor.transparent,
+  //     trggelPlay: () {},
+  //     userInfo: cubit!.recitationDetails!.owner!.level! +
+  //         ' ' +
+  //         ((cubit!.recitationDetails!.owner!.isATeacher ?? false)
+  //             ? translate('Teacher')
+  //             : translate('Student')),
+  //     recordPath: cubit!.recitationDetails!.record,
+  //     wavePath: cubit!.recitationDetails!.wave ?? '',
+  //     //  errorStr: '',
+  //     isPlay: false, actionReply: () {},
+  //   );
+  // }
 
   String _getAyahInfo(RecitationDetails? recitation) {
     String? str =

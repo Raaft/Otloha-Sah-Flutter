@@ -10,7 +10,7 @@ import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../../core/widgets/text_view.dart';
-import 'change_Password.dart';
+import 'change_password.dart';
 
 class ProfileSettings extends StatelessWidget {
   ProfileSettings({Key? key}) : super(key: key);

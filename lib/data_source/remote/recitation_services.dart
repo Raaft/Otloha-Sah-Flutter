@@ -14,7 +14,7 @@ class UserRecitationApi {
     var map = userRecitation.toMap();
 
     File file = File(userRecitation.record!);
-    File wave = File(userRecitation.wavePath!);
+    // File wave = File(userRecitation.wavePath!);
 
     map['record'] = await MultipartFile.fromFile(file.path,
         filename: file.path.split('/').last);
