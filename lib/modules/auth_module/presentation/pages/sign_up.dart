@@ -100,6 +100,10 @@ class _SignFormState extends State<SignForm> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   DateTime currentDate = DateTime.now();
+  var border = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8.0),
+    borderSide: BorderSide(width: 1, color: AppColor.lightBlue),
+  );
 
   List gender = [
     'Male',
@@ -176,12 +180,25 @@ class _SignFormState extends State<SignForm> {
                 //   ],
                 // ),
                 selectGender(),
+                SizedBox(height: 20),
 
                 FormBuilderDateTimePicker(
                   // attribute: “date”,
                   inputType: InputType.date,
                   format: DateFormat('dd-MM-yyyy'),
-                  decoration: const InputDecoration(labelText: 'Date of Birth'),
+                  decoration: InputDecoration(
+                    labelText: 'Date of Birth',
+
+                    labelStyle: TextStyle(
+                        color: AppColor.lightBlue), //color: Colors.blue,
+                    isDense: true,
+
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          BorderSide(width: 1, color: AppColor.lightBlue),
+                    ),
+                  ),
                   // validator: [FormBuilderValidators.required()],
                   name: 'date',
                   onChanged: (value) {
@@ -190,6 +207,7 @@ class _SignFormState extends State<SignForm> {
                     });
                   },
                 ),
+                const SizedBox(height: 20),
 
                 FieldValidation(
                   error: (state is RegisterErrorState)
@@ -273,16 +291,20 @@ class _SignFormState extends State<SignForm> {
 
   FormBuilderDropdown<String> selectGender() {
     return FormBuilderDropdown(
-      decoration: const InputDecoration(
-        labelText: 'Gender', //color: Colors.blue,
+      decoration: InputDecoration(
+        labelText: 'Gender',
+        labelStyle: TextStyle(color: AppColor.lightBlue), //color: Colors.blue,
         isDense: true,
 
-        filled: true,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColor.lightBlue, width: 10),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        //filled: true,
       ),
       hint: const Text('Select Gender'),
       items: ['Male', 'Female']
-          .map((gender) =>
-              DropdownMenuItem(value: gender, child: Text('$gender')))
+          .map((gender) => DropdownMenuItem(value: gender, child: Text(gender)))
           .toList(),
       name: 'gender',
       onChanged: (value) {

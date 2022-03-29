@@ -33,7 +33,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         emit(TeacherFetchedState());
       } else {
         print('Error e');
-        emit(TeacherErrorState());
+        emit(TeacherErrorState(EmptyListException()));
       }
     }).catchError((e) {
       print('Error $e');
@@ -42,13 +42,15 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         emit(NoAuthState());
         return;
       }
-      emit(TeacherErrorState());
+      emit(TeacherErrorState(e));
     });
   }
 
   markAsFavTeacher({int? id}) async {
     emit(MarkAsFavTeacherLoadingState());
     AppDataSource().markAsFavTeacher(id: id).then((value) {
+      emit(MarkAsFavTeacherFetchedState());
+      getTeacher();
       return value;
     }).catchError((e) {
       print('Error $e');
@@ -56,7 +58,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
       if (e is AuthError) {
         emit(NoAuthState());
       }
-      emit(MarkAsFavTeacherErrorState());
+      emit(MarkAsFavTeacherErrorState(e));
     });
   }
 
@@ -73,7 +75,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         }*/
         emit(TeacherFetchedState());
       } else {
-        emit(TeacherErrorState());
+        emit(TeacherErrorState(EmptyListException()));
       }
     }).catchError((e) {
       print('Error $e');
@@ -82,7 +84,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         emit(NoAuthState());
         return;
       }
-      emit(TeacherErrorState());
+      emit(TeacherErrorState(e));
     });
   }
 

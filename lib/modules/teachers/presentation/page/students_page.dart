@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
-import '../../../../core/utils/constant/utils.dart';
-import '../../../auth_module/presentation/pages/login_page.dart';
-import '../../../settings/presentation/widgets/search_bar_app.dart';
-import '../../../settings/presentation/widgets/view_error.dart';
+import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../business_logic/cubit/teacherviewtype_cubit.dart';
@@ -53,7 +54,7 @@ class _StudentsPageState extends State<StudentsPage> {
 
   _viewDate(TeacherviewtypeState state) {
     if (state is TeacherErrorState) {
-      return const Expanded(child: ViewError(error: 'No Data'));
+      return Expanded(child: ErrorIndicator(error: state.error));
     } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {
       if (cubit!.teachers != null && cubit!.teachers!.isNotEmpty) {
         return _viewItems();

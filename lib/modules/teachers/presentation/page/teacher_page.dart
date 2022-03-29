@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
-import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
-import '../../../../core/utils/constant/constants.dart';
-import '../../../../core/utils/constant/utils.dart';
-import '../../../auth_module/presentation/pages/login_page.dart';
-import '../../../settings/presentation/widgets/search_bar_app.dart';
-import '../../../settings/presentation/widgets/view_error.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/data_source/data_source.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../business_logic/cubit/teacherviewtype_cubit.dart';
-import '../widgets/item_teacher.dart';
+import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
+import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
+
+import '../../../../core/exception_indicators/error_indicator.dart';
+import '../../../../data_source/models/database_model/teacher_response_entity.dart';
+import '../../../../data_source/models/home_models/user_profile.dart';
 
 class TeacherPage extends StatefulWidget {
   static const routeName = '/teacher';
@@ -91,6 +95,12 @@ class _TeacherPageState extends State<TeacherPage> {
     return BlocBuilder<TeacherviewtypeCubit, TeacherviewtypeState>(
       builder: (context, state) {
         var teacherViewCubit = TeacherviewtypeCubit.get(context);
+        UserProfile? userProfile;
+        Future<UserProfile?> profile() async {
+          userProfile = await AppDataSource().myProfile();
+          return userProfile;
+        }
+
         return ItemTeacher(
           userName:
               (results.firstName ?? 'Add') + ' ' + (results.lastName ?? 'add'),
@@ -100,13 +110,10 @@ class _TeacherPageState extends State<TeacherPage> {
           action: () {},
           typeView: _type,
           isCertified: results.isCertified ?? false,
-          isFav: index == _selected,
+          isFav: results.isFavorite,
           //  results: results,
           setFav: () {
-            setState(() {
-              teacherViewCubit.markAsFavTeacher(id: myProFile!.id);
-              _selected = index;
-            });
+            teacherViewCubit.markAsFavTeacher(id: results.id);
           },
         );
       },
@@ -133,12 +140,12 @@ class _TeacherPageState extends State<TeacherPage> {
 
   _viewDate(TeacherviewtypeState state, TeacherviewtypeCubit cubit) {
     if (state is TeacherErrorState) {
-      return const Expanded(child: ViewError(error: 'No Data'));
+      return Expanded(child: ErrorIndicator(error: state.error));
     } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {
       if (cubit.teachers != null && cubit.teachers!.isNotEmpty) {
         return _viewItems();
       } else {
-        return const Expanded(child: ViewError(error: 'No Data'));
+        return const Expanded(child: ErrorIndicator(error: 'No Data'));
       }
     }
     if (state is NoAuthState) {
