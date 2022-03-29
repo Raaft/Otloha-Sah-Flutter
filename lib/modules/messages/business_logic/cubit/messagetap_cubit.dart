@@ -304,4 +304,8 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   getNextSendData(int? nextLink) async {
     return await GetMessages().messagesSent(nextLink: nextLink);
   }
+
+  getNextRecieveData(int nextLink) async {
+    return await GetMessages().messgasRecieve(nextLink: nextLink);
+  }
 }

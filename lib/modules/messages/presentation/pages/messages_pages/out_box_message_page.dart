@@ -20,36 +20,53 @@ class OutBoxMessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     cubit = MessageTapCubit.get(context);
-    return BlocBuilder<MessageTapCubit, MessageTapState>(
-      builder: (context, state) {
-        if (state is MessageSendSuccessLoadingState) {
-          return const Expanded(
-            child: Center(child: CircularProgressIndicator()),
-          );
-        }
-        if (state is MessageErrorState) {
-          return Expanded(child: ErrorIndicator(error: state.error));
-        }
-        if (state is MessageSendSuccessState) {
-          return _showData(cubit);
-        }
+    return Expanded(
+      child: BlocBuilder<MessageTapCubit, MessageTapState>(
+        builder: (context, state) {
+          if (state is MessageSendSuccessLoadingState) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is MessageErrorState) {
+            return ErrorIndicator(error: state.error);
+          }
+          if (state is MessageSendSuccessState) {
+            return _showData2(cubit);
+          }
 
-        return const Expanded(child: Center(child: Text('No Message Yet')));
-      },
+          return const Center(child: Text('No Message Yet'));
+        },
+      ),
     );
   }
 
-  _showData(MessageTapCubit? cubit) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: PaginationData(
-        getData: (nextLink) async {
-          return await cubit!.getNextSendData(nextLink);
-        },
-        drowItem: (results, index) {
-          _getItem(index, results as MessageModel);
-        },
-        initData: cubit!.messageSendList!,
+  Widget _showData(MessageTapCubit? cubit) {
+    print(cubit!.messageSendList!.toString() +
+        ' ' +
+        cubit.messageSendList!.first.recitation!.name.toString());
+    return PaginationData<MessageModel>(
+      getData: (nextLink) async {
+        return await cubit.getNextSendData(nextLink);
+      },
+      drowItem: (results, index) {
+        _getItem(index, results);
+      },
+      initData: cubit.messageSendList!,
+    );
+  }
+
+  Widget _showData2(MessageTapCubit? cubit) {
+    print(cubit!.messageSendList!.toString() +
+        ' ' +
+        cubit.messageSendList!.first.recitation!.name.toString());
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: cubit.messageSendList!.length,
+          itemBuilder: (context, index) {
+            return _getItem(index, cubit.messageSendList![index]);
+          },
+        ),
       ),
     );
   }

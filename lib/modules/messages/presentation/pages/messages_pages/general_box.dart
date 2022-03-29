@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_widget.dart';
 import '../../../../../core/exception_indicators/error_indicator.dart';
 import '../../../../../core/utils/themes/color.dart';
 import '../../../../../data_source/models/message_model/general_response.dart';
@@ -61,13 +62,26 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
                 itemCount: cubit!.generalResponses!.length,
                 itemBuilder: (context, index) {
                   return _getItem(index, cubit!.generalResponses![index]);
+                  //return textView(cubit!.generalResponses![index]);
                 },
               ),
             ),
           );
         }
-        return  Expanded(child: ErrorIndicator(error: SomeThingWentWrong()));
+        return Expanded(child: ErrorIndicator(error: SomeThingWentWrong()));
       },
+    );
+  }
+
+  textView(GeneralResponse generalResponse) {
+    return MessageWidget(
+      userImage: generalResponse.owner!.image,
+      ayahInfoView: const Text('data'),
+      ayahView: const Text('data'),
+      dataView: const Text('data'),
+      footerView: const Text('data'),
+      userName: const Text('data'),
+      waveView: const Text('data'),
     );
   }
 

@@ -74,7 +74,9 @@ class _PaginationDataState<T> extends State<PaginationData<T>> {
 
   @override
   Widget build(BuildContext context) {
+    print('PaginationData ' + T.toString() + ' ' + widget.initData.toString());
     return PagedListView<int, T>(
+      shrinkWrap: true,
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<T>(
         itemBuilder: (context, item, index) => widget.drowItem(item, index),

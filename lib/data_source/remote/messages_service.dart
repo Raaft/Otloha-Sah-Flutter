@@ -16,9 +16,10 @@ class GetMessages {
         queryParameters: {'page': nextLink ?? 1});
   }
 
-  Future<Response?>? messgasRecieve() async {
-    return await ApiBaseHelper()
-        .getHTTP('/api/v1/recitations/messages/received/');
+  Future<Response?>? messgasRecieve({int? nextLink}) async {
+    return await ApiBaseHelper().getHTTP(
+        '/api/v1/recitations/messages/received/',
+        queryParameters: {'page': nextLink ?? 1});
   }
 
   Future<Response?> messageDetails(

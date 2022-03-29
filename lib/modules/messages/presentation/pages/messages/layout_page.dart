@@ -18,18 +18,21 @@ class MessagesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: BlocBuilder<MessageTapCubit, MessageTapState>(
+      body: SafeArea(
+        child: BlocBuilder<MessageTapCubit, MessageTapState>(
           builder: (context, state) {
-        var cubit = MessageTapCubit.get(context);
-        int selected = cubit.index;
-        return Column(
-          children: [
-            _topView(context),
-            tabsView(context, selected, cubit),
-            _viewItems(selected),
-          ],
-        );
-      })),
+            var cubit = MessageTapCubit.get(context);
+            int selected = cubit.index;
+            return Column(
+              children: [
+                _topView(context),
+                tabsView(context, selected, cubit),
+                _viewItems(selected),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }

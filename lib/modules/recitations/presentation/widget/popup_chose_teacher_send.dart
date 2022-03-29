@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/widgets/cached_image.dart';
+import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import '../../../../core/utils/constant/constants.dart';
 import '../../../../core/utils/constant/utils.dart';
 import '../../../../core/utils/res/images_app.dart';
@@ -48,6 +50,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
       child: BlocBuilder<TeacherSendCubit, TeacherSendState>(
         builder: (context, state) {
           if (state is TeacherErrorState) {
+            Get.to(const TeacherPage());
             return const ViewError(error: 'No Data');
           }
 
@@ -68,7 +71,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
     );
   }
 
-  Widget _viewBody(List<TeacherResponse>? teachers) {
+  Widget _viewBody(List<TeacherResponse?>? teachers) {
     return Container(
       color: AppColor.transparent,
       child: Container(
@@ -77,56 +80,6 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
           children: [
             _tabView(context),
             ..._favTeacher(),
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextView(
-                    text: translate('SelectToSend'),
-                    colorText: AppColor.txtColor3,
-                    sizeText: 16,
-                    weightText: FontWeight.w700,
-                    padding: const EdgeInsets.all(4),
-                    textAlign: TextAlign.start,
-                  ),
-                  MaterialButton(
-                    onPressed: () async {
-                      List<int> users = [];
-                      for (var element in list) {
-                        users.add(teachers![element].id ?? 0);
-                      }
-                      if (widget.saveRecittion != null) {
-                        recitationId = await widget.saveRecittion!();
-                      } else {
-                        recitationId = widget.id;
-                      }
-                      _sendMessage(users);
-                    },
-                    color: Colors.blue,
-                    padding: const EdgeInsets.all(12),
-                    shape: const CircleBorder(),
-                    child: Transform(
-                      alignment: Alignment.center,
-                      transform:
-                          isEn ? Matrix4.rotationY(pi) : Matrix4.rotationY(0),
-                      child: const Icon(
-                        Icons.send,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: teachers!.length,
-              itemBuilder: (context, index) {
-                return _teachers(index, teachers[index]);
-              },
-            )
           ],
         ),
       ),
@@ -145,28 +98,11 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
           textAlign: TextAlign.start,
         ),
         ListTile(
-          leading: Container(
-            margin: const EdgeInsets.all(4),
-            width: 50,
-            height: 50,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(25)),
-              child: FadeInImage(
-                fit: BoxFit.cover,
-                width: 50,
-                height: 50,
-                placeholder: AssetImage(AppImages.duserImage),
-                image: NetworkImage(
-                  (favTeacherProFile != null)
-                      ? baseUrl + (favTeacherProFile!.image ?? '')
-                      : 'https://media-exp1.licdn.com/dms/image/C4D03AQHuILHolmwcsw/profile-displayphoto-shrink_200_200/0/1635605885835?e=2147483647&v=beta&t=QPucLhzpuEWgVZbpTislGr8cr8wtfyeuumpE0jGH9MM',
-                ),
-              ),
-            ),
-          ),
+          leading:
+              CachedImage(url: cubit!.teachers!.first?.image ?? '', raduis: 25),
           title: TextView(
-            text: (favTeacherProFile != null)
-                ? _user(favTeacherProFile)
+            text: (cubit!.teachers!.first != null)
+                ? _user(cubit!.teachers!.first)
                 : 'no Fav',
             colorText: AppColor.txtColor4,
             sizeText: 16,
@@ -177,7 +113,9 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
           trailing: IconButton(
             onPressed: () {
               _sendMessage([
-                ((favTeacherProFile != null) ? favTeacherProFile!.id ?? 0 : 0)
+                ((cubit!.teachers!.first != null)
+                    ? cubit!.teachers!.first?.id ?? 0
+                    : 0)
               ]);
             },
             icon: Transform(
@@ -282,3 +220,57 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
     );
   }
 }
+
+
+/**
+ *  Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextView(
+                    text: translate('SelectToSend'),
+                    colorText: AppColor.txtColor3,
+                    sizeText: 16,
+                    weightText: FontWeight.w700,
+                    padding: const EdgeInsets.all(4),
+                    textAlign: TextAlign.start,
+                  ),
+                  MaterialButton(
+                    onPressed: () async {
+                      List<int> users = [];
+                      for (var element in list) {
+                        users.add(teachers![element].id ?? 0);
+                      }
+                      if (widget.saveRecittion != null) {
+                        recitationId = await widget.saveRecittion!();
+                      } else {
+                        recitationId = widget.id;
+                      }
+                      _sendMessage(users);
+                    },
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(12),
+                    shape: const CircleBorder(),
+                    child: Transform(
+                      alignment: Alignment.center,
+                      transform:
+                          isEn ? Matrix4.rotationY(pi) : Matrix4.rotationY(0),
+                      child: const Icon(
+                        Icons.send,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: teachers!.length,
+              itemBuilder: (context, index) {
+                return _teachers(index, teachers[index]);
+              },
+            )
+ */

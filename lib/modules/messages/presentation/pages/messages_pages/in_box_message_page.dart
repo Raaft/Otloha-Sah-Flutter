@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/data_source/models/message_model/message_model.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
@@ -34,23 +35,48 @@ class InBoxMessagePage extends StatelessWidget {
           );
         }
         if (state is MessageRecieveSuccessState) {
-          return Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: cubit!.messageRecieve!.length,
-                itemBuilder: (context, index) {
-                  return _getItem(index, cubit!.messageRecieve![index]);
-                },
-              ),
-            ),
-          );
+          return Expanded(child: _showData2(cubit));
         }
         if (state is MessageRecieveErrorState) {
           return Expanded(child: ErrorIndicator(error: state.error));
         }
         return const Expanded(child: Center(child: Text('No Message Yet')));
       },
+    );
+  }
+
+  Widget _showData(MessageTapCubit? cubit) {
+    print(cubit!.messageRecieve!.toString() +
+        ' ' +
+        cubit.messageRecieve!.first.recitation!.name.toString());
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: PaginationData<MessageModel>(
+        getData: (nextLink) async {
+          return await cubit.getNextRecieveData(nextLink);
+        },
+        drowItem: (results, index) {
+          _getItem(index, results);
+        },
+        initData: cubit.messageRecieve!,
+      ),
+    );
+  }
+
+  Widget _showData2(MessageTapCubit? cubit) {
+    print(cubit!.messageRecieve!.toString() +
+        ' ' +
+        cubit.messageRecieve!.first.recitation!.name.toString());
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: cubit.messageRecieve!.length,
+          itemBuilder: (context, index) {
+            return _getItem(index, cubit.messageRecieve![index]);
+          },
+        ),
+      ),
     );
   }
 

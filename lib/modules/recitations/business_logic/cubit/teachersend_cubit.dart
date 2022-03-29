@@ -1,3 +1,6 @@
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
+
 import '../../../../core/error/exceptions.dart';
 import '../../../../data_source/data_source.dart';
 
@@ -9,31 +12,18 @@ part 'teachersend_state.dart';
 
 class TeacherSendCubit extends Cubit<TeacherSendState> {
   TeacherSendCubit() : super(TeacherSendInitial());
-  List<TeacherResponse>? teachers;
+  List<TeacherResponse?>? teachers = [];
 
   static TeacherSendCubit get(context) => BlocProvider.of(context);
 
   getTeacher() {
-    emit(TeacherLoadingState());
-    AppDataSource().getTeacher(1)!.then((value) async {
-      if (value != null && value.results != null && value.results!.isNotEmpty) {
-        teachers = value;
-
-        // print('teachers ' + teachers!.toString());
-
-        emit(TeacherFetchedState());
-      } else {
-        emit(TeacherErrorState());
-      }
-    }).catchError((e) {
-      print('Error $e');
-      print('Error G ' + e.toString());
-      if (e is AuthError) {
-        emit(NoAuthState());
-        return;
-      }
+    try {
+      emit(TeacherLoadingState());
+      teachers!.add(CacheHelper.getData(key: favTeacher));
+      emit(TeacherFetchedState());
+    } catch (e) {
       emit(TeacherErrorState());
-    });
+    }
   }
 
   filter({String? qurey}) {}

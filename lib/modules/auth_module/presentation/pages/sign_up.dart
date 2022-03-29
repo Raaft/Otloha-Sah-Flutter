@@ -178,15 +178,15 @@ class _SignFormState extends State<SignForm> {
                 selectGender(),
 
                 FormBuilderDateTimePicker(
-                 // attribute: “date”,
+                  // attribute: “date”,
                   inputType: InputType.date,
                   format: DateFormat('dd-MM-yyyy'),
                   decoration: const InputDecoration(labelText: 'Date of Birth'),
-                 // validator: [FormBuilderValidators.required()],
+                  // validator: [FormBuilderValidators.required()],
                   name: 'date',
-                  onChanged: (value){
+                  onChanged: (value) {
                     setState(() {
-                      currentDate=value!;
+                      currentDate = value!;
                     });
                   },
                 ),
@@ -197,7 +197,6 @@ class _SignFormState extends State<SignForm> {
                       : [''],
                   textField: customFormField(
                     keyboardType: TextInputType.visiblePassword,
-
                     controller: passwordController,
                     title: 'Password',
                     validator: (value) {
