@@ -10,6 +10,7 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.d
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 
 import '../../../../data_source/cache_helper.dart';
@@ -121,10 +122,10 @@ class _SignFormState extends State<SignForm> {
                   error: (state is RegisterErrorState)
                       ? state.error['username'] ?? ['']
                       : [''],
-                  textField: TextFormFieldApp(
-                    color: AppColor.lightBlue,
+                  textField: customFormField(
+                    // color: AppColor.lightBlue,
                     controller: userNameController,
-                    keyType: TextInputType.name,
+                    keyboardType: TextInputType.name,
                     title: 'User Name',
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -138,10 +139,10 @@ class _SignFormState extends State<SignForm> {
                   error: (state is RegisterErrorState)
                       ? state.error['email'] ?? ['']
                       : [''],
-                  textField: TextFormFieldApp(
-                    color: AppColor.lightBlue,
+                  textField: customFormField(
+                    //color: AppColor.lightBlue,
                     controller: emailController,
-                    keyType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.emailAddress,
                     title: 'Email',
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -155,10 +156,10 @@ class _SignFormState extends State<SignForm> {
                   error: (state is RegisterErrorState)
                       ? state.error['phone'] ?? ['']
                       : [''],
-                  textField: TextFormFieldApp(
-                    color: AppColor.lightBlue,
+                  textField: customFormField(
+                    //   color: AppColor.lightBlue,
                     controller: phoneController,
-                    keyType: TextInputType.phone,
+                    keyboardType: TextInputType.phone,
                     title: 'Mobile',
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -168,18 +169,28 @@ class _SignFormState extends State<SignForm> {
                     },
                   ),
                 ),
-                Row(
-                  children: <Widget>[
-                    addRadioButton(0, 'Male'),
-                    addRadioButton(1, 'Female'),
-                  ],
+                // Row(
+                //   children: <Widget>[
+                //     addRadioButton(0, 'Male'),
+                //     addRadioButton(1, 'Female'),
+                //   ],
+                // ),
+                selectGender(),
+
+                FormBuilderDateTimePicker(
+                 // attribute: “date”,
+                  inputType: InputType.date,
+                  format: DateFormat('dd-MM-yyyy'),
+                  decoration: const InputDecoration(labelText: 'Date of Birth'),
+                 // validator: [FormBuilderValidators.required()],
+                  name: 'date',
+                  onChanged: (value){
+                    setState(() {
+                      currentDate=value!;
+                    });
+                  },
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      _selectDate(context);
-                      print(currentDate.toString());
-                    },
-                    child: const Text('Choice your birthDate')),
+
                 FieldValidation(
                   error: (state is RegisterErrorState)
                       ? state.error['password1'] ?? ['']
@@ -257,6 +268,28 @@ class _SignFormState extends State<SignForm> {
           },
         ),
       ),
+    );
+  }
+
+  FormBuilderDropdown<String> selectGender() {
+    return FormBuilderDropdown(
+      decoration: const InputDecoration(
+        labelText: 'Gender', //color: Colors.blue,
+        isDense: true,
+
+        filled: true,
+      ),
+      hint: const Text('Select Gender'),
+      items: ['Male', 'Female']
+          .map((gender) =>
+              DropdownMenuItem(value: gender, child: Text('$gender')))
+          .toList(),
+      name: 'gender',
+      onChanged: (value) {
+        setState(() {
+          select = value!;
+        });
+      },
     );
   }
 

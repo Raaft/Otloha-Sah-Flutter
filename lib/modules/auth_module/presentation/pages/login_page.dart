@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/password_form_field.dart';
 import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/vali_errorr_text.dart';
@@ -29,6 +28,11 @@ class LoginPage extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  var border = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8.0),
+    borderSide: BorderSide(width: 1, color: AppColor.lightBlue),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -83,11 +87,10 @@ class LoginPage extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  TextFormFieldApp(
-                    color: AppColor.lightBlue,
-                    controller: emailController,
-                    keyType: TextInputType.emailAddress,
+                  customFormField(
                     title: tr('Email'),
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'please enter your email address';
@@ -103,18 +106,19 @@ class LoginPage extends StatelessWidget {
                       : const SizedBox(),
                 ],
               ),
+              const SizedBox(height: 20),
               Column(
                 children: [
-                  PasswordFormField(
+                  customFormField(
+                    title: tr('Password'),
                     controller: passwordController,
-                    title: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'please enter your email address';
                       }
                       return null;
                     },
-                    onSaved: (val) {},
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(
@@ -200,4 +204,6 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+
+
 }
