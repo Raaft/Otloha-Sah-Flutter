@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:file/file.dart';
-import 'package:flutter_base/data_source/local/database/database_repository.dart';
+import 'local/database/database_repository.dart';
 
-import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
-import 'package:flutter_base/data_source/models/message_model/reply_request.dart';
-import 'package:flutter_base/data_source/remote/recitation_services.dart';
-import 'package:flutter_base/data_source/remote/messages_service.dart';
-import 'package:flutter_base/data_source/remote/user_services.dart';
+import 'models/home_models/user_profile.dart';
+import 'models/message_model/reply_request.dart';
+import 'remote/recitation_services.dart';
+import 'remote/messages_service.dart';
+import 'remote/user_services.dart';
 
 import 'remote/auth_services.dart';
 
@@ -20,15 +20,15 @@ class AppDataSource {
   saveUserReciataion({required userRecitation}) =>
       _userRecitationApi.saveUserReciataion(userRecitation: userRecitation);
 
-  getUserReciataions() => _userRecitationApi.getUserReciataions();
+  getUserReciataions(int page) => _userRecitationApi.getUserReciataions(page);
 
   getGeneraBoXMessage() => _userRecitationApi.getGeneraBoXMessage();
 
   getRecitationTeacher() => _userRecitationApi.getTeacher();
 
-  getTeacher() => _userServices.getTeacher();
+  getTeacher(int page) => _userServices.getTeacher(page);
 
-  getStudents() => _userServices.getStudents();
+  getStudents(int nextLink) => _userServices.getStudents(nextLink);
 
   sendMessage(int id, List<int> users) => _userServices.sendMessage(id, users);
 

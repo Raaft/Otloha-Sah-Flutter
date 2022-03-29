@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/data_source/models/setting_model/init_data.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../data_source/cache_helper.dart';
+import '../../../../data_source/models/setting_model/init_data.dart';
 
 part 'narration_state.dart';
 

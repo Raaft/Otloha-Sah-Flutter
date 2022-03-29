@@ -2,21 +2,21 @@ import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
+import '../../../../../core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_popup.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import '../../../../../core/utils/constant/utils.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../core/widgets/text_view.dart';
+import '../../../../../core/widgets/tool_bar_app.dart';
+import '../../../business_logic/cubit/messagedetails_cubit.dart';
+import 'replay_message_page.dart';
+import '../../widgets/comment_replay_item.dart';
+import '../../widgets/mesage_detalails_record.dart';
+import '../../widgets/mesage_detalis_head.dart';
+import '../../widgets/message_popup.dart';
+import '../../../../settings/presentation/widgets/view_error.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 
 import '../../../../../data_source/models/home_models/user_profile.dart';

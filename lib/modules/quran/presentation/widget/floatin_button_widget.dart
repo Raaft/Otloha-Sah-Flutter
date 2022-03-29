@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../home/business_logic/cubit/home_cubit.dart';
+import '../../business_logic/cubit/quran_cubit.dart';
 
 Widget floatingButton(
     {required QuranViewCubit cubit,

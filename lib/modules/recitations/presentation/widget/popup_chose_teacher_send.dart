@@ -1,16 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/recitations/business_logic/cubit/teachersend_cubit.dart';
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../core/utils/constant/utils.dart';
+import '../../../../core/utils/res/images_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import '../../../auth_module/presentation/pages/login_page.dart';
+import '../../business_logic/cubit/teachersend_cubit.dart';
 
-import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import '../../../settings/presentation/widgets/search_bar_app.dart';
+import '../../../settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -68,7 +68,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
     );
   }
 
-  Widget _viewBody(TeacherResponse? teachers) {
+  Widget _viewBody(List<TeacherResponse>? teachers) {
     return Container(
       color: AppColor.transparent,
       child: Container(
@@ -94,7 +94,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
                     onPressed: () async {
                       List<int> users = [];
                       for (var element in list) {
-                        users.add(teachers!.results![element].id ?? 0);
+                        users.add(teachers![element].id ?? 0);
                       }
                       if (widget.saveRecittion != null) {
                         recitationId = await widget.saveRecittion!();
@@ -122,9 +122,9 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: teachers!.results!.length,
+              itemCount: teachers!.length,
               itemBuilder: (context, index) {
-                return _teachers(index, teachers.results![index]);
+                return _teachers(index, teachers[index]);
               },
             )
           ],
@@ -196,7 +196,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
     }
   }
 
-  _teachers(int index, Results results) {
+  _teachers(int index, TeacherResponse results) {
     return ListTile(
       leading: Container(
         margin: const EdgeInsets.all(4),

@@ -1,118 +1,6 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
-
 class TeacherResponse {
-  int? count;
-  String? next;
-  String? previous;
-  List<Results>? results;
-  TeacherResponse({
-    this.count,
-    this.next,
-    this.previous,
-    this.results,
-  });
-
-  TeacherResponse copyWith({
-    int? count,
-    String? next,
-    String? previous,
-    List<Results>? results,
-  }) {
-    return TeacherResponse(
-      count: count ?? this.count,
-      next: next ?? this.next,
-      previous: previous ?? this.previous,
-      results: results ?? this.results,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'count': count,
-      'next': next,
-      'previous': previous,
-      'results': results?.map((x) => x.toMap()).toList(),
-    };
-  }
-
-  factory TeacherResponse.fromJson(dynamic json) {
-    List<Results> results = [];
-
-    if (json['results'] != null) {
-      json['results'].forEach((v) {
-        results.add(Results.fromJson(v));
-      });
-    }
-
-    return TeacherResponse(
-        count: json['count'],
-        next: json['next'],
-        previous: json['previous'],
-        results: results);
-  }
-
-  String toJson() => json.encode(toMap());
-
-  @override
-  String toString() {
-    return 'TeacherResponse(count: $count, next: $next, previous: $previous, results: $results)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-
-    return other is TeacherResponse &&
-        other.count == count &&
-        other.next == next &&
-        other.previous == previous &&
-        listEquals(other.results, results);
-  }
-
-  @override
-  int get hashCode {
-    return count.hashCode ^
-        next.hashCode ^
-        previous.hashCode ^
-        results.hashCode;
-  }
-}
-
-/*
-"id": 21,
-            "username": "Lonnie.Hernandez.632",
-            "first_name": "Lonnie",
-            "last_name": "Hernandez",
-            "bio": null,
-            "phone": "3215616_20",
-            "level": "Beginner",
-            "is_a_teacher": false,
-            "narration_id": null,
-            "image": "/media/users/2022/17/03/-example_4lF8Ek1.jpg",
-            "gender": "female" 
-            
-             {
-            "id": 1,
-            "username": "Paige.Richard.579",
-            "first_name": "Paige",
-            "last_name": "Richard",
-            "bio": null,
-            "phone": "3215616_0",
-            "level": "Beginner",
-            "is_a_teacher": true,
-            "narration_id": null,
-            "image": "/media/users/2022/17/03/-example_LJc7l2j.jpg",
-            "gender": "female",
-            "is_favorite": false,
-            "teacher_type": "Volunteer",
-            "is_certified": true,
-            "can_reply_on_every_verse_in_recitation": true,
-            "rate": 4.0
-        },*/
-class Results {
   int? id;
   String? firstName;
   String? lastName;
@@ -132,7 +20,7 @@ class Results {
   bool? isFavorite;
   double? rate;
 
-  Results({
+  TeacherResponse({
     this.id,
     this.firstName,
     this.lastName,
@@ -152,7 +40,7 @@ class Results {
     this.rate,
   });
 
-  Results copyWith({
+  TeacherResponse copyWith({
     int? id,
     String? firstName,
     String? lastName,
@@ -171,7 +59,7 @@ class Results {
     bool? isFavorite,
     double? rate,
   }) {
-    return Results(
+    return TeacherResponse(
       id: id ?? this.id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -216,6 +104,38 @@ class Results {
     };
   }
 
+/*
+"id": 21,
+            "username": "Lonnie.Hernandez.632",
+            "first_name": "Lonnie",
+            "last_name": "Hernandez",
+            "bio": null,
+            "phone": "3215616_20",
+            "level": "Beginner",
+            "is_a_teacher": false,
+            "narration_id": null,
+            "image": "/media/users/2022/17/03/-example_4lF8Ek1.jpg",
+            "gender": "female" 
+            
+             {
+            "id": 1,
+            "username": "Paige.Richard.579",
+            "first_name": "Paige",
+            "last_name": "Richard",
+            "bio": null,
+            "phone": "3215616_0",
+            "level": "Beginner",
+            "is_a_teacher": true,
+            "narration_id": null,
+            "image": "/media/users/2022/17/03/-example_LJc7l2j.jpg",
+            "gender": "female",
+            "is_favorite": false,
+            "teacher_type": "Volunteer",
+            "is_certified": true,
+            "can_reply_on_every_verse_in_recitation": true,
+            "rate": 4.0
+        },*/
+
   /*
   
   Results.fromJson(dynamic json) {
@@ -238,8 +158,8 @@ class Results {
   }
    */
 
-  factory Results.fromJson(Map<String, dynamic> map) {
-    return Results(
+  factory TeacherResponse.fromJson(Map<String, dynamic> map) {
+    return TeacherResponse(
       id: map['id']?.toInt(),
       firstName: map['first_name'],
       lastName: map['last_name'],
@@ -274,7 +194,7 @@ class Results {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Results &&
+    return other is TeacherResponse &&
         other.id == id &&
         other.firstName == firstName &&
         other.lastName == lastName &&

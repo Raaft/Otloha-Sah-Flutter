@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
+import '../../../core/utils/themes/color.dart';
 
 class ErrorType {
   static List<ErrorType> errors = [

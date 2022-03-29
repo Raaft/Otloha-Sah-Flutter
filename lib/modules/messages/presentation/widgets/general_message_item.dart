@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
+import 'message_item_sub.dart';
+import 'wave_view.dart';
 
 class GeneralMessageItem extends StatelessWidget {
   const GeneralMessageItem({

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 
-import 'package:flutter_base/core/error/exceptions.dart';
+import '../../../../core/error/exceptions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../data_source/data_source.dart';
@@ -19,6 +19,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   static MessageTapCubit get(context) => BlocProvider.of(context);
 
   changeIndex(int index) {
+    emit(MessageTapInitial());
     emit(MessageTapChange(index: index));
   }
 
@@ -66,7 +67,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     } on Exception catch (e) {
       emit(MessageErrorState(e));
     }
-    if (messageRecieve!.isEmpty) {
+    if (messageRecieve != null && messageRecieve!.isEmpty) {
       emit(MessageSendErrorState(EmptyListException()));
     }
   }
@@ -263,4 +264,8 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   }
 
   void search({String? qurey}) {}
+
+  getNextSendData(int? nextLink) async {
+    return await GetMessages().messagesSent(nextLink: nextLink);
+  }
 }

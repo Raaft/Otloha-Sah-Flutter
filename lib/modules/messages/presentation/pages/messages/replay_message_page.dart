@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../../../../../core/widgets/text_view.dart';
 
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
+import '../../../business_logic/cubit/messagedetails_cubit.dart';
 
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import '../../../../settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/selectable_message_item.dart';
+import '../../../../../core/utils/constant/utils.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../core/widgets/tool_bar_app.dart';
+import '../../../business_logic/cubit/reply_cubit.dart';
+import '../../../business_logic/cubit/reply_state.dart';
+import '../../widgets/selectable_message_item.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 

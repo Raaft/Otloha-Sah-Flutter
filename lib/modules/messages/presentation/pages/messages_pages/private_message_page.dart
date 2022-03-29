@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/item_user_messages.dart';
+import '../../../../../core/utils/res/images_app.dart';
+import '../../widgets/item_user_messages.dart';
 
 class PrivateMessagePage extends StatelessWidget {
   const PrivateMessagePage({Key? key}) : super(key: key);

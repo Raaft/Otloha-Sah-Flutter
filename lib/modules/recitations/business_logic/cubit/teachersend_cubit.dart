@@ -1,5 +1,5 @@
-import 'package:flutter_base/core/error/exceptions.dart';
-import 'package:flutter_base/data_source/data_source.dart';
+import '../../../../core/error/exceptions.dart';
+import '../../../../data_source/data_source.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,15 +9,15 @@ part 'teachersend_state.dart';
 
 class TeacherSendCubit extends Cubit<TeacherSendState> {
   TeacherSendCubit() : super(TeacherSendInitial());
-  TeacherResponse? teachers;
+  List<TeacherResponse>? teachers;
 
   static TeacherSendCubit get(context) => BlocProvider.of(context);
 
   getTeacher() {
     emit(TeacherLoadingState());
-    AppDataSource().getTeacher()!.then((value) async {
+    AppDataSource().getTeacher(1)!.then((value) async {
       if (value != null && value.results != null && value.results!.isNotEmpty) {
-        teachers = value as TeacherResponse?;
+        teachers = value;
 
         // print('teachers ' + teachers!.toString());
 

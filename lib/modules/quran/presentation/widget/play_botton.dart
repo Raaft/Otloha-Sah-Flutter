@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../business_logic/cubit/quran_cubit.dart';
+import '../../business_logic/cubit/recitation_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecordTool extends StatelessWidget {

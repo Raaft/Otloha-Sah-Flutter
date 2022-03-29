@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/data_source/local/database/database_repository.dart';
+import '../../../../core/utils/constant/utils.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import '../../../../data_source/local/database/database_repository.dart';
 
 import '../../../../data_source/models/database_model/verse_note.dart';
 

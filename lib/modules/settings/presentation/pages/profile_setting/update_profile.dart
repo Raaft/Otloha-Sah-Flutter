@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
 import '../../../../../../core/widgets/password_form_field.dart';
 import '../../../../../../core/widgets/text_from_fielid.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
-
+import '../../../../auth_module/presentation/widget/auth_button.dart';
 
 class UpdateProfile extends StatelessWidget {
   UpdateProfile({Key? key}) : super(key: key);
@@ -30,17 +29,17 @@ class UpdateProfile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   TextFormFieldApp(
-                      color: AppColor.lightBlue,
-                      controller: emailController,
-                      keyType: TextInputType.emailAddress,
-                      title: 'New Email',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'please enter your email address';
-                        }
-                        return null;
-                      },
-                     ),
+                    color: AppColor.lightBlue,
+                    controller: emailController,
+                    keyType: TextInputType.emailAddress,
+                    title: 'New Email',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter your email address';
+                      }
+                      return null;
+                    },
+                  ),
                   PasswordFormField(
                     controller: passwordController,
                     title: 'Password',

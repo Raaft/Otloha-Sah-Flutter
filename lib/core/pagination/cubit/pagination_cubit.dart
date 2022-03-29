@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_base/data_source/models/message_model/general_response.dart';
+import 'package:flutter_base/data_source/models/database_model/recitations.dart';
+import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
+import '../../../data_source/models/message_model/general_response.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -8,16 +10,27 @@ part 'pagination_state.dart';
 final factories = <Type, Function>{
   GeneralResponse: (Map<String, dynamic> data) =>
       GeneralResponse.fromJson(data),
+  Recitations: (Map<String, dynamic> data) => Recitations.fromJson(data),
+  TeacherResponse: (Map<String, dynamic> data) =>
+      TeacherResponse.fromJson(data),
 };
 
 class PaginationCubit<T> extends Cubit<PaginationState> {
-  final String linkFrist;
-  final Future<Response> Function() getData;
+  Future<Response> Function(int)? getData;
+  List<T>? initData;
+  bool isFirst = true;
 
-  PagingController<String, T>? _pagingController;
+  int page = 1;
 
-  PaginationCubit(this.linkFrist, this.getData) : super(PaginationInitial()) {
-    _pagingController = PagingController(firstPageKey: linkFrist);
+  PagingController<int, T>? _pagingController;
+
+  PaginationCubit() : super(PaginationInitial());
+
+  setData(getData, initData) {
+    this.getData = getData;
+    this.initData = initData;
+    page = 1;
+    _pagingController = PagingController(firstPageKey: page);
     _pagingController?.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });
@@ -25,24 +38,35 @@ class PaginationCubit<T> extends Cubit<PaginationState> {
 
   get pagingController => _pagingController;
 
-  Future<void> _fetchPage(String? pageKey) async {
+  Future<void> _fetchPage(int? pageKey) async {
     try {
-      Response response = await getData();
-
-      final isLastPage = (response.data['next'] != null &&
-          response.data['next'].toString().isNotEmpty);
-
-      var itemsNew = factories[T]!(response.data['results']);
-      if (isLastPage) {
-        _pagingController?.appendLastPage(itemsNew);
+      if (isFirst) {
+        _pagingController?.appendPage(initData!, page++);
+        isFirst = false;
       } else {
-        final nextPageKey = response.data['next'];
-        _pagingController?.appendPage(itemsNew, nextPageKey);
+        Response response = await getData!(pageKey!);
+
+        final isLastPage = (response.data['next'] == null ||
+            response.data['next'].toString().isEmpty);
+
+        List<T> itemsNew = (response.data['results'] as List)
+            .map<T>((e) => factories[T]!())
+            .toList();
+        if (isLastPage) {
+          _pagingController?.appendLastPage(itemsNew);
+          emit(state);
+        } else {
+          page++;
+          _pagingController?.appendPage(itemsNew, page);
+          emit(state);
+        }
       }
     } catch (error) {
       _pagingController!.error = error;
+      emit(state);
     }
   }
 
-  static PaginationCubit get(context) => BlocProvider.of(context);
+  static PaginationCubit get(context, {bool listen = true}) =>
+      BlocProvider.of(context);
 }

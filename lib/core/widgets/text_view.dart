@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/themes/text_style.dart';
+import '../utils/constant/constants.dart';
+import '../utils/themes/text_style.dart';
 
 class TextView extends StatelessWidget {
   const TextView({

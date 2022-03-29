@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/core/widgets/text_view.dart';
+import 'text_view.dart';
 
 class DropdownButtonApp extends StatelessWidget {
   const DropdownButtonApp({

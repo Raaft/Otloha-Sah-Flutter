@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_base/core/network/api_base_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/data_source/models/message_model/general_response.dart';
-import 'package:flutter_base/data_source/models/database_model/recitaion_details.dart';
-import 'package:flutter_base/data_source/models/database_model/recitations.dart';
-import 'package:flutter_base/data_source/models/database_model/user_recitation.dart';
+import '../../core/network/api_base_helper.dart';
+import '../../core/utils/constant/constants.dart';
+import '../models/message_model/general_response.dart';
+import '../models/database_model/recitaion_details.dart';
+import '../models/database_model/recitations.dart';
+import '../models/database_model/user_recitation.dart';
 
 class UserRecitationApi {
   Future<UserRecitation>? saveUserReciataion(
@@ -35,14 +35,17 @@ class UserRecitationApi {
     return userRecitation;
   }
 
-  Future<Recitations?>? getUserReciataions() async {
-    Response? response = await ApiBaseHelper().getHTTP('/api/v1/recitations/');
+  Future<List<Recitations>?>? getUserReciataions(int page) async {
+    Response? response = await ApiBaseHelper()
+        .getHTTP('/api/v1/recitations/', queryParameters: {'page': page});
 
-    Recitations? userRecitatios;
+    List<Recitations>? userRecitatios;
 
     print(response!.data);
     if ((response.statusCode! >= 200 && response.statusCode! < 300)) {
-      userRecitatios = Recitations.fromJson(response.data);
+      userRecitatios = (response.data['results'] as List)
+          .map((e) => Recitations.fromJson(e))
+          .toList();
     } else {
       print('Error Api ' + response.data.toString());
     }

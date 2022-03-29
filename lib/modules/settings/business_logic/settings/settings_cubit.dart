@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_base/data_source/data_source.dart';
-import 'package:flutter_base/data_source/models/setting_model/setting.dart';
+import '../../../../data_source/data_source.dart';
+import '../../../../data_source/models/setting_model/setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 part 'settings_state.dart';
 
@@ -44,6 +43,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       emit(UpdateEmailErrorState(error));
     });
   }
+
   regiAsTeacher({required FormData data}) {
     emit(RegisterAsTeacherLoadingState());
     AppDataSource().registerAsATeacher(data).then((value) {
@@ -72,7 +72,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     });
   }
 
-  Future<File?>? uploadFile()async{
+  Future<File?>? uploadFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
@@ -84,5 +84,4 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
     return null;
   }
-
 }

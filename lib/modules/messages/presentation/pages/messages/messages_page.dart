@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/general_box.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/in_box_message_page.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/out_box_message_page.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages_pages/private_message_page.dart';
+import '../../../../../core/utils/constant/utils.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../core/widgets/tool_bar_app.dart';
+import '../../../../../core/widgets/text_view.dart';
+import '../../../business_logic/cubit/messagetap_cubit.dart';
+import '../messages_pages/general_box.dart';
+import '../messages_pages/in_box_message_page.dart';
+import '../messages_pages/out_box_message_page.dart';
+import '../messages_pages/private_message_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class MessagesPage extends StatefulWidget {
   const MessagesPage({Key? key}) : super(key: key);
@@ -37,6 +36,7 @@ class _MessagesPageState extends State<MessagesPage> {
         child: BlocBuilder<MessageTapCubit, MessageTapState>(
           builder: (context, state) {
             if (state is MessageTapChange) {
+              print(state.index.toString() + 'index');
               _selected = state.index;
             }
 
@@ -109,8 +109,8 @@ class _MessagesPageState extends State<MessagesPage> {
       {bool isSelect = false, Function()? fetchData}) {
     return GestureDetector(
       onTap: () {
-        fetchData!();
         BlocProvider.of<MessageTapCubit>(context).changeIndex(value);
+        fetchData!();
       },
       child: Container(
         decoration: isSelect

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import 'package:flutter_base/core/pagination/view/pagination_view.dart';
+import '../../../../core/utils/constant/utils.dart';
+import '../../../auth_module/presentation/pages/login_page.dart';
+import '../../../settings/presentation/widgets/search_bar_app.dart';
+import '../../../settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
-import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
+import '../../business_logic/cubit/teacherviewtype_cubit.dart';
+import '../widgets/item_teacher.dart';
 
 import '../../../../data_source/models/database_model/teacher_response_entity.dart';
 
@@ -54,7 +55,7 @@ class _StudentsPageState extends State<StudentsPage> {
     if (state is TeacherErrorState) {
       return const Expanded(child: ViewError(error: 'No Data'));
     } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {
-      if (cubit!.teachers != null && cubit!.teachers!.results!.isNotEmpty) {
+      if (cubit!.teachers != null && cubit!.teachers!.isNotEmpty) {
         return _viewItems();
       } else {
         return const Expanded(child: ViewError(error: 'No Data'));
@@ -77,27 +78,34 @@ class _StudentsPageState extends State<StudentsPage> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: _type
-            ? ListView.builder(
-                itemCount: cubit!.teachers!.results!.length,
-                itemBuilder: (context, index) {
-                  return _itemView(index, cubit!.teachers!.results![index]);
-                },
-              )
+            ? _showData()
             : GridView.builder(
-                itemCount: cubit!.teachers!.results!.length,
+                itemCount: cubit!.teachers!.length,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
                   childAspectRatio: 2 / 2.45,
                 ),
                 itemBuilder: (context, index) {
-                  return _itemView(index, cubit!.teachers!.results![index]);
+                  return _itemView(index, cubit!.teachers![index]);
                 },
               ),
       ),
     );
   }
 
-  ItemTeacher _itemView(int index, Results results) {
+  _showData() {
+    return PaginationData<TeacherResponse>(
+      getData: (nextLink) async {
+        return await cubit?.getNextStudents(nextLink);
+      },
+      drowItem: (results, index) {
+        return _itemView(index, results);
+      },
+      initData: cubit!.teachers!,
+    );
+  }
+
+  ItemTeacher _itemView(int index, TeacherResponse results) {
     return ItemTeacher(
       userName: results.firstName! + ' ' + results.lastName!,
       rate: "${results.rate ?? ''}",

@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/widgets/cached_image.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
+import '../../../../data_source/cache_helper.dart';
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../core/widgets/cached_image.dart';
+import '../../../../core/utils/res/icons_app.dart';
 
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/recitations/presentation/widget/popup_recitation.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import '../../../recitations/presentation/widget/popup_recitation.dart';
 import 'package:get/get.dart';
 
 import '../../../../data_source/models/message_model/general_response.dart';

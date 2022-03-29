@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
-import 'package:flutter_base/modules/quran/presentation/page/chapters/index_surah_page.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/floatin_button_widget.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/play_botton.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/play_puse_tools.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/recorded_file_setting.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/tool_botton.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import '../../../home/business_logic/cubit/home_cubit.dart';
+import '../../business_logic/cubit/quran_cubit.dart';
+import '../../business_logic/cubit/recitation_cubit.dart';
+import 'chapters/index_surah_page.dart';
+import '../widget/floatin_button_widget.dart';
+import '../widget/play_botton.dart';
+import '../widget/play_puse_tools.dart';
+import '../widget/recorded_file_setting.dart';
+import '../widget/tool_botton.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 

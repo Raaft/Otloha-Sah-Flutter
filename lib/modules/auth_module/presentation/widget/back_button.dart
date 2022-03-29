@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
+import '../../../../core/utils/themes/color.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
@@ -10,7 +10,7 @@ Widget backButton() {
         onPressed: () {
           Get.back();
         },
-        icon:  Icon(
+        icon: Icon(
           Icons.arrow_back_ios,
           color: AppColor.lightBlue,
           size: 19,

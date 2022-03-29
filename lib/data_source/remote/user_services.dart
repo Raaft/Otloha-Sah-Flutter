@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
-import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
+import '../models/database_model/teacher_response_entity.dart';
+import '../models/home_models/user_profile.dart';
 
 import '../../core/network/api_base_helper.dart';
 
@@ -53,22 +53,30 @@ class UserServices {
     return UserProfile.fromJson(response!.data);
   }
 
-  Future<TeacherResponse?>? getTeacher() async {
-    Response? response =
-        await ApiBaseHelper().getHTTP('/api/v1/users/teachers/');
+  Future<List<TeacherResponse>?>? getTeacher(int page) async {
+    Response? response = await ApiBaseHelper()
+        .getHTTP('/api/v1/users/teachers/', queryParameters: {'page': page});
 
-    TeacherResponse? teachers;
+    List<TeacherResponse>? teachers;
 
-    teachers = TeacherResponse.fromJson(response!.data);
+    teachers = (response!.data['results'] as List)
+        .map((e) => TeacherResponse.fromJson(e))
+        .toList();
 
     return teachers;
   }
 
-  Future<TeacherResponse?> getStudents() async {
-    Response? response =
-        await ApiBaseHelper().getHTTP('/api/v1/users/students/');
+  Future<List<TeacherResponse>?> getStudents(int page) async {
+    Response? response = await ApiBaseHelper()
+        .getHTTP('/api/v1/users/students/', queryParameters: {'page': page});
 
-    return TeacherResponse.fromJson(response!.data);
+    List<TeacherResponse>? teachers;
+
+    teachers = (response!.data['results'] as List)
+        .map((e) => TeacherResponse.fromJson(e))
+        .toList();
+
+    return teachers;
   }
 
   Future<String?>? sendMessage(int id, List<int> users) async {

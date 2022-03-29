@@ -11,8 +11,9 @@ class GetMessages {
     return await ApiBaseHelper().getHTTP('/api/v1/recitations/messages/');
   }
 
-  Future<Response?> messagesSent() async {
-    return await ApiBaseHelper().getHTTP('/api/v1/recitations/messages/sent/');
+  Future<Response?> messagesSent({int? nextLink}) async {
+    return await ApiBaseHelper().getHTTP('/api/v1/recitations/messages/sent/',
+        queryParameters: {'page': nextLink ?? 1});
   }
 
   Future<Response?>? messgasRecieve() async {

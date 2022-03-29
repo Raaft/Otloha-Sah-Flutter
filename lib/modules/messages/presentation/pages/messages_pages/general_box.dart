@@ -1,14 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/data_source/models/message_model/general_response.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
+import '../../../../../core/exception_indicators/error_indicator.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../data_source/models/message_model/general_response.dart';
+import '../../../../auth_module/presentation/pages/login_page.dart';
+import '../../../business_logic/cubit/messagetap_cubit.dart';
+import '../../widgets/general_message_item.dart';
 
-import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import '../general_actions/liked_page.dart';
+import '../../widgets/message_item_sub.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GeneralMessagePage extends StatefulWidget {
@@ -47,10 +47,9 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
           });
         }
         if (state is GenaralErrorState) {
-         /// return const Expanded(child: ViewError(error: 'No Data'));
+          /// return const Expanded(child: ViewError(error: 'No Data'));
           print('asdaksjnd');
-          return  Expanded(child: ErrorIndicator(error: state.error)
-          );
+          return Expanded(child: ErrorIndicator(error: state.error));
         }
         if (state is GenaralSuccessState) {
           return Expanded(
@@ -65,7 +64,8 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             ),
           );
         }
-        return   const Expanded(child: Center(child: CircularProgressIndicator()));
+        return const Expanded(
+            child: Center(child: CircularProgressIndicator()));
       },
     );
   }

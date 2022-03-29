@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/google_facebook.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/google_facebook.dart';
+import '../../../../core/widgets/text_view.dart';
 
 Widget loginWith(String type) {
   return Column(
@@ -10,9 +10,9 @@ Widget loginWith(String type) {
         children: [
           Expanded(
               child: Divider(
-                thickness: 1,
-                color: AppColor.darkSilver,
-              )),
+            thickness: 1,
+            color: AppColor.darkSilver,
+          )),
           TextView(
             text: type,
             sizeText: 18,
@@ -23,9 +23,9 @@ Widget loginWith(String type) {
           ),
           Expanded(
               child: Divider(
-                thickness: 1,
-                color: AppColor.darkSilver,
-              )),
+            thickness: 1,
+            color: AppColor.darkSilver,
+          )),
         ],
       ),
       const GoogleAndFacebook(),

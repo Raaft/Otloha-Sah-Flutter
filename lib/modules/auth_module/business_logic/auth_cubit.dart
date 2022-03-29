@@ -1,15 +1,13 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/error/exceptions.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/data_source/data_source.dart';
-
-import 'package:flutter_base/data_source/models/auth_model/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../core/error/exceptions.dart';
+import '../../../core/utils/constant/constants.dart';
+import '../../../data_source/cache_helper.dart';
+import '../../../data_source/data_source.dart';
 import '../../../data_source/models/auth_model/user_model.dart';
 import '../../../data_source/models/home_models/user_profile.dart';
 

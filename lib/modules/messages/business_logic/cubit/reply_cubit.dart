@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
+import 'reply_state.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';

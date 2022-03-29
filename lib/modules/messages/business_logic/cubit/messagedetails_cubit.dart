@@ -1,4 +1,4 @@
-import 'package:flutter_base/data_source/data_source.dart';
+import '../../../../data_source/data_source.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/data_source/data_source.dart';

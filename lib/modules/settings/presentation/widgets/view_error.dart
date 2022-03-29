@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/widgets/text_view.dart';
 
 class ViewError extends StatelessWidget {
   const ViewError({Key? key, required this.error}) : super(key: key);

@@ -4,14 +4,14 @@ import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../lib_edit/wave/just_waveform.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
+import '../../business_logic/cubit/messagetap_cubit.dart';
 
 class WaveViewPlayAudio extends StatefulWidget {
   const WaveViewPlayAudio({

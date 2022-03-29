@@ -1,5 +1,5 @@
-import 'package:flutter_base/data_source/local/database/database/database.dart';
-import 'package:flutter_base/data_source/models/database_model/verse_note.dart';
+import 'database/database.dart';
+import '../../models/database_model/verse_note.dart';
 
 class DatabaseRepository {
   static final AppDatabase _database = AppDatabase();

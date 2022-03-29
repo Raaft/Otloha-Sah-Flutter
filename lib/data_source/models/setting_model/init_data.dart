@@ -1,17 +1,17 @@
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/data_source/models/setting_model/language.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/chapter_download_page.dart';
-import 'package:flutter_base/data_source/models/setting_model/setting.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/books_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/languages_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/narration_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/quran_translation_language_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/reciters_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/tafseer_page.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/settings/tajweed_page.dart';
+import '../../cache_helper.dart';
+import '../../../core/utils/constant/constants.dart';
+import '../../../core/utils/constant/utils.dart';
+import '../../../core/utils/res/icons_app.dart';
+import 'language.dart';
+import '../../../modules/settings/presentation/pages/settings/chapter_download_page.dart';
+import 'setting.dart';
+import '../../../modules/settings/presentation/pages/settings/books_page.dart';
+import '../../../modules/settings/presentation/pages/settings/languages_page.dart';
+import '../../../modules/settings/presentation/pages/settings/narration_page.dart';
+import '../../../modules/settings/presentation/pages/settings/quran_translation_language_page.dart';
+import '../../../modules/settings/presentation/pages/settings/reciters_page.dart';
+import '../../../modules/settings/presentation/pages/settings/tafseer_page.dart';
+import '../../../modules/settings/presentation/pages/settings/tajweed_page.dart';
 
 final List<Settings> settings = [
   Settings(

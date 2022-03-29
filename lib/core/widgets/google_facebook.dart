@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
+import '../utils/res/icons_app.dart';
 
 class GoogleAndFacebook extends StatelessWidget {
   const GoogleAndFacebook({

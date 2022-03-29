@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/widgets/cached_image.dart';
+import '../../../../core/widgets/cached_image.dart';
 
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import 'message_item_sub.dart';
 
 class BoxMessageItem extends StatelessWidget {
   const BoxMessageItem({

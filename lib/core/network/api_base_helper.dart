@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
+import '../../data_source/cache_helper.dart';
 
-import 'package:flutter_base/core/error/exceptions.dart';
-import 'package:flutter_base/core/network/network_info.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
+import '../error/exceptions.dart';
+import 'network_info.dart';
+import '../utils/constant/constants.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'refresh_token_model.dart';
@@ -122,10 +122,11 @@ class ApiBaseHelper {
   static final baseAPI = addInterceptors(dio);
 
   // ignore: missing_return
-  Future<Response?> getHTTP(String url) async {
+  Future<Response?> getHTTP(String url,
+      {Map<String, dynamic>? queryParameters}) async {
     Response? response;
     try {
-      response = await baseAPI.get(url);
+      response = await baseAPI.get(url, queryParameters: queryParameters);
       //response.statusCode;
       return response;
     } on DioError catch (e) {

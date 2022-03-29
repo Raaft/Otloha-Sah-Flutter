@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/utils.dart';
+import '../../../../core/utils/constant/utils.dart';
 
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
 
 class SearchBarApp extends StatefulWidget {
   const SearchBarApp({

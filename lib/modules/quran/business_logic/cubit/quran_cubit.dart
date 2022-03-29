@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/data_source/local/database/database_repository.dart';
-import 'package:flutter_base/data_source/models/database_model/page_marked.dart';
-import 'package:flutter_base/data_source/models/database_model/verse_like.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/play_button_state.dart';
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../data_source/cache_helper.dart';
+import '../../../../data_source/local/database/database_repository.dart';
+import '../../../../data_source/models/database_model/page_marked.dart';
+import '../../../../data_source/models/database_model/verse_like.dart';
+import '../../../home/business_logic/cubit/play_button_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:quran_widget_flutter/model/chapter.dart' as chapter;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../utils/themes/color.dart';
+import 'text_view.dart';
 
 class ToolBarApp extends StatelessWidget {
   const ToolBarApp({

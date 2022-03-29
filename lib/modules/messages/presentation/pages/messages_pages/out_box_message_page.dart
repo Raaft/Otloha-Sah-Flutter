@@ -1,12 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/data_source/models/message_model/message_model.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -33,22 +30,27 @@ class OutBoxMessagePage extends StatelessWidget {
           return Expanded(child: ErrorIndicator(error: state.error));
         }
         if (state is MessageSendSuccessState) {
-          return Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: cubit!.messageSendList!.length,
-                itemBuilder: (context, index) {
-                  return _getItem(index, cubit!.messageSendList![index]);
-                },
-              ),
-            ),
-          );
+          return _showData(cubit);
         }
 
         return const Expanded(
             child: Center(child: CircularProgressIndicator()));
       },
+    );
+  }
+
+  _showData(MessageTapCubit? cubit) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      // child: PaginationData(
+      //   // getData: (nextLink) async {
+      //   //   return await cubit!.getNextSendData(nextLink);
+      //   // },
+      //   drowItem: (results, index) {
+      //     _getItem(index, results as MessageModel);
+      //   },
+      //   //initData: cubit!.messageSendList!,
+      // ),
     );
   }
 
