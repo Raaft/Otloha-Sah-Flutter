@@ -1,8 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/data_source/models/database_model/recitations.dart';
+import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
+import 'package:flutter_base/data_source/models/message_model/general_response.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../cubit/pagination_cubit.dart';
+final factories = <Type, Function>{
+  GeneralResponse: (Map<String, dynamic> data) =>
+      GeneralResponse.fromJson(data),
+  Recitations: (Map<String, dynamic> data) => Recitations.fromJson(data),
+  TeacherResponse: (Map<String, dynamic> data) =>
+      TeacherResponse.fromJson(data),
+};
 
 class PaginationData<T> extends StatefulWidget {
   const PaginationData({
@@ -48,7 +57,7 @@ class _PaginationDataState<T> extends State<PaginationData<T>> {
             response.data['next'].toString().isEmpty);
 
         List<T> itemsNew = (response.data['results'] as List)
-            .map<T>((e) => factories[T]!())
+            .map<T>((map) => factories[T]!(map))
             .toList();
         if (isLastPage) {
           _pagingController.appendLastPage(itemsNew);

@@ -37,10 +37,10 @@ class UpdateEmail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      TextFormFieldApp(
-                          color: AppColor.lightBlue,
+                      customFormField(
+                        //  color: AppColor.lightBlue,
                           controller: emailController,
-                          keyType: TextInputType.emailAddress,
+                          keyboardType: TextInputType.emailAddress,
                           title: 'New Email',
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -49,16 +49,16 @@ class UpdateEmail extends StatelessWidget {
                             return null;
                           },
                          ),
-                      PasswordFormField(
+                      customFormField(
                         controller: passwordController,
                         title: 'Password',
+                        keyboardType: TextInputType.visiblePassword,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'please enter your Password';
                           }
                           return null;
                         },
-                        onSaved: (val) {},
                       ),
                       (state is UpdateEmailLoadingState)
                           ? const Center(

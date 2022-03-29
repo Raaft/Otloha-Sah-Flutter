@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/data_source/models/message_model/message_model.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
@@ -33,8 +34,7 @@ class OutBoxMessagePage extends StatelessWidget {
           return _showData(cubit);
         }
 
-        return   const Expanded(child: Center(child: Text('No Message Yet')));
-
+        return const Expanded(child: Center(child: Text('No Message Yet')));
       },
     );
   }
@@ -42,15 +42,15 @@ class OutBoxMessagePage extends StatelessWidget {
   _showData(MessageTapCubit? cubit) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      // child: PaginationData(
-      //   // getData: (nextLink) async {
-      //   //   return await cubit!.getNextSendData(nextLink);
-      //   // },
-      //   drowItem: (results, index) {
-      //     _getItem(index, results as MessageModel);
-      //   },
-      //   //initData: cubit!.messageSendList!,
-      // ),
+      child: PaginationData(
+        getData: (nextLink) async {
+          return await cubit!.getNextSendData(nextLink);
+        },
+        drowItem: (results, index) {
+          _getItem(index, results as MessageModel);
+        },
+        initData: cubit!.messageSendList!,
+      ),
     );
   }
 

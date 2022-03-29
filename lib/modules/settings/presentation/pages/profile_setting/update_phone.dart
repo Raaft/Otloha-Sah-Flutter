@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_from_fielid.dart';
+import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
-import '../../../../../../core/utils/themes/color.dart';
-import '../../../../../../core/widgets/password_form_field.dart';
-import '../../../../../../core/widgets/text_from_fielid.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
-import '../../../../auth_module/presentation/widget/auth_button.dart';
 
 class UpdatePhone extends StatelessWidget {
   UpdatePhone({Key? key}) : super(key: key);
@@ -28,10 +27,10 @@ class UpdatePhone extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  TextFormFieldApp(
-                    color: AppColor.lightBlue,
+                  customFormField(
+                    //  color: AppColor.lightBlue,
                     controller: emailController,
-                    keyType: TextInputType.phone,
+                    keyboardType: TextInputType.phone,
                     title: 'New Phone',
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -40,16 +39,16 @@ class UpdatePhone extends StatelessWidget {
                       return null;
                     },
                   ),
-                  PasswordFormField(
+                  customFormField(
                     controller: passwordController,
                     title: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'please enter your Password';
                       }
                       return null;
                     },
-                    onSaved: (val) {},
                   ),
                   AuthButton(
                     buttonText: tr('Update'),
