@@ -220,13 +220,13 @@ class ItemTeacher extends StatelessWidget {
           // var cubit = TeacherviewtypeCubit.get(context);
           return GestureDetector(
             onTap: () {
-              // cubit.markAsFavTeacher(id:cubit.teachers!);
-              setFav;
+            //  cubit.markAsFavTeacher(id:cubit.teachers!);
+              setFav!();
             },
             child: Icon(
-              (isFav ?? false) ? Icons.favorite : Icons.favorite_border,
+              (isFav ?? false) ? (Icons.favorite) : (Icons.favorite_border),
               color:
-                  (isFav ?? false) ? AppColor.iconColor2 : AppColor.iconColor,
+                  (isFav ?? false) ? Colors.red : AppColor.iconColor,
               size: size,
             ),
           );

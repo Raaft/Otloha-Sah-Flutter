@@ -11,13 +11,21 @@ class TeacherLoadingState extends TeacherviewtypeState {}
 
 class TeacherFetchedState extends TeacherviewtypeState {}
 
-class TeacherErrorState extends TeacherviewtypeState {}
+class TeacherErrorState extends TeacherviewtypeState {
+  final Exception error;
+
+  TeacherErrorState(this.error);
+}
 
 class MarkAsFavTeacherLoadingState extends TeacherviewtypeState {}
 
 class MarkAsFavTeacherFetchedState extends TeacherviewtypeState {}
 
-class MarkAsFavTeacherErrorState extends TeacherviewtypeState {}
+class MarkAsFavTeacherErrorState extends TeacherviewtypeState {
+  final Exception error;
+
+  MarkAsFavTeacherErrorState(this.error);
+}
 
 class TeacherviewtypeChange extends TeacherviewtypeState {
   final bool type;
