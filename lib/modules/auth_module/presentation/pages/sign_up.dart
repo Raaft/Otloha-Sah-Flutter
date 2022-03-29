@@ -180,23 +180,45 @@ class _SignFormState extends State<SignForm> {
                 //   ],
                 // ),
                 selectGender(),
-SizedBox(height: 20),
+                SizedBox(height: 20),
 
                 FormBuilderDateTimePicker(
                   // attribute: “date”,
                   inputType: InputType.date,
                   format: DateFormat('dd-MM-yyyy'),
-                  decoration:  InputDecoration(labelText: 'Date of Birth',
+                  // decoration: InputDecoration(
+                  //   labelText: 'Date of Birth',
+                  //
+                  //   labelStyle: TextStyle(color: AppColor.lightBlue),
+                  //   //color: Colors.blue,
+                  //   isDense: true,
+                  //
+                  //   border: OutlineInputBorder(
+                  //     borderRadius: BorderRadius.circular(8.0),
+                  //     borderSide:
+                  //         BorderSide(width: 1, color: AppColor.lightBlue),
+                  //   ),
+                  // ),
+                  decoration: InputDecoration(
+                    labelText: 'Date of Birth',
+                    labelStyle: TextStyle(color: AppColor.lightBlue), //color: Colors.blue,
+                    isDense: true,
+                    enabledBorder: border,
+                    focusedBorder: border,
+                    errorBorder: border,
+                    focusedErrorBorder: border,
+                    disabledBorder: border,
 
-            labelStyle: TextStyle(color: AppColor.lightBlue), //color: Colors.blue,
-            isDense: true,
-
-            border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(width: 1, color: AppColor.lightBlue),
-            ),
-
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColor.lightBlue,
+                        width: 10,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    //filled: true,
                   ),
+
                   // validator: [FormBuilderValidators.required()],
                   name: 'date',
                   onChanged: (value) {
@@ -293,17 +315,23 @@ SizedBox(height: 20),
         labelText: 'Gender',
         labelStyle: TextStyle(color: AppColor.lightBlue), //color: Colors.blue,
         isDense: true,
+        enabledBorder: border,
+        focusedBorder: border,
+        errorBorder: border,
+        focusedErrorBorder: border,
+        disabledBorder: border,
 
         border: OutlineInputBorder(
           borderSide: BorderSide(
-          color: AppColor.lightBlue,width: 10),
-
+            color: AppColor.lightBlue,
+            width: 10,
+          ),
           borderRadius: BorderRadius.circular(8.0),
-
         ),
         //filled: true,
       ),
-      hint: const Text('Select Gender'),
+      hint:  Text('Select Gender',style: TextStyle(color: AppColor.lightBlue),),
+
       items: ['Male', 'Female']
           .map((gender) => DropdownMenuItem(value: gender, child: Text(gender)))
           .toList(),
