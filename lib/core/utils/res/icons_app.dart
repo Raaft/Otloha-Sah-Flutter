@@ -33,4 +33,7 @@ class AppIcons {
   static String addIcon = 'assets/icons/add.png';
   static String filterIcon = 'assets/icons/filter.png';
   static String emptyIcon = 'assets/icons/empty.png';
+
+
+
 }

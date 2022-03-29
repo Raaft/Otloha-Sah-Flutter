@@ -47,18 +47,22 @@ class UserRecitationCubit extends Cubit<UserRecitationState> {
           verses.add(verse!);
         }
         userRecitationVerses.add(verses);
+        if(userRecitationVerses.isEmpty){
+          emit(UserRecitationError(EmptyListException()));
+
+        }
       }
       emit(UserRecitationFetched());
     } else {
       print('Error ' + userRec.toString());
-      emit(UserRecitationError());
+      emit(UserRecitationError(EmptyListException()));
     }
   }
 
   deleteRecitation(int index) {
     userRecitatios!.results!.removeAt(index);
     if (userRecitatios!.results!.isEmpty) {
-      emit(UserRecitationError());
+      emit(UserRecitationError(EmptyListException()));
     } else {
       emit(RemoveUserRecitationState());
     }

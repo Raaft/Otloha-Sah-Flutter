@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/data_source/models/message_model/message_model.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../core/exception_indicators/error_indicator.dart';
 import '../messages/message_details.dart';
 
 class OutBoxMessagePage extends StatelessWidget {
@@ -22,18 +24,13 @@ class OutBoxMessagePage extends StatelessWidget {
     cubit = MessageTapCubit.get(context);
     return BlocBuilder<MessageTapCubit, MessageTapState>(
       builder: (context, state) {
-        if (state is NoAuthState) {
-          Future.delayed(const Duration(seconds: 1), () {
-            Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-          });
-        }
         if (state is MessageSendSuccessLoadingState) {
           return const Expanded(
             child: Center(child: CircularProgressIndicator()),
           );
         }
-        if (state is MessageSendErrorState) {
-          return const Expanded(child: ViewError(error: 'No Data'));
+        if (state is MessageErrorState) {
+          return Expanded(child: ErrorIndicator(error: state.error));
         }
         if (state is MessageSendSuccessState) {
           return Expanded(
@@ -49,7 +46,8 @@ class OutBoxMessagePage extends StatelessWidget {
           );
         }
 
-        return const Expanded(child: ViewError(error: 'No Data'));
+        return const Expanded(
+            child: Center(child: CircularProgressIndicator()));
       },
     );
   }
@@ -89,5 +87,4 @@ class OutBoxMessagePage extends StatelessWidget {
         'سورة ${recitation!.chapterName ?? 0} من آية ${recitation.verseIds![0]} الي آية ${recitation.verseIds![recitation.verseIds!.length - 1]}';
     return str;
   }
-
 }

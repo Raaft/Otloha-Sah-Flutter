@@ -6,7 +6,11 @@ class UserRecitationInitial extends UserRecitationState {}
 
 class UserRecitationFetched extends UserRecitationState {}
 
-class UserRecitationError extends UserRecitationState {}
+class UserRecitationError extends UserRecitationState {
+  final Exception error;
+
+  UserRecitationError(this.error);
+}
 
 class UserRecitationLoading extends UserRecitationState {}
 
