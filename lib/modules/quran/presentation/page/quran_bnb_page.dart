@@ -13,31 +13,23 @@ import 'package:flutter_base/modules/quran/presentation/widget/tool_botton.dart'
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
-class QuranBNBPage extends StatefulWidget {
-  const QuranBNBPage({Key? key}) : super(key: key);
+class QuranBNBPage extends StatelessWidget {
 
-  @override
-  State<QuranBNBPage> createState() => _QuranBNBPageState();
-}
 
-class _QuranBNBPageState extends State<QuranBNBPage> {
   int chapter = 1;
 
   QuranViewCubit? cubit;
   RecitationAddCubit? addCubit;
 
-  @override
-  void initState() {
-    super.initState();
-    cubit = QuranViewCubit.get(context);
-    addCubit = RecitationAddCubit.get(context);
-  }
 
   @override
   Widget build(BuildContext context) {
+    cubit = QuranViewCubit.get(context);
+    addCubit = RecitationAddCubit.get(context);
     return BlocConsumer<QuranViewCubit, QuranViewState>(
       listener: (context, state) {},
       builder: (context, state) {
+
         var cubit = QuranViewCubit.get(context);
         var homeCubit = HomeCubit.get(context);
         return Scaffold(
