@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base/data_source/local/database/database_repository.dart';
+import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/splash_screen.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
@@ -65,15 +68,16 @@ void main() async {
 
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
-  /* try {
-    myProFile =
-        UserProfile.fromJson(jsonDecode(
-            await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
+  try {
+    myProFile = UserProfile.fromJson(jsonDecode(
+        await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
     favTeacherProFile = UserProfile.fromJson(
         jsonDecode(await otloha_shaerd.CacheHelper.getData(key: favTeacher)));
+
+    print('FAV ' + favTeacherProFile.toString());
   } catch (e) {
-    print('no user login');
-  }  */
+    print('no user login $e');
+  }
 
   BlocOverrides.runZoned(
     () => runApp(

@@ -1,11 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
 import 'package:flutter_base/data_source/data_source.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
@@ -92,6 +94,10 @@ class _TeacherPageState extends State<TeacherPage> {
   ///test
 
   _itemView(int index, TeacherResponse results) {
+    if (results.isFavorite ?? false) {
+      CacheHelper.saveData(
+          key: favTeacher, value: jsonEncode(results.toJson()));
+    }
     return BlocBuilder<TeacherviewtypeCubit, TeacherviewtypeState>(
       builder: (context, state) {
         var teacherViewCubit = TeacherviewtypeCubit.get(context);

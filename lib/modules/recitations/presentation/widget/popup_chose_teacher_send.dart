@@ -78,7 +78,6 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
         color: AppColor.white,
         child: ListView(
           children: [
-            _tabView(context),
             ..._favTeacher(),
           ],
         ),
@@ -89,6 +88,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   _favTeacher() {
     if (favTeacherProFile != null) {
       return [
+        _tabView(context),
         TextView(
           text: translate('Send to Favorite Teacher'),
           colorText: AppColor.txtColor3,

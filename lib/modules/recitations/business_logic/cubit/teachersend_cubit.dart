@@ -19,8 +19,12 @@ class TeacherSendCubit extends Cubit<TeacherSendState> {
   getTeacher() {
     try {
       emit(TeacherLoadingState());
-      teachers!.add(CacheHelper.getData(key: favTeacher));
-      emit(TeacherFetchedState());
+      if (CacheHelper.getData(key: favTeacher) != null) {
+        teachers!.add(CacheHelper.getData(key: favTeacher));
+        emit(TeacherFetchedState());
+      } else {
+        emit(TeacherErrorState());
+      }
     } catch (e) {
       emit(TeacherErrorState());
     }
