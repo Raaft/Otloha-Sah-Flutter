@@ -1,3 +1,14 @@
+// import 'package:drift/drift.dart';
+
+// class VerseLiked extends Table {
+//   IntColumn get id => integer().autoIncrement()();
+//   IntColumn get idFromVerse => integer()();
+//   IntColumn get idToVerse => integer()();
+//   IntColumn get idPage => integer()();
+//   IntColumn get pageNumber => integer()();
+//   TextColumn get textFristVerse => text().withLength(min: 0, max: 255)();
+// }
+
 import 'dart:convert';
 
 class VerseLiked {

@@ -1,3 +1,13 @@
+// import 'package:drift/drift.dart';
+
+// class PageMarked extends Table {
+//   IntColumn get id => integer().autoIncrement()();
+//   IntColumn get idPage => integer()();
+//   IntColumn get idBook => integer()();
+//   IntColumn get pageNumber => integer()();
+//   TextColumn get textVerse => text().withLength(min: 0, max: 255)();
+// }
+
 import 'dart:convert';
 
 class PageMarked {

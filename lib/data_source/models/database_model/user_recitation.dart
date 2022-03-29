@@ -1,3 +1,23 @@
+// import 'package:drift/drift.dart';
+
+// class UserRecitation extends Table {
+//   IntColumn get id => integer().autoIncrement()();
+//   IntColumn get narrationId => integer()();
+//   IntColumn get userId => integer()();
+//   IntColumn get chapterId => integer()();
+//   String? record;
+//   String? wavePath;
+//   List<int>? versesID;
+//   String? name;
+//   bool? uploaded;
+//   bool? isAccepted;
+//   bool? isTeacherRecitation;
+//   bool? showInGeneral;
+//   DateTime? finishedAt;
+//   DateTime? archivedAt;
+//   String? userName;
+//   String? userImage;
+// }
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';

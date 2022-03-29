@@ -7,7 +7,7 @@ import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../data_source/data_source.dart';
-import '../../../../data_source/models/database_model/GeneralResponse.dart';
+import '../../../../data_source/models/message_model/general_response.dart';
 import '../../../../data_source/models/message_model/message_model.dart';
 import '../../../../data_source/remote/messages_service.dart';
 

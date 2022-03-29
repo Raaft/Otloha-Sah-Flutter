@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/data_source/models/database_model/GeneralResponse.dart';
+import 'package:flutter_base/data_source/models/message_model/general_response.dart';
 import 'package:flutter_base/data_source/models/database_model/recitaion_details.dart';
 import 'package:flutter_base/data_source/models/database_model/recitations.dart';
 import 'package:flutter_base/data_source/models/database_model/user_recitation.dart';

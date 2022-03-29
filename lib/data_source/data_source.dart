@@ -1,9 +1,6 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:dio/dio.dart';
-import 'package:file/src/interface/file.dart';
+import 'package:file/file.dart';
 import 'package:flutter_base/data_source/local/database/database_repository.dart';
-
 
 import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
 import 'package:flutter_base/data_source/models/message_model/reply_request.dart';
@@ -129,23 +126,23 @@ class AppDataSource {
 
   createMessageReply({
     required int messageId,
-    required List<int> verses_ids,
+    required List<int> versesIds,
     required File record,
     required String comment,
     required int verseId,
-    required int position_from,
-    required int positition_to,
-    required String error_type,
+    required int positionFrom,
+    required int positionTo,
+    required String errorType,
   }) async {
     return _getMessages.createMessageReply(
         messageId: messageId,
-        verses_ids: verses_ids,
+        verses_ids: versesIds,
         record: record,
         comment: comment,
         verseId: verseId,
-        position_from: position_from,
-        positition_to: positition_to,
-        error_type: error_type);
+        position_from: positionFrom,
+        positition_to: positionTo,
+        error_type: errorType);
   }
 
   addToGeneral(int id) async {
@@ -195,18 +192,18 @@ class AppDataSource {
 
   passwordReset({email}) => _authApi.passwordReset(email: email);
 
-  passwordResetConfirm({uid, token, new_password1, new_password2}) =>
+  passwordResetConfirm({uid, token, newPassword1, newPassword2}) =>
       _authApi.passwordResetConfirm(
           uid: uid,
-          new_password1: new_password1,
-          new_password2: new_password2,
+          new_password1: newPassword1,
+          new_password2: newPassword2,
           token: token);
 
-  passwordChange({old_password, new_password1, new_password2}) =>
+  passwordChange({oldPassword, newPassword1, newPassword2}) =>
       _authApi.passwordChange(
-          old_password: old_password,
-          new_password2: new_password2,
-          new_password1: new_password1);
+          old_password: oldPassword,
+          new_password2: newPassword2,
+          new_password1: newPassword1);
 
   refreshToken() => _authApi.refreshToken();
 
