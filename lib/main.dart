@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_base/data_source/local/database/database_repository.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/splash_screen.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
@@ -200,9 +201,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: (token.isNotEmpty || token == '')
-            ? HomePage.routeName
-            : OnBoardPage.routeName,
+        initialRoute: SplashScreen.routeName,
+        // (token.isNotEmpty || token == '')
+        //     ? HomePage.routeName
+        //     : OnBoardPage.routeName,
         onGenerateRoute: appRouter.generateRoute,
       ),
     );

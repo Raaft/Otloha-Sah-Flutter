@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/splash_screen.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/recitations/presentation/page/recitations_page.dart';
@@ -45,6 +46,11 @@ class AppRouter {
       case HomePage.routeName:
         return MaterialPageRoute(
           builder: (_) => const HomePage(),
+          settings: settings,
+        );
+        case SplashScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const SplashScreen(),
           settings: settings,
         );
       case MessagesPage.routeName:

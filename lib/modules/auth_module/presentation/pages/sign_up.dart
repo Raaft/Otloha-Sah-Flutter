@@ -195,7 +195,9 @@ class _SignFormState extends State<SignForm> {
                   error: (state is RegisterErrorState)
                       ? state.error['password1'] ?? ['']
                       : [''],
-                  textField: PasswordFormField(
+                  textField: customFormField(
+                    keyboardType: TextInputType.visiblePassword,
+
                     controller: passwordController,
                     title: 'Password',
                     validator: (value) {
@@ -204,14 +206,14 @@ class _SignFormState extends State<SignForm> {
                       }
                       return null;
                     },
-                    onSaved: (val) {},
                   ),
                 ),
                 FieldValidation(
                   error: (state is RegisterErrorState)
                       ? state.error['password2'] ?? ['']
                       : [''],
-                  textField: PasswordFormField(
+                  textField: customFormField(
+                    keyboardType: TextInputType.visiblePassword,
                     controller: confirmPasswordController,
                     title: 'Confirm Password',
                     validator: (value) {
@@ -220,7 +222,6 @@ class _SignFormState extends State<SignForm> {
                       }
                       return null;
                     },
-                    onSaved: (val) {},
                   ),
                 ),
                 BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {

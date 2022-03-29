@@ -29,10 +29,10 @@ class UpdatePhone extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  TextFormFieldApp(
-                      color: AppColor.lightBlue,
+                  customFormField(
+                    //  color: AppColor.lightBlue,
                       controller: emailController,
-                      keyType: TextInputType.phone,
+                      keyboardType: TextInputType.phone,
                       title: 'New Phone',
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -41,16 +41,16 @@ class UpdatePhone extends StatelessWidget {
                         return null;
                       },
                      ),
-                  PasswordFormField(
+                  customFormField(
                     controller: passwordController,
                     title: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'please enter your Password';
                       }
                       return null;
                     },
-                    onSaved: (val) {},
                   ),
                   AuthButton(
                     buttonText: tr('Update'),
