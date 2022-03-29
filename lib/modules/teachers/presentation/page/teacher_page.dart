@@ -104,7 +104,7 @@ class _TeacherPageState extends State<TeacherPage> {
           isFav: results.isFavorite,
           //  results: results,
           setFav: () {
-            teacherViewCubit.markAsFavTeacher(id: results.id);
+            teacherViewCubit.markAsFavTeacher(id: results.id,results: results);
 
           },
         );
