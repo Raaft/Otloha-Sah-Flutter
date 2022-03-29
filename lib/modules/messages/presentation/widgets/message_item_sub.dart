@@ -11,7 +11,7 @@ import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/recitations/presentation/widget/popup_recitation.dart';
 import 'package:get/get.dart';
 
-import '../../../../data_source/models/database_model/GeneralResponse.dart';
+import '../../../../data_source/models/message_model/general_response.dart';
 import '../../../../data_source/models/home_models/user_profile.dart';
 
 class SubMessageItem extends StatelessWidget {
