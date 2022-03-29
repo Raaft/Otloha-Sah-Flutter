@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import '../../../../data_source/cache_helper.dart';
-import '../../../../core/utils/constant/constants.dart';
-import '../../../../core/utils/constant/utils.dart';
-import '../../../../core/utils/res/icons_app.dart';
-import '../../../../core/utils/res/images_app.dart';
-import '../../../../core/utils/themes/color.dart';
-import '../../business_logic/cubit/home_cubit.dart';
-import 'bottom_bar_item.dart';
-import '../pages/bnb_pags/home_bnb_page.dart';
-import '../pages/bnb_pags/profile_bnb_page.dart';
-import '../../../quran/presentation/page/quran_bnb_page.dart';
-import '../pages/bnb_pags/search_bnb_page.dart';
-import 'sub_section_item.dart';
-import '../../../messages/presentation/pages/messages/messages_page.dart';
-import '../../../quran/presentation/page/action_pages/pages_liked_page.dart';
-import '../../../teachers/presentation/page/students_page.dart';
-import '../../../teachers/presentation/page/teacher_page.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/core/utils/res/icons_app.dart';
+import 'package:flutter_base/core/utils/res/images_app.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/home/presentation/widget/bottom_bar_item.dart';
+import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/home_bnb_page.dart';
+import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/profile_bnb_page.dart';
+import 'package:flutter_base/modules/quran/presentation/page/quran_bnb_page.dart';
+import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/search_bnb_page.dart';
+import 'package:flutter_base/modules/home/presentation/widget/sub_section_item.dart';
+import 'package:flutter_base/modules/quran/presentation/page/action_pages/pages_liked_page.dart';
+import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
+import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+
+import '../../../messages/presentation/pages/messages/layout_page.dart';
 
 final List<SubSectionItem> subSectionData = [
   SubSectionItem(
@@ -109,7 +110,7 @@ List<BottomBarData> homeMenuItems = [
     title: translate('Quran'),
     iconData: AppIcons.quranIcon,
     badgeColor: AppColor.bottomSaved,
-    page: const QuranBNBPage(),
+    page: QuranBNBPage(),
   ),
   BottomBarData(
     title: translate('Search'),

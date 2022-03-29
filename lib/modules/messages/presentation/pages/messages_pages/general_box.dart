@@ -11,6 +11,8 @@ import '../general_actions/liked_page.dart';
 import '../../widgets/message_item_sub.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/error/exceptions.dart';
+
 class GeneralMessagePage extends StatefulWidget {
   const GeneralMessagePage({Key? key}) : super(key: key);
 
@@ -64,8 +66,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             ),
           );
         }
-        return const Expanded(
-            child: Center(child: CircularProgressIndicator()));
+        return  Expanded(child: ErrorIndicator(error: SomeThingWentWrong()));
       },
     );
   }

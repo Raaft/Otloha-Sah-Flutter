@@ -18,8 +18,10 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   static MessageTapCubit get(context) => BlocProvider.of(context);
 
-  changeIndex(int index) {
-    emit(MessageTapInitial());
+  int index = 0;
+
+  changeIndex(int value) {
+    index = value;
     emit(MessageTapChange(index: index));
   }
 
@@ -50,42 +52,93 @@ class MessageTapCubit extends Cubit<MessageTapState> {
     }
   }
 
+  getGeneraBoXMessage() async {
+    emit(GenaralLoadingState());
+    AppDataSource().getGeneraBoXMessage().then((value) async {
+      generalResponses = value;
+
+      print('UserRecitation is ===========> $generalResponses');
+      emit(GenaralSuccessState());
+      if (generalResponses!.isEmpty) {
+        emit(GenaralErrorState(EmptyListException()));
+      }
+    }).catchError((error) {
+      print('Error G ' + error.toString());
+      if (error is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
+      emit(GenaralErrorState(error));
+    });
+  }
+
   getRecieveMessage() async {
     emit(MessageRecieveSuccessLoadingState());
-    try {
-      Response? response = await GetMessages().messgasRecieve();
-
-      if (response!.statusCode == 200) {
-        messageRecieve = (response.data['results'] as List)
-            .map((data) => MessageModel.fromJson(data))
-            .toList();
-        print(
-            'MessageModel is ===========> $messageRecieve ${messageRecieve != null}');
-
-        emit(MessageRecieveSuccessState());
+    GetMessages().messgasRecieve()!.then((value) async {
+      messageRecieve = messageRecieve = (value!.data['results'] as List)
+          .map((data) => MessageModel.fromJson(data))
+          .toList();
+      emit(MessageRecieveSuccessState());
+      if (messageRecieve!.isEmpty) {
+        emit(MessageSendErrorState(EmptyListException()));
       }
-    } on Exception catch (e) {
-      emit(MessageErrorState(e));
-    }
-    if (messageRecieve != null && messageRecieve!.isEmpty) {
-      emit(MessageSendErrorState(EmptyListException()));
-    }
+    }).catchError((error) {
+      print('Error G ' + error.toString());
+      if (error is AuthError) {
+        emit(NoAuthState());
+        return;
+      }
+      emit(MessageRecieveErrorState(error));
+    });
+
+    // try {
+    //   Response? response = await GetMessages().messgasRecieve();
+    //
+    //   if (response!.statusCode == 200) {
+    //     messageRecieve = (response.data['results'] as List)
+    //         .map((data) => MessageModel.fromJson(data))
+    //         .toList();
+    //     print(
+    //         'MessageModel is ===========> $messageRecieve ${messageRecieve != null}');
+    //
+    //     emit(MessageRecieveSuccessState());
+    //   }
+    // } on Exception catch (e) {
+    //   emit(MessageErrorState(e));
+    // }
+    // if (messageRecieve!.isEmpty) {
+    //   emit(MessageSendErrorState(EmptyListException()));
+    // }
   }
 
   getSendMessage() async {
     emit(MessageSendSuccessLoadingState());
-    try {
-      Response? response = await GetMessages().messagesSent();
-      messageSendList = (response!.data['results'] as List)
+
+    GetMessages().messagesSent().then((value) async {
+      messageSendList = (value!.data['results'] as List)
           .map((data) => MessageModel.fromJson(data))
           .toList();
-      print('MessageModel is ===========> $messageSendList');
-    } on Exception catch (e) {
-      emit(MessageErrorState(e));
-    }
-    if (messageSendList != null && messageSendList!.isNotEmpty) {
       emit(MessageSendSuccessState());
-    }
+
+      if (messageSendList!.isEmpty) {
+        emit(MessageSendErrorState(EmptyListException()));
+      }
+    }).catchError((error) {
+      emit(MessageSendErrorState(error));
+    });
+
+    // try {
+    //   Response? response = await GetMessages().messagesSent();
+    //   messageSendList = (response!.data['results'] as List)
+    //       .map((data) => MessageModel.fromJson(data))
+    //       .toList();
+    //   print('MessageModel is ===========> $messageSendList');
+    // } on Exception catch (e) {
+    //   emit(MessageErrorState(e));
+    // }
+    // if (messageSendList != null && messageSendList!.isNotEmpty) {
+    //   emit(MessageSendSuccessState());
+    // }
   }
 
   getDetailsMessage({required int messageId, required int recitationId}) {
@@ -105,7 +158,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         emit(NoAuthState());
         return;
       }
-      emit(MessageDetailsErrorState(error.toString()));
+      emit(MessageDetailsErrorState(error));
       return;
     }).catchError((error) {
       if (error is AuthError) {
@@ -131,7 +184,7 @@ class MessageTapCubit extends Cubit<MessageTapState> {
         emit(NoAuthState());
         return;
       }
-      emit(MessageDetailsErrorState(error.toString()));
+      emit(MessageDetailsErrorState(error));
       return;
     });
     return;
@@ -208,23 +261,6 @@ class MessageTapCubit extends Cubit<MessageTapState> {
 
   sendMessageAsTeacher({required int messageId, required int reciId}) async {
     await GetMessages().sendMessageAsTeacher(reciId, messageId);
-  }
-
-  getGeneraBoXMessage() async {
-    emit(GenaralLoadingState());
-    AppDataSource().getGeneraBoXMessage().then((value) async {
-      generalResponses = value;
-
-      print('UserRecitation is ===========> $generalResponses');
-      emit(GenaralSuccessState());
-    }).catchError((error) {
-      print('Error G ' + error.toString());
-      if (error is AuthError) {
-        emit(NoAuthState());
-        return;
-      }
-      emit(GenaralErrorState(error));
-    });
   }
 
   /// play

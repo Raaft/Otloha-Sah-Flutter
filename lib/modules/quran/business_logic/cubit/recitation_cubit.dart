@@ -30,7 +30,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
   RecordingStatus _currentStatus = RecordingStatus.Unset;
   AudioPlayer audioPlayer = AudioPlayer();
 
-  int _narrationId = 1;
+  final int _narrationId = 1;
   int _recitationId = 1;
 
   bool checkVersesValue = false;
@@ -41,16 +41,6 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
   final BehaviorSubject<WaveformProgress> progressStream =
       BehaviorSubject<WaveformProgress>();
 
-  Future<void> _initWave(String path, File waveFile) async {
-    final audioFile = File(path);
-    final progressStream = JustWaveform.extract(
-      audioInFile: audioFile,
-      waveOutFile: waveFile,
-      zoom: const WaveformZoom.pixelsPerSecond(100),
-    );
-    print(progressStream);
-    // await JustWaveform.parse(waveFile);
-  }
 
   Future init() async {
     try {

@@ -18,8 +18,8 @@ import 'package:intl/intl.dart';
 import '../../../../../data_source/models/message_model/error_type.dart';
 import '../../../../../data_source/models/message_model/message_delails.dart';
 
-class ReplayMesaagePage extends StatefulWidget {
-  const ReplayMesaagePage({
+class ReplayMessagePage extends StatefulWidget {
+  const ReplayMessagePage({
     Key? key,
     required this.recitationId,
     required this.msgId,
@@ -31,10 +31,10 @@ class ReplayMesaagePage extends StatefulWidget {
   final int? parentId;
 
   @override
-  State<ReplayMesaagePage> createState() => _ReplayMesaagePageState();
+  State<ReplayMessagePage> createState() => _ReplayMessagePageState();
 }
 
-class _ReplayMesaagePageState extends State<ReplayMesaagePage> {
+class _ReplayMessagePageState extends State<ReplayMessagePage> {
   MessagedetailsCubit? cubit;
   ReplyCubit? replyCubit;
   String? text;
