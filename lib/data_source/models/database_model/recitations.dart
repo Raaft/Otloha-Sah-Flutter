@@ -90,8 +90,7 @@ class Results {
     chapterId = int.parse(json['chapter_id'] ?? '0');
     finishedAt = json['finished_at'];
     name = json['name'];
-    remarkable =
-        json['remarkable'] != null ? json['remarkable'].cast<String>() : [];
+    remarkable = json['remarkable'] != null ? json['remarkable'].cast<String>() : [];
   }
   int? id;
   String? record;

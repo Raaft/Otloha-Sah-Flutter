@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
 
 import '../../../../../data_source/models/database_model/recitations.dart';
+import '../../../../core/exception_indicators/error_indicator.dart';
 import '../../business_logic/cubit/userrecitation_cubit.dart';
 import '../widget/popup_recitation.dart';
 
@@ -67,14 +68,14 @@ class _RecitationsPageState extends State<RecitationsPage> {
               ),
             );
           } else if (state is UserRecitationError) {
-            return const ViewError(error: 'Not Found Data');
+            return  Expanded(child: ErrorIndicator(error: state.error));
           } else if (state is AuthErrorState) {
             Future.microtask(
               () => Navigator.of(context)
                   .pushReplacementNamed(LoginPage.routeName),
             );
           }
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: Text('No Recitation Found'));
         },
       ),
     );
