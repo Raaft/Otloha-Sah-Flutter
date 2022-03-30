@@ -6,6 +6,7 @@ import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
 import '../../../../../../core/widgets/password_form_field.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
+import '../../../../../core/widgets/text_from_fielid.dart';
 
 class ChangePassword extends StatelessWidget {
   ChangePassword({Key? key}) : super(key: key);
@@ -27,28 +28,17 @@ class ChangePassword extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  PasswordFormField(
+                  customFormField(
                     controller: passwordController,
                     title: 'Old Password',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your Password';
-                      }
-                      return null;
-                    },
-                    onSaved: (val) {},
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: []
                   ),
-                  PasswordFormField(
-                    controller: passwordController,
-                    title: 'New Password',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your Password';
-                      }
-                      return null;
-                    },
-                    onSaved: (val) {},
-                  ),
+                  customFormField(
+                      controller: passwordController,
+                      title: 'New Password',
+                      validator: [],
+                      keyboardType: TextInputType.visiblePassword),
                   PasswordFormField(
                     controller: passwordController,
                     title: 'Confirm Password',

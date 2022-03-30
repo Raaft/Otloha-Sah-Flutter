@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/exception_indicators/something_went_wrong.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
 
 import '../error/exceptions.dart';
-import 'empty_list_indicator.dart';
 import 'exception_indicator.dart';
 import 'generic_error_indicator.dart';
 import 'no_connection_indicator.dart';

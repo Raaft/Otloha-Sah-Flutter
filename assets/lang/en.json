@@ -9,6 +9,11 @@
   "WelcomeDear":"Welcome Dear",
 
   "_comment2":"login system",
+  "password": "Password",
+  "Email": "Email",
+  "User Name": "User Name",
+  "phone": "phone",
+  "Date of Birth": "Date of Birth",
 
   "OR":"OR",
   "SkipLogin":"Skip Login",
@@ -36,6 +41,8 @@
   "signupWith":"Or Signup with",
   "Need help":"Need help ?",
   "Sign-up": "Sign-up",
+  "Gender": "Gender",
+  "Select Gender": "Select Gender",
 
 
 

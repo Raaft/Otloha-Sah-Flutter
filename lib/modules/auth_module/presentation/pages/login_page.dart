@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/password_form_field.dart';
 import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/core/widgets/vali_errorr_text.dart';
@@ -14,6 +13,7 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_t
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:get/get.dart';
 
@@ -29,6 +29,11 @@ class LoginPage extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  var border = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(8.0),
+    borderSide: BorderSide(width: 1, color: AppColor.lightBlue),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -83,17 +88,15 @@ class LoginPage extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  TextFormFieldApp(
-                    color: AppColor.lightBlue,
-                    controller: emailController,
-                    keyType: TextInputType.emailAddress,
+                  customFormField(
                     title: tr('Email'),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your email address';
-                      }
-                      return null;
-                    },
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    validator:  [
+                      FormBuilderValidators.required(context),
+                      FormBuilderValidators.email(context),
+                    ]
+
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(
@@ -103,18 +106,15 @@ class LoginPage extends StatelessWidget {
                       : const SizedBox(),
                 ],
               ),
+              const SizedBox(height: 20),
               Column(
                 children: [
-                  PasswordFormField(
+                  customFormField(
+                    title: tr('password'),
                     controller: passwordController,
-                    title: 'Password',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your email address';
-                      }
-                      return null;
-                    },
-                    onSaved: (val) {},
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: [                      FormBuilderValidators.required(context),
+                    ]
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(
@@ -200,4 +200,6 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+
+
 }

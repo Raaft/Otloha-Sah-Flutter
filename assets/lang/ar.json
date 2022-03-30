@@ -34,9 +34,15 @@
   "EnterNewpassword":"أدخل كلمة المرور جديدة",
   "loginwith":"أو سجل الدخول ب",
   "signupWith":"أو سجل حساب ب",
-
+  "password":"كلمه المرور",
+  "Email":"البريد الالكتروني",
   "Need help":"أحتاج مساعده ؟",
   "Sign-up": "تسجيل حساب",
+  "User Name": "أسم المستخدم",
+  "phone": "رقم الهاتف",
+  "Date of Birth": "تاريخ الميلاد",
+  "Gender": "النوع",
+  "Select Gender": "أختار النوع ",
 
 
   "_comment3":"app values",

@@ -12,12 +12,13 @@ import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/profile_bn
 import 'package:flutter_base/modules/quran/presentation/page/quran_bnb_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/bnb_pags/search_bnb_page.dart';
 import 'package:flutter_base/modules/home/presentation/widget/sub_section_item.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/action_pages/pages_liked_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/students_page.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
+
+import '../../../messages/presentation/pages/messages/layout_page.dart';
 
 final List<SubSectionItem> subSectionData = [
   SubSectionItem(
@@ -109,7 +110,7 @@ List<BottomBarData> homeMenuItems = [
     title: translate('Quran'),
     iconData: AppIcons.quranIcon,
     badgeColor: AppColor.bottomSaved,
-    page: const QuranBNBPage(),
+    page: QuranBNBPage(),
   ),
   BottomBarData(
     title: translate('Search'),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/data_source/models/message_model/message_model.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -48,7 +47,9 @@ class InBoxMessagePage extends StatelessWidget {
           );
         }
         if (state is MessageRecieveErrorState) {
-          return  Expanded(child: ErrorIndicator(error: state.error));
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
         }
         return   const Expanded(child: Center(child: Text('No Message Yet')));
       },

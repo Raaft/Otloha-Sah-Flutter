@@ -6,7 +6,6 @@ import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.d
 import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
@@ -75,7 +74,9 @@ class _RecitationsPageState extends State<RecitationsPage> {
                   .pushReplacementNamed(LoginPage.routeName),
             );
           }
-          return const Center(child: Text('No Recitation Found'));
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
         },
       ),
     );

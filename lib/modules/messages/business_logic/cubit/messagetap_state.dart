@@ -39,7 +39,7 @@ class MessageRecieveSuccessLoadingState extends MessageTapState {}
 class MessageRecieveSuccessState extends MessageTapState {}
 
 class MessageRecieveErrorState extends MessageTapState {
-  final String error;
+  final Exception error;
 
   const MessageRecieveErrorState(this.error);
 }
@@ -49,7 +49,7 @@ class MessageDetailsLoadingState extends MessageTapState {}
 class MessageDetailsSuccessState extends MessageTapState {}
 
 class MessageDetailsErrorState extends MessageTapState {
-  final String error;
+  final Exception error;
 
   const MessageDetailsErrorState(this.error);
 }
@@ -59,7 +59,7 @@ class SendMessageLoadingState extends MessageTapState {}
 class SendMessageSuccessState extends MessageTapState {}
 
 class SendMessageErrorState extends MessageTapState {
-  final String error;
+  final Exception error;
 
   const SendMessageErrorState(this.error);
 }

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -6,6 +7,9 @@ import 'package:flutter_base/data_source/data_source.dart';
 import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../data_source/cache_helper.dart';
 
 
 part 'teacherviewtype_state.dart';
@@ -34,7 +38,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         emit(TeacherFetchedState());
       } else {
         print('Error e');
-        emit(TeacherErrorState());
+        emit(TeacherErrorState(EmptyListException()));
       }
     }).catchError((e) {
       print('Error $e');
@@ -43,13 +47,18 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         emit(NoAuthState());
         return;
       }
-      emit(TeacherErrorState());
+      emit(TeacherErrorState(e));
     });
   }
 
-  markAsFavTeacher({ int? id}) async {
+  markAsFavTeacher({int? id , results }) async {
     emit(MarkAsFavTeacherLoadingState());
     AppDataSource().markAsFavTeacher(id: id).then((value) {
+      emit(MarkAsFavTeacherFetchedState());
+
+      getTeacher();
+      CacheHelper.saveData(
+          key: favTeacher, value: jsonEncode(results.toJson()));
       return value;
     }).catchError((e) {
       print('Error $e');
@@ -57,7 +66,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
       if (e is AuthError) {
         emit(NoAuthState());
       }
-      emit(MarkAsFavTeacherErrorState());
+      emit(MarkAsFavTeacherErrorState(e));
     });
   }
 
@@ -74,7 +83,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         }*/
         emit(TeacherFetchedState());
       } else {
-        emit(TeacherErrorState());
+        emit(TeacherErrorState(EmptyListException()));
       }
     }).catchError((e) {
       print('Error $e');
@@ -83,7 +92,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
         emit(NoAuthState());
         return;
       }
-      emit(TeacherErrorState());
+      emit(TeacherErrorState(e));
     });
   }
 

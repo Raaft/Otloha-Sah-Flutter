@@ -22,28 +22,23 @@ import 'package:quran_widget_flutter/helper/chash_helper.dart';
 import '../../../../../data_source/models/home_models/user_profile.dart';
 import '../../../../../data_source/models/message_model/message_delails.dart';
 
-class MessageDetailsPage extends StatefulWidget {
-  const MessageDetailsPage(
-      {Key? key, required this.msgId, required this.recitationId})
-      : super(key: key);
+class MessageDetailsPage extends StatelessWidget {
+
 
   final int msgId;
   final int recitationId;
 
-  @override
-  State<MessageDetailsPage> createState() => _MessageDetailsPageState();
-}
-
-class _MessageDetailsPageState extends State<MessageDetailsPage> {
   MessagedetailsCubit? cubit;
   late UserProfile userProfile;
 
-  Future<void> init() async {
+   MessageDetailsPage({Key? key, required this.msgId, required this.recitationId}) : super(key: key);
+
+  Future<void> init(context) async {
     userProfile = UserProfile.fromJson(
         jsonDecode(await CacheHelper.getData(key: profile)));
     print('fgfd gfdgd $userProfile');
     cubit = MessagedetailsCubit.get(context);
-    cubit!.fetchMessages(widget.msgId, widget.recitationId);
+    cubit!.fetchMessages(msgId, recitationId);
   }
 
   @override
@@ -51,14 +46,13 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
-            future: init(),
+            future: init(context),
             builder: (context, snapshot) {
               return snapshot.connectionState == ConnectionState.done
                   ? Column(
                       children: [
                         _topView(context,
-                            msgId: widget.msgId,
-                            recitationId: widget.recitationId),
+                            msgId: msgId, recitationId: recitationId),
                         BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
                           builder: (context, state) {
                             if (state is MessageFetchedState) {
@@ -129,7 +123,7 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
               onPressed: () {
                 Get.bottomSheet(PopupMessageDetails(
                   msgId: msgId,
-                  recitationId: widget.recitationId,
+                  recitationId: recitationId,
                 ));
               },
               icon: const Icon(Icons.more_vert),
@@ -204,14 +198,14 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
         errorType: null,
         actionReply: () {
           Get.to(
-            ReplayMesaagePage(
-              msgId: widget.msgId,
-              recitationId: widget.recitationId,
+            ReplayMessagePage(
+              msgId: msgId,
+              recitationId: recitationId,
               //  parentId: reply.parent,
             ),
           )!
               .then((value) {
-            cubit!.fetchMessages(widget.msgId, widget.recitationId);
+            cubit!.fetchMessages(msgId, recitationId);
           });
         },
       ),
@@ -284,14 +278,14 @@ class _MessageDetailsPageState extends State<MessageDetailsPage> {
           errorType: reply.errorType,
           actionReply: () {
             Get.to(
-              ReplayMesaagePage(
-                msgId: widget.msgId,
-                recitationId: widget.recitationId,
+              ReplayMessagePage(
+                msgId: msgId,
+                recitationId: recitationId,
                 parentId: (reply.parent != null) ? reply.parent : reply.id,
               ),
             )!
                 .then((value) {
-              cubit!.fetchMessages(widget.msgId, widget.recitationId);
+              cubit!.fetchMessages(msgId, recitationId);
             });
           },
         ),

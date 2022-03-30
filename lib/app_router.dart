@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
+import 'package:flutter_base/modules/auth_module/presentation/pages/splash_screen.dart';
 import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
 import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
 import 'package:flutter_base/modules/recitations/presentation/page/recitations_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/general_actions/liked_page.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/messages_page.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/notify/notifiactions_page.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/settings/chapter_download_page.dart';
 import 'package:flutter_base/modules/quran/presentation/page/chapters/index_surah_page.dart';
@@ -22,6 +22,7 @@ import 'package:flutter_base/modules/teachers/presentation/page/students_page.da
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 
 import 'data_source/local/database/database_repository.dart';
+import 'modules/messages/presentation/pages/messages/layout_page.dart';
 
 class AppRouter {
   late DatabaseRepository databaseRepository;
@@ -47,9 +48,14 @@ class AppRouter {
           builder: (_) => const HomePage(),
           settings: settings,
         );
+        case SplashScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const SplashScreen(),
+          settings: settings,
+        );
       case MessagesPage.routeName:
         return MaterialPageRoute(
-          builder: (_) => const MessagesPage(),
+          builder: (_) =>  const MessagesPage(),
           settings: settings,
         );
       case TeacherPage.routeName:
