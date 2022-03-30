@@ -47,7 +47,9 @@ class InBoxMessagePage extends StatelessWidget {
           );
         }
         if (state is MessageRecieveErrorState) {
-          return  Expanded(child: ErrorIndicator(error: state.error));
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
         }
         return   const Expanded(child: Center(child: Text('No Message Yet')));
       },

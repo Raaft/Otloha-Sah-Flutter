@@ -74,7 +74,9 @@ class _RecitationsPageState extends State<RecitationsPage> {
                   .pushReplacementNamed(LoginPage.routeName),
             );
           }
-          return const Center(child: Text('No Recitation Found'));
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
         },
       ),
     );

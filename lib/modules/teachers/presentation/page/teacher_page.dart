@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/data_source/data_source.dart';
@@ -137,8 +138,11 @@ class _TeacherPageState extends State<TeacherPage> {
       if (cubit.teachers != null && cubit.teachers!.results!.isNotEmpty) {
         return _viewItems();
       } else {
-        return const Expanded(child: ErrorIndicator(error: 'No Data'));
+        return const Expanded(child: ErrorIndicator(error: EmptyListException));
       }
+    }else if (state is TeacherErrorState){
+      return  Expanded(child: ErrorIndicator(error: state.error,));
+
     }
     if (state is NoAuthState) {
       Future.delayed(const Duration(seconds: 1), () {

@@ -43,7 +43,9 @@ class OutBoxMessagePage extends StatelessWidget {
           );
         }
 
-        return   const Expanded(child: Center(child: Text('No Message Yet')));
+        return const Expanded(
+          child: Center(child: CircularProgressIndicator()),
+        );
 
       },
     );

@@ -67,7 +67,9 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             ),
           );
         }
-        return  Expanded(child: ErrorIndicator(error: SomeThingWentWrong()));
+        return const Expanded(
+          child: Center(child: CircularProgressIndicator()),
+        );
       },
     );
   }
