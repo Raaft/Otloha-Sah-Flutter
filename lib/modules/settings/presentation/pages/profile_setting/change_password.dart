@@ -32,22 +32,12 @@ class ChangePassword extends StatelessWidget {
                     controller: passwordController,
                     title: 'Old Password',
                     keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your Password';
-                      }
-                      return null;
-                    },
+                    validator: []
                   ),
                   customFormField(
                       controller: passwordController,
                       title: 'New Password',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'please enter your Password';
-                        }
-                        return null;
-                      },
+                      validator: [],
                       keyboardType: TextInputType.visiblePassword),
                   PasswordFormField(
                     controller: passwordController,

@@ -91,12 +91,7 @@ class LoginPage extends StatelessWidget {
                     title: tr('Email'),
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your email address';
-                      }
-                      return null;
-                    },
+
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(
@@ -113,12 +108,7 @@ class LoginPage extends StatelessWidget {
                     title: tr('Password'),
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your email address';
-                      }
-                      return null;
-                    },
+                    validator: []
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(

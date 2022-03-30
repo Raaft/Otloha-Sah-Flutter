@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
@@ -34,23 +35,15 @@ class UpdatePhone extends StatelessWidget {
                       controller: emailController,
                       keyboardType: TextInputType.phone,
                       title: 'New Phone',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'please enter your email address';
-                        }
-                        return null;
-                      },
+                      validator: [ FormBuilderValidators.required(context),
+                        FormBuilderValidators.email(context),]
                      ),
                   customFormField(
                     controller: passwordController,
                     title: 'Password',
                     keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your Password';
-                      }
-                      return null;
-                    },
+                    validator: [ FormBuilderValidators.required(context),
+                     ]
                   ),
                   AuthButton(
                     buttonText: tr('Update'),
