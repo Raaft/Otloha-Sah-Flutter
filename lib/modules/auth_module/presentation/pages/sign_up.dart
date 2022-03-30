@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/password_form_field.dart';
 import 'package:flutter_base/core/widgets/text_from_fielid.dart';
-import 'package:flutter_base/core/widgets/valdate_error.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.dart';
@@ -35,7 +33,6 @@ class SignUpPage extends StatelessWidget {
 
             if (state is RegisterSuccessState) {
               cubit.changeIsLogin(islog: true).then((value) {
-                cubit.saveProfile();
 
                 cubit.saveProfile().then((value) {
                   Get.offAll(() => const HomePage());
@@ -92,7 +89,7 @@ class SignForm extends StatefulWidget {
 }
 
 class _SignFormState extends State<SignForm> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormBuilderState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -117,7 +114,7 @@ class _SignFormState extends State<SignForm> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Form(
+      child: FormBuilder(
         key: formKey,
         child: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
@@ -130,9 +127,9 @@ class _SignFormState extends State<SignForm> {
                       // color: AppColor.lightBlue,
                       controller: userNameController,
                       keyboardType: TextInputType.name,
-                      title: 'User Name',
+                      title: tr('User Name'),
                       validator:[ FormBuilderValidators.required(context),
-                        FormBuilderValidators.email(context),]
+                        ]
                     ),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
@@ -185,10 +182,10 @@ class _SignFormState extends State<SignForm> {
                 Column(
                   children: [
                     customFormField(
-                      title: tr('phone'),
+                      title: tr('EnterYourphone'),
                       controller: phoneController,
                       keyboardType: TextInputType.emailAddress,
-                      validator: []
+                      validator: [FormBuilderValidators.required(context)]
                     ),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
@@ -236,21 +233,9 @@ class _SignFormState extends State<SignForm> {
                       // attribute: “date”,
                       inputType: InputType.date,
                       format: DateFormat('dd-MM-yyyy'),
-                      // decoration: InputDecoration(
-                      //   labelText: 'Date of Birth',
-                      //
-                      //   labelStyle: TextStyle(color: AppColor.lightBlue),
-                      //   //color: Colors.blue,
-                      //   isDense: true,
-                      //
-                      //   border: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(8.0),
-                      //     borderSide:
-                      //         BorderSide(width: 1, color: AppColor.lightBlue),
-                      //   ),
-                      // ),
+
                       decoration: InputDecoration(
-                        labelText: 'Date of Birth',
+                        labelText: tr('Date of Birth'),
                         labelStyle: TextStyle(color: AppColor.lightBlue),
                         //color: Colors.blue,
                         isDense: true,
@@ -291,10 +276,11 @@ class _SignFormState extends State<SignForm> {
                 Column(
                   children: [
                     customFormField(
-                      title: tr('Password'),
+                      title: tr('password'),
                       controller: passwordController,
                       keyboardType: TextInputType.emailAddress,
-                      validator:[]
+                      validator:[                          FormBuilderValidators.required(context),
+                      ]
                     ),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
@@ -309,10 +295,11 @@ class _SignFormState extends State<SignForm> {
                 Column(
                   children: [
                     customFormField(
-                      title: tr('Confirm Password'),
+                      title: tr('EnterConfirmPassword'),
                       controller: confirmPasswordController,
                       keyboardType: TextInputType.emailAddress,
-                      validator:[]
+                      validator:[                          FormBuilderValidators.required(context),
+                      ]
                     ),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
@@ -345,8 +332,9 @@ class _SignFormState extends State<SignForm> {
                           child: CircularProgressIndicator(),
                         )
                       : AuthButton(
-                          buttonText: tr('sign Up'),
+                          buttonText: tr('RegisterNow'),
                           onPressed: () {
+                           // formKey.currentState!.save();
                             if (formKey.currentState!.validate()) {
                               debugPrint('validate');
                               String formattedDate =
@@ -361,15 +349,24 @@ class _SignFormState extends State<SignForm> {
                                       gender: select.toLowerCase(),
                                       birthdate: formattedDate)
                                   .then((value) {
-                                token = CacheHelper.getData(key: 'token') ?? '';
+                                token =  CacheHelper.getData(key: 'token') ?? '';
+                                widget.   cubit.changeIsLogin(islog: true).then((value) {
+
+                                  widget.     cubit.saveProfile().then((value) {
+                                    Get.offAll(() => const HomePage());
+                                  });
+                                });
+
 
                                 //  widget.cubit.changeIsLogin();
-                                formKey.currentState!.reset();
+                               //formKey.currentState!.reset();
                               }).catchError((e) {
                                 print('ERROR IN LOG IN IS $e');
                               });
                             } else if (state is RegisterErrorState) {
                               return state.error;
+                            }else {
+                              print('validation failed');
                             }
                           },
                           width: double.infinity,
@@ -389,8 +386,10 @@ class _SignFormState extends State<SignForm> {
 
   FormBuilderDropdown<String> selectGender() {
     return FormBuilderDropdown(
+      validator: FormBuilderValidators.compose(
+          [FormBuilderValidators.required(context)]),
       decoration: InputDecoration(
-        labelText: 'Gender',
+        labelText: tr('Gender'),
         labelStyle: TextStyle(color: AppColor.lightBlue),
         //color: Colors.blue,
         isDense: true,
@@ -410,7 +409,7 @@ class _SignFormState extends State<SignForm> {
         //filled: true,
       ),
       hint: Text(
-        'Select Gender',
+       tr( 'Select Gender'),
         style: TextStyle(color: AppColor.lightBlue),
       ),
       items: ['Male', 'Female']
@@ -425,41 +424,41 @@ class _SignFormState extends State<SignForm> {
     );
   }
 
-  addRadioButton(int btnValue, String title) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Radio<String>(
-          activeColor: AppColor.lightBlue,
-          value: gender[btnValue],
-          groupValue: select,
-          onChanged: (value) {
-            setState(() {
-              print(value);
-              select = value!;
-            });
-          },
-        ),
-        Text(
-          title,
-          style: TextStyle(
-            color: AppColor.lightBlue,
-          ),
-        )
-      ],
-    );
-  }
+  // addRadioButton(int btnValue, String title) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.start,
+  //     children: [
+  //       Radio<String>(
+  //         activeColor: AppColor.lightBlue,
+  //         value: gender[btnValue],
+  //         groupValue: select,
+  //         onChanged: (value) {
+  //           setState(() {
+  //             print(value);
+  //             select = value!;
+  //           });
+  //         },
+  //       ),
+  //       Text(
+  //         title,
+  //         style: TextStyle(
+  //           color: AppColor.lightBlue,
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: currentDate,
-        firstDate: DateTime(1900),
-        lastDate: DateTime(2030 - 01 - 01));
-    if (pickedDate != null && pickedDate != currentDate) {
-      setState(() {
-        currentDate = pickedDate;
-      });
-    }
-  }
+  // Future<void> _selectDate(BuildContext context) async {
+  //   final DateTime? pickedDate = await showDatePicker(
+  //       context: context,
+  //       initialDate: currentDate,
+  //       firstDate: DateTime(1900),
+  //       lastDate: DateTime(2030 - 01 - 01));
+  //   if (pickedDate != null && pickedDate != currentDate) {
+  //     setState(() {
+  //       currentDate = pickedDate;
+  //     });
+  //   }
+  // }
 }

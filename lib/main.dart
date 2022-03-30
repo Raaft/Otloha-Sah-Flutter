@@ -27,6 +27,7 @@ import 'package:flutter_base/modules/settings/business_logic/settings/settings_c
 import 'package:flutter_base/modules/settings/business_logic/tajweed/tajweed_cubit.dart';
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
@@ -194,7 +195,11 @@ class MyApp extends StatelessWidget {
       ],
       child: GetMaterialApp(
         //showSemanticsDebugger: true,
-        localizationsDelegates: context.localizationDelegates,
+        //localizationsDelegates: context.localizationDelegates,
+        localizationsDelegates: [
+          FormBuilderLocalizations.delegate,
+          ...context.localizationDelegates
+        ],
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,
