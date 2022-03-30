@@ -349,13 +349,13 @@ class _SignFormState extends State<SignForm> {
                                       gender: select.toLowerCase(),
                                       birthdate: formattedDate)
                                   .then((value) {
-                                token =  CacheHelper.getData(key: 'token') ?? '';
-                                widget.   cubit.changeIsLogin(islog: true).then((value) {
-
-                                  widget.     cubit.saveProfile().then((value) {
-                                    Get.offAll(() => const HomePage());
-                                  });
-                                });
+                                // token =  CacheHelper.getData(key: 'token') ?? '';
+                                // widget.   cubit.changeIsLogin(islog: true).then((value) {
+                                //
+                                //   widget.     cubit.saveProfile().then((value) {
+                                //     Get.offAll(() => const HomePage());
+                                //   });
+                                // });
 
 
                                 //  widget.cubit.changeIsLogin();

@@ -23,6 +23,8 @@ class ChangePassword extends StatelessWidget {
           shrinkWrap: true,
           children: [
             topView(context),
+            const SizedBox(height: 200),
+
             Form(
               key: formKey,
               child: Column(
@@ -30,25 +32,25 @@ class ChangePassword extends StatelessWidget {
                 children: [
                   customFormField(
                     controller: passwordController,
-                    title: 'Old Password',
+                    title: tr('Old Password'),
                     keyboardType: TextInputType.visiblePassword,
                     validator: []
                   ),
+                  const SizedBox(height: 20),
+
                   customFormField(
                       controller: passwordController,
-                      title: 'New Password',
+                      title: tr('New Password'),
                       validator: [],
                       keyboardType: TextInputType.visiblePassword),
-                  PasswordFormField(
+                  const SizedBox(height: 20),
+
+                  customFormField(
                     controller: passwordController,
                     title: 'Confirm Password',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your Password';
-                      }
-                      return null;
-                    },
-                    onSaved: (val) {},
+                    validator: [],
+                      keyboardType: TextInputType.visiblePassword
+
                   ),
                   AuthButton(
                     buttonText: tr('Update'),

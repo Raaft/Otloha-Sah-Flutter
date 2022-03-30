@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
 import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_email.dart';
@@ -25,22 +26,24 @@ class ProfileSettings extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (ctx, state) {
-
         return Scaffold(
           body: SafeArea(
             child: ListView(
               children: [
                 topView(context),
-                const SizedBox(
-                  height: 40,
-                ),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextView(
-                        text: 'Update Profile',
+                      child: TextViewIcon(
+                        icon: Icon(
+                          Icons.person,
+                          color: AppColor.txtColor3,
+                        ),
+                        text: tr('Update Profile'),
                         textAlign: TextAlign.start,
                         colorText: AppColor.txtColor3,
                         sizeText: 17,
@@ -52,8 +55,12 @@ class ProfileSettings extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextView(
-                        text: 'Update Email',
+                      child: TextViewIcon(
+                        icon: Icon(
+                          Icons.email,
+                          color: AppColor.txtColor3,
+                        ),
+                        text: tr('Update Email'),
                         textAlign: TextAlign.start,
                         colorText: AppColor.txtColor3,
                         sizeText: 17,
@@ -65,8 +72,12 @@ class ProfileSettings extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextView(
-                        text: 'Update Phone',
+                      child: TextViewIcon(
+                        icon: Icon(
+                          Icons.phone,
+                          color: AppColor.txtColor3,
+                        ),
+                        text: tr('Update Phone'),
                         textAlign: TextAlign.start,
                         colorText: AppColor.txtColor3,
                         weightText: FontWeight.bold,
@@ -78,8 +89,10 @@ class ProfileSettings extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextView(
-                        text: 'Change Password',
+                      child: TextViewIcon(
+                        icon: Icon(Icons.security_rounded,
+                            color: AppColor.txtColor3),
+                        text: tr('Change Password'),
                         textAlign: TextAlign.start,
                         colorText: AppColor.txtColor3,
                         sizeText: 17,
@@ -107,7 +120,7 @@ class ProfileSettings extends StatelessWidget {
           Navigator.of(context).pop();
         },
       ),
-      title: translate('Profile Settings'),
+      title: tr('Profile Settings'),
     );
   }
 }

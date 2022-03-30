@@ -32,24 +32,29 @@ class UpdateEmail extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 topView(context),
+                const SizedBox(height: 200),
+
                 Form(
                   key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       customFormField(
                         //  color: AppColor.lightBlue,
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
-                          title: 'New Email',
+                          title: tr('New Email'),
                           validator:[
                             FormBuilderValidators.required(context),
                             FormBuilderValidators.email(context),
                           ]
                          ),
+                      const SizedBox(height: 20),
+
                       customFormField(
                         controller: passwordController,
-                        title: 'Password',
+                        title: tr('Password'),
                         keyboardType: TextInputType.visiblePassword,
                         validator: []
                       ),
