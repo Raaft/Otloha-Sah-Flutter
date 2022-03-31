@@ -75,6 +75,10 @@ class _LanguagesPageState extends State<LanguagesPage> {
       isSelect: _selected == index,
       action: () {
         try {
+          Get.dialog(
+            const AlertDialogFullScreen(),
+            barrierColor: AppColor.backdone,
+          );
           CacheHelper.saveData(key: languagesSelectedId, value: index);
 
           CacheHelper.saveData(
@@ -92,11 +96,6 @@ class _LanguagesPageState extends State<LanguagesPage> {
           BlocProvider.of<LanguageCubit>(context).changeLan(isEn, context);
 
           print(index.toString() + '  ' + (isEn ? 'en' : 'ar'));
-
-          Get.dialog(
-            const AlertDialogFullScreen(),
-            barrierColor: AppColor.backdone,
-          );
         } catch (e) {
           printError(info: e.toString());
         }

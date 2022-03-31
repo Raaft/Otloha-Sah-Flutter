@@ -19,9 +19,7 @@ class UpdateEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SettingsCubit, SettingsState>(
-      listener: (ctx, state) {
-        // TODO: implement listener
-      },
+      listener: (ctx, state) {},
       builder: (ctx, state) {
         var cubit = SettingsCubit.get(context);
 
@@ -38,21 +36,19 @@ class UpdateEmail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       customFormField(
-                        //  color: AppColor.lightBlue,
+                          //  color: AppColor.lightBlue,
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           title: 'New Email',
-                          validator:[
+                          validator: [
                             FormBuilderValidators.required(context),
                             FormBuilderValidators.email(context),
-                          ]
-                         ),
+                          ]),
                       customFormField(
-                        controller: passwordController,
-                        title: 'Password',
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: []
-                      ),
+                          controller: passwordController,
+                          title: 'Password',
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: []),
                       (state is UpdateEmailLoadingState)
                           ? const Center(
                               child: CircularProgressIndicator(),

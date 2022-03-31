@@ -14,17 +14,15 @@ class UserRecitationApi {
     var map = userRecitation.toMap();
 
     File file = File(userRecitation.record!);
-    // File wave = File(userRecitation.wavePath!);
+    File wave = File(userRecitation.wavePath!);
 
-    map['record'] = await MultipartFile.fromFile(file.path,
+    map['record'] = MultipartFile.fromBytes(file.readAsBytesSync(),
         filename: file.path.split('/').last);
 
-    // try {
-    //   map['wave'] = await MultipartFile.fromFile(wave.path,
-    //       filename: wave.path.split('/').last);
-    // } catch (e) {
-    //   print(e);
-    // }
+    map['wave'] = MultipartFile.fromBytes(wave.readAsBytesSync(),
+        filename: wave.path.split('/').last);
+
+    print('cklskdmclksdmdcm ${wave.readAsBytesSync()}');
 
     Response response =
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);

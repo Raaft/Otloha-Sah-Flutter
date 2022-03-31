@@ -35,12 +35,12 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
 
   bool checkVersesValue = false;
   List<Verse> selectedVerses = [];
+  File? waveFile;
 
   page_obj.Page? page;
 
   final BehaviorSubject<WaveformProgress> progressStream =
       BehaviorSubject<WaveformProgress>();
-
 
   Future init() async {
     try {
@@ -136,6 +136,22 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
     }
   }
 
+  _initWave(String audioFile) async {
+    try {
+      // await audioFile.writeAsBytes((audioFile).buffer.asUint8List());
+      waveFile = File(p.join((await getApplicationDocumentsDirectory()).path,
+          '${DateTime.now().microsecondsSinceEpoch}.wave'));
+
+      JustWaveform.extract(
+          audioInFile: File(audioFile), waveOutFile: waveFile!);
+      await waveFile!.create();
+      int i = await waveFile!.length();
+      print('askcjnakscjnackjnask $i');
+    } catch (e) {
+      progressStream.addError(e);
+    }
+  }
+
   saveRecitation() async {
     String customPath = '/FilesGeneratedWave';
     Directory appDocDirectory;
@@ -146,10 +162,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
       appDocDirectory = (await getExternalStorageDirectory())!;
     }
 
-    final waveFile = File(p.join(appDocDirectory.path,
-        '$customPath${DateTime.now().microsecondsSinceEpoch}.wave'));
-
-    // await _initWave(_current!.path!, waveFile);
+    await _initWave(_current!.path!);
 
     List<int> recordedVersesId = [];
     for (var verse in selectedVerses) {
@@ -161,7 +174,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
       record: _current!.path ?? '',
       name: getName(),
       versesID: recordedVersesId,
-      wavePath: waveFile.path,
+      wavePath: waveFile!.path,
     );
 
     var user = await UserRecitationApi()
