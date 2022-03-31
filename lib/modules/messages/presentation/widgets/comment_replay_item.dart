@@ -138,7 +138,6 @@ class CommentReplayItem extends StatelessWidget {
   _viewAyah() {
     return (ayah != null && ayah!.isNotEmpty)
         ? SizedBox(
-            width: 150,
             child: TextView(
               padding: EdgeInsets.zero,
               text: ayah ?? '',
