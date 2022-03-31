@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/cached_image.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/reply_message_widget.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import '../../../../../core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -51,36 +52,34 @@ class MessageDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: FutureBuilder(
             future: init(context),
             builder: (context, snapshot) {
               return snapshot.connectionState == ConnectionState.done
-                  ? BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
-                      builder: (context, state) {
-                        if (state is MessageFetchedState ||
-                            state is MessageEmptyState) {
-                          return Column(
-                            children: [
-                              _topView(context,
-                                  msgId: msgId, recitationId: recitationId),
-                              _viewBody(context),
-                              if ((myProFile?.isATeacher ?? false) ||
-                                  cubit!.isViewInput)
-                                _viewInputRelpy(),
-                            ],
-                          );
-                        }
+                  ? Column(
+                      children: [
+                        _topView(context,
+                            msgId: msgId, recitationId: recitationId),
+                        BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
+                          builder: (context, state) {
+                            if (state is MessageFetchedState ||
+                                state is MessageEmptyState) {
+                              return _viewBody(context);
+                            }
 
-                        if (state is MessageLoadingState) {
-                          return const Expanded(
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        }
-                        return const ViewError(error: 'Not Found Data');
-                      },
+                            if (state is MessageLoadingState) {
+                              return const Expanded(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }
+                            return const ViewError(error: 'Not Found Data');
+                          },
+                        ),
+                      ],
                     )
                   : const SizedBox();
             }),
@@ -101,6 +100,18 @@ class MessageDetailsPage extends StatelessWidget {
       },
       isATeacher: (myProFile?.isATeacher ?? false),
       parentId: cubit!.parentId,
+    );
+  }
+
+  _viewInputRelpy2() {
+    return Container(
+      padding: const EdgeInsets.only(top: 8),
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(28), topRight: Radius.circular(28)),
+      ),
+      child: SingleChildScrollView(child: _viewInputRelpy()),
     );
   }
 
@@ -235,6 +246,14 @@ class MessageDetailsPage extends StatelessWidget {
         wavePath: cubit!.messageDetails!.recitation!.wave,
         isPlay: false,
         errorType: null,
+        actionReply: (userProfile.isATeacher ?? false)
+            ? () {
+                BlocProvider.of<ReplyCubit>(context).setViewMessage(false);
+                BlocProvider.of<ReplyCubit>(context).setIsReply(false);
+                cubit!.setViewInput(false, null);
+                Get.bottomSheet(_viewInputRelpy2());
+              }
+            : null,
       ),
     );
   }
@@ -308,18 +327,22 @@ class MessageDetailsPage extends StatelessWidget {
             BlocProvider.of<ReplyCubit>(context).setIsReply(true);
           },
         ),
-        if (reply.children!.isNotEmpty) _viewDataCh(reply.children),
+        if (reply.children!.isNotEmpty || cubit!.isViewInput)
+          _viewDataCh(reply.children, reply.id ?? 0),
       ],
     );
   }
 
-  ListView _viewDataCh(List<Replies>? children) {
+  ListView _viewDataCh(List<Replies>? children, int parent) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: children!.length,
+      itemCount: children!.length +
+          ((cubit!.isRelpy && cubit!.parentId == parent) ? 1 : 0),
       itemBuilder: (context, index) =>
-          _viewItem(index, children[index], context),
+          (cubit!.isRelpy && index == children.length)
+              ? _viewInputRelpy()
+              : _viewItem(index, children[index], context),
     );
   }
 

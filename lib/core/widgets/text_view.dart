@@ -14,6 +14,7 @@ class TextView extends StatelessWidget {
     this.colorText,
     this.sizeText,
     this.weightText,
+    this.lineHeight,
     this.fontFamily = fontFamily1,
     this.overflow = TextOverflow.clip,
     this.letterSpacing,
@@ -27,6 +28,7 @@ class TextView extends StatelessWidget {
   final Icon? icon;
   final Color? colorText;
   final double? sizeText;
+  final double? lineHeight;
   final FontWeight? weightText;
   final double? letterSpacing;
 
@@ -37,21 +39,20 @@ class TextView extends StatelessWidget {
     return GestureDetector(
       onTap: action,
       child: Padding(
-        padding: padding,
-        child: AutoSizeText(
-          text,
-          style: AppStyle().textStyle1.copyWith(
+          padding: padding,
+          child: AutoSizeText(
+            text,
+            style: AppStyle().textStyle1.copyWith(
                 fontSize: sizeText,
                 color: colorText,
                 fontWeight: weightText,
                 wordSpacing: .5,
                 fontFamily: fontFamily,
                 letterSpacing: letterSpacing,
-              ),
-          textAlign: textAlign,
-          overflow: overflow,
-        ),
-      ),
+                height: lineHeight),
+            textAlign: textAlign,
+            overflow: overflow,
+          )),
     );
   }
 }

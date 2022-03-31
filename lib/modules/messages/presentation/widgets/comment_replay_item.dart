@@ -71,11 +71,11 @@ class CommentReplayItem extends StatelessWidget {
         onLongPress: onLongPress,
         userImage: userImage,
         small: isReply || small,
-        userName: _viwName(),
-        dataView: _viewData(),
+        userName: _viweName(),
+        dataView: _userInfo(),
         ayahView: _viewAyah(),
         ayahInfoView: _ayahInfoView(),
-        userInfo: _userInfo(),
+        userInfo: _viewData(),
         color: AppColor.selectColor1,
       ),
     );
@@ -99,7 +99,7 @@ class CommentReplayItem extends StatelessWidget {
     );
   }
 
-  TextView _viwName() {
+  TextView _viweName() {
     return TextView(
       text: userName ?? 'Name',
       weightText: FontWeight.w900,
@@ -113,12 +113,10 @@ class CommentReplayItem extends StatelessWidget {
   _userInfo() {
     var errorTypeActiv = _check(errorType) ?? ErrorType.errors[0];
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(),
         if (errorType != null && errorType!.isNotEmpty)
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
               color: errorTypeActiv.color,
@@ -126,9 +124,10 @@ class CommentReplayItem extends StatelessWidget {
             child: TextView(
               padding: EdgeInsets.zero,
               text: 'نوع الخطاء : ' + (errorTypeActiv.value ?? 'تجويد'),
-              sizeText: 11,
+              sizeText: 8,
               colorText: AppColor.txtColor2,
               textAlign: TextAlign.start,
+              lineHeight: .9,
             ),
           ),
       ],
@@ -156,13 +155,14 @@ class CommentReplayItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextView(
-          padding: EdgeInsets.zero,
-          text: (ayahInfo ?? '') + ' - رواية ' + (narrationName ?? 'حفص'),
-          sizeText: 12,
-          colorText: AppColor.userNameColor,
-          textAlign: TextAlign.start,
-        ),
+        if (ayahInfo != null && ayahInfo!.isNotEmpty)
+          TextView(
+            padding: EdgeInsets.zero,
+            text: (ayahInfo ?? '') + ' - رواية ' + (narrationName ?? 'حفص'),
+            sizeText: 12,
+            colorText: AppColor.userNameColor,
+            textAlign: TextAlign.start,
+          ),
         ..._waveView(),
       ],
     );
@@ -186,7 +186,7 @@ class CommentReplayItem extends StatelessWidget {
           textAlign: TextAlign.start,
           // overflow: TextOverflow.ellipsis,
         ),
-      if (small && actionReply != null)
+      if (actionReply != null)
         InkWell(
           onTap: () {
             actionReply!();

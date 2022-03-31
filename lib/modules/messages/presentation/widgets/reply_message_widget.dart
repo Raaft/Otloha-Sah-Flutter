@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
@@ -41,9 +42,15 @@ class ReplayMessageWidget extends StatelessWidget {
     return BlocConsumer<ReplyCubit, ReplyState>(
       listener: (context, state) {
         if (state is SavedState) {
+          if (isATeacher && !replyCubit!.isRelpay) {
+            Get.back();
+          }
           reload!();
           replyCubit!.setViewMessage(false);
           replyCubit!.setIsReply(false);
+          replyCubit!.setInit();
+          BlocProvider.of<MessagedetailsCubit>(context)
+              .setViewInput(false, null);
         }
         if (state is ChangeIsReply) {
           if (replyCubit!.isRelpay) {
@@ -52,13 +59,13 @@ class ReplayMessageWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return Column(children: [
-          if ((replyCubit?.viewMessage ?? false) &&
-              isATeacher &&
-              !replyCubit!.isRelpay)
-            _viewMessage(),
-          _messageField(state),
-        ]);
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (isATeacher && !replyCubit!.isRelpay) _viewMessage(),
+            _messageField(state),
+          ],
+        );
       },
     );
   }
@@ -78,16 +85,31 @@ class ReplayMessageWidget extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return SelectableMessageItem(
-            ayah: ayah ?? 'dddd',
-            wavePath: wave, recordPath: record,
-            selectedText: (txt) {
-              String select = ayah!.substring(txt.baseOffset, txt.extentOffset);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextView(
+                text: 'أضغط علي النص القرآني لتحديد موضع الخطأ',
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                sizeText: 14,
+                colorText: AppColor.txtColor4,
+                textAlign: TextAlign.start,
+                // overflow: TextOverflow.ellipsis,
+              ),
+              SelectableMessageItem(
+                ayah: ayah ?? 'dddd',
+                wavePath: wave, recordPath: record,
+                selectedText: (txt) {
+                  String select =
+                      ayah!.substring(txt.baseOffset, txt.extentOffset);
 
-              replyCubit!.setText(select);
-              print('Seleceted Text $select');
-            },
-            // overflow: TextOverflow.ellipsis,
+                  replyCubit!.setText(select);
+                  print('Seleceted Text $select');
+                },
+                // overflow: TextOverflow.ellipsis,
+              ),
+            ],
           );
         },
       ),
@@ -122,6 +144,7 @@ class ReplayMessageWidget extends StatelessWidget {
                           replyCubit!.setViewMessage(true);
                         }
                       },
+                      autofocus: true,
                       focusNode: replyCubit!.focusNode,
                       controller: replyCubit!.messageController,
                       decoration: const InputDecoration(
@@ -148,7 +171,9 @@ class ReplayMessageWidget extends StatelessWidget {
                         TextView(text: state.time)
                       ],
                     ),
-                  if (state is EndRecordingState)
+                  if (state is EndRecordingState ||
+                      state is PlayerIsPlay ||
+                      state is PlayerIsPause)
                     Row(
                       children: [
                         IconButton(
@@ -161,12 +186,18 @@ class ReplayMessageWidget extends StatelessWidget {
                           },
                         ),
                         IconButton(
-                          icon: const Icon(
-                            Icons.play_arrow,
+                          icon: Icon(
+                            (state is PlayerIsPlay)
+                                ? Icons.pause
+                                : Icons.play_arrow,
                             color: Colors.blueAccent,
                           ),
                           onPressed: () {
-                            replyCubit!.onPlayAudio();
+                            if (state is PlayerIsPlay) {
+                              replyCubit!.onPauseAudio();
+                            } else {
+                              replyCubit!.onPlayAudio();
+                            }
                           },
                         ),
                       ],
@@ -174,6 +205,8 @@ class ReplayMessageWidget extends StatelessWidget {
                   if (state is InitialReplyState ||
                       state is DeleteRecordState ||
                       state is ReplyStateDefult ||
+                      state is ChangeIsReply ||
+                      state is LoadingSaveState ||
                       state is DataChange)
                     IconButton(
                       icon: const Icon(
@@ -195,28 +228,42 @@ class ReplayMessageWidget extends StatelessWidget {
             ),
             decoration: const BoxDecoration(
                 color: Colors.blueAccent, shape: BoxShape.circle),
-            child: InkWell(
-              child: const Icon(
-                Icons.send,
-                color: Colors.white,
-              ),
-              onTap: () {
-                if (isATeacher) {
-                  Get.bottomSheet(
-                    ChooseErrorType(
-                      choosed: (errorType) {
-                        Get.back();
-                        replyCubit!.saveRelpy(recitationId, msgId, parentId,
-                            errorType: errorType);
-                      },
+            child: (state is LoadingSaveState)
+                ? CircularProgressIndicator(
+                    color: AppColor.white,
+                  )
+                : InkWell(
+                    child: const Icon(
+                      Icons.send,
+                      color: Colors.white,
                     ),
-                  );
-                } else {
-                  replyCubit!.saveRelpy(recitationId, msgId, parentId);
-                }
-              },
-              onLongPress: () {},
-            ),
+                    onTap: (state is LoadingSaveState)
+                        ? null
+                        : () {
+                            if (isATeacher && !replyCubit!.isRelpay) {
+                              // Get.back();
+                              Get.bottomSheet(
+                                ChooseErrorType(
+                                  choosed: (errorType) {
+                                    Get.back();
+                                    replyCubit!.saveRelpy(
+                                        recitationId, msgId, parentId,
+                                        errorType: errorType);
+                                    Get.back();
+                                    reload!();
+                                    replyCubit!.setViewMessage(false);
+                                    replyCubit!.setIsReply(false);
+                                    replyCubit!.setInit();
+                                  },
+                                ),
+                              );
+                            } else {
+                              replyCubit!
+                                  .saveRelpy(recitationId, msgId, parentId);
+                            }
+                          },
+                    onLongPress: () {},
+                  ),
           ),
         ],
       ),

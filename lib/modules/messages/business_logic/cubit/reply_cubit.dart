@@ -38,6 +38,13 @@ class ReplyCubit extends Cubit<ReplyState> {
   bool viewMessage = false;
   bool isRelpay = false;
 
+  void setInit() {
+    text = null;
+    viewMessage = false;
+    isRelpay = false;
+    emit(InitialReplyState());
+  }
+
   setIsReply(bool b) {
     isRelpay = b;
     emit(ChangeIsReply());
@@ -57,6 +64,7 @@ class ReplyCubit extends Cubit<ReplyState> {
 
   saveRelpy(int recitationId, int msgId, int? parentId,
       {ErrorType? errorType}) async {
+    emit(LoadingSaveState());
     this.errorType = errorType;
     String comment = messageController.text;
     if (comment.isNotEmpty || (filePath != null && filePath!.isNotEmpty)) {
@@ -211,9 +219,15 @@ class ReplyCubit extends Cubit<ReplyState> {
     emit(DeleteRecordState());
   }
 
+  AudioPlayer audioPlayer = AudioPlayer();
   void onPlayAudio() async {
-    AudioPlayer audioPlayer = AudioPlayer();
     await audioPlayer.play(current!.path!, isLocal: true);
+    emit(PlayerIsPlay());
+  }
+
+  void onPauseAudio() async {
+    await audioPlayer.pause();
+    emit(PlayerIsPause());
   }
 
   void setErrorType(ErrorType? errorType) {
@@ -227,6 +241,8 @@ class ReplyCubit extends Cubit<ReplyState> {
   }
 
   void setFoucs() {
+    print('focusNode');
+    focusNode.nextFocus();
     focusNode.requestFocus();
   }
 }

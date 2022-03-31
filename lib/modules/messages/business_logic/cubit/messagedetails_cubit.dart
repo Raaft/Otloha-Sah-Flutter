@@ -19,6 +19,7 @@ class MessagedetailsCubit extends Cubit<MessagedetailsState> {
   String ayah = '';
 
   bool isViewInput = false;
+  bool isRelpy = false;
   int? parentId;
 
   fetchMessages(int msgId, int recitationId) {
@@ -98,6 +99,7 @@ class MessagedetailsCubit extends Cubit<MessagedetailsState> {
 
   void setViewInput(bool b, int? id) {
     isViewInput = b;
+    isRelpy = b;
     parentId = id;
     print(parentId.toString() + '  ' + isViewInput.toString());
 
