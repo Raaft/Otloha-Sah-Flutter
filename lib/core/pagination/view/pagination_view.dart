@@ -4,6 +4,7 @@ import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
 import 'package:flutter_base/data_source/models/database_model/recitations.dart';
 import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
 import 'package:flutter_base/data_source/models/message_model/general_response.dart';
+import 'package:flutter_base/data_source/models/message_model/message_model.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 final factories = <Type, Function>{
@@ -12,14 +13,15 @@ final factories = <Type, Function>{
   Recitations: (Map<String, dynamic> data) => Recitations.fromJson(data),
   TeacherResponse: (Map<String, dynamic> data) =>
       TeacherResponse.fromJson(data),
+  MessageModel: (Map<String, dynamic> data) => MessageModel.fromJson(data),
 };
 
 class PaginationData<T> extends StatefulWidget {
   const PaginationData({
     Key? key,
+    required this.initData,
     required this.getData,
     required this.drowItem,
-    required this.initData,
   }) : super(key: key);
 
   final List<T> initData;
@@ -50,26 +52,20 @@ class _PaginationDataState<T> extends State<PaginationData<T>> {
 
   Future<void> _fetchPage(int? pageKey) async {
     try {
-      if (isFirst) {
-        _pagingController.appendPage(widget.initData, page++);
-        isFirst = false;
+      Response response = await widget.getData(pageKey!);
+
+      print('response.data[\'results\'] ${response.data['results']}');
+
+      final isLastPage = (response.data['next'] == null ||
+          response.data['next'].toString().isEmpty);
+
+      List<T> itemsNew = (response.data['results'] as List)
+          .map<T>((map) => factories[T]!(map))
+          .toList();
+      if (isLastPage) {
+        _pagingController.appendLastPage(itemsNew);
       } else {
-        Response response = await widget.getData(pageKey!);
-
-        print('response.data[\'results\'] ${response.data['results']}');
-
-        final isLastPage = (response.data['next'] == null ||
-            response.data['next'].toString().isEmpty);
-
-        List<T> itemsNew = (response.data['results'] as List)
-            .map<T>((map) => factories[T]!(map))
-            .toList();
-        if (isLastPage) {
-          _pagingController.appendLastPage(itemsNew);
-        } else {
-          page++;
-          _pagingController.appendPage(itemsNew, page);
-        }
+        _pagingController.appendPage(itemsNew, page);
       }
     } catch (error) {
       print(error);
