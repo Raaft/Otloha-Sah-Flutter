@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/sign_up.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/back_button.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/background_image.dart';
-import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import '../../../../core/utils/res/images_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../business_logic/auth_cubit.dart';
+import 'login_page.dart';
+import 'sign_up.dart';
+import '../widget/auth_button.dart';
+import '../widget/back_button.dart';
+import '../widget/background_image.dart';
+import '../../../home/presentation/pages/home/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 

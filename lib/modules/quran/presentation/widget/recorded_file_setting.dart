@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
-import 'package:flutter_base/modules/recitations/presentation/widget/popup_chose_teacher_send.dart';
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../business_logic/cubit/quran_cubit.dart';
+import '../../business_logic/cubit/recitation_cubit.dart';
+import '../../../recitations/presentation/widget/popup_chose_teacher_send.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -92,11 +92,14 @@ class RecordedFileTool extends StatelessWidget {
                     GestureDetector(
                       onTap: () async {
                         print(cubit.recitationId);
-                        Get.bottomSheet(
-                          PopupChooseTeacherSend(
-                            id: cubit.recitationId,
-                            saveRecittion: () async =>
-                                await cubitRecitation.saveRecitation(),
+                        Get.showSnackbar(
+                          GetSnackBar(
+                            backgroundColor: AppColor.white,
+                            messageText: PopupChooseTeacherSend(
+                              id: cubit.recitationId,
+                              saveRecittion: () async =>
+                                  await cubitRecitation.saveRecitation(),
+                            ),
                           ),
                         );
                       },

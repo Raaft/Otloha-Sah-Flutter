@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_base/data_source/local/database/database_repository.dart';
+import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/onboard_page.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/splash_screen.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/genaralmessage_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagerecieve_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagesend_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/plugin_creation/domain/plugin_cubit/plugin_cubit.dart';
@@ -31,13 +35,13 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
-import 'package:flutter_base/data_source/cache_helper.dart' as otloha_shaerd;
+import 'data_source/cache_helper.dart' as otloha_shaerd;
 
-import 'package:flutter_base/app_router.dart';
-import 'package:flutter_base/core/bloc/app_bloc_observer.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import 'app_router.dart';
+import 'core/bloc/app_bloc_observer.dart';
+import 'core/utils/constant/constants.dart';
+import 'core/utils/themes/color.dart';
+import 'core/widgets/text_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,15 +72,21 @@ void main() async {
 
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
-  /* try {
-    myProFile =
-        UserProfile.fromJson(jsonDecode(
-            await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
-    favTeacherProFile = UserProfile.fromJson(
+  try {
+    myProFile = userProfileFromJson(
+        await otloha_shaerd.CacheHelper.getData(key: profile));
+
+    print('my Profile => $myProFile');
+    favTeacherId =
+        await otloha_shaerd.CacheHelper.getData(key: favTeacherIdName);
+
+    favTeacherProFile = userProfileFromJson(
         jsonDecode(await otloha_shaerd.CacheHelper.getData(key: favTeacher)));
+
+    print('FAV ' + favTeacherProFile.toString());
   } catch (e) {
-    print('no user login');
-  }  */
+    print('no user login $e');
+  }
 
   BlocOverrides.runZoned(
     () => runApp(
@@ -192,6 +202,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => TajweedCubit(),
         ),
+        BlocProvider(
+          create: (context) => GenaralmessageCubit(),
+        ),
+        BlocProvider(
+          create: (context) => MessagesendCubit(),
+        ),
+        BlocProvider(
+          create: (context) => MessagerecieveCubit(),
+        ),
+        // BlocProvider(
+        //   create: (context) => PaginationCubit(),
+        // ),
       ],
       child: GetMaterialApp(
         //showSemanticsDebugger: true,

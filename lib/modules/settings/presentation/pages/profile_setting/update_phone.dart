@@ -1,14 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
-import '../../../../../../core/utils/themes/color.dart';
-import '../../../../../../core/widgets/password_form_field.dart';
-import '../../../../../../core/widgets/text_from_fielid.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
-
 
 class UpdatePhone extends StatelessWidget {
   UpdatePhone({Key? key}) : super(key: key);
@@ -21,13 +19,11 @@ class UpdatePhone extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-
-
           children: [
-
             topView(context),
-            const SizedBox(height: 200,),
-
+            const SizedBox(
+              height: 200,
+            ),
             Form(
               key: formKey,
               child: Column(
@@ -35,21 +31,24 @@ class UpdatePhone extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   customFormField(
-                    //  color: AppColor.lightBlue,
+                      //  color: AppColor.lightBlue,
                       controller: emailController,
                       keyboardType: TextInputType.phone,
                       title: tr('New Phone'),
-                      validator: [ FormBuilderValidators.required(context),
-                        FormBuilderValidators.email(context),]
-                     ),
-                  const SizedBox(height: 20,),
-                  customFormField(
-                    controller: passwordController,
-                    title: 'Password',
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: [ FormBuilderValidators.required(context),
-                     ]
+                      validator: [
+                        FormBuilderValidators.required(context),
+                        FormBuilderValidators.email(context),
+                      ]),
+                  const SizedBox(
+                    height: 20,
                   ),
+                  customFormField(
+                      controller: passwordController,
+                      title: 'Password',
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: [
+                        FormBuilderValidators.required(context),
+                      ]),
                   AuthButton(
                     buttonText: tr('Update'),
                     onPressed: () {

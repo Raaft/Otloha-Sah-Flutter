@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
-import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import '../../../auth_module/business_logic/auth_cubit.dart';
+import 'progressindicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 

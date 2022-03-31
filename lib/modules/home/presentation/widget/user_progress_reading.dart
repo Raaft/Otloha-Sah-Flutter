@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/home/presentation/widget/progressindicator.dart';
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import 'progressindicator.dart';
 
 class UserProgressReading extends StatelessWidget {
   const UserProgressReading(

@@ -18,7 +18,7 @@ class AuthApi {
     });
   }
 
-  Future<Response> logOut({String? auth}) async{
+  Future<Response> logOut({String? auth}) async {
     return await ApiBaseHelper().postHTTP('/api/v1/logout/', {});
   }
 
@@ -39,21 +39,20 @@ class AuthApi {
   }
 
   Future<Response> passwordChange(
-      {old_password, new_password1, new_password2})async {
+      {old_password, new_password1, new_password2}) async {
     return await ApiBaseHelper().postHTTP('/api/v1/password/change/', {
       'old_password': old_password,
       'new_password1': new_password1,
       'new_password2': new_password2,
     });
-
   }
 
-  Future<Response> refreshToken() async{
+  Future<Response> refreshToken() async {
     return await ApiBaseHelper().postHTTP('/api/v1/token/refresh/', {});
   }
 
   Future<Response> userRegister(
-      {email, username, password1, password2, birthdate, phone, gender}) async{
+      {email, username, password1, password2, birthdate, phone, gender}) async {
     return await ApiBaseHelperForAuth().postHTTP('/api/v1/signup/', {
       'email': email,
       'password1': password1,
@@ -66,9 +65,11 @@ class AuthApi {
   }
 
   Future<Response> getProfile() async {
-    var  response = await ApiBaseHelper().getHTTP('/api/v1/profile/');
+    var response = await ApiBaseHelper().getHTTP('/api/v1/profile/');
     await CacheHelper.saveData(
         key: profile, value: json.encode(response!.data));
+    await CacheHelper.saveData(
+        key: userProfileLogined, value: json.encode(response.data));
     return response;
   }
 }

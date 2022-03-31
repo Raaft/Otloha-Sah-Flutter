@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
+import '../../modules/auth_module/presentation/pages/login_page.dart';
 
 class AuthNavigator extends StatefulWidget {
   const AuthNavigator({required this.child}) : super();

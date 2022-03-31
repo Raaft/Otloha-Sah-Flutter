@@ -1,25 +1,110 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
+import 'package:flutter_base/data_source/models/database_model/recitations.dart';
+import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
+import 'package:flutter_base/data_source/models/message_model/general_response.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import 'package:flutter_base/core/pagination/cubit/pagination_cubit.dart';
+final factories = <Type, Function>{
+  GeneralResponse: (Map<String, dynamic> data) =>
+      GeneralResponse.fromJson(data),
+  Recitations: (Map<String, dynamic> data) => Recitations.fromJson(data),
+  TeacherResponse: (Map<String, dynamic> data) =>
+      TeacherResponse.fromJson(data),
+};
 
-class PaginationData<T> extends StatelessWidget {
-  PaginationData({
+class PaginationData<T> extends StatefulWidget {
+  const PaginationData({
     Key? key,
+    required this.getData,
     required this.drowItem,
+    required this.initData,
   }) : super(key: key);
 
+  final List<T> initData;
+
+  //final int sizeItems;
+
+  final Future<Response> Function(int) getData;
   final Function(T, int) drowItem;
 
-  PaginationCubit<T>? _cubit;
+  @override
+  State<PaginationData<T>> createState() => _PaginationDataState<T>();
+}
+
+class _PaginationDataState<T> extends State<PaginationData<T>> {
+  final PagingController<int, T> _pagingController =
+      PagingController(firstPageKey: 1);
+
+  int page = 1;
+  bool isFirst = true;
+
+  @override
+  void initState() {
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
+    super.initState();
+  }
+
+  Future<void> _fetchPage(int? pageKey) async {
+    try {
+      if (isFirst) {
+        _pagingController.appendPage(widget.initData, page++);
+        isFirst = false;
+      } else {
+        Response response = await widget.getData(pageKey!);
+
+        print('response.data[\'results\'] ${response.data['results']}');
+
+        final isLastPage = (response.data['next'] == null ||
+            response.data['next'].toString().isEmpty);
+
+        List<T> itemsNew = (response.data['results'] as List)
+            .map<T>((map) => factories[T]!(map))
+            .toList();
+        if (isLastPage) {
+          _pagingController.appendLastPage(itemsNew);
+        } else {
+          page++;
+          _pagingController.appendPage(itemsNew, page);
+        }
+      }
+    } catch (error) {
+      print(error);
+      _pagingController.error = error;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    _cubit = PaginationCubit.get(context) as PaginationCubit<T>?;
-    return PagedListView<String, T>(
-      pagingController: _cubit!.pagingController,
-      builderDelegate: PagedChildBuilderDelegate<T>(
-        itemBuilder: (context, item, index) => drowItem(item, index),
+    print('PaginationData ' + T.toString() + ' ' + widget.initData.toString());
+    return RefreshIndicator(
+      onRefresh: () => Future.sync(
+        () {
+          page = 1;
+          _pagingController.refresh();
+        },
+      ),
+      child: PagedListView<int, T>(
+        shrinkWrap: true,
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<T>(
+            itemBuilder: (context, item, index) => widget.drowItem(item, index),
+            firstPageErrorIndicatorBuilder: (error) {
+              return ErrorIndicator(
+                error: _pagingController.error,
+                onTryAgain: _pagingController.refresh,
+              );
+            }),
       ),
     );
   }
+
+  // @override
+  // void dispose() {
+  //   _pagingController.dispose();
+  //   super.dispose();
+  // }
 }

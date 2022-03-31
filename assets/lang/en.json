@@ -137,6 +137,7 @@
   "Cancel":"Cancel",
   "Error":"Error",
 
-  "SendTo": "Send To",
-  "SelectToSend": "Select for sending message"
+  "SendTo": "Send to favorite teacher",
+  "SelectToSend": "Select for sending message",
+  "SendedToFav": "Sent to favorite teacher"
 }

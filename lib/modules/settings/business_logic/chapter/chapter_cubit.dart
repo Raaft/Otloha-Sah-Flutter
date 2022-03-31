@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
+import '../../../../data_source/cache_helper.dart';
+import '../../../../core/utils/constant/constants.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 part 'chapter_state.dart';
 

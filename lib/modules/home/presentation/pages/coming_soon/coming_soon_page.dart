@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
+import '../../../../../core/utils/res/icons_app.dart';
 
 class ComingSoonPage extends StatelessWidget {
   const ComingSoonPage({Key? key}) : super(key: key);

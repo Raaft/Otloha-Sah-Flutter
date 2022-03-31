@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/play_button_state.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quranplayer_cubit.dart';
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../home/business_logic/cubit/play_button_state.dart';
+import '../../business_logic/cubit/quran_cubit.dart';
+import '../../business_logic/cubit/quranplayer_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlayPauseTools extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
+
+import '../../../../core/utils/themes/color.dart';
 
 Widget roundedButton({required String title, required Function function,required Color color}) {
   return SizedBox(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/user_like.dart';
+import '../../../../../core/utils/constant/utils.dart';
+import '../../../../../core/utils/res/images_app.dart';
+import '../../../../settings/presentation/widgets/search_bar_app.dart';
+import '../../../../settings/presentation/widgets/user_like.dart';
 
 class LikedPage extends StatelessWidget {
   const LikedPage({

@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import 'package:flutter_base/modules/recitations/presentation/widget/recitation_item.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/model/verse.dart';
 
-import '../../../../../data_source/models/database_model/recitations.dart';
+import '../../../../data_source/models/database_model/recitations.dart';
 import '../../../../core/exception_indicators/error_indicator.dart';
 import '../../business_logic/cubit/userrecitation_cubit.dart';
 import '../widget/popup_recitation.dart';
@@ -56,28 +56,32 @@ class _RecitationsPageState extends State<RecitationsPage> {
         builder: (context, state) {
           if (state is UserRecitationFetched ||
               state is RemoveUserRecitationState) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: cubit!.userRecitatios!.results!.length,
-                itemBuilder: (context, index) {
-                  return _getItem(cubit!.userRecitatios!.results![index], index,
-                      cubit!.userRecitationVerses);
-                },
-              ),
-            );
+            return _showData();
           } else if (state is UserRecitationError) {
-            return  Expanded(child: ErrorIndicator(error: state.error));
+            return Expanded(child: ErrorIndicator(error: state.error));
           } else if (state is AuthErrorState) {
             Future.microtask(
               () => Navigator.of(context)
                   .pushReplacementNamed(LoginPage.routeName),
             );
           }
-          return const Expanded(
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return const Center(child: CircularProgressIndicator());
         },
+      ),
+    );
+  }
+
+  _showData() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: PaginationData<Recitations>(
+        getData: (nextLink) async {
+          return await cubit?.getNextData(nextLink);
+        },
+        drowItem: (results, index) {
+          return _getItem(results, index, cubit!.userRecitationVerses);
+        },
+        initData: cubit!.userRecitatios!,
       ),
     );
   }
@@ -95,63 +99,47 @@ class _RecitationsPageState extends State<RecitationsPage> {
   }
 
   Widget _getItem(
-      Results results, int index, List<List<Verse>> userRecitationVerses) {
-    return GeneralMessageItem(
-      boxMessageItem: SubMessageItem(
-        hasMenu: true,
-        id: results.id!,
-        showPopup: (() async {
-          Get.bottomSheet(
-            PopupRecitation(
-              isOwner: true,
-              isTeacher: false,
-              actions: const [
-                PopupActions.delete,
-                PopupActions.addToGeneral,
-                PopupActions.send,
-                PopupActions.markAsFinished,
-              ],
-              delete: () {
-                cubit!.deleteRecitation(index);
-              },
-              id: results.id!,
-              finishedAt: results.finishedAt ?? '',
-              showInGeneral: results.showInGeneral ?? false,
-            ),
-          );
-          await cubit!.fetchRecitation();
-        }),
-        isRead: false,
-        ayah: userRecitationVerses[index].first.text ?? '',
-        ayahInfo: _getAyahInfo(results),
-        narrationName: results.narrationName,
-        userImage: results.owner!.image ?? '',
-        userName: _user(results.owner),
-        dateStr: (results.finishedAt != null)
-            ? DateFormat('hh:mm dd MMM')
-                .format(DateTime.parse(results.finishedAt ?? ''))
-            : null,
-        color: AppColor.transparent,
-        userInfo: (results.owner!.level ?? '') +
-            ' ' +
-            (results.owner!.isATeacher ?? false
-                ? translate('Teacher')
-                : translate('Student')),
-      ),
-      likeCount: results.likes!.length,
-      commentCount: results.comments!.length,
-      remarkableCount: results.remarkable!.length,
-      isLike: (index % 2 == 0),
-      trggelPlay: () {
-        setState(() {
-          _selectedPlay = index;
-        });
-      },
-      isPlay: index == _selectedPlay,
-      viewBottom: true,
-      recordPath: results.record,
-      wavePath: results.wave,
-      isLocal: false,
+      Recitations results, int index, List<List<Verse>> userRecitationVerses) {
+    return RecitationItem(
+      hasMenu: true,
+      id: results.id!,
+      onLongPress: (() async {
+        Get.bottomSheet(
+          PopupRecitation(
+            isOwner: true,
+            isTeacher: false,
+            actions: const [
+              PopupActions.delete,
+              PopupActions.addToGeneral,
+              PopupActions.send,
+              PopupActions.markAsFinished,
+            ],
+            delete: () {
+              cubit!.deleteRecitation(index);
+            },
+            id: results.id!,
+            finishedAt: results.finishedAt ?? '',
+            showInGeneral: results.showInGeneral ?? false,
+          ),
+        );
+        await cubit!.fetchRecitation();
+      }),
+      isRead: false,
+      ayah: userRecitationVerses[index].first.text ?? '',
+      ayahInfo: _getAyahInfo(results),
+      narrationName: results.narrationName,
+      userImage: results.owner!.image ?? '',
+      userName: _user(results.owner),
+      dateStr: (results.finishedAt != null)
+          ? DateFormat('hh:mm dd MMM')
+              .format(DateTime.parse(results.finishedAt ?? ''))
+          : null,
+      color: AppColor.transparent,
+      userInfo: (results.owner!.level ?? '') +
+          ' ' +
+          (results.owner!.isATeacher ?? false
+              ? translate('Teacher')
+              : translate('Student')),
     );
   }
 
@@ -169,7 +157,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
     }
   }
 
-  _getAyahInfo(Results results) {
+  _getAyahInfo(Recitations results) {
     /*   Scaffold.of(context).showBottomSheet((context) {
       return BlocProvider(
         create: (context) => TeachersendCubit(),

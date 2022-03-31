@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
+import '../utils/constant/constants.dart';
 import 'package:quran_widget_flutter/helper/q.dart';
 import 'package:quran_widget_flutter/helper/utils.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/core/utils/themes/color.dart';
+import '../utils/themes/color.dart';
 import 'package:get/get.dart';
 
 class AlertDialogFullScreen extends StatelessWidget {

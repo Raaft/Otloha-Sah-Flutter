@@ -39,7 +39,7 @@ class SomeThingWentWrong implements Exception {}
 
 class ExceptionHandling {
   static handleDioExceprion(DioError e) {
-    print('handleExceptionToFaliure $e');
+    print('handleExceptionToFaliure ${e.response}');
 
     if (e.type == DioErrorType.other) {
       print(e.error);

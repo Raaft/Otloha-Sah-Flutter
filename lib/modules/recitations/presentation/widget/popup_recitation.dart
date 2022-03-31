@@ -1,15 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/constant/utils.dart';
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../core/utils/constant/utils.dart';
 
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/recitations/business_logic/cubit/popup_action_cubit.dart';
-import 'package:flutter_base/modules/recitations/business_logic/cubit/popup_actions_state.dart';
-import 'package:flutter_base/modules/recitations/presentation/widget/popup_chose_teacher_send.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import '../../business_logic/cubit/popup_action_cubit.dart';
+import '../../business_logic/cubit/popup_actions_state.dart';
+import 'popup_chose_teacher_send.dart';
+import '../../../messages/presentation/pages/messages/message_details.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -101,9 +101,12 @@ class PopupRecitation extends StatelessWidget {
                 ListTile(
                   onTap: () {
                     print(id);
-                    Get.bottomSheet(
-                      PopupChooseTeacherSend(
-                        id: id,
+                    Get.showSnackbar(
+                      GetSnackBar(
+                        backgroundColor: AppColor.white,
+                        messageText: PopupChooseTeacherSend(
+                          id: id,
+                        ),
                       ),
                     );
                   },

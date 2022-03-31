@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
+import '../../../home/business_logic/cubit/home_cubit.dart';
+import '../../business_logic/cubit/quran_cubit.dart';
 
-import 'package:flutter_base/modules/settings/presentation/pages/settings_page.dart';
+import '../../../settings/presentation/pages/settings_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';

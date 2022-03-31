@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/modules/home/presentation/widget/home_sub_main_sction.dart';
+import '../../../home/presentation/widget/home_sub_main_sction.dart';
 
-import 'package:flutter_base/data_source/models/setting_model/setting.dart';
+import '../../../../data_source/models/setting_model/setting.dart';
 
 import '../../../home/presentation/widget/sub_section_item.dart';
 

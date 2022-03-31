@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/images_app.dart';
+import '../../../../core/utils/res/images_app.dart';
 
 import 'back_button.dart';
 import 'background_image.dart';

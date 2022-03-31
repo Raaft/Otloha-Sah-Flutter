@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/quran_cubit.dart';
-import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit.dart';
-import 'package:flutter_base/modules/quran/presentation/page/chapters/index_surah_page.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/floatin_button_widget.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/play_botton.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/play_puse_tools.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/recorded_file_setting.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/tool_botton.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import '../../../home/business_logic/cubit/home_cubit.dart';
+import '../../business_logic/cubit/quran_cubit.dart';
+import '../../business_logic/cubit/recitation_cubit.dart';
+import 'chapters/index_surah_page.dart';
+import '../widget/floatin_button_widget.dart';
+import '../widget/play_botton.dart';
+import '../widget/play_puse_tools.dart';
+import '../widget/recorded_file_setting.dart';
+import '../widget/tool_botton.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
@@ -23,10 +23,11 @@ class QuranBNBPage extends StatelessWidget {
   Widget build(BuildContext context) {
     cubit = QuranViewCubit.get(context);
     addCubit = RecitationAddCubit.get(context);
-    var homeCubit = HomeCubit.get(context);
     return BlocConsumer<QuranViewCubit, QuranViewState>(
       listener: (context, state) {},
       builder: (context, state) {
+        var cubit = QuranViewCubit.get(context);
+        var homeCubit = HomeCubit.get(context);
         return Scaffold(
           body: Stack(
             alignment: Alignment.center,
@@ -38,19 +39,20 @@ class QuranBNBPage extends StatelessWidget {
                 ],
               ),
               //_tempView(context, cubit),
-              _viewLikeMarked(cubit!),
-              if (cubit!.isRecorded) const RecordTool(),
-              if (cubit!.checkVersesValue &&
-                  cubit!.isPlaying == false &&
-                  cubit!.isRecordedFile == false)
-                if (cubit!.checkVersesValue && cubit!.isPlaying == false)
+              _viewLikeMarked(cubit),
+              if (cubit.isRecorded) const RecordTool(),
+              if (cubit.checkVersesValue &&
+                  cubit.isPlaying == false &&
+                  cubit.isRecorded == false &&
+                  cubit.isRecordedFile == false)
+                if (cubit.checkVersesValue && cubit.isPlaying == false)
                   const ToolBotton(),
-              if (cubit!.isRecordedFile) const RecordedFileTool(),
-              if (cubit!.isPlaying) const PlayPauseTools(),
-              if (cubit!.opacity != 0)
+              if (cubit.isRecordedFile) const RecordedFileTool(),
+              if (cubit.isPlaying) const PlayPauseTools(),
+              if (cubit.opacity != 0)
                 floatingButton(
-                    cubit: cubit!,
-                    isPressed: cubit!.isOnPressed,
+                    cubit: cubit,
+                    isPressed: cubit.isOnPressed,
                     homeCubit: homeCubit)
             ],
           ),
@@ -118,41 +120,47 @@ class QuranBNBPage extends StatelessWidget {
             ),
             //Image.asset(AppImages.page016Image),
             Expanded(
-                child: QuranWidget(
-              page: cubit!.pageType,
-              chapterId: cubit!.chapterId,
-              bookId: cubit!.bookId,
-              narrationId: cubit!.narrationId,
-              onTap: (val, isVerSelected, values, selectedVerses) {
-                print('onTap ' + val);
-                // cubit.changeIsOnTruePressed();
-                cubit!.changeOpacity(.5);
+              child: BlocBuilder<QuranViewCubit, QuranViewState>(
+                builder: (context, state) {
+                  print('Chapter Cubit ${cubit!.chapterId}');
+                  return QuranWidget(
+                    page: cubit!.pageType,
+                    chapterId: cubit!.chapterId,
+                    bookId: cubit!.bookId,
+                    narrationId: cubit!.narrationId,
+                    onTap: (val, isVerSelected, values, selectedVerses) {
+                      print('onTap ' + val);
+                      // cubit.changeIsOnTruePressed();
+                      cubit!.changeOpacity(.5);
 
-                //print(selectedVerses);
-                addCubit!.setSelectedVerses(selectedVerses!);
-                cubit!.setSelectedVerses(selectedVerses);
-                print('Get Name ' + cubit!.getName());
-                cubit!.isVerSelected(isVerSelected);
-                Future.delayed(const Duration(seconds: 5), () {
-                  cubit!.changeOpacity(.2);
-                });
-              },
-              onLongTap: (val, isVerSelected, values, selectedVerses) {
-                print('onLongTap ' + val);
-                cubit!.isVerSelected(isVerSelected);
+                      //print(selectedVerses);
+                      addCubit!.setSelectedVerses(selectedVerses!);
+                      cubit!.setSelectedVerses(selectedVerses);
+                      print('Get Name ' + cubit!.getName());
+                      cubit!.isVerSelected(isVerSelected);
+                      Future.delayed(const Duration(seconds: 5), () {
+                        cubit!.changeOpacity(.2);
+                      });
+                    },
+                    onLongTap: (val, isVerSelected, values, selectedVerses) {
+                      print('onLongTap ' + val);
+                      cubit!.isVerSelected(isVerSelected);
 
-                cubit!.changeIsSelectedVerse();
-                cubit!.changeIsOnTruePressed();
-                addCubit!.setSelectedVerses(selectedVerses!);
-                cubit!.setSelectedVerses(selectedVerses);
-                print('Get Name ' + cubit!.getName());
-              },
-              getPage: (page) {
-                print('Oloha ' + page.toString());
-                cubit!.changeJuz(
-                    page.partId ?? 1, page.chapters![0].id ?? 1, page);
-              },
-            ))
+                      cubit!.changeIsSelectedVerse();
+                      cubit!.changeIsOnTruePressed();
+                      addCubit!.setSelectedVerses(selectedVerses!);
+                      cubit!.setSelectedVerses(selectedVerses);
+                      print('Get Name ' + cubit!.getName());
+                    },
+                    getPage: (page) {
+                      print('Oloha ' + page.toString());
+                      cubit!.changeJuz(
+                          page.partId ?? 1, page.chapters![0].id ?? 1, page);
+                    },
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

@@ -33,7 +33,7 @@ class AppIcons {
   static String addIcon = 'assets/icons/add.png';
   static String filterIcon = 'assets/icons/filter.png';
   static String emptyIcon = 'assets/icons/empty.png';
-
-
-
+  static String tajweedIcon = 'assets/icons/tajweed.png';
+  static String wordIcon = 'assets/icons/word.png';
+  static String voiceIcon = 'assets/icons/voice.png';
 }

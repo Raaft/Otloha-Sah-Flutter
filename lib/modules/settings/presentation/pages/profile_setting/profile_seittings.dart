@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/settings/business_logic/settings/settings_cubit.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_email.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_phone.dart';
-import 'package:flutter_base/modules/settings/presentation/pages/profile_setting/update_profile.dart';
+import '../../../business_logic/settings/settings_cubit.dart';
+import 'update_email.dart';
+import 'update_phone.dart';
+import 'update_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 

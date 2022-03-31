@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_widget.dart';
+import '../../../../core/utils/constant/constants.dart';
 
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import 'wave_view.dart';
 
 import '../../../../data_source/models/message_model/error_type.dart';
 
@@ -22,14 +23,16 @@ class CommentReplayItem extends StatelessWidget {
     this.userInfo,
     this.errorType,
     this.narrationName,
-    this.isReplay = false,
+    this.onLongPress,
+    this.isReply = false,
     this.isLocal = false,
     required this.isRead,
     required this.isPlay,
     required this.trggelPlay,
-    required this.actionReply,
+    this.actionReply,
     required this.recordPath,
     required this.wavePath,
+    this.small = false,
   }) : super(key: key);
 
   final String? userName;
@@ -51,19 +54,167 @@ class CommentReplayItem extends StatelessWidget {
   final bool isLocal;
 
   final bool isPlay;
-  final bool isReplay;
+  final bool isReply;
+  final bool small;
 
   final Function() trggelPlay;
-  final Function() actionReply;
+  final Function()? actionReply;
+  final Function()? onLongPress;
 
   @override
   Widget build(BuildContext context) {
+    return Container(
+      margin: isReply
+          ? EdgeInsets.only(left: isEn ? 48 : 0, right: isEn ? 0 : 48)
+          : EdgeInsets.zero,
+      child: MessageWidget(
+        onLongPress: onLongPress,
+        userImage: userImage,
+        small: isReply || small,
+        userName: _viweName(),
+        dataView: _userInfo(),
+        ayahView: _viewAyah(),
+        ayahInfoView: _ayahInfoView(),
+        userInfo: _viewData(),
+        color: AppColor.selectColor1,
+      ),
+    );
+  }
+
+  Row _viewData() {
+    return Row(
+      children: [
+        TextView(
+          padding: EdgeInsets.zero,
+          text: dateStr?.toUpperCase() ?? '',
+          sizeText: 10,
+          colorText: AppColor.txtColor4,
+        ),
+        const Icon(
+          Icons.bookmark_outline,
+          size: 12,
+          color: Colors.black,
+        )
+      ],
+    );
+  }
+
+  TextView _viweName() {
+    return TextView(
+      text: userName ?? 'Name',
+      weightText: FontWeight.w900,
+      padding: EdgeInsets.zero,
+      sizeText: 10,
+      letterSpacing: 0.4,
+      colorText: AppColor.userNameColor,
+    );
+  }
+
+  _userInfo() {
+    var errorTypeActiv = _check(errorType) ?? ErrorType.errors[0];
+    return Row(
+      children: [
+        if (errorType != null && errorType!.isNotEmpty)
+          Container(
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              color: errorTypeActiv.color,
+            ),
+            child: TextView(
+              padding: EdgeInsets.zero,
+              text: 'نوع الخطاء : ' + (errorTypeActiv.value ?? 'تجويد'),
+              sizeText: 8,
+              colorText: AppColor.txtColor2,
+              textAlign: TextAlign.start,
+              lineHeight: .9,
+            ),
+          ),
+      ],
+    );
+  }
+
+  _viewAyah() {
+    return (ayah != null && ayah!.isNotEmpty)
+        ? SizedBox(
+            child: TextView(
+              padding: EdgeInsets.zero,
+              text: ayah ?? '',
+              sizeText: 18,
+              weightText: FontWeight.w900,
+              colorText: AppColor.headTextColor,
+              textAlign: TextAlign.start,
+              fontFamily: 'Hafs17',
+            ),
+          )
+        : Container();
+  }
+
+  _ayahInfoView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (ayahInfo != null && ayahInfo!.isNotEmpty)
+          TextView(
+            padding: EdgeInsets.zero,
+            text: (ayahInfo ?? '') + ' - رواية ' + (narrationName ?? 'حفص'),
+            sizeText: 12,
+            colorText: AppColor.userNameColor,
+            textAlign: TextAlign.start,
+          ),
+        ..._waveView(),
+      ],
+    );
+  }
+
+  _waveView() {
+    return [
+      if (recordPath != null)
+        WaveViewPlayAudio(
+            recordPath: recordPath,
+            wavePath: wavePath,
+            trggelPlay: trggelPlay,
+            isLocal: isLocal,
+            isPlay: isPlay),
+      if (errorStr != null)
+        TextView(
+          text: errorStr ?? '',
+          padding: EdgeInsets.zero,
+          sizeText: 14,
+          colorText: AppColor.txtColor4,
+          textAlign: TextAlign.start,
+          // overflow: TextOverflow.ellipsis,
+        ),
+      if (actionReply != null)
+        InkWell(
+          onTap: () {
+            actionReply!();
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: TextView(
+              text: 'رد',
+              padding: EdgeInsets.zero,
+              sizeText: 14,
+              weightText: FontWeight.w700,
+              colorText: AppColor.txtColor4,
+              textAlign: TextAlign.start,
+
+              // overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
+    ];
+  }
+
+  Widget build2(BuildContext context) {
     var errorTypeActiv = _check(errorType) ?? ErrorType.errors[0];
     return GestureDetector(
       onTap: action,
       child: Container(
         padding: const EdgeInsets.all(6),
-        margin: isReplay
+        margin: isReply
             ? EdgeInsets.only(left: isEn ? 48 : 0, right: isEn ? 0 : 48)
             : EdgeInsets.zero,
         decoration: BoxDecoration(
@@ -197,18 +348,19 @@ class CommentReplayItem extends StatelessWidget {
                           textAlign: TextAlign.start,
                           // overflow: TextOverflow.ellipsis,
                         ),
-                      TextView(
-                        text: 'رد',
-                        padding: EdgeInsets.zero,
-                        sizeText: 14,
-                        weightText: FontWeight.w700,
-                        colorText: AppColor.txtColor4,
-                        textAlign: TextAlign.start,
-                        action: () {
-                          actionReply();
-                        },
-                        // overflow: TextOverflow.ellipsis,
-                      ),
+                      if (actionReply != null)
+                        TextView(
+                          text: 'رد',
+                          padding: EdgeInsets.zero,
+                          sizeText: 14,
+                          weightText: FontWeight.w700,
+                          colorText: AppColor.txtColor4,
+                          textAlign: TextAlign.start,
+                          action: () {
+                            actionReply!();
+                          },
+                          // overflow: TextOverflow.ellipsis,
+                        ),
                     ],
                   ),
                 ),

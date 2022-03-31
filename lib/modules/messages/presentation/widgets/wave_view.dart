@@ -4,14 +4,14 @@ import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/lib_edit/wave/just_waveform.dart';
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../lib_edit/wave/just_waveform.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
+import '../../business_logic/cubit/messagetap_cubit.dart';
 
 class WaveViewPlayAudio extends StatefulWidget {
   const WaveViewPlayAudio({
@@ -66,8 +66,9 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
     }
 
     try {
-      waveform = await JustWaveform.parse(waveFile2!);
-      // streamWave.add(WaveformProgress(1, waveform));
+      print(await waveFile2!.readAsBytes());
+      waveform = await JustWaveform.parse(waveFile2);
+      streamWave.add(WaveformProgress(1, waveform));
     } catch (e) {
       debugPrint('Eror audio' + e.toString());
     }
@@ -101,7 +102,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
               _playPause();
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Image.asset(
                 _isPlay ? AppIcons.pauseIcon : AppIcons.play2Icon,
                 width: 20,
@@ -122,11 +123,12 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
     return Container(
       alignment: Alignment.center,
       child: SizedBox(
-        height: 40.0,
+        height: 48.0,
         width: MediaQuery.of(context).size.width * 65,
         child: StreamBuilder<WaveformProgress>(
           stream: streamWave,
           builder: (context, snapshot) {
+            print('snapshot ${snapshot.data}');
             if (snapshot.hasError) {
               return Center(
                 child: Text(
@@ -218,10 +220,11 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
       waveform: waveform,
       start: Duration.zero,
       current: position ?? Duration.zero,
-      strokeWidth: 2,
+      strokeWidth: 5,
       duration: Duration(seconds: waveform.duration.inSeconds),
       waveColor: AppColor.waveColor,
-      pixelsPerStep: 4,
+      pixelsPerStep: 8,
+      scale: 1.0,
     );
   }
 }

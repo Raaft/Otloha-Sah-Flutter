@@ -1,26 +1,27 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/data_source/models/message_model/message_model.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagerecieve_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/pages/messages/message_details.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../core/exception_indicators/error_indicator.dart';
-import '../../../business_logic/cubit/messagetap_cubit.dart';
 import '../../widgets/box_message_item.dart';
 
 class InBoxMessagePage extends StatelessWidget {
   InBoxMessagePage({Key? key}) : super(key: key);
 
-  late MessageTapCubit? cubit;
+  late MessagerecieveCubit? cubit;
 
   @override
   Widget build(BuildContext context) {
-    cubit = MessageTapCubit.get(context);
-    return BlocBuilder<MessageTapCubit, MessageTapState>(
+    cubit = MessagerecieveCubit.get(context);
+    return BlocBuilder<MessagerecieveCubit, MessagerecieveState>(
       builder: (context, state) {
         if (state is NoAuthState) {
           Future.delayed(const Duration(seconds: 1), () {
@@ -34,25 +35,48 @@ class InBoxMessagePage extends StatelessWidget {
           );
         }
         if (state is MessageRecieveSuccessState) {
-          return Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: cubit!.messageRecieve!.length,
-                itemBuilder: (context, index) {
-                  return _getItem(index, cubit!.messageRecieve![index]);
-                },
-              ),
-            ),
-          );
+          return _showData2(cubit);
         }
         if (state is MessageRecieveErrorState) {
-          return const Expanded(
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return Expanded(child: ErrorIndicator(error: state.error));
         }
-        return   const Expanded(child: Center(child: Text('No Message Yet')));
+        return const Expanded(child: Center(child: Text('No Message Yet')));
       },
+    );
+  }
+
+  Widget _showData(MessagerecieveCubit? cubit) {
+    print(cubit!.messageRecieve!.toString() +
+        ' ' +
+        cubit.messageRecieve!.first.recitation!.name.toString());
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: PaginationData<MessageModel>(
+        getData: (nextLink) async {
+          return await cubit.getNextRecieveData(nextLink);
+        },
+        drowItem: (results, index) {
+          _getItem(index, results);
+        },
+        initData: cubit.messageRecieve!,
+      ),
+    );
+  }
+
+  Widget _showData2(MessagerecieveCubit? cubit) {
+    print(cubit!.messageRecieve!.toString() +
+        ' ' +
+        cubit.messageRecieve!.first.recitation!.name.toString());
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: cubit.messageRecieve!.length,
+          itemBuilder: (context, index) {
+            return _getItem(index, cubit.messageRecieve![index]);
+          },
+        ),
+      ),
     );
   }
 
@@ -73,7 +97,7 @@ class InBoxMessagePage extends StatelessWidget {
           ? DateFormat('hh:mm dd MMM')
               .format(DateTime.parse(messageModel.recitation!.finishedAt ?? ''))
           : null,
-      action: () {
+      onPress: () {
         Get.to(() => MessageDetailsPage(
               msgId: messageModel.id ?? 0,
               recitationId: messageModel.recitation!.id ?? 0,

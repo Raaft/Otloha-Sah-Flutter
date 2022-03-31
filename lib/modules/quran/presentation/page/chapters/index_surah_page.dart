@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/modules/home/presentation/widget/init_data.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import '../../../../../data_source/cache_helper.dart';
+import '../../../../../core/utils/constant/constants.dart';
+import '../../../../home/presentation/widget/init_data.dart';
+import '../../../../settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/loading.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/home/presentation/pages/home/home_page.dart';
-import 'package:flutter_base/modules/home/presentation/widget/bottom_bar.dart';
-import 'package:flutter_base/modules/quran/presentation/widget/item_surah.dart';
-import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../core/widgets/loading.dart';
+import '../../../../../core/widgets/text_view.dart';
+import '../../../../home/presentation/pages/home/home_page.dart';
+import '../../../../home/presentation/widget/bottom_bar.dart';
+import '../../widget/item_surah.dart';
+import '../../../../settings/business_logic/chapter/chapter_cubit.dart';
+import '../../../../settings/presentation/widgets/search_bar_app.dart';
 
 class IndexSurahPage extends StatefulWidget {
   const IndexSurahPage({Key? key}) : super(key: key);

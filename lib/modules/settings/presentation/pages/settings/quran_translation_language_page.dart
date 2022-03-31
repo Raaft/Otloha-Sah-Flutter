@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
-import 'package:flutter_base/data_source/models/setting_model/init_data.dart';
+import '../../../../../data_source/cache_helper.dart';
+import '../../../../../core/utils/constant/constants.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../core/widgets/alert_dialog_full_screen.dart';
+import '../../../../../data_source/models/setting_model/init_data.dart';
 
-import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import '../../widgets/item_download.dart';
+import '../../widgets/search_bar_app.dart';
 import 'package:get/get.dart';
 
 import '../../../../../data_source/enums/download_types.dart';

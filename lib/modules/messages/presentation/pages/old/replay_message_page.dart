@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../../../../../core/widgets/text_view.dart';
 
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
+import '../../../business_logic/cubit/messagedetails_cubit.dart';
 
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import '../../../../settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/selectable_message_item.dart';
-import 'package:get/get.dart';
+import '../../../../../core/utils/constant/utils.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../core/widgets/tool_bar_app.dart';
+import '../../../business_logic/cubit/reply_cubit.dart';
+import '../../widgets/selectable_message_item.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../data_source/models/message_model/error_type.dart';
@@ -56,17 +54,17 @@ class _ReplayMessagePageState extends State<ReplayMessagePage> {
             _topView(context),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: messageDetailsNew(context),
+              child: _messageDetails(context),
             ),
             _textView(),
-            _messageField(),
+            //_messageField(),
           ],
         ),
       ),
     );
   }
 
-  messageDetailsNew(BuildContext context) {
+  _messageDetails(BuildContext context) {
     return BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
       builder: (context, state) {
         if (state is MessageFetchedState) {
@@ -147,116 +145,6 @@ class _ReplayMessagePageState extends State<ReplayMessagePage> {
       title: translate('أضافة تعليق جديد'),
     );
   }
-
-  _messageField() =>
-      BlocConsumer<ReplyCubit, ReplyState>(listener: (context, state) {
-        if (state is SavedState) {
-          Get.back();
-        }
-      }, builder: (context, state) {
-        ReplyCubit cubit = ReplyCubit.get(context);
-        return Container(
-          margin: const EdgeInsets.all(15.0),
-          padding: const EdgeInsets.all(4),
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(35.0),
-                    boxShadow: const [
-                      BoxShadow(
-                        offset: Offset(0, 3),
-                        blurRadius: 5,
-                        color: Colors.grey,
-                      )
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: cubit.messageController,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.all(8),
-                            border: InputBorder.none,
-                          ),
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 3,
-                          minLines: 1,
-                        ),
-                      ),
-                      if (state is StartRecordingState)
-                        IconButton(
-                          icon: const Icon(
-                            Icons.stop_circle,
-                            color: Colors.blueAccent,
-                          ),
-                          onPressed: () {
-                            cubit.stop();
-                          },
-                        ),
-                      if (state is EndRecordingState)
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.blueAccent,
-                              ),
-                              onPressed: () {
-                                cubit.delete();
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.play_arrow,
-                                color: Colors.blueAccent,
-                              ),
-                              onPressed: () {
-                                cubit.onPlayAudio();
-                              },
-                            ),
-                          ],
-                        ),
-                      if (state is InitialReplyState ||
-                          state is DeleteRecordState ||
-                          state is ReplyStateDefult)
-                        IconButton(
-                          icon: const Icon(
-                            Icons.mic,
-                            color: Colors.blueAccent,
-                          ),
-                          onPressed: () {
-                            cubit.start();
-                          },
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 15),
-              Container(
-                padding: const EdgeInsets.all(15.0),
-                decoration: const BoxDecoration(
-                    color: Colors.blueAccent, shape: BoxShape.circle),
-                child: InkWell(
-                  child: const Icon(
-                    Icons.send,
-                    color: Colors.white,
-                  ),
-                  onTap: () {
-                    cubit.saveRelpy(widget.recitationId, widget.msgId,
-                        widget.parentId, text ?? '');
-                  },
-                  onLongPress: () {},
-                ),
-              ),
-            ],
-          ),
-        );
-      });
 
   _textView() {
     return Expanded(

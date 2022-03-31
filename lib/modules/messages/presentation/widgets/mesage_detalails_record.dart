@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
+
+import 'wave_view.dart';
 
 class MessageDetailsRecord extends StatelessWidget {
   const MessageDetailsRecord({

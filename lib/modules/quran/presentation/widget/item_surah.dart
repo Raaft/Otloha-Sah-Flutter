@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/utils.dart';
+import '../../../../core/utils/constant/utils.dart';
 
-import 'package:flutter_base/core/utils/res/icons_app.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../../../../core/utils/res/icons_app.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
 
 class ItemSurah extends StatelessWidget {
   const ItemSurah({

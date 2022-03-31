@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:pinput/pin_put/pin_put.dart';
+
+import '../../../../core/utils/themes/color.dart';
+import '../widget/auth_button.dart';
+import '../widget/page_head_text.dart';
 
 class PinPutTest extends StatefulWidget {
   @override

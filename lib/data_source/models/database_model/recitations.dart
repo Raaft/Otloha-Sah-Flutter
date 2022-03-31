@@ -11,36 +11,71 @@ String recitationToJson(Recitations data) => json.encode(data.toJson());
 
 class Recitations {
   Recitations({
-    this.count,
-    this.next,
-    this.previous,
-    this.results,
+    this.id,
+    this.record,
+    this.wave,
+    this.narrationId,
+    this.versesID,
+    this.owner,
+    this.comments,
+    this.likes,
+    this.chapterId,
+    this.finishedAt,
+    this.name,
+    this.remarkable,
   });
 
   Recitations.fromJson(dynamic json) {
-    count = json['count'];
-    next = json['next'];
-    previous = json['previous'];
-    if (json['results'] != null) {
-      results = [];
-      json['results'].forEach((v) {
-        results?.add(Results.fromJson(v));
-      });
-    }
+    id = json['id'];
+    record = json['record'];
+    showInGeneral = json['show_in_general'];
+    wave = json['wave'];
+    narrationId = int.parse(json['narration_id'] ?? '0');
+    versesID = List<int>.from(jsonDecode(json['verse_ids']));
+    owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
+    comments = json['comments'] != null ? json['comments'].cast<String>() : [];
+    likes = json['likes'] != null ? json['likes'].cast<String>() : [];
+    chapterId = int.parse(json['chapter_id'] ?? '0');
+    finishedAt = json['finished_at'];
+    name = json['name'];
+    remarkable =
+        json['remarkable'] != null ? json['remarkable'].cast<String>() : [];
   }
-  int? count;
-  String? next;
-  String? previous;
-  List<Results>? results;
+  int? id;
+  String? record;
+  String? wave;
+  int? narrationId;
+  List<int>? versesID;
+  String? chapterName;
+  String? narrationName;
+  int? verseStart;
+  int? verseEnd;
+  Owner? owner;
+  List<String>? comments;
+  List<String>? likes;
+  int? chapterId;
+  String? finishedAt;
+  String? name;
+  List<String>? remarkable;
+  bool? showInGeneral;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['count'] = count;
-    map['next'] = next;
-    map['previous'] = previous;
-    if (results != null) {
-      map['results'] = results?.map((v) => v.toJson()).toList();
+    map['id'] = id;
+    map['record'] = record;
+    map['wave'] = wave;
+    map['narration_id'] = narrationId;
+    map['show_in_general'] = showInGeneral;
+    map['verse_ids'] = jsonEncode(versesID);
+    if (owner != null) {
+      map['owner'] = owner?.toJson();
     }
+    map['comments'] = comments;
+    map['likes'] = likes;
+    map['chapter_id'] = chapterId;
+    map['finished_at'] = finishedAt;
+    map['name'] = name;
+    map['remarkable'] = remarkable;
     return map;
   }
 }
@@ -90,7 +125,8 @@ class Results {
     chapterId = int.parse(json['chapter_id'] ?? '0');
     finishedAt = json['finished_at'];
     name = json['name'];
-    remarkable = json['remarkable'] != null ? json['remarkable'].cast<String>() : [];
+    remarkable =
+        json['remarkable'] != null ? json['remarkable'].cast<String>() : [];
   }
   int? id;
   String? record;

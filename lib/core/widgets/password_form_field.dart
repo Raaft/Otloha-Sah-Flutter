@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_from_fielid.dart';
+import '../utils/themes/color.dart';
+import 'text_from_fielid.dart';
 
 class PasswordFormField extends StatefulWidget {
   final String title;

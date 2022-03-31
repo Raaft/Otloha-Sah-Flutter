@@ -1,4 +1,4 @@
-import 'package:flutter_base/modules/home/business_logic/cubit/play_button_state.dart';
+import '../../../home/business_logic/cubit/play_button_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 

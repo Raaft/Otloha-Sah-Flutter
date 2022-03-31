@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/widgets/auth_navigator.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/modules/home/presentation/widget/sub_section_item.dart';
+import '../../../../data_source/cache_helper.dart';
+import '../../../../core/widgets/auth_navigator.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_view.dart';
+import 'sub_section_item.dart';
 ///////////commit
 
 class HomeSubMainSection extends StatelessWidget {

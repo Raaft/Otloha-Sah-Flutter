@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
-import 'package:flutter_base/modules/recitations/presentation/widget/popup_recitation.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import '../../../../core/utils/constant/utils.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/tool_bar_app.dart';
+import '../../../messages/business_logic/cubit/messagedetails_cubit.dart';
+import '../../../messages/presentation/widgets/general_message_item.dart';
+import '../widget/popup_recitation.dart';
+import '../../../settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../data_source/models/database_model/recitaion_details.dart';
-import '../../../../../data_source/models/home_models/user_profile.dart';
+import '../../../../data_source/models/database_model/recitaion_details.dart';
+import '../../../../data_source/models/home_models/user_profile.dart';
 
 class RecitationDetailsPage extends StatefulWidget {
   const RecitationDetailsPage({Key? key, required this.recitationId})
@@ -67,38 +66,31 @@ class _RecitationDetailsPageState extends State<RecitationDetailsPage> {
   Widget _getItem2(RecitationDetails? recitationDetails) {
     print('object id ${recitationDetails!.id}');
     return GeneralMessageItem(
-      boxMessageItem: SubMessageItem(
-        id: recitationDetails.id!,
-        isRead: false,
-        ayah: cubit!.ayah,
-        ayahInfo: _getAyahInfo(recitationDetails),
-        narrationName: recitationDetails.narrationName,
-        userImage: recitationDetails.owner!.image ?? '',
-        userName: _user(recitationDetails.owner),
-        dateStr: (recitationDetails.finishedAt != null)
-            ? DateFormat('hh:mm dd MMM')
-                .format(DateTime.parse(recitationDetails.finishedAt ?? ''))
-            : null,
-        color: AppColor.transparent,
-        userInfo: (recitationDetails.owner!.level ?? '') +
-            (recitationDetails.owner!.isATeacher ?? false
-                ? ' Teacher'
-                : ' Student'),
-        action: () {
-          Get.to(RecitationDetailsPage(
-            recitationId: recitationDetails.id ?? 0,
-          ));
-        },
-      ),
-      likeCount: recitationDetails.likes!.length,
-      commentCount: recitationDetails.comments!.length,
-      remarkableCount: recitationDetails.remarkable!.length,
-      viewBottom: true,
+      id: recitationDetails.id!,
+      isRead: false,
+      ayah: cubit!.ayah,
+      ayahInfo: _getAyahInfo(recitationDetails),
+      narrationName: recitationDetails.narrationName,
+      userImage: recitationDetails.owner!.image ?? '',
+      userName: _user(recitationDetails.owner),
+      dateStr: (recitationDetails.finishedAt != null)
+          ? DateFormat('hh:mm dd MMM')
+              .format(DateTime.parse(recitationDetails.finishedAt ?? ''))
+          : null,
+      color: AppColor.transparent,
+      userInfo: (recitationDetails.owner!.level ?? '') +
+          (recitationDetails.owner!.isATeacher ?? false
+              ? ' Teacher'
+              : ' Student'),
+      onPress: () {
+        Get.to(RecitationDetailsPage(
+          recitationId: recitationDetails.id ?? 0,
+        ));
+      },
       recordPath: recitationDetails.record,
       wavePath: recitationDetails.wave,
       isLocal: false,
       trggelPlay: () {},
-      isLike: false,
     );
   }
   //

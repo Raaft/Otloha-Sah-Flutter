@@ -142,10 +142,11 @@
   "IsOpen":"هل مفتوح للفحص أم مغلق",
   "Closed":"مغلق",
 
-  "SendTo": "ارسال الي",
+  "SendTo": "أرسل إلى المدرس المفضل",
   "SelectToSend": "اختر المستخدمين للارسال",
   "Delete": "ازاله",
   "AddToGeneral":  "اضافه الي العام",
   "RemoveFromGeneral": "ازاله من العام",
-  "MarkAsFinish": "انتهي"
+  "MarkAsFinish": "انتهي",
+  "SendedToFav": "تم الإرسال إلى المعلم المفضل"
 }

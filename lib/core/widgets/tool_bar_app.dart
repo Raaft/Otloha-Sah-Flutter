@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../utils/themes/color.dart';
+import 'text_view.dart';
 
 class ToolBarApp extends StatelessWidget {
   const ToolBarApp({
     Key? key,
+    this.title,
     this.backIcon,
     this.actionIcon,
-    required this.title,
+    this.titleWidget,
   }) : super(key: key);
 
   final Widget? backIcon;
   final Widget? actionIcon;
-  final String title;
+  final Widget? titleWidget;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +26,12 @@ class ToolBarApp extends StatelessWidget {
         children: [
           backIcon ?? Container(),
           Expanded(
-            child: TextView(
-              text: title,
-              colorText: AppColor.txtColor3,
-              weightText: FontWeight.bold,
-            ),
+            child: titleWidget ??
+                TextView(
+                  text: title ?? '',
+                  colorText: AppColor.txtColor3,
+                  weightText: FontWeight.bold,
+                ),
           ),
           actionIcon ?? Container(),
         ],

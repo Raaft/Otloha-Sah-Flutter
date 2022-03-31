@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/modules/home/presentation/pages/coming_soon/coming_soon_page.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../coming_soon/coming_soon_page.dart';
 
 
 class ProfileBNBPage extends StatelessWidget {

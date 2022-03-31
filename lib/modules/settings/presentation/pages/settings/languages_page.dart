@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/data_source/cache_helper.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/alert_dialog_full_screen.dart';
-import 'package:flutter_base/data_source/models/setting_model/init_data.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/item_download.dart';
-import 'package:flutter_base/modules/settings/business_logic/language/language_cubit.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
+import '../../../../../data_source/cache_helper.dart';
+import '../../../../../core/utils/constant/constants.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../core/widgets/alert_dialog_full_screen.dart';
+import '../../../../../data_source/models/setting_model/init_data.dart';
+import '../../widgets/item_download.dart';
+import '../../../business_logic/language/language_cubit.dart';
+import '../../widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -75,6 +75,10 @@ class _LanguagesPageState extends State<LanguagesPage> {
       isSelect: _selected == index,
       action: () {
         try {
+          Get.dialog(
+            const AlertDialogFullScreen(),
+            barrierColor: AppColor.backdone,
+          );
           CacheHelper.saveData(key: languagesSelectedId, value: index);
 
           CacheHelper.saveData(
@@ -92,11 +96,6 @@ class _LanguagesPageState extends State<LanguagesPage> {
           BlocProvider.of<LanguageCubit>(context).changeLan(isEn, context);
 
           print(index.toString() + '  ' + (isEn ? 'en' : 'ar'));
-
-          Get.dialog(
-            const AlertDialogFullScreen(),
-            barrierColor: AppColor.backdone,
-          );
         } catch (e) {
           printError(info: e.toString());
         }

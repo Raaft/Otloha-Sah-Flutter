@@ -2,21 +2,20 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_base/core/error/exceptions.dart';
-import 'package:flutter_base/data_source/data_source.dart';
-import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
-
+import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/error/exceptions.dart';
+import '../../../../data_source/data_source.dart';
+import '../../../../data_source/models/database_model/teacher_response_entity.dart';
 import '../../../../core/utils/constant/constants.dart';
 import '../../../../data_source/cache_helper.dart';
-
 
 part 'teacherviewtype_state.dart';
 
 class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
   TeacherviewtypeCubit() : super(TeacherviewtypeInitial());
-  TeacherResponse? teachers;
+  List<TeacherResponse>? teachers;
 
   static TeacherviewtypeCubit get(context) => BlocProvider.of(context);
 
@@ -26,8 +25,8 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
 
   getTeacher() {
     emit(TeacherLoadingState());
-    AppDataSource().getTeacher()!.then((value) async {
-      if (value != null && value.results != null && value.results!.isNotEmpty) {
+    AppDataSource().getTeacher(1)!.then((value) async {
+      if (value != null && value.isNotEmpty) {
         teachers = value;
         /*   for (var element in teachers!.results!) {
           element.narrationName = (await DataSource.instance
@@ -51,7 +50,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
     });
   }
 
-  markAsFavTeacher({int? id , results }) async {
+  markAsFavTeacher({int? id, results}) async {
     emit(MarkAsFavTeacherLoadingState());
     AppDataSource().markAsFavTeacher(id: id).then((value) {
       emit(MarkAsFavTeacherFetchedState());
@@ -72,8 +71,8 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
 
   getStudents() {
     emit(TeacherLoadingState());
-    AppDataSource().getStudents()!.then((value) async {
-      if (value != null && value.results != null && value.results!.isNotEmpty) {
+    AppDataSource().getStudents(1).then((value) async {
+      if (value != null && value.isNotEmpty) {
         teachers = value;
         /* for (var element in teachers!.results!) {
           element.narrationName = (await DataSource.instance
@@ -96,17 +95,26 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
     });
   }
 
-
-  Future<File?>? uploadFile()async{
+  Future<File?>? uploadFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
       File file = File(result.files.single.path!);
       emit(state);
-     return file;
+      return file;
     } else {
       // User canceled the picker
     }
     return null;
+  }
+
+  getNextTeachers(int nextLink) async {
+    return ApiBaseHelper().getHTTP('/api/v1/users/teachers/',
+        queryParameters: {'page': nextLink});
+  }
+
+  getNextStudents(int nextLink) async {
+    return ApiBaseHelper().getHTTP('/api/v1/users/students/',
+        queryParameters: {'page': nextLink});
   }
 }

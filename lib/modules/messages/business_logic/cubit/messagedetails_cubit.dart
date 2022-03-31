@@ -1,4 +1,4 @@
-import 'package:flutter_base/data_source/data_source.dart';
+import '../../../../data_source/data_source.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/data_source/data_source.dart';
@@ -18,7 +18,11 @@ class MessagedetailsCubit extends Cubit<MessagedetailsState> {
   RecitationDetails? recitationDetails;
   String ayah = '';
 
-  fetchMessages(int msgId, int recitationId) async {
+  bool isViewInput = false;
+  bool isRelpy = false;
+  int? parentId;
+
+  fetchMessages(int msgId, int recitationId) {
     ayah = '';
     emit(MessageLoadingState());
     AppDataSource()
@@ -91,5 +95,14 @@ class MessagedetailsCubit extends Cubit<MessagedetailsState> {
   deleteRecitations(int id) async {
     await GetMessages().deleteRecitations(id);
     fetchRecitation(id);
+  }
+
+  void setViewInput(bool b, int? id) {
+    isViewInput = b;
+    isRelpy = b;
+    parentId = id;
+    print(parentId.toString() + '  ' + isViewInput.toString());
+
+    emit(MessageEmptyState());
   }
 }

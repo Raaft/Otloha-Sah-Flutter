@@ -4,7 +4,12 @@ class InitialReplyState extends ReplyState {}
 
 class ReplyStateDefult extends ReplyState {}
 
-class StartRecordingState extends ReplyState {}
+class StartRecordingState extends ReplyState {
+  final String time;
+  StartRecordingState({
+    required this.time,
+  });
+}
 
 class EndRecordingState extends ReplyState {}
 
@@ -14,7 +19,17 @@ class DeleteRecordState extends ReplyState {}
 
 class SavedState extends ReplyState {}
 
+class DataChange extends ReplyState {}
+
 class SavedErrorState extends ReplyState {}
+
+class ChangeIsReply extends ReplyState {}
+
+class PlayerIsPlay extends ReplyState {}
+
+class PlayerIsPause extends ReplyState {}
+
+class LoadingSaveState extends ReplyState {}
 
 class SendReplyState extends ReplyState {
   String text;

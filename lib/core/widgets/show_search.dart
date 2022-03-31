@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/person.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/utils/themes/text_style.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
+import '../utils/constant/person.dart';
+import '../utils/themes/color.dart';
+import '../utils/themes/text_style.dart';
+import 'text_view.dart';
 import 'package:search_page/search_page.dart';
 
 shoow(BuildContext context) {

@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/reply_state.dart';
+import 'reply_state.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -32,15 +32,47 @@ class ReplyCubit extends Cubit<ReplyState> {
   String? filePathWave;
   String? ayahText;
   ErrorType? errorType;
+  FocusNode focusNode = FocusNode();
 
-  saveRelpy(int recitationId, int msgId, int? parentId, String? text) async {
+  String? text;
+  bool viewMessage = false;
+  bool isRelpay = false;
+
+  void setInit() {
+    text = null;
+    viewMessage = false;
+    isRelpay = false;
+    emit(InitialReplyState());
+  }
+
+  setIsReply(bool b) {
+    isRelpay = b;
+    emit(ChangeIsReply());
+  }
+
+  setText(String str) {
+    text = str;
+    print(text);
+    emit(DataChange());
+  }
+
+  setViewMessage(bool b) {
+    print(b);
+    viewMessage = b;
+    emit(DataChange());
+  }
+
+  saveRelpy(int recitationId, int msgId, int? parentId,
+      {ErrorType? errorType}) async {
+    emit(LoadingSaveState());
+    this.errorType = errorType;
     String comment = messageController.text;
     if (comment.isNotEmpty || (filePath != null && filePath!.isNotEmpty)) {
       ReplyRequest replyRequest = ReplyRequest(
         recitationId: recitationId,
         messageId: msgId,
         parentId: parentId,
-        errorType: (errorType != null) ? errorType!.key : null,
+        errorType: (this.errorType != null) ? this.errorType!.key : null,
         record: filePath,
         comment: messageController.text,
         text: text,
@@ -119,13 +151,13 @@ class ReplyCubit extends Cubit<ReplyState> {
     await init();
     print('asd');
 
-    emit(StartRecordingState());
+    emit(StartRecordingState(time: '00:00'));
     await _recorder!.start();
     var recording = await _recorder!.current(channel: 0);
 
     current = recording;
 
-    const tick = Duration(milliseconds: 50);
+    const tick = Duration(milliseconds: 500);
     Timer.periodic(tick, (Timer t) async {
       if (_currentStatus == RecordingStatus.Stopped) {
         t.cancel();
@@ -135,6 +167,13 @@ class ReplyCubit extends Cubit<ReplyState> {
 
       this.current = current;
       _currentStatus = this.current!.status!;
+
+      emit(
+        StartRecordingState(
+          time:
+              '${current!.duration!.inMinutes.remainder(60)}:${current.duration!.inSeconds.remainder(60)}',
+        ),
+      );
     });
 
     return null;
@@ -180,9 +219,15 @@ class ReplyCubit extends Cubit<ReplyState> {
     emit(DeleteRecordState());
   }
 
+  AudioPlayer audioPlayer = AudioPlayer();
   void onPlayAudio() async {
-    AudioPlayer audioPlayer = AudioPlayer();
     await audioPlayer.play(current!.path!, isLocal: true);
+    emit(PlayerIsPlay());
+  }
+
+  void onPauseAudio() async {
+    await audioPlayer.pause();
+    emit(PlayerIsPause());
   }
 
   void setErrorType(ErrorType? errorType) {
@@ -193,5 +238,11 @@ class ReplyCubit extends Cubit<ReplyState> {
   void setAyah(String ayah) {
     ayahText = ayah;
     emit(ReplyStateDefult());
+  }
+
+  void setFoucs() {
+    print('focusNode');
+    focusNode.nextFocus();
+    focusNode.requestFocus();
   }
 }

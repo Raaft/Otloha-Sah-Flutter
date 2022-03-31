@@ -2,41 +2,49 @@ import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/core/widgets/cached_image.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/reply_message_widget.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import '../../../../../core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import 'package:flutter_base/core/utils/constant/utils.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
-import 'package:flutter_base/core/widgets/text_view.dart';
-import 'package:flutter_base/core/widgets/tool_bar_app.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/pages/messages/replay_message_page.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/comment_replay_item.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalails_record.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/mesage_detalis_head.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_popup.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
+import '../../../../../core/utils/themes/color.dart';
+import '../../../../../core/widgets/text_view.dart';
+import '../../../../../core/widgets/tool_bar_app.dart';
+import '../../../business_logic/cubit/messagedetails_cubit.dart';
+import '../../widgets/comment_replay_item.dart';
+import '../../widgets/mesage_detalails_record.dart';
+import '../../widgets/mesage_detalis_head.dart';
+import '../../widgets/message_popup.dart';
+import '../../../../settings/presentation/widgets/view_error.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 
 import '../../../../../data_source/models/home_models/user_profile.dart';
 import '../../../../../data_source/models/message_model/message_delails.dart';
 
 class MessageDetailsPage extends StatelessWidget {
-
-
   final int msgId;
   final int recitationId;
+  final String? userImage;
+  final String? userName;
 
   MessagedetailsCubit? cubit;
   late UserProfile userProfile;
 
-   MessageDetailsPage({Key? key, required this.msgId, required this.recitationId}) : super(key: key);
+  MessageDetailsPage({
+    Key? key,
+    required this.msgId,
+    required this.recitationId,
+    this.userImage,
+    this.userName,
+  }) : super(key: key);
 
   Future<void> init(context) async {
     userProfile = UserProfile.fromJson(
         jsonDecode(await CacheHelper.getData(key: profile)));
-    print('fgfd gfdgd $userProfile');
+    print('user profile $userProfile');
     cubit = MessagedetailsCubit.get(context);
     cubit!.fetchMessages(msgId, recitationId);
   }
@@ -44,6 +52,7 @@ class MessageDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: FutureBuilder(
             future: init(context),
@@ -55,12 +64,16 @@ class MessageDetailsPage extends StatelessWidget {
                             msgId: msgId, recitationId: recitationId),
                         BlocBuilder<MessagedetailsCubit, MessagedetailsState>(
                           builder: (context, state) {
-                            if (state is MessageFetchedState) {
+                            if (state is MessageFetchedState ||
+                                state is MessageEmptyState) {
                               return _viewBody(context);
                             }
+
                             if (state is MessageLoadingState) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
+                              return const Expanded(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
                               );
                             }
                             return const ViewError(error: 'Not Found Data');
@@ -74,11 +87,39 @@ class MessageDetailsPage extends StatelessWidget {
     );
   }
 
+  _viewInputRelpy() {
+    return ReplayMessageWidget(
+      recitationId: recitationId,
+      msgId: msgId,
+      record: cubit!.messageDetails!.recitation!.record,
+      wave: cubit!.messageDetails!.recitation!.wave,
+      ayah: cubit!.ayah,
+      ayahInfo: _getAyahInfo(cubit!.messageDetails!.recitation),
+      reload: () {
+        cubit!.fetchMessages(msgId, recitationId);
+      },
+      isATeacher: (myProFile?.isATeacher ?? false),
+      parentId: cubit!.parentId,
+    );
+  }
+
+  _viewInputRelpy2() {
+    return Container(
+      padding: const EdgeInsets.only(top: 8),
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(28), topRight: Radius.circular(28)),
+      ),
+      child: SingleChildScrollView(child: _viewInputRelpy()),
+    );
+  }
+
   Expanded _viewBody(BuildContext context) {
     return Expanded(
       child: ListView(
         shrinkWrap: true,
-        children: [messageDetailsNew(context), _viewTitle(), _viewData()],
+        children: [_messageDetails(context), _viewTitle(), _viewData()],
       ),
     );
   }
@@ -90,7 +131,7 @@ class MessageDetailsPage extends StatelessWidget {
       shrinkWrap: true,
       itemCount: cubit!.messageDetails!.replies!.length,
       itemBuilder: (context, index) =>
-          _viewItem(index, cubit!.messageDetails!.replies![index]),
+          _viewItem(index, cubit!.messageDetails!.replies![index], context),
     );
   }
 
@@ -117,7 +158,20 @@ class MessageDetailsPage extends StatelessWidget {
           Navigator.of(ctx).pop();
         },
       ),
-      title: translate('تفاصيل الرسالة'),
+      titleWidget: Row(
+        children: [
+          CachedImage(url: userProfile.image ?? '', raduis: 24),
+          const SizedBox(width: 8),
+          TextView(
+            text: _user3(userProfile),
+            weightText: FontWeight.w900,
+            padding: EdgeInsets.zero,
+            sizeText: 18,
+            letterSpacing: 0.4,
+            colorText: AppColor.userNameColor,
+          ),
+        ],
+      ),
       actionIcon: userProfile.isATeacher ?? false
           ? IconButton(
               onPressed: () {
@@ -172,7 +226,7 @@ class MessageDetailsPage extends StatelessWidget {
     ]);
   }
 
-  messageDetailsNew(BuildContext context) {
+  _messageDetails(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: CommentReplayItem(
@@ -182,10 +236,6 @@ class MessageDetailsPage extends StatelessWidget {
         ayahInfo: _getAyahInfo(cubit!.messageDetails!.recitation),
         userImage: cubit!.messageDetails!.recitation!.owner!.image,
         userName: _user(cubit!.messageDetails!.recitation!.owner),
-        userInfo: cubit!.messageDetails!.recitation!.owner!.level! +
-            ((cubit!.messageDetails!.recitation!.owner!.isATeacher ?? false)
-                ? 'Teacher'
-                : 'Student'),
         dateStr: (cubit!.messageDetails!.recitation!.finishedAt != null)
             ? DateFormat('hh:mm dd MMM').format(DateTime.parse(
                 cubit!.messageDetails!.recitation!.finishedAt ?? ''))
@@ -196,18 +246,14 @@ class MessageDetailsPage extends StatelessWidget {
         wavePath: cubit!.messageDetails!.recitation!.wave,
         isPlay: false,
         errorType: null,
-        actionReply: () {
-          Get.to(
-            ReplayMessagePage(
-              msgId: msgId,
-              recitationId: recitationId,
-              //  parentId: reply.parent,
-            ),
-          )!
-              .then((value) {
-            cubit!.fetchMessages(msgId, recitationId);
-          });
-        },
+        actionReply: (userProfile.isATeacher ?? false)
+            ? () {
+                BlocProvider.of<ReplyCubit>(context).setViewMessage(false);
+                BlocProvider.of<ReplyCubit>(context).setIsReply(false);
+                cubit!.setViewInput(false, null);
+                Get.bottomSheet(_viewInputRelpy2());
+              }
+            : null,
       ),
     );
   }
@@ -246,17 +292,15 @@ class MessageDetailsPage extends StatelessWidget {
     }
   }
 
-  _viewItem(
-    int index,
-    Replies reply,
-  ) {
+  _viewItem(int index, Replies reply, BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      //padding: const EdgeInsets.symmetric(vertical: 8.0),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       children: [
         CommentReplayItem(
           isRead: false,
+          small: true,
           ayah: reply.text,
           userImage: reply.owner!.image,
           userName: _user1(reply.owner),
@@ -271,35 +315,49 @@ class MessageDetailsPage extends StatelessWidget {
           color: AppColor.selectColor1,
           isPlay: false,
           trggelPlay: () {},
-          isReplay: (reply.parent != null && (reply.parent ?? 0) > 0),
+          isReply: (reply.parent != null && (reply.parent ?? 0) > 0),
           recordPath: reply.record,
           wavePath: reply.wave,
           errorStr: reply.comment,
           errorType: reply.errorType,
           actionReply: () {
-            Get.to(
-              ReplayMessagePage(
-                msgId: msgId,
-                recitationId: recitationId,
-                parentId: (reply.parent != null) ? reply.parent : reply.id,
-              ),
-            )!
-                .then((value) {
-              cubit!.fetchMessages(msgId, recitationId);
-            });
+            int? parent = (reply.parent != null) ? reply.parent : reply.id;
+            print(parent);
+            cubit!.setViewInput(true, parent);
+            BlocProvider.of<ReplyCubit>(context).setIsReply(true);
           },
         ),
-        if (reply.children!.isNotEmpty) _viewDataCh(reply.children),
+        if (reply.children!.isNotEmpty || cubit!.isViewInput)
+          _viewDataCh(reply.children, reply.id ?? 0),
       ],
     );
   }
 
-  ListView _viewDataCh(List<Replies>? children) {
+  ListView _viewDataCh(List<Replies>? children, int parent) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: children!.length,
-      itemBuilder: (context, index) => _viewItem(index, children[index]),
+      itemCount: children!.length +
+          ((cubit!.isRelpy && cubit!.parentId == parent) ? 1 : 0),
+      itemBuilder: (context, index) =>
+          (cubit!.isRelpy && index == children.length)
+              ? _viewInputRelpy()
+              : _viewItem(index, children[index], context),
     );
+  }
+
+  _user3(UserProfile userProfile) {
+    if (userProfile != null) {
+      var str =
+          (userProfile.lastName!.isEmpty && userProfile.firstName!.isEmpty)
+              ? (userProfile.username)
+              : '';
+      return (userProfile.firstName ?? '') +
+          ' ' +
+          (userProfile.lastName ?? '') +
+          (str ?? '');
+    } else {
+      return '';
+    }
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -85,15 +84,11 @@ var border = OutlineInputBorder(
   borderSide: BorderSide(width: 1, color: AppColor.lightBlue),
 );
 
-
-
-
 customFormField(
     {required String title,
-
     TextEditingController? controller,
-    TextInputType? keyboardType,   List<FormFieldValidator<String>>? validator
-    }) {
+    TextInputType? keyboardType,
+    List<FormFieldValidator<String>>? validator}) {
   return FormBuilderTextField(
     controller: controller,
     name: title,
@@ -112,10 +107,4 @@ customFormField(
       labelText: title,
     ),
   );
-
 }
-
-
-
-
-

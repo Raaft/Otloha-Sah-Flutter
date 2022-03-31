@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/res/icons_app.dart';
+import '../utils/res/icons_app.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PickImage extends StatefulWidget {

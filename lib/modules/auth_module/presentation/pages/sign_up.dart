@@ -1,9 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
+import '../../../../core/utils/themes/color.dart';
+import '../../../../core/widgets/text_from_fielid.dart';
+import '../../business_logic/auth_cubit.dart';
+import '../widget/need_help.dart';
+import '../widget/page_head_text.dart';
+import '../widget/page_layout.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
-import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/need_help.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_text.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
@@ -13,8 +19,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/widgets/vali_errorr_text.dart';
-import '../../../../data_source/cache_helper.dart';
-import '../../../../core/utils/constant/constants.dart';
 import '../../../home/presentation/pages/home/home_page.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -33,7 +37,6 @@ class SignUpPage extends StatelessWidget {
 
             if (state is RegisterSuccessState) {
               cubit.changeIsLogin(islog: true).then((value) {
-
                 cubit.saveProfile().then((value) {
                   Get.offAll(() => const HomePage());
                 });
@@ -124,13 +127,13 @@ class _SignFormState extends State<SignForm> {
                 Column(
                   children: [
                     customFormField(
-                      // color: AppColor.lightBlue,
-                      controller: userNameController,
-                      keyboardType: TextInputType.name,
-                      title: tr('User Name'),
-                      validator:[ FormBuilderValidators.required(context),
-                        ]
-                    ),
+                        // color: AppColor.lightBlue,
+                        controller: userNameController,
+                        keyboardType: TextInputType.name,
+                        title: tr('User Name'),
+                        validator: [
+                          FormBuilderValidators.required(context),
+                        ]),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
                             error: (state.error['username'] != null)
@@ -182,11 +185,10 @@ class _SignFormState extends State<SignForm> {
                 Column(
                   children: [
                     customFormField(
-                      title: tr('EnterYourphone'),
-                      controller: phoneController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: [FormBuilderValidators.required(context)]
-                    ),
+                        title: tr('EnterYourphone'),
+                        controller: phoneController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: [FormBuilderValidators.required(context)]),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
                             error: (state.error['phone'] != null)
@@ -219,9 +221,9 @@ class _SignFormState extends State<SignForm> {
                     selectGender(),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
-                        error: (state.error['gender'] != null)
-                            ? state.error['gender'][0]
-                            : '')
+                            error: (state.error['gender'] != null)
+                                ? state.error['gender'][0]
+                                : '')
                         : const SizedBox(),
                   ],
                 ),
@@ -265,9 +267,9 @@ class _SignFormState extends State<SignForm> {
                     ),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
-                        error: (state.error['birthdate'] != null)
-                            ? state.error['birthdate'][0]
-                            : '')
+                            error: (state.error['birthdate'] != null)
+                                ? state.error['birthdate'][0]
+                                : '')
                         : const SizedBox(),
                   ],
                 ),
@@ -276,12 +278,12 @@ class _SignFormState extends State<SignForm> {
                 Column(
                   children: [
                     customFormField(
-                      title: tr('password'),
-                      controller: passwordController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator:[                          FormBuilderValidators.required(context),
-                      ]
-                    ),
+                        title: tr('password'),
+                        controller: passwordController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: [
+                          FormBuilderValidators.required(context),
+                        ]),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
                             error: (state.error['password1'] != null)
@@ -295,12 +297,12 @@ class _SignFormState extends State<SignForm> {
                 Column(
                   children: [
                     customFormField(
-                      title: tr('EnterConfirmPassword'),
-                      controller: confirmPasswordController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator:[                          FormBuilderValidators.required(context),
-                      ]
-                    ),
+                        title: tr('EnterConfirmPassword'),
+                        controller: confirmPasswordController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: [
+                          FormBuilderValidators.required(context),
+                        ]),
                     (state is RegisterErrorState)
                         ? ValidationErrorText(
                             error: (state.error['password2'] != null)
@@ -334,7 +336,7 @@ class _SignFormState extends State<SignForm> {
                       : AuthButton(
                           buttonText: tr('RegisterNow'),
                           onPressed: () {
-                           // formKey.currentState!.save();
+                            // formKey.currentState!.save();
                             if (formKey.currentState!.validate()) {
                               debugPrint('validate');
                               String formattedDate =
@@ -357,15 +359,14 @@ class _SignFormState extends State<SignForm> {
                                 //   });
                                 // });
 
-
                                 //  widget.cubit.changeIsLogin();
-                               //formKey.currentState!.reset();
+                                //formKey.currentState!.reset();
                               }).catchError((e) {
                                 print('ERROR IN LOG IN IS $e');
                               });
                             } else if (state is RegisterErrorState) {
                               return state.error;
-                            }else {
+                            } else {
                               print('validation failed');
                             }
                           },
@@ -409,7 +410,7 @@ class _SignFormState extends State<SignForm> {
         //filled: true,
       ),
       hint: Text(
-       tr( 'Select Gender'),
+        tr('Select Gender'),
         style: TextStyle(color: AppColor.lightBlue),
       ),
       items: ['Male', 'Female']
