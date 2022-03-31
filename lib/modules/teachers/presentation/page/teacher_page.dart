@@ -106,6 +106,9 @@ class _TeacherPageState extends State<TeacherPage> {
           //  results: results,
           setFav: () {
             teacherViewCubit.markAsFavTeacher(id: results.id,results: results);
+            setState(() {
+            //  results.isFavorite =false;
+            });
 
           },
         );
@@ -132,9 +135,13 @@ class _TeacherPageState extends State<TeacherPage> {
   }
 
   _viewDate(TeacherviewtypeState state, TeacherviewtypeCubit cubit) {
-    if (state is TeacherErrorState) {
+    if (state is TeacherLoadingState){
+      return _viewItems();
+
+    }
+      if (state is TeacherErrorState) {
       return  Expanded(child: ErrorIndicator(error: state.error));
-    } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {
+    } else if (state is TeacherFetchedState ||state is MarkAsFavTeacherLoadingState||state is MarkAsFavTeacherFetchedState|| state is TeacherviewtypeChange) {
       if (cubit.teachers != null && cubit.teachers!.results!.isNotEmpty) {
         return _viewItems();
       } else {

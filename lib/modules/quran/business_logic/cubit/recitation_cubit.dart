@@ -43,42 +43,37 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
       BehaviorSubject<WaveformProgress>();
 
   Future init() async {
-    try {
-      print('start init');
-      bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
+    bool hasPermission = await FlutterAudioRecorder2.hasPermissions ?? false;
 
-      if (hasPermission) {
-        String customPath = '/FilesGeneratedRecoed';
-        Directory appDocDirectory;
+    if (hasPermission) {
+      String customPath = '/FilesGeneratedRecoed';
+      Directory appDocDirectory;
 
-        if (Platform.isIOS) {
-          appDocDirectory = await getApplicationDocumentsDirectory();
-        } else {
-          appDocDirectory = (await getExternalStorageDirectory())!;
-        }
-
-        customPath = appDocDirectory.path +
-            customPath +
-            DateTime.now().millisecondsSinceEpoch.toString() +
-            '.wav';
-
-        _recorder =
-            FlutterAudioRecorder2(customPath, audioFormat: AudioFormat.WAV);
-
-        await _recorder!.initialized;
-
-        var current = await _recorder!.current(channel: 0);
-        print(current);
-
-        _current = current;
-        _currentStatus = current!.status!;
-        print(_currentStatus);
-        print('end init');
+      if (Platform.isIOS) {
+        appDocDirectory = await getApplicationDocumentsDirectory();
       } else {
-        print('You must accept permissions');
+        appDocDirectory = (await getApplicationDocumentsDirectory());
       }
-    } catch (e) {
-      print('init Error ' + e.toString());
+
+      customPath = appDocDirectory.path +
+          customPath +
+          DateTime.now().millisecondsSinceEpoch.toString() +
+          '.wav';
+
+      _recorder =
+          FlutterAudioRecorder2(customPath, audioFormat: AudioFormat.WAV);
+
+      await _recorder!.initialized;
+
+      var current = await _recorder!.current(channel: 0);
+      print(current);
+
+      _current = current;
+      _currentStatus = current!.status!;
+      print(_currentStatus);
+      print('end init');
+    } else {
+      print('You must accept permissions');
     }
   }
 
@@ -136,52 +131,51 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
     }
   }
 
-  _initWave(String audioFile) async {
-    try {
-      // await audioFile.writeAsBytes((audioFile).buffer.asUint8List());
-      waveFile = File(p.join((await getApplicationDocumentsDirectory()).path,
-          '${DateTime.now().microsecondsSinceEpoch}.wave'));
+  // _initWave(String audioFile) async {
+  //   try {
+  //     // await audioFile.writeAsBytes((audioFile).buffer.asUint8List());
+  //     waveFile = File(p.join((await getApplicationDocumentsDirectory()).path,
+  //         '${DateTime.now().microsecondsSinceEpoch}.wave'));
 
-      JustWaveform.extract(
-          audioInFile: File(audioFile), waveOutFile: waveFile!);
-      await waveFile!.create();
-      int i = await waveFile!.length();
-      print('askcjnakscjnackjnask $i');
-    } catch (e) {
-      progressStream.addError(e);
-    }
-  }
+  //     JustWaveform.extract(audioInFile: File(audioFile), waveOutFile: waveFile!)
+  //         .doOnDone(() async {
+  //       await waveFile!.create();
+  //     });
+  //     int i = await waveFile!.length();
+  //     print('askcjnakscjnackjnask $i');
+  //   } catch (e) {
+  //     progressStream.addError(e);
+  //   }
+  // }
 
   saveRecitation() async {
-    String customPath = '/FilesGeneratedWave';
-    Directory appDocDirectory;
+    waveFile = File(p.join((await getApplicationDocumentsDirectory()).path,
+        '${DateTime.now().microsecondsSinceEpoch}.wave'));
 
-    if (Platform.isIOS) {
-      appDocDirectory = await getApplicationDocumentsDirectory();
-    } else {
-      appDocDirectory = (await getExternalStorageDirectory())!;
-    }
+    JustWaveform.extract(
+      audioInFile: File(_current!.path!),
+      waveOutFile: waveFile!,
+      zoom: const WaveformZoom.pixelsPerSecond(100),
+    ).listen((event) {}, onDone: () async {
+      List<int> recordedVersesId = [];
+      for (var verse in selectedVerses) {
+        recordedVersesId.add(verse.id!);
+      }
 
-    await _initWave(_current!.path!);
+      var userRecitation = UserRecitation(
+        narrationId: _narrationId,
+        record: _current!.path ?? '',
+        name: getName(),
+        versesID: recordedVersesId,
+        wavePath: waveFile!.path,
+      );
 
-    List<int> recordedVersesId = [];
-    for (var verse in selectedVerses) {
-      recordedVersesId.add(verse.id!);
-    }
+      var user = await UserRecitationApi()
+          .saveUserReciataion(userRecitation: userRecitation);
 
-    var userRecitation = UserRecitation(
-      narrationId: _narrationId,
-      record: _current!.path ?? '',
-      name: getName(),
-      versesID: recordedVersesId,
-      wavePath: waveFile!.path,
-    );
-
-    var user = await UserRecitationApi()
-        .saveUserReciataion(userRecitation: userRecitation);
-
-    _recitationId = user!.id!;
-    print('saveRecitation -> ' + userRecitation.toString());
+      _recitationId = user!.id!;
+      print('saveRecitation -> ' + userRecitation.toString());
+    });
     return _recitationId;
   }
 

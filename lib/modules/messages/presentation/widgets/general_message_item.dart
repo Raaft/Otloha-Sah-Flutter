@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 
 class GeneralMessageItem extends StatelessWidget {
   const GeneralMessageItem({
@@ -47,6 +48,7 @@ class GeneralMessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('sdcs;dcml ${wavePath}');
     return InkWell(
       onTap: boxMessageItem.action,
       child: Container(
@@ -69,6 +71,7 @@ class GeneralMessageItem extends StatelessWidget {
                 isPlay: isPlay,
               ),
             ),
+
             // if (viewBottom) _viewBottom(context),
             replay ?? Container(),
           ],

@@ -22,7 +22,7 @@ class UserRecitationApi {
     map['wave'] = MultipartFile.fromBytes(wave.readAsBytesSync(),
         filename: wave.path.split('/').last);
 
-    print('cklskdmclksdmdcm ${wave.readAsBytesSync()}');
+    print('cklskdmclksdmdcm ${map['wave']}');
 
     Response response =
         await ApiBaseHelper().postPhotoHTTP('/api/v1/recitations/create/', map);

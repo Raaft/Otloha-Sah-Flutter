@@ -67,7 +67,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
               ),
             );
           } else if (state is UserRecitationError) {
-            return  Expanded(child: ErrorIndicator(error: state.error));
+            return Expanded(child: ErrorIndicator(error: state.error));
           } else if (state is AuthErrorState) {
             Future.microtask(
               () => Navigator.of(context)

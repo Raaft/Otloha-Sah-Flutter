@@ -41,8 +41,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(ChangePageFalseState());
   }
 
-  changeOpacity(double myOpacity) {
-    opacity = myOpacity;
-    emit(ChangeOpacityState());
-  }
+  // changeOpacity(double myOpacity) {
+  //   opacity = myOpacity;
+  //   emit(ChangeOpacityState());
+  // }
 }

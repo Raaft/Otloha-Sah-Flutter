@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
 
 class AuthButton extends StatelessWidget {
   final String buttonText;
@@ -62,6 +63,36 @@ class AuthButton extends StatelessWidget {
               ),
             ),
           ),
+        ));
+  }
+}
+class UploadButton extends StatelessWidget {
+  final String buttonText;
+  final double width;
+  final Function onPressed;
+  final List<Color> colors;
+
+  const UploadButton({
+    required this.buttonText,
+    required this.width,
+    required this.onPressed,
+    required this.colors,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding:  EdgeInsets.all(10.0),
+        child: OutlinedButton(
+
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            side: BorderSide(width: 1, color: AppColor.lightBlue),
+          ),
+          onPressed: () => onPressed(),
+          child: Text(buttonText,style: TextStyle(color: AppColor.lightBlue),),
         ));
   }
 }

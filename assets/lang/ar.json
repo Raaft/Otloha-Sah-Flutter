@@ -43,10 +43,7 @@
   "Date of Birth": "تاريخ الميلاد",
   "Gender": "النوع",
   "Select Gender": "أختار النوع ",
-
-
   "_comment3":"app values",
-
   "SearchSubject":"ابحث عن موضوع ...",
   "Search":"البحث",
   "Done":"تمت الإضافة",
@@ -94,6 +91,35 @@
   "Notifiactions":"اﻷشعارات",
   "ChapterDownloadCenter":"مركز تحميل السور",
   "QuranTranslationLanguage":"لغات ترجمة القران الكريم",
+  "Profile Settings": "أعدادات الملف الشخصى",
+  "Log Out":"تسجيل الخروج",
+  "Change Password":"تغير كلمه المرور",
+  "Register up As Teacher":"الأنضمام للمعلمين",
+  "Update Phone":"تعديل الموبيل",
+  "Update Email":"تعديل البريد الالكتروني ",
+  "Update Profile":"تعديل الملف الشخصي",
+  "Update":"تعديل",
+  "Your Name":"أدخل أسمك",
+  "please enter your email address": "من فضلك قم بأدخال أسمك",
+  "Your Education":"مؤهلك",
+  "please enter your email Education":"من فضلك قم بأدخال مؤهلك",
+  "Selected Recitation":"أختار التلاوه",
+  "Upload Your Cv": "قم برفع السيره الزاتيه",
+  "Certifications": "شهادات",
+  "New Phone": "رقم موبايل جديد",
+  "Old Password":"كلمه السر القديمه",
+  "New Email":"البؤيد الالكترومي الجديد",
+  "Password":"كلمه المرور",
+  "New Password":"كلمه المرور الجديده",
+
+
+
+
+
+
+
+
+
 
   "Users":"المستخدمون",
   "Pages":"صفحات",

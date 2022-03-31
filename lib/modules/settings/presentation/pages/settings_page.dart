@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
@@ -51,11 +52,15 @@ class _SettingsPageState extends State<SettingsPage> {
             BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
               var cubit = AuthCubit.get(context);
               return (cubit.isLogin)
-                  ? TextView(
-                      text: 'Update Profile',
+                  ? TextViewIcon(
+                  icon: Icon(
+                    Icons.settings_outlined,
+                    color: AppColor.txtColor3,
+                  ),
+                      text: tr('Profile Settings'),
                       textAlign: TextAlign.start,
                       colorText: AppColor.txtColor3,
-                      sizeText: 19,
+                      sizeText: 17,
                       weightText: FontWeight.bold,
                       action: () {
                         Get.to(() => ProfileSettings());
@@ -64,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   : const Text('');
             }),
             TextViewIcon(
-              text: 'Register up As Teacher ',
+              text: tr('Register up As Teacher'),
               textAlign: TextAlign.start,
               colorText: AppColor.txtColor3,
               sizeText: 17,
@@ -90,10 +95,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
               return (cubit.isLogin)
                   ? TextViewIcon(
-                      text: 'Log Out',
+                      text:tr('Log Out'),
                       textAlign: TextAlign.start,
                       colorText: AppColor.txtColor3,
-                      sizeText: 19,
+                      sizeText: 17,
                       weightText: FontWeight.w700,
                       icon: Icon(
                         Icons.logout,

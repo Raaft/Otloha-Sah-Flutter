@@ -44,12 +44,12 @@ class _HomePageState extends State<HomePage> {
             if (cubit.isFloatingMenu || state is IsFloatingTrueMenuState) {
               cubit.changeIsOnTruePressed();
               cubitView.changeIsOnTruePressed();
-              cubit.changeOpacity(1);
+              // cubit.changeOpacity(1);
               cubitView.changeOpacity(1);
               Future.delayed(const Duration(seconds: 5), () {
                 cubit.changeIsOnFalsePressed();
                 cubitView.changeIsOnFalsePressed();
-                cubit.changeOpacity(.2);
+                // cubit.changeOpacity(.2);
                 cubitView.changeOpacity(.2);
               });
               return false;
