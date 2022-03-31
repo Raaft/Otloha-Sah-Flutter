@@ -83,7 +83,7 @@ class QuranViewCubit extends Cubit<QuranViewState> {
   String juz = '';
 
   changeChapter(int newChapter) {
-    chapterId = ((CacheHelper.getData(key: chapterSelectedName) ?? 0) as int);
+    chapterId = ((CacheHelper.getData(key: chapterSelectedID) ?? 0) as int);
     // juz = page!.partId.toString();
     chapterName =
         ((CacheHelper.getData(key: chapterSelectedName) ?? '') as String);

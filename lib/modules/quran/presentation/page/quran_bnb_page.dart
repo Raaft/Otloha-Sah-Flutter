@@ -120,47 +120,42 @@ class QuranBNBPage extends StatelessWidget {
             ),
             //Image.asset(AppImages.page016Image),
             Expanded(
-              child: BlocBuilder<QuranViewCubit, QuranViewState>(
-                builder: (context, state) {
-                  print('Chapter Cubit ${cubit!.chapterId}');
-                  return QuranWidget(
-                    page: cubit!.pageType,
-                    chapterId: cubit!.chapterId,
-                    bookId: cubit!.bookId,
-                    narrationId: cubit!.narrationId,
-                    onTap: (val, isVerSelected, values, selectedVerses) {
-                      print('onTap ' + val);
-                      // cubit.changeIsOnTruePressed();
-                      cubit!.changeOpacity(.5);
+              child: QuranWidget(
+                page: cubit!.pageType,
+                chapterId: cubit!.chapterId,
+                bookId: cubit!.bookId,
+                narrationId: cubit!.narrationId,
+                onTap: (val, isVerSelected, values, selectedVerses) {
+                  print('onTap ' + val);
+                  // cubit.changeIsOnTruePressed();
+                  cubit!.changeOpacity(.5);
 
-                      //print(selectedVerses);
-                      addCubit!.setSelectedVerses(selectedVerses!);
-                      cubit!.setSelectedVerses(selectedVerses);
-                      print('Get Name ' + cubit!.getName());
-                      cubit!.isVerSelected(isVerSelected);
-                      Future.delayed(const Duration(seconds: 5), () {
-                        cubit!.changeOpacity(.2);
-                      });
-                    },
-                    onLongTap: (val, isVerSelected, values, selectedVerses) {
-                      print('onLongTap ' + val);
-                      cubit!.isVerSelected(isVerSelected);
+                  //print(selectedVerses);
+                  addCubit!.setSelectedVerses(selectedVerses!);
+                  cubit!.setSelectedVerses(selectedVerses);
+                  print('Get Name ' + cubit!.getName());
+                  cubit!.isVerSelected(isVerSelected);
+                  Future.delayed(const Duration(seconds: 5), () {
+                    cubit!.changeOpacity(.2);
+                  });
+                },
+                onLongTap: (val, isVerSelected, values, selectedVerses) {
+                  print('onLongTap ' + val);
+                  cubit!.isVerSelected(isVerSelected);
 
-                      cubit!.changeIsSelectedVerse();
-                      cubit!.changeIsOnTruePressed();
-                      addCubit!.setSelectedVerses(selectedVerses!);
-                      cubit!.setSelectedVerses(selectedVerses);
-                      print('Get Name ' + cubit!.getName());
-                    },
-                    getPage: (page) {
-                      print('Oloha ' + page.toString());
-                      cubit!.changeJuz(
-                          page.partId ?? 1, page.chapters![0].id ?? 1, page);
-                    },
-                  );
+                  cubit!.changeIsSelectedVerse();
+                  cubit!.changeIsOnTruePressed();
+                  addCubit!.setSelectedVerses(selectedVerses!);
+                  cubit!.setSelectedVerses(selectedVerses);
+                  print('Get Name ' + cubit!.getName());
+                },
+                getPage: (page) {
+                  print('Oloha ' + page.toString());
+                  cubit!.changeJuz(
+                      page.partId ?? 1, page.chapters![0].id ?? 1, page);
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

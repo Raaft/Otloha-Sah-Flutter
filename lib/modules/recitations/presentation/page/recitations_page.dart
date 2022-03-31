@@ -81,7 +81,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
         drowItem: (results, index) {
           return _getItem(results, index, cubit!.userRecitationVerses);
         },
-        initData: cubit!.userRecitatios!,
+        initData: cubit?.userRecitatios,
       ),
     );
   }
@@ -125,7 +125,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
         await cubit!.fetchRecitation();
       }),
       isRead: false,
-      ayah: userRecitationVerses[index].first.text ?? '',
+      ayah: results.name ?? '',
       ayahInfo: _getAyahInfo(results),
       narrationName: results.narrationName,
       userImage: results.owner!.image ?? '',
