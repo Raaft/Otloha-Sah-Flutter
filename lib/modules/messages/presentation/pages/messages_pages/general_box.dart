@@ -50,28 +50,28 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
         }
         if (state is GenaralErrorState) {
           /// return const Expanded(child: ViewError(error: 'No Data'));
-          print('asdaksjnd');
           return Expanded(child: ErrorIndicator(error: state.error));
         }
         if (state is GenaralSuccessState) {
-          return Expanded(
-            child: _showData(cubit),
-          );
+          print('asdaksjnd');
+          return _showData(cubit);
         }
         return Expanded(child: ErrorIndicator(error: SomeThingWentWrong()));
       },
     );
   }
 
-  Padding _oldView() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        itemCount: cubit?.generalResponses?.length,
-        itemBuilder: (context, index) {
-          return _getItem(index, cubit!.generalResponses![index]);
-          //return textView(cubit!.generalResponses![index]);
-        },
+  _oldView() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: cubit?.generalResponses?.length,
+          itemBuilder: (context, index) {
+            return _getItem(index, cubit!.generalResponses![index]);
+            //return textView(cubit!.generalResponses![index]);
+          },
+        ),
       ),
     );
   }
@@ -80,16 +80,18 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
     print(cubit!.generalResponses!.toString() +
         ' ' +
         cubit.generalResponses!.first.name.toString());
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: PaginationData<GeneralResponse>(
-        getData: (nextLink) async {
-          return await cubit.fetchNextPage(nextLink);
-        },
-        drowItem: (results, index) {
-          _getItem(index, results);
-        },
-        initData: cubit.generalResponses!,
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: PaginationData<GeneralResponse>(
+          getData: (nextLink) async {
+            return await cubit.fetchNextPage(nextLink);
+          },
+          drowItem: (results, index) {
+            _getItem(index, results);
+          },
+          initData: cubit.generalResponses!,
+        ),
       ),
     );
   }
