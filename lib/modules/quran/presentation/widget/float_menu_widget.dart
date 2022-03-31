@@ -236,12 +236,12 @@ GestureDetector floatBackGround(QuranViewCubit cubit, HomeCubit homeCubit) {
       cubit.changeIsOnTruePressed();
       homeCubit.changeIsOnTruePressed();
       cubit.changeOpacity(1);
-      homeCubit.changeOpacity(1);
+      // homeCubit.changeOpacity(1);
       Future.delayed(const Duration(seconds: 5), () {
         cubit.changeIsOnFalsePressed();
         homeCubit.changeIsOnFalsePressed();
         cubit.changeOpacity(.2);
-        homeCubit.changeOpacity(.2);
+        // homeCubit.changeOpacity(.2);
       });
     },
     child: Container(

@@ -93,6 +93,7 @@ class QuranViewCubit extends Cubit<QuranViewState> {
   page_obj.Page? page;
 
   chapter.Chapter? myChapter;
+
   Future<void> getChapterName({required int? chapterId}) async {
     emit(GetChapterByIdLoadingState());
     await DataSource.instance

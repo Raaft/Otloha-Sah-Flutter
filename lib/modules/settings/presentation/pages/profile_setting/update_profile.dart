@@ -24,6 +24,8 @@ class UpdateProfile extends StatelessWidget {
           shrinkWrap: true,
           children: [
             topView(context),
+            const SizedBox(height: 200),
+
             Form(
               key: formKey,
               child: Column(

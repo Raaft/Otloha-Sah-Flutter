@@ -14,24 +14,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class QuranBNBPage extends StatelessWidget {
-
-
   int chapter = 1;
 
   QuranViewCubit? cubit;
   RecitationAddCubit? addCubit;
 
-
   @override
   Widget build(BuildContext context) {
     cubit = QuranViewCubit.get(context);
     addCubit = RecitationAddCubit.get(context);
+    var homeCubit = HomeCubit.get(context);
     return BlocConsumer<QuranViewCubit, QuranViewState>(
       listener: (context, state) {},
       builder: (context, state) {
-
-        var cubit = QuranViewCubit.get(context);
-        var homeCubit = HomeCubit.get(context);
         return Scaffold(
           body: Stack(
             alignment: Alignment.center,
@@ -43,20 +38,19 @@ class QuranBNBPage extends StatelessWidget {
                 ],
               ),
               //_tempView(context, cubit),
-              _viewLikeMarked(cubit),
-              if (cubit.isRecorded) const RecordTool(),
-              if (cubit.checkVersesValue &&
-                  cubit.isPlaying == false &&
-                  cubit.isRecorded == false &&
-                  cubit.isRecordedFile == false)
-                if (cubit.checkVersesValue && cubit.isPlaying == false)
+              _viewLikeMarked(cubit!),
+              if (cubit!.isRecorded) const RecordTool(),
+              if (cubit!.checkVersesValue &&
+                  cubit!.isPlaying == false &&
+                  cubit!.isRecordedFile == false)
+                if (cubit!.checkVersesValue && cubit!.isPlaying == false)
                   const ToolBotton(),
-              if (cubit.isRecordedFile) const RecordedFileTool(),
-              if (cubit.isPlaying) const PlayPauseTools(),
-              if (cubit.opacity != 0)
+              if (cubit!.isRecordedFile) const RecordedFileTool(),
+              if (cubit!.isPlaying) const PlayPauseTools(),
+              if (cubit!.opacity != 0)
                 floatingButton(
-                    cubit: cubit,
-                    isPressed: cubit.isOnPressed,
+                    cubit: cubit!,
+                    isPressed: cubit!.isOnPressed,
                     homeCubit: homeCubit)
             ],
           ),
@@ -124,47 +118,41 @@ class QuranBNBPage extends StatelessWidget {
             ),
             //Image.asset(AppImages.page016Image),
             Expanded(
-              child: BlocBuilder<QuranViewCubit, QuranViewState>(
-                builder: (context, state) {
-                  print('Chapter Cubit ${cubit!.chapterId}');
-                  return QuranWidget(
-                    page: cubit!.pageType,
-                    chapterId: cubit!.chapterId,
-                    bookId: cubit!.bookId,
-                    narrationId: cubit!.narrationId,
-                    onTap: (val, isVerSelected, values, selectedVerses) {
-                      print('onTap ' + val);
-                      // cubit.changeIsOnTruePressed();
-                      cubit!.changeOpacity(.5);
+                child: QuranWidget(
+              page: cubit!.pageType,
+              chapterId: cubit!.chapterId,
+              bookId: cubit!.bookId,
+              narrationId: cubit!.narrationId,
+              onTap: (val, isVerSelected, values, selectedVerses) {
+                print('onTap ' + val);
+                // cubit.changeIsOnTruePressed();
+                cubit!.changeOpacity(.5);
 
-                      //print(selectedVerses);
-                      addCubit!.setSelectedVerses(selectedVerses!);
-                      cubit!.setSelectedVerses(selectedVerses);
-                      print('Get Name ' + cubit!.getName());
-                      cubit!.isVerSelected(isVerSelected);
-                      Future.delayed(const Duration(seconds: 5), () {
-                        cubit!.changeOpacity(.2);
-                      });
-                    },
-                    onLongTap: (val, isVerSelected, values, selectedVerses) {
-                      print('onLongTap ' + val);
-                      cubit!.isVerSelected(isVerSelected);
+                //print(selectedVerses);
+                addCubit!.setSelectedVerses(selectedVerses!);
+                cubit!.setSelectedVerses(selectedVerses);
+                print('Get Name ' + cubit!.getName());
+                cubit!.isVerSelected(isVerSelected);
+                Future.delayed(const Duration(seconds: 5), () {
+                  cubit!.changeOpacity(.2);
+                });
+              },
+              onLongTap: (val, isVerSelected, values, selectedVerses) {
+                print('onLongTap ' + val);
+                cubit!.isVerSelected(isVerSelected);
 
-                      cubit!.changeIsSelectedVerse();
-                      cubit!.changeIsOnTruePressed();
-                      addCubit!.setSelectedVerses(selectedVerses!);
-                      cubit!.setSelectedVerses(selectedVerses);
-                      print('Get Name ' + cubit!.getName());
-                    },
-                    getPage: (page) {
-                      print('Oloha ' + page.toString());
-                      cubit!.changeJuz(
-                          page.partId ?? 1, page.chapters![0].id ?? 1, page);
-                    },
-                  );
-                },
-              ),
-            )
+                cubit!.changeIsSelectedVerse();
+                cubit!.changeIsOnTruePressed();
+                addCubit!.setSelectedVerses(selectedVerses!);
+                cubit!.setSelectedVerses(selectedVerses);
+                print('Get Name ' + cubit!.getName());
+              },
+              getPage: (page) {
+                print('Oloha ' + page.toString());
+                cubit!.changeJuz(
+                    page.partId ?? 1, page.chapters![0].id ?? 1, page);
+              },
+            ))
           ],
         ),
       ),

@@ -20,24 +20,29 @@ class UpdatePhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          shrinkWrap: true,
+        child: Column(
+
+
           children: [
+
             topView(context),
+            const SizedBox(height: 200,),
+
             Form(
               key: formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   customFormField(
                     //  color: AppColor.lightBlue,
                       controller: emailController,
                       keyboardType: TextInputType.phone,
-                      title: 'New Phone',
+                      title: tr('New Phone'),
                       validator: [ FormBuilderValidators.required(context),
                         FormBuilderValidators.email(context),]
                      ),
+                  const SizedBox(height: 20,),
                   customFormField(
                     controller: passwordController,
                     title: 'Password',
