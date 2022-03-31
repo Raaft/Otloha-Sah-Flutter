@@ -45,12 +45,13 @@ class OutBoxMessagePage extends StatelessWidget {
     print(cubit!.messageSendList!.toString() +
         ' ' +
         cubit.messageSendList!.first.recitation!.name.toString());
+
     return PaginationData<MessageModel>(
       getData: (nextLink) async {
         return await cubit.getNextSendData(nextLink);
       },
       drowItem: (results, index) {
-        _getItem(index, results);
+        return _getItem(index, results);
       },
       initData: cubit.messageSendList!,
     );

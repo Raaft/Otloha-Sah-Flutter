@@ -45,7 +45,7 @@ class InBoxMessagePage extends StatelessWidget {
     );
   }
 
-  Widget _showData(MessagerecieveCubit? cubit) {
+  _showData(MessagerecieveCubit? cubit) {
     print(cubit!.messageRecieve!.toString() +
         ' ' +
         cubit.messageRecieve!.first.recitation!.name.toString());
@@ -56,7 +56,7 @@ class InBoxMessagePage extends StatelessWidget {
           return await cubit.getNextRecieveData(nextLink);
         },
         drowItem: (results, index) {
-          _getItem(index, results);
+          return _getItem(index, results);
         },
         initData: cubit.messageRecieve!,
       ),
