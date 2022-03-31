@@ -66,7 +66,7 @@ class _TeacherPageState extends State<TeacherPage> {
       drowItem: (results, index) {
         return _itemView(index, results);
       },
-      initData: cubit!.teachers!,
+      initData: cubit!.teachers,
     );
   }
 

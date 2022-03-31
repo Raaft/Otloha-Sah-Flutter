@@ -19,12 +19,12 @@ final factories = <Type, Function>{
 class PaginationData<T> extends StatefulWidget {
   const PaginationData({
     Key? key,
-    required this.initData,
+    this.initData,
     required this.getData,
     required this.drowItem,
   }) : super(key: key);
 
-  final List<T> initData;
+  final List<T>? initData;
 
   //final int sizeItems;
 
