@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/widgets/cached_image.dart';
 import '../../../../../core/utils/constant/utils.dart';
 import '../../../../../core/utils/res/icons_app.dart';
 import '../../../../../core/utils/themes/color.dart';
@@ -200,12 +201,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
             onTap: () {
               // Get.to(const OnBoardPage());
             },
-            child: CircleAvatar(
-                radius: 24,
-                backgroundColor: AppColor.conColor3,
-                foregroundImage: NetworkImage(authCubit.proFile.image ?? '')
-                //AssetImage(AppImages.duserImage),
-                ),
+            child: CachedImage(url: authCubit.proFile.image ?? '', raduis: 36),
           ),
         const Expanded(child: SizedBox()),
         GestureDetector(

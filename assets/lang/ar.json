@@ -115,5 +115,6 @@
   "Delete": "ازاله",
   "AddToGeneral":  "اضافه الي العام",
   "RemoveFromGeneral": "ازاله من العام",
-  "MarkAsFinish": "انتهي"
+  "MarkAsFinish": "انتهي",
+  "SendedToFav": "تم الإرسال إلى المعلم المفضل"
 }

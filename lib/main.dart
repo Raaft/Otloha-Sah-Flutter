@@ -8,7 +8,10 @@ import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
 import 'package:flutter_base/modules/auth_module/business_logic/auth_cubit.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/splash_screen.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/genaralmessage_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagedetails_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagerecieve_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagesend_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/plugin_creation/domain/plugin_cubit/plugin_cubit.dart';
@@ -69,9 +72,14 @@ void main() async {
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
   try {
-    myProFile = UserProfile.fromJson(jsonDecode(
-        await otloha_shaerd.CacheHelper.getData(key: userProfileLogined)));
-    favTeacherProFile = UserProfile.fromJson(
+    myProFile = userProfileFromJson(
+        jsonDecode(await otloha_shaerd.CacheHelper.getData(key: profile)));
+
+    print('my Profile => $myProFile');
+    favTeacherId =
+        await otloha_shaerd.CacheHelper.getData(key: favTeacherIdName);
+
+    favTeacherProFile = userProfileFromJson(
         jsonDecode(await otloha_shaerd.CacheHelper.getData(key: favTeacher)));
 
     print('FAV ' + favTeacherProFile.toString());
@@ -192,6 +200,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TajweedCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GenaralmessageCubit(),
+        ),
+        BlocProvider(
+          create: (context) => MessagesendCubit(),
+        ),
+        BlocProvider(
+          create: (context) => MessagerecieveCubit(),
         ),
         // BlocProvider(
         //   create: (context) => PaginationCubit(),

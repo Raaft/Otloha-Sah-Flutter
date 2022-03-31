@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:file/file.dart';
+import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
 import 'local/database/database_repository.dart';
 
 import 'models/home_models/user_profile.dart';
@@ -26,11 +27,14 @@ class AppDataSource {
 
   getRecitationTeacher() => _userRecitationApi.getTeacher();
 
-  getTeacher(int page) => _userServices.getTeacher(page);
+  Future<List<TeacherResponse>?>? getTeacher(int page) =>
+      _userServices.getTeacher(page);
 
-  getStudents(int nextLink) => _userServices.getStudents(nextLink);
+  Future<List<TeacherResponse>?> getStudents(int nextLink) =>
+      _userServices.getStudents(nextLink);
 
-  sendMessage(int id, List<int> users) => _userServices.sendMessage(id, users);
+  Future<String?>? sendMessage(int id, List<int> users) =>
+      _userServices.sendMessage(id, users);
 
   recitationDetails(int recitationId) =>
       _userRecitationApi.recitationDetails(recitationId);

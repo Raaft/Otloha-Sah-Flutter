@@ -1,6 +1,7 @@
 // ignore_for_file: empty_catches
 
 import 'package:flutter_base/core/error/exceptions.dart';
+import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_base/data_source/data_source.dart';
 import 'package:flutter_base/data_source/models/database_model/recitations.dart';
 
@@ -63,6 +64,7 @@ class UserRecitationCubit extends Cubit<UserRecitationState> {
   }
 
   Future getNextData(int nextLink) async {
-    return await AppDataSource().getUserReciataions(nextLink);
+    return await ApiBaseHelper()
+        .getHTTP('/api/v1/recitations/', queryParameters: {'page': nextLink});
   }
 }

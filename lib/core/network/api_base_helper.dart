@@ -125,6 +125,7 @@ class ApiBaseHelper {
   Future<Response?> getHTTP(String url,
       {Map<String, dynamic>? queryParameters}) async {
     Response? response;
+    print(url + ' $queryParameters');
     try {
       response = await baseAPI.get(url, queryParameters: queryParameters);
       //response.statusCode;

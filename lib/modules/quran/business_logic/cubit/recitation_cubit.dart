@@ -41,7 +41,6 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
   final BehaviorSubject<WaveformProgress> progressStream =
       BehaviorSubject<WaveformProgress>();
 
-
   Future init() async {
     try {
       print('start init');
@@ -153,6 +152,7 @@ class RecitationAddCubit extends Cubit<RecitationAddState> {
 
     List<int> recordedVersesId = [];
     for (var verse in selectedVerses) {
+      // TODO to change verse id to verse number
       recordedVersesId.add(verse.id!);
     }
 

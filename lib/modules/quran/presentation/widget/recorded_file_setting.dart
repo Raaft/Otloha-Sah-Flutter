@@ -92,11 +92,14 @@ class RecordedFileTool extends StatelessWidget {
                     GestureDetector(
                       onTap: () async {
                         print(cubit.recitationId);
-                        Get.bottomSheet(
-                          PopupChooseTeacherSend(
-                            id: cubit.recitationId,
-                            saveRecittion: () async =>
-                                await cubitRecitation.saveRecitation(),
+                        Get.showSnackbar(
+                          GetSnackBar(
+                            backgroundColor: AppColor.white,
+                            messageText: PopupChooseTeacherSend(
+                              id: cubit.recitationId,
+                              saveRecittion: () async =>
+                                  await cubitRecitation.saveRecitation(),
+                            ),
                           ),
                         );
                       },

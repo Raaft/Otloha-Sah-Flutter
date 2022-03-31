@@ -1,13 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/data_source/cache_helper.dart';
 import 'package:flutter_base/data_source/data_source.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
@@ -95,9 +93,10 @@ class _TeacherPageState extends State<TeacherPage> {
 
   _itemView(int index, TeacherResponse results) {
     if (results.isFavorite ?? false) {
-      CacheHelper.saveData(
-          key: favTeacher, value: jsonEncode(results.toJson()));
+      favTeacherId = results.id;
+      CacheHelper.saveData(key: favTeacherIdName, value: favTeacherId);
     }
+    print('narration id ${results.narrationId}');
     return BlocBuilder<TeacherviewtypeCubit, TeacherviewtypeState>(
       builder: (context, state) {
         var teacherViewCubit = TeacherviewtypeCubit.get(context);
@@ -127,19 +126,19 @@ class _TeacherPageState extends State<TeacherPage> {
   }
 
   Widget _topView() {
-    return SearchBarApp(
+    return ToolBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
         },
       ),
-      actionIcon: IconButton(
-        icon: Icon(_type ? Icons.grid_view : Icons.list),
-        onPressed: () {
-          BlocProvider.of<TeacherviewtypeCubit>(context).changeType(!_type);
-        },
-      ),
+      // actionIcon: IconButton(
+      //   icon: Icon(_type ? Icons.grid_view : Icons.list),
+      //   onPressed: () {
+      //     BlocProvider.of<TeacherviewtypeCubit>(context).changeType(!_type);
+      //   },
+      // ),
       title: translate('Teachers'),
     );
   }

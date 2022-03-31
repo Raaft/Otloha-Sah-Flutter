@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/genaralmessage_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagerecieve_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagesend_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/constant/utils.dart';
@@ -17,6 +20,8 @@ class MessagesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<GenaralmessageCubit>(context).getGeneraBoXMessage();
+
     return Scaffold(
       body: SafeArea(
         child: BlocBuilder<MessageTapCubit, MessageTapState>(
@@ -83,15 +88,15 @@ tabsView(context, selected, MessageTapCubit cubit) {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       tabItem(context, 'General', 0, isSelect: selected == 0, fetchData: () {
-        cubit.getGeneraBoXMessage();
+        BlocProvider.of<GenaralmessageCubit>(context).getGeneraBoXMessage();
       }, cubit: cubit),
       _divider(),
       tabItem(context, 'Inbox', 1, isSelect: selected == 1, fetchData: () {
-        cubit.getRecieveMessage();
+        BlocProvider.of<MessagerecieveCubit>(context).getRecieveMessage();
       }, cubit: cubit),
       _divider(),
       tabItem(context, 'Outbox', 2, isSelect: selected == 2, fetchData: () {
-        cubit.getSendMessage();
+        BlocProvider.of<MessagesendCubit>(context).getSendMessage();
       }, cubit: cubit),
     ],
   );

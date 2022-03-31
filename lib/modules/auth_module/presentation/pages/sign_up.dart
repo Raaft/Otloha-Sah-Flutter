@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/themes/color.dart';
-import '../../../../core/widgets/password_form_field.dart';
 import '../../../../core/widgets/text_from_fielid.dart';
 import '../../../../core/widgets/valdate_error.dart';
 import '../../business_logic/auth_cubit.dart';

@@ -1,72 +1,200 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'message_item_sub.dart';
-import 'wave_view.dart';
+import 'package:get/get.dart';
+
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:flutter_base/core/utils/themes/color.dart';
+import 'package:flutter_base/core/widgets/text_view.dart';
+import 'package:flutter_base/data_source/cache_helper.dart';
+import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
+import 'package:flutter_base/modules/messages/presentation/widgets/message_widget.dart';
+import 'package:flutter_base/modules/recitations/presentation/widget/popup_recitation.dart';
+
+import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
 
 class GeneralMessageItem extends StatelessWidget {
   const GeneralMessageItem({
     Key? key,
-    required this.boxMessageItem,
-    required this.isLike,
-    required this.likeCount,
-    this.liked,
-    this.goLike,
-    this.goNote,
-    this.goReMraker,
-    this.isPlay = false,
-    this.viewBottom = false,
-    required this.isLocal,
+    this.isPlay,
+    this.isLocal,
+    this.trggelPlay,
     this.replay,
-    this.margin = 12,
-    required this.trggelPlay,
-    required this.recordPath,
-    required this.wavePath,
-    this.commentCount = 0,
-    this.remarkableCount = 0,
+    this.recordPath,
+    this.wavePath,
+    this.userImage,
+    this.id,
+    this.ownerId,
+    this.userName,
+    this.dateStr,
+    this.ayah,
+    this.ayahInfo,
+    this.color,
+    this.onPress,
+    this.userInfo,
+    this.narrationName,
+    this.isRead,
+    this.isCertic,
+    this.hasMenu,
   }) : super(key: key);
 
-  final SubMessageItem boxMessageItem;
+  // final MessageItemView? messageItemView;
 
-  final bool isLike;
-  final Function()? liked;
-  final Function()? goLike;
-  final Function()? goNote;
-  final Function()? goReMraker;
-  final int likeCount;
-  final int commentCount;
-  final int remarkableCount;
+  // final bool? isLike;
+  // final Function()? liked;
+  // final Function()? goLike;
+  // final Function()? goNote;
+  // final Function()? goReMraker;
+  // final int? likeCount;
+  // final int? commentCount;
+  // final int? remarkableCount;
+  // final double? margin;
+  // final bool? viewBottom;
 
-  final bool isPlay;
-  final bool isLocal;
-  final double margin;
-  final bool viewBottom;
-  final Function() trggelPlay;
+  final bool? isPlay;
+  final bool? isLocal;
+  final Function()? trggelPlay;
   final Widget? replay;
 
   final String? recordPath;
   final String? wavePath;
+  final String? userImage;
+
+  final int? id;
+  final int? ownerId;
+  final String? userName;
+  final String? dateStr;
+  final String? ayah;
+  final String? ayahInfo;
+  final Color? color;
+  final Function()? onPress;
+
+  final String? userInfo;
+  final String? narrationName;
+  final bool? isRead;
+  final bool? isCertic;
+  final bool? hasMenu;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: boxMessageItem.action,
+    return MessageWidget(
+      onPress: onPress,
+      onLongPress: onLongPress,
+      userImage: userImage,
+      userName: _viwName(),
+      dataView: _viewData(),
+      ayahView: _viewAyah(),
+      ayahInfoView: _ayahInfoView(),
+      waveView: _waveView(),
+      color: AppColor.selectColor1,
+    );
+  }
+
+  Row _viewData() {
+    return Row(
+      children: [
+        TextView(
+          padding: EdgeInsets.zero,
+          text: dateStr?.toUpperCase() ?? '',
+          sizeText: 10,
+          colorText: AppColor.txtColor4,
+        ),
+        const Icon(
+          Icons.bookmark_outline,
+          size: 12,
+          color: Colors.black,
+        )
+      ],
+    );
+  }
+
+  TextView _viwName() {
+    return TextView(
+      text: userName ?? 'Name',
+      weightText: FontWeight.w900,
+      padding: EdgeInsets.zero,
+      sizeText: 10,
+      letterSpacing: 0.4,
+      colorText: AppColor.userNameColor,
+    );
+  }
+
+  _viewAyah() {
+    return TextView(
+      padding: EdgeInsets.zero,
+      text: ayah ?? '',
+      sizeText: 18,
+      weightText: FontWeight.w900,
+      colorText: AppColor.headTextColor,
+      textAlign: TextAlign.start,
+      fontFamily: 'Hafs17',
+    );
+  }
+
+  _ayahInfoView() {
+    return TextView(
+      padding: EdgeInsets.zero,
+      text: (ayahInfo ?? '') + ' - رواية ' + (narrationName ?? 'حفص'),
+      sizeText: 12,
+      colorText: AppColor.userNameColor,
+      textAlign: TextAlign.start,
+    );
+  }
+
+  _waveView() {
+    return WaveViewPlayAudio(
+      recordPath: recordPath,
+      wavePath: wavePath,
+      trggelPlay: trggelPlay ?? () {},
+      isLocal: isLocal ?? false,
+      isPlay: isPlay ?? false,
+    );
+  }
+
+  onLongPress() {
+    UserProfile user =
+        UserProfile.fromJson(json.decode(CacheHelper.getData(key: profile)));
+    print(CacheHelper.getData(key: profile));
+    if ((user.id != ownerId) && user.isATeacher!) {
+      Get.bottomSheet(
+        PopupRecitation(
+          actions: const [
+            PopupActions.addToGeneral,
+            PopupActions.delete,
+            PopupActions.send,
+            PopupActions.createMessge,
+          ],
+          isOwner: user.id == ownerId,
+          finishedAt: dateStr ?? '',
+          id: id ?? 0,
+          isTeacher: user.isATeacher!,
+          showInGeneral: true,
+        ),
+      );
+    }
+  }
+
+/*
+  InkWell(
+      onTap: action,
       child: Container(
         padding: const EdgeInsets.all(4),
-        margin: EdgeInsets.all(margin),
+        margin: EdgeInsets.all(margin ?? 0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: const Color.fromARGB(51, 212, 248, 255),
         ),
         child: Column(
           children: [
-            boxMessageItem,
+            messageItemView ?? Container(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: WaveViewPlayAudio(
                 recordPath: recordPath,
                 wavePath: wavePath,
-                trggelPlay: trggelPlay,
-                isLocal: isLocal,
-                isPlay: isPlay,
+                trggelPlay: trggelPlay ?? () {},
+                isLocal: isLocal ?? false,
+                isPlay: isPlay ?? false,
               ),
             ),
             // if (viewBottom) _viewBottom(context),
@@ -75,8 +203,8 @@ class GeneralMessageItem extends StatelessWidget {
         ),
       ),
     );
-  }
 
+ */
 // Padding _viewBottom(BuildContext context) {
 //   return Padding(
 //     padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -216,4 +344,5 @@ class GeneralMessageItem extends StatelessWidget {
 //     ),
 //   );
 // }
+
 }

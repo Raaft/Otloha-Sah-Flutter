@@ -14,8 +14,8 @@ import 'package:get/get.dart';
 import '../../../../data_source/models/message_model/general_response.dart';
 import '../../../../data_source/models/home_models/user_profile.dart';
 
-class SubMessageItem extends StatelessWidget {
-  const SubMessageItem({
+class MessageItemView extends StatelessWidget {
+  const MessageItemView({
     Key? key,
     required this.userName,
     required this.userImage,

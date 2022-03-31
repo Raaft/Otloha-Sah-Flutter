@@ -39,48 +39,58 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   void initState() {
     super.initState();
     cubit = TeacherSendCubit.get(context);
-    cubit!.getTeacher();
+    cubit!.sendTeacher(widget.id);
     Future.delayed(const Duration(seconds: 1), () {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 150,
       color: AppColor.white,
-      child: BlocBuilder<TeacherSendCubit, TeacherSendState>(
-        builder: (context, state) {
-          if (state is TeacherErrorState) {
-            Get.to(const TeacherPage());
-            return const ViewError(error: 'No Data');
-          }
+      child: Center(
+        child: BlocBuilder<TeacherSendCubit, TeacherSendState>(
+          builder: (context, state) {
+            if (state is TeacherErrorState) {
+              Future.microtask(() {
+                Get.back();
+                return Get.to(const TeacherPage());
+              });
+              return const ViewError(error: 'No Data');
+            }
 
-          if (state is TeacherFetchedState) {
-            return _viewBody(cubit!.teachers);
-            //print('object');
-          }
-          if (state is NoAuthState) {
-            Future.delayed(const Duration(seconds: 1), () {
-              Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-            });
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+            if (state is TeacherFetchedState) {
+              return _viewBody(cubit!.teachers);
+              //print('object');
+            }
+            if (state is NoAuthState) {
+              Future.delayed(const Duration(seconds: 1), () {
+                Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+              });
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
     );
   }
 
-  Widget _viewBody(List<TeacherResponse?>? teachers) {
+  Widget _viewBody(List<TeacherResponse> teachers) {
+    Future.delayed(const Duration(seconds: 2), () {
+      Get.back();
+    });
     return Container(
       color: AppColor.transparent,
       child: Container(
         color: AppColor.white,
-        child: ListView(
-          children: [
-            ..._favTeacher(),
-          ],
-        ),
+        child: TextView(text: translate('SendedToFav')),
+        // child: ListView(
+        //   children: [
+        //     ..._favTeacher(),
+        //   ],
+        // ),
       ),
     );
   }
@@ -99,10 +109,10 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
         ),
         ListTile(
           leading:
-              CachedImage(url: cubit!.teachers!.first?.image ?? '', raduis: 25),
+              CachedImage(url: cubit!.teachers.first.image ?? '', raduis: 25),
           title: TextView(
-            text: (cubit!.teachers!.first != null)
-                ? _user(cubit!.teachers!.first)
+            text: (cubit!.teachers.first != null)
+                ? _user(cubit!.teachers.first)
                 : 'no Fav',
             colorText: AppColor.txtColor4,
             sizeText: 16,
@@ -113,8 +123,8 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
           trailing: IconButton(
             onPressed: () {
               _sendMessage([
-                ((cubit!.teachers!.first != null)
-                    ? cubit!.teachers!.first?.id ?? 0
+                ((cubit!.teachers.first != null)
+                    ? cubit!.teachers.first.id ?? 0
                     : 0)
               ]);
             },

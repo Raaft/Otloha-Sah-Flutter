@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
-import '../../../../../../core/widgets/password_form_field.dart';
 import '../../../../../../core/widgets/text_from_fielid.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../auth_module/presentation/widget/auth_button.dart';
@@ -39,16 +38,16 @@ class UpdateEmail extends StatelessWidget {
                     children: [
                       customFormField(
                         //  color: AppColor.lightBlue,
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          title: 'New Email',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter your email address';
-                            }
-                            return null;
-                          },
-                         ),
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        title: 'New Email',
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'please enter your email address';
+                          }
+                          return null;
+                        },
+                      ),
                       customFormField(
                         controller: passwordController,
                         title: 'Password',

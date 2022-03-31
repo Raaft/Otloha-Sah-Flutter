@@ -4,8 +4,7 @@ import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/general_message_item.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_item_sub.dart';
+import 'package:flutter_base/modules/recitations/presentation/widget/recitation_item.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -66,7 +65,7 @@ class _RecitationsPageState extends State<RecitationsPage> {
                   .pushReplacementNamed(LoginPage.routeName),
             );
           }
-          return const Center(child: Text('No Recitation Found'));
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );
@@ -101,62 +100,46 @@ class _RecitationsPageState extends State<RecitationsPage> {
 
   Widget _getItem(
       Recitations results, int index, List<List<Verse>> userRecitationVerses) {
-    return GeneralMessageItem(
-      boxMessageItem: SubMessageItem(
-        hasMenu: true,
-        id: results.id!,
-        showPopup: (() async {
-          Get.bottomSheet(
-            PopupRecitation(
-              isOwner: true,
-              isTeacher: false,
-              actions: const [
-                PopupActions.delete,
-                PopupActions.addToGeneral,
-                PopupActions.send,
-                PopupActions.markAsFinished,
-              ],
-              delete: () {
-                cubit!.deleteRecitation(index);
-              },
-              id: results.id!,
-              finishedAt: results.finishedAt ?? '',
-              showInGeneral: results.showInGeneral ?? false,
-            ),
-          );
-          await cubit!.fetchRecitation();
-        }),
-        isRead: false,
-        ayah: userRecitationVerses[index].first.text ?? '',
-        ayahInfo: _getAyahInfo(results),
-        narrationName: results.narrationName,
-        userImage: results.owner!.image ?? '',
-        userName: _user(results.owner),
-        dateStr: (results.finishedAt != null)
-            ? DateFormat('hh:mm dd MMM')
-                .format(DateTime.parse(results.finishedAt ?? ''))
-            : null,
-        color: AppColor.transparent,
-        userInfo: (results.owner!.level ?? '') +
-            ' ' +
-            (results.owner!.isATeacher ?? false
-                ? translate('Teacher')
-                : translate('Student')),
-      ),
-      likeCount: results.likes!.length,
-      commentCount: results.comments!.length,
-      remarkableCount: results.remarkable!.length,
-      isLike: (index % 2 == 0),
-      trggelPlay: () {
-        setState(() {
-          _selectedPlay = index;
-        });
-      },
-      isPlay: index == _selectedPlay,
-      viewBottom: true,
-      recordPath: results.record,
-      wavePath: results.wave,
-      isLocal: false,
+    return RecitationItem(
+      hasMenu: true,
+      id: results.id!,
+      onLongPress: (() async {
+        Get.bottomSheet(
+          PopupRecitation(
+            isOwner: true,
+            isTeacher: false,
+            actions: const [
+              PopupActions.delete,
+              PopupActions.addToGeneral,
+              PopupActions.send,
+              PopupActions.markAsFinished,
+            ],
+            delete: () {
+              cubit!.deleteRecitation(index);
+            },
+            id: results.id!,
+            finishedAt: results.finishedAt ?? '',
+            showInGeneral: results.showInGeneral ?? false,
+          ),
+        );
+        await cubit!.fetchRecitation();
+      }),
+      isRead: false,
+      ayah: userRecitationVerses[index].first.text ?? '',
+      ayahInfo: _getAyahInfo(results),
+      narrationName: results.narrationName,
+      userImage: results.owner!.image ?? '',
+      userName: _user(results.owner),
+      dateStr: (results.finishedAt != null)
+          ? DateFormat('hh:mm dd MMM')
+              .format(DateTime.parse(results.finishedAt ?? ''))
+          : null,
+      color: AppColor.transparent,
+      userInfo: (results.owner!.level ?? '') +
+          ' ' +
+          (results.owner!.isATeacher ?? false
+              ? translate('Teacher')
+              : translate('Student')),
     );
   }
 

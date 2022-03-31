@@ -18,7 +18,10 @@ class MessagedetailsCubit extends Cubit<MessagedetailsState> {
   RecitationDetails? recitationDetails;
   String ayah = '';
 
-  fetchMessages(int msgId, int recitationId) async {
+  bool isViewInput = false;
+  int? parentId;
+
+  fetchMessages(int msgId, int recitationId) {
     ayah = '';
     emit(MessageLoadingState());
     AppDataSource()
@@ -91,5 +94,13 @@ class MessagedetailsCubit extends Cubit<MessagedetailsState> {
   deleteRecitations(int id) async {
     await GetMessages().deleteRecitations(id);
     fetchRecitation(id);
+  }
+
+  void setViewInput(bool b, int? id) {
+    isViewInput = b;
+    parentId = id;
+    print(parentId.toString() + '  ' + isViewInput.toString());
+
+    emit(MessageEmptyState());
   }
 }

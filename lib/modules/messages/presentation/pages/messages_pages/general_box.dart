@@ -1,15 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/genaralmessage_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_widget.dart';
 import '../../../../../core/exception_indicators/error_indicator.dart';
 import '../../../../../core/utils/themes/color.dart';
 import '../../../../../data_source/models/message_model/general_response.dart';
 import '../../../../auth_module/presentation/pages/login_page.dart';
-import '../../../business_logic/cubit/messagetap_cubit.dart';
 import '../../widgets/general_message_item.dart';
 
-import '../general_actions/liked_page.dart';
-import '../../widgets/message_item_sub.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/error/exceptions.dart';
@@ -22,21 +20,21 @@ class GeneralMessagePage extends StatefulWidget {
 }
 
 class _GeneralMessagePageState extends State<GeneralMessagePage> {
-  int _selectedPlay = -1;
-  final List<int> _liked = [];
+  // int _selectedPlay = -1;
+  // final List<int> _liked = [];
 
-  late MessageTapCubit? cubit;
+  late GenaralmessageCubit? cubit;
 
   @override
   void initState() {
     super.initState();
 
-    cubit = MessageTapCubit.get(context);
+    cubit = GenaralmessageCubit.get(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MessageTapCubit, MessageTapState>(
+    return BlocBuilder<GenaralmessageCubit, GenaralmessageState>(
       builder: (context, state) {
         if (state is GenaralLoadingState) {
           return const Expanded(
@@ -59,7 +57,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                itemCount: cubit!.generalResponses!.length,
+                itemCount: cubit?.generalResponses?.length,
                 itemBuilder: (context, index) {
                   return _getItem(index, cubit!.generalResponses![index]);
                   //return textView(cubit!.generalResponses![index]);
@@ -82,6 +80,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
       footerView: const Text('data'),
       userName: const Text('data'),
       waveView: const Text('data'),
+      color: AppColor.selectColor1,
     );
   }
 
@@ -101,29 +100,50 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
 
   Widget _getItem(int index, GeneralResponse generalResponse) {
     return GeneralMessageItem(
-      boxMessageItem: SubMessageItem(
-        isRead: false,
-        id: generalResponse.id!,
-        ayah: generalResponse.name ?? '',
-        userInfo: _getUserInfo(generalResponse.owner),
-        ayahInfo: _getAyahInfo(generalResponse),
-        narrationName: generalResponse.narrationName,
-        userImage: generalResponse.owner!.image ?? '',
-        // owner: generalResponse.owner ?? null,
-        userName: _user(generalResponse.owner),
-        dateStr: (generalResponse.finishedAt != null)
-            ? DateFormat('hh:mm dd MMM')
-                .format(DateTime.parse(generalResponse.finishedAt ?? ''))
-            : null,
-        color: AppColor.transparent,
-        action: () {
-          // print('prcess ');
-          //   Get.to(const MessageDetails());
-        },
-        isCertic: generalResponse.owner!.isCertified ?? true,
-      ),
+      isRead: false,
+      ownerId: generalResponse.owner?.id ?? 0,
+      id: generalResponse.id,
+      ayah: generalResponse.name ?? '',
+      userInfo: _getUserInfo(generalResponse.owner),
+      ayahInfo: _getAyahInfo(generalResponse),
+      narrationName: generalResponse.narrationName,
+      userImage: generalResponse.owner?.image ?? '',
+      userName: _user(generalResponse.owner),
+      dateStr: (generalResponse.finishedAt != null)
+          ? DateFormat('hh:mm dd MMM')
+              .format(DateTime.parse(generalResponse.finishedAt ?? ''))
+          : null,
+      color: AppColor.transparent,
+      onPress: () {
+        // print('prcess ');
+        //   Get.to(const MessageDetails());
+      },
+      isCertic: generalResponse.owner?.isCertified ?? true,
       isLocal: false,
-      //  waveform: waveform,
+    );
+  }
+
+  String _getAyahInfo(GeneralResponse generalResponse) {
+    String? str =
+        'سورة ${generalResponse.chapterName ?? 0} من آية ${generalResponse.verseIds?[0]} الي آية ${generalResponse.verseIds?[generalResponse.verseIds!.length - 1]}';
+    return str;
+  }
+
+  _getUserInfo(Owner? owner) {
+    if (owner != null) {
+      if (owner.isATeacher ?? false) {
+        return '${owner.level} Student';
+      } else {
+        return '${owner.teacherType ?? ''} Teacher';
+      }
+    }
+    return ' ';
+  }
+}
+
+
+/*
+   waveform: waveform,
       isLike: _liked.contains(index),
       liked: () {
         setState(() {
@@ -146,24 +166,4 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
       viewBottom: true,
       isPlay: index == _selectedPlay, recordPath: '', wavePath: '',
       commentCount: generalResponse.comments?.length ?? 0,
-      remarkableCount: generalResponse.remarkable?.length ?? 0,
-    );
-  }
-
-  String _getAyahInfo(GeneralResponse generalResponse) {
-    String? str =
-        'سورة ${generalResponse.chapterName ?? 0} من آية ${generalResponse.verseIds![0]} الي آية ${generalResponse.verseIds![generalResponse.verseIds!.length - 1]}';
-    return str;
-  }
-
-  _getUserInfo(Owner? owner) {
-    if (owner != null) {
-      if (owner.isATeacher ?? false) {
-        return '${owner.level} Student';
-      } else {
-        return '${owner.teacherType ?? ''} Teacher';
-      }
-    }
-    return ' ';
-  }
-}
+      remarkableCount: generalResponse.remarkable?.length ?? 0, */

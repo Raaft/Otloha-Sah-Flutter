@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/error/exceptions.dart';
@@ -22,7 +23,7 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
   getTeacher() {
     emit(TeacherLoadingState());
     AppDataSource().getTeacher(1)!.then((value) async {
-      if (value != null && value!.isNotEmpty) {
+      if (value != null && value.isNotEmpty) {
         teachers = value;
         /*   for (var element in teachers!.results!) {
           element.narrationName = (await DataSource.instance
@@ -64,8 +65,8 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
 
   getStudents() {
     emit(TeacherLoadingState());
-    AppDataSource().getStudents(1)!.then((value) async {
-      if (value != null && value!.isNotEmpty) {
+    AppDataSource().getStudents(1).then((value) async {
+      if (value != null && value.isNotEmpty) {
         teachers = value;
         /* for (var element in teachers!.results!) {
           element.narrationName = (await DataSource.instance
@@ -102,10 +103,12 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
   }
 
   getNextTeachers(int nextLink) async {
-    return AppDataSource().getTeacher(nextLink);
+    return ApiBaseHelper().getHTTP('/api/v1/users/teachers/',
+        queryParameters: {'page': nextLink});
   }
 
   getNextStudents(int nextLink) async {
-    return AppDataSource().getStudents(nextLink);
+    return ApiBaseHelper().getHTTP('/api/v1/users/students/',
+        queryParameters: {'page': nextLink});
   }
 }

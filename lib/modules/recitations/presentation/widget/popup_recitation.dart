@@ -101,9 +101,12 @@ class PopupRecitation extends StatelessWidget {
                 ListTile(
                   onTap: () {
                     print(id);
-                    Get.bottomSheet(
-                      PopupChooseTeacherSend(
-                        id: id,
+                    Get.showSnackbar(
+                      GetSnackBar(
+                        backgroundColor: AppColor.white,
+                        messageText: PopupChooseTeacherSend(
+                          id: id,
+                        ),
                       ),
                     );
                   },

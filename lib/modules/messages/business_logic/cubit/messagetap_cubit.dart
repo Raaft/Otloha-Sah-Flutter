@@ -6,8 +6,6 @@ import 'package:dio/dio.dart';
 import '../../../../core/error/exceptions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../data_source/data_source.dart';
-import '../../../../data_source/models/message_model/general_response.dart';
 import '../../../../data_source/models/message_model/message_model.dart';
 import '../../../../data_source/remote/messages_service.dart';
 
@@ -26,12 +24,8 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   }
 
   List<MessageModel>? messages;
-  List<MessageModel>? messageSendList;
-  List<MessageModel>? messageRecieve;
   List<MessageModel>? messageDetails;
   List<MessageModel>? sendMessage;
-
-  List<GeneralResponse>? generalResponses;
 
   getListMessages() async {
     emit(MessageLoadingState());
@@ -50,95 +44,6 @@ class MessageTapCubit extends Cubit<MessageTapState> {
       print('asdds');
       emit(MessageErrorState(e));
     }
-  }
-
-  getGeneraBoXMessage() async {
-    emit(GenaralLoadingState());
-    AppDataSource().getGeneraBoXMessage().then((value) async {
-      generalResponses = value;
-
-      print('UserRecitation is ===========> $generalResponses');
-      emit(GenaralSuccessState());
-      if (generalResponses!.isEmpty) {
-        emit(GenaralErrorState(EmptyListException()));
-      }
-    }).catchError((error) {
-      print('Error G ' + error.toString());
-      if (error is AuthError) {
-        emit(NoAuthState());
-        return;
-      }
-      emit(GenaralErrorState(error));
-    });
-  }
-
-  getRecieveMessage() async {
-    emit(MessageRecieveSuccessLoadingState());
-    GetMessages().messgasRecieve()!.then((value) async {
-      messageRecieve = messageRecieve = (value!.data['results'] as List)
-          .map((data) => MessageModel.fromJson(data))
-          .toList();
-      emit(MessageRecieveSuccessState());
-      if (messageRecieve!.isEmpty) {
-        emit(MessageSendErrorState(EmptyListException()));
-      }
-    }).catchError((error) {
-      print('Error G ' + error.toString());
-      if (error is AuthError) {
-        emit(NoAuthState());
-        return;
-      }
-      emit(MessageRecieveErrorState(error));
-    });
-
-    // try {
-    //   Response? response = await GetMessages().messgasRecieve();
-    //
-    //   if (response!.statusCode == 200) {
-    //     messageRecieve = (response.data['results'] as List)
-    //         .map((data) => MessageModel.fromJson(data))
-    //         .toList();
-    //     print(
-    //         'MessageModel is ===========> $messageRecieve ${messageRecieve != null}');
-    //
-    //     emit(MessageRecieveSuccessState());
-    //   }
-    // } on Exception catch (e) {
-    //   emit(MessageErrorState(e));
-    // }
-    // if (messageRecieve!.isEmpty) {
-    //   emit(MessageSendErrorState(EmptyListException()));
-    // }
-  }
-
-  getSendMessage() async {
-    emit(MessageSendSuccessLoadingState());
-
-    GetMessages().messagesSent().then((value) async {
-      messageSendList = (value!.data['results'] as List)
-          .map((data) => MessageModel.fromJson(data))
-          .toList();
-      emit(MessageSendSuccessState());
-
-      if (messageSendList!.isEmpty) {
-        emit(MessageSendErrorState(EmptyListException()));
-      }
-    }).catchError((error) {
-      emit(MessageSendErrorState(error));
-    });
-
-    // try {
-    //   Response? response = await GetMessages().messagesSent();
-    //   messageSendList = (response!.data['results'] as List)
-    //       .map((data) => MessageModel.fromJson(data))
-    //       .toList();
-    //   print('MessageModel is ===========> $messageSendList');
-    // } on Exception catch (e) {
-    //   emit(MessageErrorState(e));
-    // }
-    // if (messageSendList != null && messageSendList!.isNotEmpty) {
-    //   emit(MessageSendSuccessState());
-    // }
   }
 
   getDetailsMessage({required int messageId, required int recitationId}) {
@@ -300,12 +205,4 @@ class MessageTapCubit extends Cubit<MessageTapState> {
   }
 
   void search({String? qurey}) {}
-
-  getNextSendData(int? nextLink) async {
-    return await GetMessages().messagesSent(nextLink: nextLink);
-  }
-
-  getNextRecieveData(int nextLink) async {
-    return await GetMessages().messgasRecieve(nextLink: nextLink);
-  }
 }

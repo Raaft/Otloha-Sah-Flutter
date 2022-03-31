@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
 import 'package:flutter_base/data_source/models/database_model/recitations.dart';
 import 'package:flutter_base/data_source/models/database_model/teacher_response_entity.dart';
 import 'package:flutter_base/data_source/models/message_model/general_response.dart';
@@ -23,6 +24,8 @@ class PaginationData<T> extends StatefulWidget {
 
   final List<T> initData;
 
+  //final int sizeItems;
+
   final Future<Response> Function(int) getData;
   final Function(T, int) drowItem;
 
@@ -32,7 +35,7 @@ class PaginationData<T> extends StatefulWidget {
 
 class _PaginationDataState<T> extends State<PaginationData<T>> {
   final PagingController<int, T> _pagingController =
-      PagingController(firstPageKey: 0);
+      PagingController(firstPageKey: 1);
 
   int page = 1;
   bool isFirst = true;
@@ -52,6 +55,8 @@ class _PaginationDataState<T> extends State<PaginationData<T>> {
         isFirst = false;
       } else {
         Response response = await widget.getData(pageKey!);
+
+        print('response.data[\'results\'] ${response.data['results']}');
 
         final isLastPage = (response.data['next'] == null ||
             response.data['next'].toString().isEmpty);
@@ -75,12 +80,31 @@ class _PaginationDataState<T> extends State<PaginationData<T>> {
   @override
   Widget build(BuildContext context) {
     print('PaginationData ' + T.toString() + ' ' + widget.initData.toString());
-    return PagedListView<int, T>(
-      shrinkWrap: true,
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<T>(
-        itemBuilder: (context, item, index) => widget.drowItem(item, index),
+    return RefreshIndicator(
+      onRefresh: () => Future.sync(
+        () {
+          page = 1;
+          _pagingController.refresh();
+        },
+      ),
+      child: PagedListView<int, T>(
+        shrinkWrap: true,
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<T>(
+            itemBuilder: (context, item, index) => widget.drowItem(item, index),
+            firstPageErrorIndicatorBuilder: (error) {
+              return ErrorIndicator(
+                error: _pagingController.error,
+                onTryAgain: _pagingController.refresh,
+              );
+            }),
       ),
     );
   }
+
+  // @override
+  // void dispose() {
+  //   _pagingController.dispose();
+  //   super.dispose();
+  // }
 }

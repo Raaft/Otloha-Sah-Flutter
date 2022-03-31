@@ -81,13 +81,16 @@ class PagesLikedPage extends StatelessWidget {
                 itemCount: state.verses.length,
                 itemBuilder: (context, index) {
                   var verse = state.verses[index];
-                  return _itemBuild(verse.textFristVerse ?? '', verse.noteText,
-                      () {
-                    Navigator.of(context).pushReplacementNamed(
-                      HomePage.routeName,
-                      arguments: 1,
-                    );
-                  });
+                  return _itemBuild(
+                    verse.textFristVerse ?? '',
+                    verse.noteText,
+                    () {
+                      Navigator.of(context).pushReplacementNamed(
+                        HomePage.routeName,
+                        arguments: 1,
+                      );
+                    },
+                  );
                 },
               );
             }

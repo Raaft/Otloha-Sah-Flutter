@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/data_source/models/message_model/message_model.dart';
-import 'package:flutter_base/modules/messages/business_logic/cubit/messagetap_cubit.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/messagesend_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/box_message_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -15,18 +15,18 @@ import '../messages/message_details.dart';
 class OutBoxMessagePage extends StatelessWidget {
   OutBoxMessagePage({Key? key}) : super(key: key);
 
-  late MessageTapCubit? cubit;
+  late MessagesendCubit? cubit;
 
   @override
   Widget build(BuildContext context) {
-    cubit = MessageTapCubit.get(context);
+    cubit = MessagesendCubit.get(context);
     return Expanded(
-      child: BlocBuilder<MessageTapCubit, MessageTapState>(
+      child: BlocBuilder<MessagesendCubit, MessagesendState>(
         builder: (context, state) {
           if (state is MessageSendSuccessLoadingState) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (state is MessageErrorState) {
+          if (state is MessageSendErrorState) {
             return ErrorIndicator(error: state.error);
           }
           if (state is MessageSendSuccessState) {
@@ -39,7 +39,7 @@ class OutBoxMessagePage extends StatelessWidget {
     );
   }
 
-  Widget _showData(MessageTapCubit? cubit) {
+  Widget _showData(MessagesendCubit? cubit) {
     print(cubit!.messageSendList!.toString() +
         ' ' +
         cubit.messageSendList!.first.recitation!.name.toString());
@@ -54,19 +54,17 @@ class OutBoxMessagePage extends StatelessWidget {
     );
   }
 
-  Widget _showData2(MessageTapCubit? cubit) {
+  Widget _showData2(MessagesendCubit? cubit) {
     print(cubit!.messageSendList!.toString() +
         ' ' +
         cubit.messageSendList!.first.recitation!.name.toString());
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: cubit.messageSendList!.length,
-          itemBuilder: (context, index) {
-            return _getItem(index, cubit.messageSendList![index]);
-          },
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        itemCount: cubit.messageSendList!.length,
+        itemBuilder: (context, index) {
+          return _getItem(index, cubit.messageSendList![index]);
+        },
       ),
     );
   }
@@ -89,7 +87,7 @@ class OutBoxMessagePage extends StatelessWidget {
           ? DateFormat('hh:mm dd MMM')
               .format(DateTime.parse(messageModel.recitation!.finishedAt ?? ''))
           : null,
-      action: () {
+      onPress: () {
         print(messageModel.id.toString() +
             ' ' +
             messageModel.recitation!.id.toString());

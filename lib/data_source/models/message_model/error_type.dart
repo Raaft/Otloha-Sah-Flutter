@@ -1,35 +1,36 @@
-import 'dart:convert';
-
 import 'package:flutter/widgets.dart';
+import 'package:flutter_base/core/utils/res/icons_app.dart';
 import '../../../core/utils/themes/color.dart';
 
 class ErrorType {
   static List<ErrorType> errors = [
-    ErrorType(key: 'pronunciation', value: 'النطق', color: AppColor.conColorO),
-    ErrorType(key: 'word', value: 'الكلمة', color: AppColor.lightYellow),
-    ErrorType(key: 'tajweed', value: 'ا لتجويد', color: AppColor.txtColor5),
+    ErrorType(
+        key: 'pronunciation',
+        value: 'النطق',
+        color: AppColor.conColorO,
+        icon: AppIcons.voiceIcon),
+    ErrorType(
+        key: 'word',
+        value: 'الكلمة',
+        color: AppColor.lightYellow,
+        icon: AppIcons.wordIcon),
+    ErrorType(
+        key: 'tajweed',
+        value: 'ا لتجويد',
+        color: AppColor.txtColor5,
+        icon: AppIcons.tajweedIcon),
   ];
 
   String key;
   String? value;
+  String icon;
   Color color;
   ErrorType({
     required this.key,
     required this.value,
     required this.color,
+    required this.icon,
   });
-
-  ErrorType copyWith({
-    String? key,
-    String? value,
-    Color? color,
-  }) {
-    return ErrorType(
-      key: key ?? this.key,
-      value: value ?? this.value,
-      color: color ?? this.color,
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -38,33 +39,4 @@ class ErrorType {
       'color': color.value,
     };
   }
-
-  factory ErrorType.fromMap(Map<String, dynamic> map) {
-    return ErrorType(
-      key: map['key'] ?? '',
-      value: map['value'] ?? '',
-      color: Color(map['color']),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory ErrorType.fromJson(String source) =>
-      ErrorType.fromMap(json.decode(source));
-
-  @override
-  String toString() => 'ErrorType(key: $key, value: $value, color: $color)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is ErrorType &&
-        other.key == key &&
-        other.value == value &&
-        other.color == color;
-  }
-
-  @override
-  int get hashCode => key.hashCode ^ value.hashCode ^ color.hashCode;
 }

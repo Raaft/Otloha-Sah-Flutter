@@ -110,5 +110,6 @@
   "Error":"Error",
 
   "SendTo": "Send to favorite teacher",
-  "SelectToSend": "Select for sending message"
+  "SelectToSend": "Select for sending message",
+  "SendedToFav": "Sent to favorite teacher"
 }

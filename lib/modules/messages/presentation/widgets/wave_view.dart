@@ -101,7 +101,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
               _playPause();
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Image.asset(
                 _isPlay ? AppIcons.pauseIcon : AppIcons.play2Icon,
                 width: 20,
@@ -122,7 +122,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
     return Container(
       alignment: Alignment.center,
       child: SizedBox(
-        height: 40.0,
+        height: 48.0,
         width: MediaQuery.of(context).size.width * 65,
         child: StreamBuilder<WaveformProgress>(
           stream: streamWave,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
+import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/search_bar_app.dart';
 import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -121,19 +121,20 @@ class _StudentsPageState extends State<StudentsPage> {
   }
 
   Widget _topView() {
-    return SearchBarApp(
+    return ToolBarApp(
       backIcon: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
         },
       ),
-      actionIcon: IconButton(
-        icon: Icon(_type ? Icons.grid_view : Icons.list),
-        onPressed: () {
-          BlocProvider.of<TeacherviewtypeCubit>(context).changeType(!_type);
-        },
-      ),
+      // onSearch: (val) {},
+      // actionIcon: IconButton(
+      //   icon: Icon(_type ? Icons.grid_view : Icons.list),
+      //   onPressed: () {
+      //     BlocProvider.of<TeacherviewtypeCubit>(context).changeType(!_type);
+      //   },
+      // ),
       title: translate('Students'),
     );
   }

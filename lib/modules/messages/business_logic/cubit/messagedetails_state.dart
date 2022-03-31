@@ -11,3 +11,5 @@ class MessageFetchedState extends MessagedetailsState {}
 class MessageErrorState extends MessagedetailsState {}
 
 class MessageLoadingState extends MessagedetailsState {}
+
+class MessageEmptyState extends MessagedetailsState {}
