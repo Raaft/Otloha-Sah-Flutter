@@ -27,7 +27,7 @@ class PaginationData<T> extends StatefulWidget {
   //final int sizeItems;
 
   final Future<Response> Function(int) getData;
-  final Function(T, int) drowItem;
+  final Widget Function(T, int) drowItem;
 
   @override
   State<PaginationData<T>> createState() => _PaginationDataState<T>();

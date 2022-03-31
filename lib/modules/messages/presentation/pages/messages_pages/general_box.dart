@@ -88,7 +88,7 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
             return await cubit.fetchNextPage(nextLink);
           },
           drowItem: (results, index) {
-            _getItem(index, results);
+            return _getItem(index, results);
           },
           initData: cubit.generalResponses!,
         ),
