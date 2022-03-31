@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -7,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../data_source/data_source.dart';
 import '../../../../data_source/models/database_model/teacher_response_entity.dart';
+import '../../../../core/utils/constant/constants.dart';
+import '../../../../data_source/cache_helper.dart';
 
 part 'teacherviewtype_state.dart';
 
@@ -47,11 +50,14 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
     });
   }
 
-  markAsFavTeacher({int? id}) async {
+  markAsFavTeacher({int? id, results}) async {
     emit(MarkAsFavTeacherLoadingState());
     AppDataSource().markAsFavTeacher(id: id).then((value) {
       emit(MarkAsFavTeacherFetchedState());
+
       getTeacher();
+      CacheHelper.saveData(
+          key: favTeacher, value: jsonEncode(results.toJson()));
       return value;
     }).catchError((e) {
       print('Error $e');

@@ -141,7 +141,6 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
   }
 }
 
-
 /*
    waveform: waveform,
       isLike: _liked.contains(index),

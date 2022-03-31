@@ -33,7 +33,9 @@ class OutBoxMessagePage extends StatelessWidget {
             return _showData2(cubit);
           }
 
-          return const Center(child: Text('No Message Yet'));
+          return const Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
         },
       ),
     );

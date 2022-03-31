@@ -14,13 +14,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 class QuranBNBPage extends StatelessWidget {
-
-
   int chapter = 1;
 
   QuranViewCubit? cubit;
   RecitationAddCubit? addCubit;
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,6 @@ class QuranBNBPage extends StatelessWidget {
     return BlocConsumer<QuranViewCubit, QuranViewState>(
       listener: (context, state) {},
       builder: (context, state) {
-
         var cubit = QuranViewCubit.get(context);
         var homeCubit = HomeCubit.get(context);
         return Scaffold(

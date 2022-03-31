@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
@@ -118,7 +119,10 @@ class _TeacherPageState extends State<TeacherPage> {
           isFav: results.isFavorite,
           //  results: results,
           setFav: () {
-            teacherViewCubit.markAsFavTeacher(id: results.id);
+            teacherViewCubit.markAsFavTeacher(id: results.id, results: results);
+            setState(() {
+              //  results.isFavorite =false;
+            });
           },
         );
       },
@@ -144,14 +148,25 @@ class _TeacherPageState extends State<TeacherPage> {
   }
 
   _viewDate(TeacherviewtypeState state, TeacherviewtypeCubit cubit) {
+    if (state is TeacherLoadingState) {
+      return _viewItems();
+    }
     if (state is TeacherErrorState) {
       return Expanded(child: ErrorIndicator(error: state.error));
-    } else if (state is TeacherFetchedState || state is TeacherviewtypeChange) {
+    } else if (state is TeacherFetchedState ||
+        state is MarkAsFavTeacherLoadingState ||
+        state is MarkAsFavTeacherFetchedState ||
+        state is TeacherviewtypeChange) {
       if (cubit.teachers != null && cubit.teachers!.isNotEmpty) {
         return _viewItems();
       } else {
-        return const Expanded(child: ErrorIndicator(error: 'No Data'));
+        return const Expanded(child: ErrorIndicator(error: EmptyListException));
       }
+    } else if (state is TeacherErrorState) {
+      return Expanded(
+          child: ErrorIndicator(
+        error: state.error,
+      ));
     }
     if (state is NoAuthState) {
       Future.delayed(const Duration(seconds: 1), () {

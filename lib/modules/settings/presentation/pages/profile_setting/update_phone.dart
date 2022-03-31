@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_from_fielid.dart';
 import 'package:flutter_base/modules/auth_module/presentation/widget/auth_button.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
@@ -17,39 +18,37 @@ class UpdatePhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          shrinkWrap: true,
+        child: Column(
           children: [
             topView(context),
+            const SizedBox(
+              height: 200,
+            ),
             Form(
               key: formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   customFormField(
-                    //  color: AppColor.lightBlue,
-                    controller: emailController,
-                    keyboardType: TextInputType.phone,
-                    title: 'New Phone',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your email address';
-                      }
-                      return null;
-                    },
+                      //  color: AppColor.lightBlue,
+                      controller: emailController,
+                      keyboardType: TextInputType.phone,
+                      title: tr('New Phone'),
+                      validator: [
+                        FormBuilderValidators.required(context),
+                        FormBuilderValidators.email(context),
+                      ]),
+                  const SizedBox(
+                    height: 20,
                   ),
                   customFormField(
-                    controller: passwordController,
-                    title: 'Password',
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your Password';
-                      }
-                      return null;
-                    },
-                  ),
+                      controller: passwordController,
+                      title: 'Password',
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: [
+                        FormBuilderValidators.required(context),
+                      ]),
                   AuthButton(
                     buttonText: tr('Update'),
                     onPressed: () {

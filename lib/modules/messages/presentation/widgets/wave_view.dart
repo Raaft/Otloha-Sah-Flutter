@@ -66,8 +66,9 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
     }
 
     try {
-      waveform = await JustWaveform.parse(waveFile2!);
-      // streamWave.add(WaveformProgress(1, waveform));
+      print(await waveFile2!.readAsBytes());
+      waveform = await JustWaveform.parse(waveFile2);
+      streamWave.add(WaveformProgress(1, waveform));
     } catch (e) {
       debugPrint('Eror audio' + e.toString());
     }
@@ -127,6 +128,7 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
         child: StreamBuilder<WaveformProgress>(
           stream: streamWave,
           builder: (context, snapshot) {
+            print('snapshot ${snapshot.data}');
             if (snapshot.hasError) {
               return Center(
                 child: Text(
@@ -218,10 +220,11 @@ class _WaveViewPlayAudioState extends State<WaveViewPlayAudio> {
       waveform: waveform,
       start: Duration.zero,
       current: position ?? Duration.zero,
-      strokeWidth: 2,
+      strokeWidth: 5,
       duration: Duration(seconds: waveform.duration.inSeconds),
       waveColor: AppColor.waveColor,
-      pixelsPerStep: 4,
+      pixelsPerStep: 8,
+      scale: 1.0,
     );
   }
 }

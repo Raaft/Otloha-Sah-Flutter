@@ -12,6 +12,7 @@ import 'package:flutter_base/modules/messages/presentation/widgets/message_widge
 import 'package:flutter_base/modules/recitations/presentation/widget/popup_recitation.dart';
 
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 
 class GeneralMessageItem extends StatelessWidget {
   const GeneralMessageItem({
@@ -177,6 +178,9 @@ class GeneralMessageItem extends StatelessWidget {
 /*
   InkWell(
       onTap: action,
+    print('sdcs;dcml ${wavePath}');
+    return InkWell(
+      onTap: boxMessageItem.action,
       child: Container(
         padding: const EdgeInsets.all(4),
         margin: EdgeInsets.all(margin ?? 0),
@@ -197,6 +201,7 @@ class GeneralMessageItem extends StatelessWidget {
                 isPlay: isPlay ?? false,
               ),
             ),
+
             // if (viewBottom) _viewBottom(context),
             replay ?? Container(),
           ],

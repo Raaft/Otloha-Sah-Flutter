@@ -13,6 +13,7 @@ import 'package:flutter_base/modules/auth_module/presentation/widget/page_head_t
 import 'package:flutter_base/modules/auth_module/presentation/widget/page_layout.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:get/get.dart';
 
@@ -91,12 +92,11 @@ class LoginPage extends StatelessWidget {
                     title: tr('Email'),
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your email address';
-                      }
-                      return null;
-                    },
+                    validator:  [
+                      FormBuilderValidators.required(context),
+                      FormBuilderValidators.email(context),
+                    ]
+
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(
@@ -110,15 +110,11 @@ class LoginPage extends StatelessWidget {
               Column(
                 children: [
                   customFormField(
-                    title: tr('Password'),
+                    title: tr('password'),
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please enter your email address';
-                      }
-                      return null;
-                    },
+                    validator: [                      FormBuilderValidators.required(context),
+                    ]
                   ),
                   (state is LogInErrorState)
                       ? ValidationErrorText(

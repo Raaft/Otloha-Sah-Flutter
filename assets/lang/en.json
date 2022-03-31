@@ -9,6 +9,11 @@
   "WelcomeDear":"Welcome Dear",
 
   "_comment2":"login system",
+  "password": "Password",
+  "Email": "Email",
+  "User Name": "User Name",
+  "phone": "phone",
+  "Date of Birth": "Date of Birth",
 
   "OR":"OR",
   "SkipLogin":"Skip Login",
@@ -36,10 +41,33 @@
   "signupWith":"Or Signup with",
   "Need help":"Need help ?",
   "Sign-up": "Sign-up",
+  "Gender": "Gender",
+  "Select Gender": "Select Gender",
+  "Profile Settings": "Profile Settings",
+  "Log Out":"Log Out",
+  "Change Password":"Change Password",
+  "Register up As Teacher":"Register up As Teacher",
+  "Update Phone":"Update Phone",
+  "Update Email":"Update Email",
+  "Update Profile":"Update Profile",
+  "Update":"Update",
+  "Your Name":"Your Name",
+  "please enter your email address":"please enter your email address",
+  "Your Education":"Your Education",
+  "please enter your email Education":"please enter your email Education",
+  "Selected Recitation":"Selected Recitation",
+  "Upload Your Cv": "Upload Your Cv",
+  "Certifications": "Certifications",
+  "New Phone":"New Phone",
+  "Old Password":"Old Password",
+  "New Email":"New Email",
+  "Password":"Password",
+  "New Password":"New Password",
 
 
 
-  "_comment3":"app values",
+
+  "_comment3",:"app values",
 
   "SearchSubject":"Search for Subject ....",
   "Search":"Search",

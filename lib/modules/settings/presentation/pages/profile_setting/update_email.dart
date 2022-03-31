@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../business_logic/settings/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
@@ -18,9 +19,7 @@ class UpdateEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SettingsCubit, SettingsState>(
-      listener: (ctx, state) {
-        // TODO: implement listener
-      },
+      listener: (ctx, state) {},
       builder: (ctx, state) {
         var cubit = SettingsCubit.get(context);
 
@@ -31,33 +30,28 @@ class UpdateEmail extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 topView(context),
+                const SizedBox(height: 200),
                 Form(
                   key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       customFormField(
-                        //  color: AppColor.lightBlue,
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        title: 'New Email',
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'please enter your email address';
-                          }
-                          return null;
-                        },
-                      ),
+                          //  color: AppColor.lightBlue,
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          title: tr('New Email'),
+                          validator: [
+                            FormBuilderValidators.required(context),
+                            FormBuilderValidators.email(context),
+                          ]),
+                      const SizedBox(height: 20),
                       customFormField(
                         controller: passwordController,
-                        title: 'Password',
+                        title: tr('Password'),
                         keyboardType: TextInputType.visiblePassword,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'please enter your Password';
-                          }
-                          return null;
-                        },
+                        validator: [],
                       ),
                       (state is UpdateEmailLoadingState)
                           ? const Center(

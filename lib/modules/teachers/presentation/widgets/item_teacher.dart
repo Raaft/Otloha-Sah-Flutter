@@ -218,12 +218,13 @@ class ItemTeacher extends StatelessWidget {
       BlocBuilder<TeacherviewtypeCubit, TeacherviewtypeState>(
         builder: (context, state) {
           // var cubit = TeacherviewtypeCubit.get(context);
-          return GestureDetector(
-            onTap: () {
+          return IconButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
             //  cubit.markAsFavTeacher(id:cubit.teachers!);
               setFav!();
             },
-            child: Icon(
+              icon: Icon(
               (isFav ?? false) ? (Icons.favorite) : (Icons.favorite_border),
               color:
                   (isFav ?? false) ? Colors.red : AppColor.iconColor,

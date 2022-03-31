@@ -85,8 +85,7 @@ final List<SubSectionItem> subSectionData = [
     image: AppIcons.bubbleIcon,
     action2: (context) {
       //Get.to(const PagesBookMarkPage());
-      Navigator.of(context)
-          .pushNamed(PagesBookMarkPage.routeName, arguments: 2);
+      Navigator.of(context).pushNamed(PagesBookMarkPage.routeName, arguments: 2);
     },
   ),
 ];

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
-import 'package:flutter_base/modules/settings/presentation/widgets/view_error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../business_logic/cubit/teacherviewtype_cubit.dart';
@@ -59,8 +59,16 @@ class _StudentsPageState extends State<StudentsPage> {
       if (cubit!.teachers != null && cubit!.teachers!.isNotEmpty) {
         return _viewItems();
       } else {
-        return const Expanded(child: ViewError(error: 'No Data'));
+        return const Expanded(
+            child: ErrorIndicator(
+          error: EmptyListException,
+        ));
       }
+    } else if (state is TeacherErrorState) {
+      return Expanded(
+          child: ErrorIndicator(
+        error: state.error,
+      ));
     }
 
     if (state is NoAuthState) {

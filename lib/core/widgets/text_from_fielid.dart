@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class TextFormFieldApp extends StatelessWidget {
   const TextFormFieldApp(
@@ -85,24 +86,17 @@ var border = OutlineInputBorder(
 
 customFormField(
     {required String title,
-    String? Function(String?)? validator,
     TextEditingController? controller,
-    TextInputType? keyboardType}) {
+    TextInputType? keyboardType,
+    List<FormFieldValidator<String>>? validator}) {
   return FormBuilderTextField(
-    // color: AppColor.lightBlue,
     controller: controller,
-    // keyType: TextInputType.emailAddress,
-    validator: validator,
     name: title,
-
+    validator: FormBuilderValidators.compose(validator!),
     keyboardType: keyboardType,
     decoration: InputDecoration(
-      //color: Colors.blue,
       isDense: true,
       fillColor: Colors.blue.withOpacity(.0),
-      //color: Colors.blue,
-
-      //  contentPadding: EdgeInsets.fromLTRB(20, 0, 10, 0),
       filled: true,
       enabledBorder: border,
       focusedBorder: border,

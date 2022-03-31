@@ -66,22 +66,39 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> userRegister(
       {email, username, password1, password2, birthdate, phone, gender}) async {
     emit(RegisterLoadingState());
-    await AppDataSource()
-        .userRegister(
-            birthdate: birthdate,
-            email: email,
-            gender: gender,
-            password1: password1,
-            password2: password2,
-            phone: phone,
-            username: username)
-        .then((value) async {
-      thenAuth(value);
+
+    try{
+      Response response= await AppDataSource()
+          .userRegister(
+          birthdate: birthdate,
+          email: email,
+          gender: gender,
+          password1: password1,
+          password2: password2,
+          phone: phone,
+          username: username);
+      await thenAuth(response);
       await saveUsers();
-      emit(RegisterSuccessState());
-    }).catchError((error) {
-      emit(RegisterErrorState(error));
-    });
+    }on InvalidData catch (error) {
+      emit(RegisterErrorState(error.errors!));
+    }
+
+    // await AppDataSource()
+    //     .userRegister(
+    //         birthdate: birthdate,
+    //         email: email,
+    //         gender: gender,
+    //         password1: password1,
+    //         password2: password2,
+    //         phone: phone,
+    //         username: username)
+    //     .then((value) async {
+    //   thenAuth(value);
+    //   await saveUsers();
+    //   emit(RegisterSuccessState());
+    // }).catchError((error) {
+    //   emit(RegisterErrorState(error));
+    // });
   }
 
   saveUsers() async {
