@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/genaralmessage_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_widget.dart';
 import '../../../../../core/exception_indicators/error_indicator.dart';
@@ -54,20 +55,42 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
         }
         if (state is GenaralSuccessState) {
           return Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: cubit?.generalResponses?.length,
-                itemBuilder: (context, index) {
-                  return _getItem(index, cubit!.generalResponses![index]);
-                  //return textView(cubit!.generalResponses![index]);
-                },
-              ),
-            ),
+            child: _showData(cubit),
           );
         }
         return Expanded(child: ErrorIndicator(error: SomeThingWentWrong()));
       },
+    );
+  }
+
+  Padding _oldView() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        itemCount: cubit?.generalResponses?.length,
+        itemBuilder: (context, index) {
+          return _getItem(index, cubit!.generalResponses![index]);
+          //return textView(cubit!.generalResponses![index]);
+        },
+      ),
+    );
+  }
+
+  Widget _showData(GenaralmessageCubit? cubit) {
+    print(cubit!.generalResponses!.toString() +
+        ' ' +
+        cubit.generalResponses!.first.name.toString());
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: PaginationData<GeneralResponse>(
+        getData: (nextLink) async {
+          return await cubit.fetchNextPage(nextLink);
+        },
+        drowItem: (results, index) {
+          _getItem(index, results);
+        },
+        initData: cubit.generalResponses!,
+      ),
     );
   }
 

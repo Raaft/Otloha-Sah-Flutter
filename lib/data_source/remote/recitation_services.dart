@@ -56,7 +56,7 @@ class UserRecitationApi {
         await ApiBaseHelper().getHTTP('$baseUrl/api/v1/recitations/general/');
 
     List<GeneralResponse>? generalResponses;
-    generalResponses = (response!.data as List)
+    generalResponses = (response!.data['results'] as List)
         .map((data) => GeneralResponse.fromJson(data))
         .toList();
 

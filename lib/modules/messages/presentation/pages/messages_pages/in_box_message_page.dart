@@ -35,7 +35,7 @@ class InBoxMessagePage extends StatelessWidget {
           );
         }
         if (state is MessageRecieveSuccessState) {
-          return _showData2(cubit);
+          return _showData(cubit);
         }
         if (state is MessageRecieveErrorState) {
           return Expanded(child: ErrorIndicator(error: state.error));

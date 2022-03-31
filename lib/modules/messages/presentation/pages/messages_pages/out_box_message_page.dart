@@ -30,7 +30,7 @@ class OutBoxMessagePage extends StatelessWidget {
             return ErrorIndicator(error: state.error);
           }
           if (state is MessageSendSuccessState) {
-            return _showData2(cubit);
+            return _showData(cubit);
           }
 
           return const Expanded(

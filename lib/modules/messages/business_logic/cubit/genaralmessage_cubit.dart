@@ -1,4 +1,6 @@
 import 'package:flutter_base/core/error/exceptions.dart';
+import 'package:flutter_base/core/network/api_base_helper.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:flutter_base/data_source/data_source.dart';
 import 'package:flutter_base/data_source/models/message_model/general_response.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,5 +31,10 @@ class GenaralmessageCubit extends Cubit<GenaralmessageState> {
       }
       emit(GenaralErrorState(error));
     });
+  }
+
+  fetchNextPage(int next) async {
+    return await ApiBaseHelper().getHTTP('$baseUrl/api/v1/recitations/general/',
+        queryParameters: {'page': next});
   }
 }

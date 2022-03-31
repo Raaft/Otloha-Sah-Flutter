@@ -4,6 +4,8 @@ import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/core/utils/constant/utils.dart';
 import 'package:flutter_base/core/widgets/tool_bar_app.dart';
+import 'package:flutter_base/data_source/data_source.dart';
+import 'package:flutter_base/data_source/models/home_models/user_profile.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -114,17 +116,31 @@ class _StudentsPageState extends State<StudentsPage> {
     );
   }
 
-  ItemTeacher _itemView(int index, TeacherResponse results) {
-    return ItemTeacher(
-      userName: results.firstName! + ' ' + results.lastName!,
-      rate: "${results.rate ?? ''}",
-      userId: (results.level ?? '') + ' Student',
-      userbio: results.bio ?? '',
-      action: () {},
-      typeView: _type,
-      isCertified: results.isCertified ?? false,
-      isFav: false,
-      isStudent: true,
+  _itemView(int index, TeacherResponse results) {
+    return BlocBuilder<TeacherviewtypeCubit, TeacherviewtypeState>(
+      builder: (context, state) {
+        var teacherViewCubit = TeacherviewtypeCubit.get(context);
+        UserProfile? userProfile;
+        Future<UserProfile?> profile() async {
+          userProfile = await AppDataSource().myProfile();
+          return userProfile;
+        }
+
+        return ItemTeacher(
+          userName: results.firstName! + ' ' + results.lastName!,
+          rate: "${results.rate ?? ''}",
+          userId: (results.level ?? '') + ' Student',
+          userbio: results.bio ?? '',
+          action: () {},
+          typeView: _type,
+          isCertified: results.isCertified ?? false,
+          isFav: false,
+          isStudent: true,
+          setFav: () {
+            teacherViewCubit.markAsFavTeacher(id: results.id, results: results);
+          },
+        );
+      },
     );
   }
 

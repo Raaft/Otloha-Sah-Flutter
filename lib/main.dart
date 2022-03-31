@@ -81,7 +81,7 @@ void main() async {
         await otloha_shaerd.CacheHelper.getData(key: favTeacherIdName);
 
     favTeacherProFile = userProfileFromJson(
-        jsonDecode(await otloha_shaerd.CacheHelper.getData(key: favTeacher)));
+        await otloha_shaerd.CacheHelper.getData(key: favTeacher));
 
     print('FAV ' + favTeacherProFile.toString());
   } catch (e) {
