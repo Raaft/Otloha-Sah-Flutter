@@ -96,19 +96,6 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
     );
   }
 
-  textView(GeneralResponse generalResponse) {
-    return MessageWidget(
-      userImage: generalResponse.owner!.image,
-      ayahInfoView: const Text('data'),
-      ayahView: const Text('data'),
-      dataView: const Text('data'),
-      footerView: const Text('data'),
-      userName: const Text('data'),
-      waveView: const Text('data'),
-      color: AppColor.selectColor1,
-    );
-  }
-
   String _user(Owner? owner) {
     if (owner != null) {
       var str = (owner.lastName!.isEmpty && owner.firstName!.isEmpty)
@@ -145,6 +132,8 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
       },
       isCertic: generalResponse.owner?.isCertified ?? true,
       isLocal: false,
+      wavePath: generalResponse.wave,
+      recordPath: generalResponse.record,
     );
   }
 

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/cached_image.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/reply_message_widget.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import '../../../../../core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';

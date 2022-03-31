@@ -130,6 +130,8 @@ class _RecitationsPageState extends State<RecitationsPage> {
       narrationName: results.narrationName,
       userImage: results.owner!.image ?? '',
       userName: _user(results.owner),
+      recordPath: results.record,
+      wavePath: results.wave,
       dateStr: (results.finishedAt != null)
           ? DateFormat('hh:mm dd MMM')
               .format(DateTime.parse(results.finishedAt ?? ''))
