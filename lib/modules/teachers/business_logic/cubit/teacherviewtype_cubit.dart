@@ -55,9 +55,9 @@ class TeacherviewtypeCubit extends Cubit<TeacherviewtypeState> {
     AppDataSource().markAsFavTeacher(id: id).then((value) {
       emit(MarkAsFavTeacherFetchedState());
 
-      getTeacher();
       CacheHelper.saveData(
           key: favTeacher, value: jsonEncode(results.toJson()));
+      getTeacher();
       return value;
     }).catchError((e) {
       print('Error $e');

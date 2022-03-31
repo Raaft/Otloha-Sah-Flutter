@@ -23,7 +23,7 @@ class PopupChooseTeacherSend extends StatefulWidget {
       : super(key: key);
 
   final int id;
-  final Function? saveRecittion;
+  final Function()? saveRecittion;
 
   @override
   State<PopupChooseTeacherSend> createState() => _PopupChooseTeacherSendState();
@@ -38,6 +38,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   @override
   void initState() {
     super.initState();
+    widget.saveRecittion!();
     cubit = TeacherSendCubit.get(context);
     cubit!.sendTeacher(widget.id);
     Future.delayed(const Duration(seconds: 1), () {});

@@ -20,6 +20,7 @@ import 'package:flutter_base/modules/quran/business_logic/cubit/recitation_cubit
 import 'package:flutter_base/modules/recitations/business_logic/cubit/popup_action_cubit.dart';
 import 'package:flutter_base/modules/recitations/business_logic/cubit/teachersend_cubit.dart';
 import 'package:flutter_base/modules/recitations/business_logic/cubit/userrecitation_cubit.dart';
+import 'package:flutter_base/modules/settings/business_logic/book/book_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/chapter/chapter_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/language/language_cubit.dart';
 import 'package:flutter_base/modules/settings/business_logic/narration/narration_cubit.dart';
@@ -208,6 +209,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => MessagerecieveCubit(),
+        ),
+        BlocProvider(
+          create: (context) => BookCubit(),
         ),
         // BlocProvider(
         //   create: (context) => PaginationCubit(),

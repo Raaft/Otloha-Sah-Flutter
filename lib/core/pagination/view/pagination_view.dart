@@ -26,9 +26,7 @@ class PaginationData<T> extends StatefulWidget {
 
   final List<T>? initData;
 
-  //final int sizeItems;
-
-  final Future<Response> Function(int) getData;
+  final Future<Response?>? Function(int) getData;
   final Widget Function(T, int) drowItem;
 
   @override
@@ -52,9 +50,9 @@ class _PaginationDataState<T> extends State<PaginationData<T>> {
 
   Future<void> _fetchPage(int? pageKey) async {
     try {
-      Response response = await widget.getData(pageKey!);
+      Response? response = await widget.getData(pageKey!);
 
-      print('response.data[\'results\'] ${response.data['results']}');
+      print('response.data[\'results\'] ${response!.data['results']}');
 
       final isLastPage = (response.data['next'] == null ||
           response.data['next'].toString().isEmpty);
@@ -62,7 +60,7 @@ class _PaginationDataState<T> extends State<PaginationData<T>> {
       List<T> itemsNew = (response.data['results'] as List)
           .map<T>((map) => factories[T]!(map))
           .toList();
-      if (isLastPage) {
+      if (!isLastPage) {
         _pagingController.appendLastPage(itemsNew);
       } else {
         _pagingController.appendPage(itemsNew, page);

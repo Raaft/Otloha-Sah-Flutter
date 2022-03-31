@@ -120,9 +120,6 @@ class _TeacherPageState extends State<TeacherPage> {
           //  results: results,
           setFav: () {
             teacherViewCubit.markAsFavTeacher(id: results.id, results: results);
-            setState(() {
-              //  results.isFavorite =false;
-            });
           },
         );
       },
@@ -149,7 +146,12 @@ class _TeacherPageState extends State<TeacherPage> {
 
   _viewDate(TeacherviewtypeState state, TeacherviewtypeCubit cubit) {
     if (state is TeacherLoadingState) {
-      return _viewItems();
+      //return _viewItems();
+      return const Expanded(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
     if (state is TeacherErrorState) {
       return Expanded(child: ErrorIndicator(error: state.error));
