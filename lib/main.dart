@@ -73,7 +73,7 @@ void main() async {
 
   try {
     myProFile = userProfileFromJson(
-        jsonDecode(await otloha_shaerd.CacheHelper.getData(key: profile)));
+        await otloha_shaerd.CacheHelper.getData(key: profile));
 
     print('my Profile => $myProFile');
     favTeacherId =

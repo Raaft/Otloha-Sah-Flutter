@@ -115,14 +115,7 @@ class CommentReplayItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        TextView(
-          text: userInfo ?? 'Name',
-          weightText: FontWeight.w900,
-          padding: EdgeInsets.zero,
-          sizeText: 10,
-          letterSpacing: 0.4,
-          colorText: AppColor.userNameColor,
-        ),
+        Container(),
         if (errorType != null && errorType!.isNotEmpty)
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -144,14 +137,17 @@ class CommentReplayItem extends StatelessWidget {
 
   _viewAyah() {
     return (ayah != null && ayah!.isNotEmpty)
-        ? TextView(
-            padding: EdgeInsets.zero,
-            text: ayah ?? '',
-            sizeText: 18,
-            weightText: FontWeight.w900,
-            colorText: AppColor.headTextColor,
-            textAlign: TextAlign.start,
-            fontFamily: 'Hafs17',
+        ? SizedBox(
+            width: 150,
+            child: TextView(
+              padding: EdgeInsets.zero,
+              text: ayah ?? '',
+              sizeText: 18,
+              weightText: FontWeight.w900,
+              colorText: AppColor.headTextColor,
+              textAlign: TextAlign.start,
+              fontFamily: 'Hafs17',
+            ),
           )
         : Container();
   }

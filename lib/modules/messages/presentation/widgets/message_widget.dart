@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/cached_image.dart';
 
 class MessageWidget extends StatelessWidget {
@@ -80,6 +79,7 @@ class MessageWidget extends StatelessWidget {
                           ],
                         ),
                       ),
+                      userInfo ?? Container(),
                       ayahView ?? Container(),
                       ayahInfoView ?? Container(),
                     ],

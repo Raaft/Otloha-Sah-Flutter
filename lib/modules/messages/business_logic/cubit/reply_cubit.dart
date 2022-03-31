@@ -3,12 +3,10 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import 'package:file/local.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'reply_state.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,7 +57,7 @@ class ReplyCubit extends Cubit<ReplyState> {
         recitationId: recitationId,
         messageId: msgId,
         parentId: parentId,
-        errorType: (errorType != null) ? errorType.key : null,
+        errorType: (this.errorType != null) ? this.errorType!.key : null,
         record: filePath,
         comment: messageController.text,
         text: text,
