@@ -163,8 +163,7 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
   }
 
   _changePage(int? index) {
-    Navigator.of(context)
-        .pushReplacementNamed(HomePage.routeName, arguments: index);
+    Navigator.of(context).pop();
   }
 
   _getOorigin(String? origin) {
