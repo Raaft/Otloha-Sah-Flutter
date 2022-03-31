@@ -19,17 +19,18 @@ class ReplayMessageWidget extends StatelessWidget {
     this.wave,
     this.record,
     this.reload,
-    this.isAyah = false,
+    this.isATeacher = false,
   }) : super(key: key);
 
   final int recitationId;
   final int msgId;
   final int? parentId;
-  final bool isAyah;
+  final bool isATeacher;
   final String? ayahInfo;
   final String? ayah;
   final String? wave;
   final String? record;
+
   late ReplyCubit? replyCubit;
   final void Function()? reload;
 
@@ -42,11 +43,20 @@ class ReplayMessageWidget extends StatelessWidget {
         if (state is SavedState) {
           reload!();
           replyCubit!.setViewMessage(false);
+          replyCubit!.setIsReply(false);
+        }
+        if (state is ChangeIsReply) {
+          if (replyCubit!.isRelpay) {
+            replyCubit!.setFoucs();
+          }
         }
       },
       builder: (context, state) {
         return Column(children: [
-          if ((replyCubit?.viewMessage ?? false) && isAyah) _viewMessage(),
+          if ((replyCubit?.viewMessage ?? false) &&
+              isATeacher &&
+              !replyCubit!.isRelpay)
+            _viewMessage(),
           _messageField(state),
         ]);
       },
@@ -61,7 +71,7 @@ class ReplayMessageWidget extends StatelessWidget {
         listener: (context, state) {
           if (state is SavedState) {
             replyCubit!.setViewMessage(false);
-            if (!isAyah) {
+            if (!isATeacher || replyCubit!.isRelpay) {
               BlocProvider.of<MessagedetailsCubit>(context)
                   .setViewInput(false, null);
             }
@@ -112,6 +122,7 @@ class ReplayMessageWidget extends StatelessWidget {
                           replyCubit!.setViewMessage(true);
                         }
                       },
+                      focusNode: replyCubit!.focusNode,
                       controller: replyCubit!.messageController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(8),
@@ -190,7 +201,7 @@ class ReplayMessageWidget extends StatelessWidget {
                 color: Colors.white,
               ),
               onTap: () {
-                if (isAyah) {
+                if (isATeacher) {
                   Get.bottomSheet(
                     ChooseErrorType(
                       choosed: (errorType) {

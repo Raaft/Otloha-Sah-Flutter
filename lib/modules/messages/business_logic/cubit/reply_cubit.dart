@@ -32,9 +32,16 @@ class ReplyCubit extends Cubit<ReplyState> {
   String? filePathWave;
   String? ayahText;
   ErrorType? errorType;
+  FocusNode focusNode = FocusNode();
 
   String? text;
   bool viewMessage = false;
+  bool isRelpay = false;
+
+  setIsReply(bool b) {
+    isRelpay = b;
+    emit(ChangeIsReply());
+  }
 
   setText(String str) {
     text = str;
@@ -217,5 +224,9 @@ class ReplyCubit extends Cubit<ReplyState> {
   void setAyah(String ayah) {
     ayahText = ayah;
     emit(ReplyStateDefult());
+  }
+
+  void setFoucs() {
+    focusNode.requestFocus();
   }
 }

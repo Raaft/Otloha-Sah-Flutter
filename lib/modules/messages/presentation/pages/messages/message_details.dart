@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/cached_image.dart';
+import 'package:flutter_base/modules/messages/business_logic/cubit/reply_cubit.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/reply_message_widget.dart';
 import '../../../../../core/utils/constant/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,7 +99,7 @@ class MessageDetailsPage extends StatelessWidget {
       reload: () {
         cubit!.fetchMessages(msgId, recitationId);
       },
-      isAyah: (myProFile?.isATeacher ?? false),
+      isATeacher: (myProFile?.isATeacher ?? false),
       parentId: cubit!.parentId,
     );
   }
@@ -119,7 +120,7 @@ class MessageDetailsPage extends StatelessWidget {
       shrinkWrap: true,
       itemCount: cubit!.messageDetails!.replies!.length,
       itemBuilder: (context, index) =>
-          _viewItem(index, cubit!.messageDetails!.replies![index]),
+          _viewItem(index, cubit!.messageDetails!.replies![index], context),
     );
   }
 
@@ -272,10 +273,7 @@ class MessageDetailsPage extends StatelessWidget {
     }
   }
 
-  _viewItem(
-    int index,
-    Replies reply,
-  ) {
+  _viewItem(int index, Replies reply, BuildContext context) {
     return ListView(
       //padding: const EdgeInsets.symmetric(vertical: 8.0),
       physics: const NeverScrollableScrollPhysics(),
@@ -307,6 +305,7 @@ class MessageDetailsPage extends StatelessWidget {
             int? parent = (reply.parent != null) ? reply.parent : reply.id;
             print(parent);
             cubit!.setViewInput(true, parent);
+            BlocProvider.of<ReplyCubit>(context).setIsReply(true);
           },
         ),
         if (reply.children!.isNotEmpty) _viewDataCh(reply.children),
@@ -319,7 +318,8 @@ class MessageDetailsPage extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: children!.length,
-      itemBuilder: (context, index) => _viewItem(index, children[index]),
+      itemBuilder: (context, index) =>
+          _viewItem(index, children[index], context),
     );
   }
 

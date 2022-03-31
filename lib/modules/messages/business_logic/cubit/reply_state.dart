@@ -23,6 +23,8 @@ class DataChange extends ReplyState {}
 
 class SavedErrorState extends ReplyState {}
 
+class ChangeIsReply extends ReplyState {}
+
 class SendReplyState extends ReplyState {
   String text;
   String recordFile;
