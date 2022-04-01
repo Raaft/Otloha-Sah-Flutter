@@ -23,6 +23,8 @@ import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dar
 
 import 'data_source/local/database/database_repository.dart';
 import 'modules/messages/presentation/pages/messages/layout_page.dart';
+import 'modules/quran/presentation/page/action_pages/bookmark_bage.dart';
+import 'modules/quran/presentation/page/action_pages/note_page.dart';
 
 class AppRouter {
   late DatabaseRepository databaseRepository;
@@ -41,6 +43,11 @@ class AppRouter {
       case LoginPage.routeName:
         return MaterialPageRoute(
           builder: (_) => LoginPage(),
+          settings: settings,
+        );
+        case PagesNotePage.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const PagesNotePage(),
           settings: settings,
         );
       case HomePage.routeName:

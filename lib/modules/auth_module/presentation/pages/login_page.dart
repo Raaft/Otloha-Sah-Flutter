@@ -24,7 +24,7 @@ import '../../../home/presentation/pages/home/home_page.dart';
 class LoginPage extends StatelessWidget {
   static const routeName = '/loginPage';
 
-  LoginPage({Key? key}) : super(key: key);
+   LoginPage({Key? key}) : super(key: key);
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();

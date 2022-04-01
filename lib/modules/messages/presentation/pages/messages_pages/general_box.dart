@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/genaralmessage_cubit.dart';
-import 'package:flutter_base/modules/messages/presentation/widgets/message_widget.dart';
 import '../../../../../core/exception_indicators/error_indicator.dart';
 import '../../../../../core/utils/themes/color.dart';
 import '../../../../../data_source/models/message_model/general_response.dart';

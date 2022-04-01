@@ -8,6 +8,7 @@ class GetUserQuranActionInitial extends GetUserQuranActionState {}
 
 class GetUserQuranActionError extends GetUserQuranActionState {
   final String error;
+
   const GetUserQuranActionError({
     required this.error,
   });
@@ -15,13 +16,21 @@ class GetUserQuranActionError extends GetUserQuranActionState {
 
 class GetUserQuranActionNotes extends GetUserQuranActionState {
   final List<VerseNote> verses;
+
   const GetUserQuranActionNotes({
     required this.verses,
   });
 }
 
+class UpdateUserQuranActionNotes extends GetUserQuranActionState {}
+
+class IsUpdateNoteChange extends GetUserQuranActionState {}
+
+class DeleteUserQuranActionNotes extends GetUserQuranActionState {}
+
 class GetUserQuranActionLikeds extends GetUserQuranActionState {
   final List<VerseLiked> verses;
+
   const GetUserQuranActionLikeds({
     required this.verses,
   });
@@ -29,6 +38,7 @@ class GetUserQuranActionLikeds extends GetUserQuranActionState {
 
 class GetUserQuranActionMarks extends GetUserQuranActionState {
   final List<PageMarked> pages;
+
   const GetUserQuranActionMarks({
     required this.pages,
   });

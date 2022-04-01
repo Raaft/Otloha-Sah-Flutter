@@ -19,6 +19,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 
 import '../../../messages/presentation/pages/messages/layout_page.dart';
+import '../../../quran/presentation/page/action_pages/bookmark_bage.dart';
+import '../../../quran/presentation/page/action_pages/note_page.dart';
 
 final List<SubSectionItem> subSectionData = [
   SubSectionItem(
@@ -66,11 +68,14 @@ final List<SubSectionItem> subSectionData = [
           .then((value) => BlocProvider.of<HomeCubit>(context).changeIndex(1));
     },
   ),
+
+
+
   SubSectionItem(
     title: translate('Note'),
     image: AppIcons.quran4Icon,
     action2: (context) {
-      Navigator.of(context).pushNamed(PagesLikedPage.routeName, arguments: 1);
+      Navigator.of(context).pushNamed(PagesNotePage.routeName, arguments: 1);
     },
   ),
   SubSectionItem(
@@ -88,6 +93,8 @@ final List<SubSectionItem> subSectionData = [
       Navigator.of(context).pushNamed(PagesBookMarkPage.routeName, arguments: 2);
     },
   ),
+
+
 ];
 
 final List<String> data = [
