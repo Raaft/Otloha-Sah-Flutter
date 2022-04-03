@@ -1,12 +1,9 @@
-import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_base/data_source/models/database_model/verse_note.dart';
 import '../../../../../core/utils/constant/utils.dart';
 import '../../../../../core/utils/res/icons_app.dart';
 import '../../../../../core/utils/themes/color.dart';
 import '../../../../../core/widgets/text_view.dart';
-import '../../../../../data_source/models/database_model/page_marked.dart';
 import '../../../../../data_source/models/database_model/verse_like.dart';
 import '../../../../home/presentation/pages/home/home_page.dart';
 import '../../../business_logic/cubit/getuserquranaction_cubit.dart';

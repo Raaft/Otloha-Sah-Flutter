@@ -23,6 +23,7 @@ class GetUserQuranActionNotes extends GetUserQuranActionState {
 }
 
 class UpdateUserQuranActionNotes extends GetUserQuranActionState {}
+class EditeUpdateUserQuranActionNotes extends GetUserQuranActionState {}
 
 class IsUpdateNoteChange extends GetUserQuranActionState {}
 

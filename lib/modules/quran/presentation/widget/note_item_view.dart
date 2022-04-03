@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/widgets/text_from_fielid.dart';
-import 'package:flutter_base/modules/quran/presentation/page/action_pages/note_page.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
 import '../../../../core/utils/themes/color.dart';
@@ -206,16 +204,6 @@ class EditeNoteItemView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (!isNote)
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.favorite,
-                  color: AppColor.txtColor5,
-                  size: 40,
-                ),
-              ),
-            const SizedBox(height: 40),
             if (isNote)
               FormBuilderTextField(
                 name: 'Edite',

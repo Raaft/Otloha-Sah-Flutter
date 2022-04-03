@@ -14,7 +14,7 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
     this.databaseRepository,
   ) : super(GetUserQuranActionInitial());
 
-  Future findAllVerseNotes() async{
+  Future findAllVerseNotes() async {
     databaseRepository.findAllVerseNotes()!.then((value) {
       if (value != null && value.isNotEmpty) {
         emit(GetUserQuranActionNotes(verses: value));
@@ -25,12 +25,13 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
     });
   }
 
-  Future<void>updateVerseNotes(VerseNote verseNote,String textUpdated ) async{
-     verseNote.noteText=textUpdated;
+  Future<void> updateVerseNotes(VerseNote verseNote, String textUpdated) async {
+    verseNote.noteText = textUpdated;
 
+    /// emit(EditeUpdateUserQuranActionNotes());
     databaseRepository.updateVerseNote(verseNote)!.then((value) {
       if (value != null && value.isNotEmpty) {
-        findAllVerseNotes ();
+        ///findAllVerseNotes();
 
         emit(UpdateUserQuranActionNotes());
       } else {
@@ -51,7 +52,9 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
       print('Entity Bloc ' + value.toString());
     });
   }
-bool isUpdateNote= false;
+
+  bool isUpdateNote = false;
+
   // changUpdateNote(bool value) {
   //   isUpdateNote = value;
   //   emit(IsUpdateNoteChange());

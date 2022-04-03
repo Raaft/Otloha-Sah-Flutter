@@ -117,7 +117,7 @@ class PagesNotePage extends StatelessWidget {
             onPressed: () {
               cubit.deleteVerseNotes(verseNote.id ?? 1);
             },
-            icon: Icon(Icons.delete_outline))
+            icon: const Icon(Icons.delete_outline))
       ],
     );
   }

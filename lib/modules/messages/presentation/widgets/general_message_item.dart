@@ -12,7 +12,6 @@ import 'package:flutter_base/modules/messages/presentation/widgets/message_widge
 import 'package:flutter_base/modules/recitations/presentation/widget/popup_recitation.dart';
 
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
-import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 
 class GeneralMessageItem extends StatelessWidget {
   const GeneralMessageItem({

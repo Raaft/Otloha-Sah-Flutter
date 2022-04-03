@@ -9,7 +9,6 @@ import 'package:quran_widget_flutter/quran_widget_flutter.dart';
 import '../../../../../core/utils/themes/color.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../../core/widgets/text_view.dart';
-import '../../../../home/presentation/pages/home/home_page.dart';
 import '../../../../home/presentation/widget/bottom_bar.dart';
 import '../../widget/item_surah.dart';
 import '../../../../settings/business_logic/chapter/chapter_cubit.dart';
