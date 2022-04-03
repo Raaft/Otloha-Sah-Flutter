@@ -40,12 +40,11 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
       listener: (ctx, state) {
         if (state is RegisterAsTeacherSuccessState) {
           _get.Get.back();
-          _get.Get.showSnackbar(const _get.GetSnackBar(
-            duration: Duration(seconds: 3),
-            message: 'Your request to be a teacher is created successfully',
-
-          ),
-
+          _get.Get.showSnackbar(
+            const _get.GetSnackBar(
+              duration: Duration(seconds: 3),
+              message: 'Your request to be a teacher is created successfully',
+            ),
           );
         }
       },
@@ -83,7 +82,7 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
                           title: tr('Your Education'),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'please enter your email Education';
+                              return tr('please enter your Education');
                             }
                             return null;
                           },
@@ -172,6 +171,13 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: FormBuilderFilePicker(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+              print('Pleas Upload ================> file');
+              _get.Get.snackbar(tr('Please Upload your files'), '', colorText: Colors.red);          return 'Please UpLoad Your File';
+          }
+          return null;
+        },
         name: "images",
         decoration: InputDecoration(
           //  color: Colors.blue,
@@ -183,20 +189,17 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
           errorBorder: border,
           focusedErrorBorder: border,
           disabledBorder: border,
-          // labelStyle: style.copyWith(color: color),
           labelText: title,
 
-          //hintStyle: style,
-          // hintText: title,
           fillColor: AppColor.white,
         ),
         maxFiles: 1,
         previewImages: false,
         onChanged: function,
         selector: Row(
-          children: const <Widget>[
-            Icon(Icons.file_upload),
-            Text('Upload'),
+          children:  <Widget>[
+            const Icon(Icons.file_upload),
+            Text(tr('upload')),
           ],
         ),
         onFileLoading: (val) {
@@ -206,64 +209,6 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
     );
   }
 
-  //
-  //  uploadfiles(
-  //     {required SettingsCubit cubit,
-  //     required String title,
-  //     required Function function}) {
-  //   return InkWell(
-  //     onTap: function(),
-  //     child: FormBuilderTextField(
-  //         name: title,
-  //         enabled: false,
-  //         decoration: InputDecoration(
-  //           isDense: true,
-  //           fillColor: Colors.blue.withOpacity(.0),
-  //           filled: true,
-  //           enabledBorder: border,
-  //           focusedBorder: border,
-  //           errorBorder: border,
-  //           focusedErrorBorder: border,
-  //           disabledBorder: border,
-  //           labelStyle: TextStyle(color: AppColor.lightBlue),
-  //           labelText: title,
-  //         )),
-  //   );
-  // }
-  //
-  // formUpload({required String title, required Function fun}) {
-  //   return FormBuilderFilePicker(
-  //     name: "images",
-  //
-  //     decoration: InputDecoration(
-  //       isDense: true,
-  //       fillColor: Colors.blue.withOpacity(.0),
-  //       filled: true,
-  //       enabledBorder: border,
-  //       focusedBorder: border,
-  //       errorBorder: border,
-  //       focusedErrorBorder: border,
-  //       disabledBorder: border,
-  //       labelStyle: TextStyle(color: AppColor.lightBlue),
-  //       labelText: title,
-  //     ),
-  //
-  //     //  decoration: InputDecoration(labelText: "Attachments"),
-  //     maxFiles: null,
-  //     previewImages: true,
-  //
-  //     // onChanged: (val) => print(val),
-  //     selector: Row(
-  //       children: const <Widget>[
-  //         Icon(Icons.file_upload),
-  //         Text('Upload'),
-  //       ],
-  //     ),
-  //
-  //     onSaved: fun(),
-  //   );
-  // }
-
   Widget topView(BuildContext context) {
     return ToolBarApp(
       backIcon: IconButton(
@@ -272,7 +217,7 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
           Navigator.of(context).pop();
         },
       ),
-      title: translate('Register As Teacher'),
+      title: tr('Register up As Teacher'),
     );
   }
 }

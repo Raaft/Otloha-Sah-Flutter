@@ -95,6 +95,12 @@
   "Log Out":"تسجيل الخروج",
   "Change Password":"تغير كلمه المرور",
   "Register up As Teacher":"الأنضمام للمعلمين",
+  "please enter your Education":"من فضلك أدخل مؤهلك",
+  "Please Upload your files":"قم برفع الملفات من فضلك",
+  "upload":"رفع",
+  "Confirm Password":"تأكيد كلمه المرور",
+
+
   "Update Phone":"تعديل الموبيل",
   "Update Email":"تعديل البريد الالكتروني ",
   "Update Profile":"تعديل الملف الشخصي",
@@ -108,9 +114,10 @@
   "Certifications": "شهادات",
   "New Phone": "رقم موبايل جديد",
   "Old Password":"كلمه السر القديمه",
-  "New Email":"البؤيد الالكترومي الجديد",
+  "New Email":"البريد الالكترومي الجديد",
   "Password":"كلمه المرور",
   "New Password":"كلمه المرور الجديده",
+  "Password":"كلمه المرور",
 
 
 

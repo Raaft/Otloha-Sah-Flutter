@@ -57,19 +57,12 @@ class NoteItemView extends StatelessWidget {
               topRight: Radius.circular(24),
             ),
             color: Colors.white),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: ListView(
+        //  crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (!isNote)
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.favorite,
-                  color: AppColor.txtColor5,
-                  size: 40,
-                ),
-              ),
+
             Container(
+              width: double.infinity,
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                   color: AppColor.background,

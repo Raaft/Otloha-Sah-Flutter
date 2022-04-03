@@ -1,18 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../../../auth_module/presentation/widget/auth_button.dart';
 
 import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
-import '../../../../../../core/widgets/password_form_field.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../../core/widgets/text_from_fielid.dart';
 
 class ChangePassword extends StatelessWidget {
   ChangePassword({Key? key}) : super(key: key);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController oldPasswordController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,34 +26,34 @@ class ChangePassword extends StatelessWidget {
           children: [
             topView(context),
             const SizedBox(height: 200),
-
             Form(
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   customFormField(
-                    controller: passwordController,
-                    title: tr('Old Password'),
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: []
-                  ),
+                      controller: oldPasswordController,
+                      title: tr('Old Password'),
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: [
+                        FormBuilderValidators.required(context),
+                      ]),
                   const SizedBox(height: 20),
-
                   customFormField(
-                      controller: passwordController,
+                      controller: newPasswordController,
                       title: tr('New Password'),
-                      validator: [],
+                      validator: [
+                        FormBuilderValidators.required(context),
+                      ],
                       keyboardType: TextInputType.visiblePassword),
                   const SizedBox(height: 20),
-
                   customFormField(
-                    controller: passwordController,
-                    title: 'Confirm Password',
-                    validator: [],
-                      keyboardType: TextInputType.visiblePassword
-
-                  ),
+                      controller: confirmPasswordController,
+                      title: tr('Confirm Password'),
+                      validator: [
+                        FormBuilderValidators.required(context),
+                      ],
+                      keyboardType: TextInputType.visiblePassword),
                   AuthButton(
                     buttonText: tr('Update'),
                     onPressed: () {

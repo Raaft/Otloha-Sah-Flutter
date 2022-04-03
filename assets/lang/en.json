@@ -47,6 +47,13 @@
   "Log Out":"Log Out",
   "Change Password":"Change Password",
   "Register up As Teacher":"Register up As Teacher",
+  "please enter your Education":"please enter your Education",
+  "Please Upload your files":"Please Upload your files",
+  "upload":"upload",
+  "Confirm Password":"Confirm Password",
+  "Password":"كلمه المرور",
+
+
   "Update Phone":"Update Phone",
   "Update Email":"Update Email",
   "Update Profile":"Update Profile",
@@ -67,7 +74,7 @@
 
 
 
-  "_comment3",:"app values",
+  "_comment3":"app values",
 
   "SearchSubject":"Search for Subject ....",
   "Search":"Search",

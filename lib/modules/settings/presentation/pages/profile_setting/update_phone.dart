@@ -44,7 +44,7 @@ class UpdatePhone extends StatelessWidget {
                   ),
                   customFormField(
                       controller: passwordController,
-                      title: 'Password',
+                      title: tr('Password'),
                       keyboardType: TextInputType.visiblePassword,
                       validator: [
                         FormBuilderValidators.required(context),

@@ -26,15 +26,7 @@ class PagesNotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (arg == 1) {
-    //   BlocProvider.of<GetUserQuranActionCubit>(context).findAllVerseNotes();
-    // }
-    // if (arg == 2) {
-    //   BlocProvider.of<GetUserQuranActionCubit>(context).findAllPageMarkeds();
-    // }
-    // if (arg == 3) {
-    //   BlocProvider.of<GetUserQuranActionCubit>(context).findAllVerseLikeds();
-    // }
+
     BlocProvider.of<GetUserQuranActionCubit>(context).findAllVerseNotes();
 
     return Scaffold(
