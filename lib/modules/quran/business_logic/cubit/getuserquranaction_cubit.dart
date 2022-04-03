@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../data_source/local/database/database_repository.dart';
 import '../../../../data_source/models/database_model/page_marked.dart';
@@ -13,6 +14,9 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
   GetUserQuranActionCubit(
     this.databaseRepository,
   ) : super(GetUserQuranActionInitial());
+
+  static GetUserQuranActionCubit get(context) =>
+      BlocProvider.of<GetUserQuranActionCubit>(context);
 
   Future findAllVerseNotes() async {
     databaseRepository.findAllVerseNotes()!.then((value) {
@@ -55,11 +59,6 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
 
   bool isUpdateNote = false;
 
-  // changUpdateNote(bool value) {
-  //   isUpdateNote = value;
-  //   emit(IsUpdateNoteChange());
-  // }
-
   findAllVerseLikeds() {
     databaseRepository.findAllVerseLikeds()!.then((value) {
       if (value != null && value!.isNotEmpty) {
@@ -77,6 +76,18 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
         emit(GetUserQuranActionMarks(pages: value));
       } else {
         emit(const GetUserQuranActionError(error: 'Not Found Items'));
+      }
+      print('Entity Bloc ' + value.toString());
+    });
+  }
+
+  deleteVerseBookMark(int id) {
+    databaseRepository.deletePageMarked(id)!.then((value) {
+      findAllPageMarkeds();
+      if (value != null && value.isNotEmpty) {
+        emit(DeleteUserQuranActionBookMark());
+      } else {
+        emit(DeleteUserQuranActionBookMarkError());
       }
       print('Entity Bloc ' + value.toString());
     });

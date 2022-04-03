@@ -54,6 +54,7 @@ class PagesBookMarkPage extends StatelessWidget {
                   return ItemBookMark(
                       name: page.textVerse.toString(),
                       pageFrom: page.idPage!.toInt(),
+                      pageId: page.id,
                       onPress: () {
                         Navigator.of(context).pushReplacementNamed(
                           HomePage.routeName,

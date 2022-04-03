@@ -28,6 +28,8 @@ class EditeUpdateUserQuranActionNotes extends GetUserQuranActionState {}
 class IsUpdateNoteChange extends GetUserQuranActionState {}
 
 class DeleteUserQuranActionNotes extends GetUserQuranActionState {}
+class DeleteUserQuranActionBookMark extends GetUserQuranActionState {}
+class DeleteUserQuranActionBookMarkError extends GetUserQuranActionState {}
 
 class GetUserQuranActionLikeds extends GetUserQuranActionState {
   final List<VerseLiked> verses;

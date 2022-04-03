@@ -42,6 +42,6 @@ class VerseNoteDao {
   Future<int> update(VerseNote verseNote) async {
     return await AppDatabase._db!.update(
         RunQueries.verseNoteName, verseNote.toMap(),
-        where: 'uid = ?', whereArgs: [verseNote.id]);
+        where: 'id = ?', whereArgs: [verseNote.id]);
   }
 }

@@ -26,20 +26,32 @@ class PagesNotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<VerseNote> notesList;
+    List<VerseNote> serchedList;
 
     BlocProvider.of<GetUserQuranActionCubit>(context).findAllVerseNotes();
 
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: [_topView(context), _viewItems()],
+          children: [
+            _topView(
+              context,
+            ),
+            _viewItems()
+          ],
         ),
       ),
     );
   }
 
-  Widget _topView(BuildContext context) {
+  Widget _topView(
+    BuildContext context,
+  ) {
     return SearchBarApp(
+        onSearch: (value) {
+
+        },
         backIcon: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -56,29 +68,22 @@ class PagesNotePage extends StatelessWidget {
         child: BlocBuilder<GetUserQuranActionCubit, GetUserQuranActionState>(
           builder: (context, state) {
             if (state is GetUserQuranActionNotes) {
-
-
-
               return ListView.builder(
                 itemCount: state.verses.length,
                 itemBuilder: (context, index) {
                   var verse = state.verses[index];
-                  return _itemBuild(
-                    verse.textFristVerse ?? '',
-                    verse.noteText,
-                    () {
-                      Get.bottomSheet(
-                          NoteItemView(
-                              verseNote: verse,
-                              isNote: true,
-                              note: verse.noteText,
-                              verse: verse.textFristVerse,
-                              cubit: BlocProvider.of<GetUserQuranActionCubit>(
-                                  context)),
-                          isScrollControlled: true);
-                    },        BlocProvider.of<GetUserQuranActionCubit>(context)
-                      ,verse
-                  );
+                  return _itemBuild(verse.textFristVerse ?? '', verse.noteText,
+                      () {
+                    Get.bottomSheet(
+                        NoteItemView(
+                            verseNote: verse,
+                            isNote: true,
+                            note: verse.noteText,
+                            verse: verse.textFristVerse,
+                            cubit: BlocProvider.of<GetUserQuranActionCubit>(
+                                context)),
+                        isScrollControlled: true);
+                  }, BlocProvider.of<GetUserQuranActionCubit>(context), verse);
                 },
               );
             } else {

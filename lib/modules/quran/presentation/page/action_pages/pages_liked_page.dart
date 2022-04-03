@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/constant/utils.dart';
 import '../../../../../core/utils/res/icons_app.dart';
@@ -52,8 +51,8 @@ class PagesLikedPage extends StatelessWidget {
       title: (arg == 2)
           ? translate('BookMarks')
           : (arg == 1)
-              ? translate('Note')
-              : translate('Likes'),
+          ? translate('Note')
+          : translate('Likes'),
     );
   }
 
@@ -63,9 +62,8 @@ class PagesLikedPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<GetUserQuranActionCubit, GetUserQuranActionState>(
           builder: (context, state) {
-
             if (state is GetUserQuranActionLikeds) {
-              List<VerseLiked> verList=Set.of(state.verses).toList();
+              List<VerseLiked> verList = Set.of(state.verses).toList();
 
 
               // List<VerseLiked> ver= [...{...verList}];
@@ -105,11 +103,9 @@ class PagesLikedPage extends StatelessWidget {
     );
   }
 
-  Widget _itemBuild(
-    String name,
-    String? note,
-    Function() action,
-  ) {
+  Widget _itemBuild(String name,
+      String? note,
+      Function() action,) {
     return UserLiked(
       userName: name,
       userImage: AppIcons.quran2Icon,
@@ -120,8 +116,6 @@ class PagesLikedPage extends StatelessWidget {
 }
 
 
-
-
 class ItemBookMark extends StatelessWidget {
   const ItemBookMark({
     Key? key,
@@ -129,10 +123,11 @@ class ItemBookMark extends StatelessWidget {
     required this.pageFrom,
     required this.onPress,
     this.action,
-    this.isSelect = false,
+    this.isSelect = false, this.pageId,
   }) : super(key: key);
 
   final String name;
+  final int? pageId;
   final int pageFrom;
 
   final bool isSelect;
@@ -157,23 +152,42 @@ class ItemBookMark extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset(
-              AppIcons.quran3Icon,
-              width: 32,
-              height: 32,
+            Row(
+              children: [
+                Image.asset(
+                  AppIcons.quran3Icon,
+                  width: 32,
+                  height: 32,
+                ),
+                TextView(
+                  text: name,
+                  colorText: AppColor.txtColor3,
+                  sizeText: 16,
+                  weightText: FontWeight.bold,
+                ),
+
+              ],
             ),
-            TextView(
-              text: name,
-              colorText: AppColor.txtColor3,
-              sizeText: 16,
-              weightText: FontWeight.bold,
-            ),
-            const Spacer(),
+
             TextView(
               text: '${translate('Page')} $pageFrom ',
               colorText: AppColor.txtColor4,
               sizeText: 12,
             ),
+            const Spacer(),
+            BlocBuilder<GetUserQuranActionCubit, GetUserQuranActionState>(
+              builder: (context, state) {
+                var cubit=GetUserQuranActionCubit.get(context);
+
+                return IconButton(
+                    onPressed: () {
+                      cubit.deleteVerseBookMark(pageId ?? 1);
+                    },
+                    icon: const Icon(Icons.delete_outline));
+              },
+            )
+
+
 /*             TextView(
               text: '${translate('Verses')}  $verses',
               colorText: AppColor.txtColor4,

@@ -16,19 +16,24 @@ class LanguagesPage extends StatefulWidget {
   const LanguagesPage({Key? key}) : super(key: key);
 
   static const routeName = '/settings/languages';
+
   @override
   _LanguagesPageState createState() => _LanguagesPageState();
 }
 
 class _LanguagesPageState extends State<LanguagesPage> {
-  int _selected = -1;
+  int _selected = 0;
 
   @override
   Widget build(BuildContext context) {
     try {
-      _selected = (CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? -1;
+      setState(() async {
+        _selected =
+            (await CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? 0;
+      });
+      print('value===========> $_selected');
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Langgggggggggggggg error========> ' + e.toString());
     }
 
     return Scaffold(
@@ -68,6 +73,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
 
   Widget _builder(int index) {
     return ItemDownload(
+      // index: index,
       instance: lang[index],
       downloadType: DownloadTypes.page,
       name: lang[index].langName,
