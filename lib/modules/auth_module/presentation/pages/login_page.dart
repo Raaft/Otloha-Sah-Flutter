@@ -160,8 +160,8 @@ class LoginPage extends StatelessWidget {
                                           email: emailController.text,
                                           password: passwordController.text)
                                       .then((value) {
-                                    token =
-                                        CacheHelper.getData(key: 'token') ?? '';
+
+                                        CacheHelper.saveData(key: 'token',value:'token' );
                                   });
                                 }
                               },

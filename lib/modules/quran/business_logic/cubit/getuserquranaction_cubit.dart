@@ -23,7 +23,7 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
   Future<void> search(value) async {
     emit(NoteSearchLoading());
     searchedList = verseNote
-        .where((i) => i.noteText!.contains(value) || i.text!.contains(value))
+        .where((i) => i.noteText!.contains(value) || i.text!.contains(value)||i.textFristVerse!.contains(value))
         .toList();
     if (searchedList.isNotEmpty) {
       print(searchedList);

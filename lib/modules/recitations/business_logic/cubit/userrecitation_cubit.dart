@@ -1,6 +1,5 @@
 // ignore_for_file: empty_catches
 
-import 'package:dio/src/response.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/network/api_base_helper.dart';
 import 'package:flutter_base/data_source/data_source.dart';

@@ -109,8 +109,8 @@ class AuthCubit extends Cubit<AuthState> {
       if (user.favoriteTeacher != null && user.favoriteTeacher! > 0) {
         var teacher =
             await AppDataSource().userProfile(user.favoriteTeacher ?? 0);
-        CacheHelper.saveData(
-            key: favTeacher, value: jsonEncode(teacher.toJson()));
+        CacheHelper.saveData(key: favTeacher, value: jsonEncode(teacher.toJson()));
+        CacheHelper.saveData(key: 'token', value: userModel!.accessToken);
       }
       print('Save done ${user.username}');
     } catch (e) {

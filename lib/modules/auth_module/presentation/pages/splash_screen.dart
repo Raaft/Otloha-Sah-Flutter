@@ -23,8 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 5),() =>  Get.offAll(
-      (token.isNotEmpty || token == '')
-          ? const OnBoardPage(): const HomePage(),
+      (token.isNotEmpty || token == ''||token!=null) ? const OnBoardPage(): const HomePage(),
     ));
     super.initState();
   }
