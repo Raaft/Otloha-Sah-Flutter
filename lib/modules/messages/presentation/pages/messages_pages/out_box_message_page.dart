@@ -57,20 +57,6 @@ class OutBoxMessagePage extends StatelessWidget {
     );
   }
 
-  Widget _showData2(MessagesendCubit? cubit) {
-    print(cubit!.messageSendList!.toString() +
-        ' ' +
-        cubit.messageSendList!.first.recitation!.name.toString());
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        itemCount: cubit.messageSendList!.length,
-        itemBuilder: (context, index) {
-          return _getItem(index, cubit.messageSendList![index]);
-        },
-      ),
-    );
-  }
 
   Widget _getItem(int index, MessageModel messageModel) {
     return BoxMessageItem(

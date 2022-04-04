@@ -22,7 +22,7 @@ class LanguagesPage extends StatefulWidget {
 }
 
 class _LanguagesPageState extends State<LanguagesPage> {
-  int _selected = 0;
+  int _selected = 1;
 
   @override
   Widget build(BuildContext context) {

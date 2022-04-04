@@ -5,6 +5,7 @@ abstract class GetUserQuranActionState {
 }
 
 class GetUserQuranActionInitial extends GetUserQuranActionState {}
+class NoteSearchLoading extends GetUserQuranActionState {}
 class NoteSearched extends GetUserQuranActionState {}
 class NoteSearchError extends GetUserQuranActionState {}
 

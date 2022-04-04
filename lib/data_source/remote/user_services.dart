@@ -45,7 +45,8 @@ class UserServices {
 
   Future<UserProfile> myProfile() async {
     var response = await ApiBaseHelper().getHTTP('/api/v1/profile/');
-    return UserProfile.fromJson(response!.data);
+    print('User is =>> ${UserProfile.fromJson(response!.data).firstName}');
+    return UserProfile.fromJson(response.data);
   }
 
   Future<UserProfile> userProfile(int id) async {

@@ -128,7 +128,7 @@ List<BottomBarData> homeMenuItems = [
     title: translate('Profile'),
     iconData: AppIcons.profileIcon,
     badgeColor: AppColor.bottomMenu,
-    page: const ProfileBNBPage(),
+    page:  ProfileBNBPage(),
   ),
 ];
 

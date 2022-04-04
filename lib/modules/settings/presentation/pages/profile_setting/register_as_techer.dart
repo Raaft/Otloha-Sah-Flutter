@@ -58,6 +58,8 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   topView(context),
+                  const SizedBox(height: 40),
+
                   Form(
                     key: formKey,
                     child: Column(
@@ -121,35 +123,33 @@ class _RegisterAsTeacherState extends State<RegisterAsTeacher> {
                             child: CircularProgressIndicator(),
                           )
                         else
-                          AuthButton(
-                            buttonText: tr('Update'),
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                debugPrint('validate');
-                                var formData = FormData.fromMap({
-                                  "full_name": nameController.text,
-                                  "education_degree": educationController.text,
-                                  "application_recitation":
-                                      MultipartFile.fromFile(recitation!.path!,
-                                          filename: recitation!.path
-                                              ?.split('/')
-                                              .last),
-                                  "cv": MultipartFile.fromFile(cv!.path!,
-                                      filename: cv!.path!.split('/').last),
-                                  "certifications": MultipartFile.fromFile(
-                                      certifications!.path!,
-                                      filename: certifications!.path!
-                                          .split('/')
-                                          .last),
-                                });
+                          Column(
+                            children: [
+                              const SizedBox(height: 40),
 
-                                cubit.regiAsTeacher(data: formData);
-                              }
-                            },
-                            width: double.infinity,
-                            colors: [
-                              AppColor.darkBlue,
-                              AppColor.lightBlue,
+                              AuthButton(
+                                buttonText: tr('Update'),
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    debugPrint('validate');
+                                    var formData = FormData.fromMap({
+                                      "full_name": nameController.text,
+                                      "education_degree": educationController.text,
+                                      "application_recitation":
+                                      MultipartFile.fromFile(recitation!.path!, filename: recitation!.path?.split('/').last),
+                                      "cv": MultipartFile.fromFile(cv!.path!, filename: cv!.path!.split('/').last),
+                                      "certifications": MultipartFile.fromFile(certifications!.path!, filename: certifications!.path!.split('/').last),
+                                    });
+
+                                    cubit.regiAsTeacher(data: formData);
+                                  }
+                                },
+                                width: double.infinity,
+                                colors: [
+                                  AppColor.darkBlue,
+                                  AppColor.lightBlue,
+                                ],
+                              ),
                             ],
                           ),
                       ],

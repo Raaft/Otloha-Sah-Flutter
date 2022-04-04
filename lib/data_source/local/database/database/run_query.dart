@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS "VerseNote" (
 	"pageNumber"	INTEGER,
 	"textFristVerse"	TEXT,
 	"noteText"	TEXT,
+	"text"	TEXT,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "PageMarked" (

@@ -7,7 +7,6 @@ import '../../../../data_source/local/database/database_repository.dart';
 
 import '../../../../data_source/models/database_model/verse_note.dart';
 
-
 class AddNote extends StatefulWidget {
   const AddNote({
     Key? key,
@@ -16,7 +15,7 @@ class AddNote extends StatefulWidget {
     this.idToVerse,
     this.idPage,
     this.pageNumber,
-    this.textFristVerse,
+    this.textFristVerse, this.text,
   }) : super(key: key);
 
   final String title;
@@ -25,6 +24,7 @@ class AddNote extends StatefulWidget {
   final int? idPage;
   final int? pageNumber;
   final String? textFristVerse;
+  final String? text;
 
   @override
   State<AddNote> createState() => _AddNoteState();
@@ -198,6 +198,8 @@ class _AddNoteState extends State<AddNote> {
               pageNumber: widget.pageNumber,
               textFristVerse: widget.textFristVerse,
               noteText: note,
+              text: widget.text
+
             ),
           )!
           .then((value) => Navigator.of(context).pop());

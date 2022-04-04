@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/modules/home/business_logic/cubit/profile_pic_cubit/profile_page_cubit.dart';
 import '../../../../../core/widgets/auth_navigator.dart';
 import '../../../business_logic/cubit/home_cubit.dart';
 import '../../widget/bottom_bar.dart';
@@ -92,6 +93,10 @@ class _HomePageState extends State<HomePage> {
                                       BlocProvider.of<HomeCubit>(context)
                                           .changePluginPage(
                                               page: PageType.quran);
+                                    }
+                                    if (index == 3) {
+                                      BlocProvider.of<ProfilePageCubit>(context)
+                                          .userProfile();
                                     }
                                   },
                                 );

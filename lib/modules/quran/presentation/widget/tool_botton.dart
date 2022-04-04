@@ -32,7 +32,10 @@ class _ToolBottonState extends State<ToolBotton> {
             alignment: Alignment.bottomCenter,
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 0),
-              width: MediaQuery.of(context).size.width / 1.09,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width / 1.09,
               alignment: Alignment.center,
               height: 45,
               decoration: BoxDecoration(
@@ -89,11 +92,15 @@ class _ToolBottonState extends State<ToolBotton> {
                   GestureDetector(
                     onTap: () {
                       Scaffold.of(context).showBottomSheet(
-                        (context) => AddNote(
-                          title: '',
-                          textFristVerse: cubit.getFirstWords(
-                              cubit.selectedVerses.first.uthmanicText ?? '', 5),
-                        ),
+                            (context) =>
+                            AddNote(
+                              text:cubit.selectedVerses[0].text,
+                              idPage: cubit.selectedVerses[0].id,
+                              title: '',
+                              textFristVerse: cubit.getFirstWords(
+                                  cubit.selectedVerses.first.uthmanicText ?? '',
+                                  5),
+                            ),
                         backgroundColor: AppColor.transparent,
                       );
                     },

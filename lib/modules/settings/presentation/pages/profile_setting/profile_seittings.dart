@@ -7,7 +7,6 @@ import 'update_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../core/utils/constant/utils.dart';
 import '../../../../../../core/utils/themes/color.dart';
 import '../../../../../../core/widgets/tool_bar_app.dart';
 import '../../../../../core/widgets/text_view.dart';

@@ -41,6 +41,7 @@ import 'core/bloc/app_bloc_observer.dart';
 import 'core/utils/constant/constants.dart';
 import 'core/utils/themes/color.dart';
 import 'core/widgets/text_view.dart';
+import 'modules/home/business_logic/cubit/profile_pic_cubit/profile_page_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -212,6 +213,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => BookCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ProfilePageCubit(),
         ),
         // BlocProvider(
         //   create: (context) => PaginationCubit(),

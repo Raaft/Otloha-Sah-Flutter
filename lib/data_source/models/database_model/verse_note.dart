@@ -21,15 +21,17 @@ class VerseNote {
   int? pageNumber;
   String? textFristVerse;
   String? noteText;
-  VerseNote({
-    this.id,
-    this.idFromVerse,
-    this.idToVerse,
-    this.idPage,
-    this.pageNumber,
-    this.textFristVerse,
-    this.noteText,
-  });
+  String? text;
+
+  VerseNote(
+      {this.id,
+      this.idFromVerse,
+      this.idToVerse,
+      this.idPage,
+      this.pageNumber,
+      this.textFristVerse,
+      this.noteText,
+      this.text});
 
   VerseNote copyWith({
     int? id,
@@ -39,16 +41,17 @@ class VerseNote {
     int? pageNumber,
     String? textFristVerse,
     String? noteText,
+    String? text,
   }) {
     return VerseNote(
-      id: id ?? this.id,
-      idFromVerse: idFromVerse ?? this.idFromVerse,
-      idToVerse: idToVerse ?? this.idToVerse,
-      idPage: idPage ?? this.idPage,
-      pageNumber: pageNumber ?? this.pageNumber,
-      textFristVerse: textFristVerse ?? this.textFristVerse,
-      noteText: noteText ?? this.noteText,
-    );
+        id: id ?? this.id,
+        idFromVerse: idFromVerse ?? this.idFromVerse,
+        idToVerse: idToVerse ?? this.idToVerse,
+        idPage: idPage ?? this.idPage,
+        pageNumber: pageNumber ?? this.pageNumber,
+        textFristVerse: textFristVerse ?? this.textFristVerse,
+        noteText: noteText ?? this.noteText,
+        text: text ?? this.text);
   }
 
   Map<String, dynamic> toMap() {
@@ -60,6 +63,7 @@ class VerseNote {
       'pageNumber': pageNumber,
       'textFristVerse': textFristVerse,
       'noteText': noteText,
+      'text': text,
     };
   }
 
@@ -72,6 +76,7 @@ class VerseNote {
       pageNumber: map['pageNumber']?.toInt(),
       textFristVerse: map['textFristVerse'],
       noteText: map['noteText'],
+      text: map['text'],
     );
   }
 
@@ -82,7 +87,7 @@ class VerseNote {
 
   @override
   String toString() {
-    return 'VerseNote(id: $id, idFromVerse: $idFromVerse, idToVerse: $idToVerse, idPage: $idPage, pageNumber: $pageNumber, textFristVerse: $textFristVerse, noteText: $noteText)';
+    return 'VerseNote(id: $id, idFromVerse: $idFromVerse, idToVerse: $idToVerse, idPage: $idPage, pageNumber: $pageNumber, textFristVerse: $textFristVerse, noteText: $noteText , text: $text)';
   }
 
   @override
@@ -96,7 +101,8 @@ class VerseNote {
         other.idPage == idPage &&
         other.pageNumber == pageNumber &&
         other.textFristVerse == textFristVerse &&
-        other.noteText == noteText;
+        other.noteText == noteText &&
+        other.text == text;
   }
 
   @override
@@ -107,6 +113,7 @@ class VerseNote {
         idPage.hashCode ^
         pageNumber.hashCode ^
         textFristVerse.hashCode ^
-        noteText.hashCode;
+        noteText.hashCode ^
+        text.hashCode;
   }
 }

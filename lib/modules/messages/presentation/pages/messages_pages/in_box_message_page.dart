@@ -63,22 +63,6 @@ class InBoxMessagePage extends StatelessWidget {
     );
   }
 
-  Widget _showData2(MessagerecieveCubit? cubit) {
-    print(cubit!.messageRecieve!.toString() +
-        ' ' +
-        cubit.messageRecieve!.first.recitation!.name.toString());
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: cubit.messageRecieve!.length,
-          itemBuilder: (context, index) {
-            return _getItem(index, cubit.messageRecieve![index]);
-          },
-        ),
-      ),
-    );
-  }
 
   Widget _getItem(int index, MessageModel messageModel) {
     return BoxMessageItem(

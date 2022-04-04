@@ -116,6 +116,9 @@ class PagesNotePage extends StatelessWidget {
                 },
               );
             }
+            if (state is NoteSearchLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
             else {
               return Center(
                 child: Column(

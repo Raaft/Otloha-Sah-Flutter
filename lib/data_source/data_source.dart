@@ -185,7 +185,7 @@ class AppDataSource {
     return _getMessages.sendMessageAsTeacher(recitationId, msgId);
   }
 
-  Future<UserProfile> myProfile() => _userServices.myProfile();
+  Future<UserProfile> myProfile() async=>await _userServices.myProfile();
 
   Future<UserProfile> userProfile(int id) => _userServices.myProfile();
 
