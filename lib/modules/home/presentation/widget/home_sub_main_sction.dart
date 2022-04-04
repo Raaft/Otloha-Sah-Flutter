@@ -18,9 +18,7 @@ class HomeSubMainSection extends StatelessWidget {
         if (item.action2 != null) {
           item.action2!(context);
         } else {
-          bool isLogged = await CacheHelper.getData(key: 'token') == null;
-          AuthNavigator.of(context)!
-              .pushConditionally(context, item.action!, isLogged);
+          AuthNavigator.of(context)!.pushConditionally(context, item.action!);
         }
       },
       child: Container(

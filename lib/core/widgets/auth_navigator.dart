@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/utils/constant/constants.dart';
+import 'package:quran_widget_flutter/helper/chash_helper.dart';
 import '../../modules/auth_module/presentation/pages/login_page.dart';
 
 class AuthNavigator extends StatefulWidget {
@@ -15,8 +17,8 @@ class AuthNavigator extends StatefulWidget {
 
 class _AuthNavigatorState extends State<AuthNavigator> {
   Future pushConditionally<T extends Object>(
-          BuildContext context, String route, bool condition) =>
-      condition
+          BuildContext context, String route) =>
+      CacheHelper.getData(key: 'token') == null
           ? Navigator.pushNamed(
               context,
               LoginPage.routeName,

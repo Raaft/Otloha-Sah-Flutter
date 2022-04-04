@@ -147,9 +147,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
         value: 0.0,
       ),
       action: () async {
-        bool isLogged = await CacheHelper.getData(key: 'token') == null;
-        AuthNavigator.of(context)!
-            .pushConditionally(context, actionTo!, isLogged);
+        AuthNavigator.of(context)!.pushConditionally(context, actionTo!);
       },
     );
   }

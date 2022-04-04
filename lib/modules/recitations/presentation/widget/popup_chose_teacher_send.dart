@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_base/core/widgets/auth_navigator.dart';
 import 'package:flutter_base/core/widgets/cached_image.dart';
 import 'package:flutter_base/modules/teachers/presentation/page/teacher_page.dart';
 import '../../../../core/utils/constant/constants.dart';
@@ -62,12 +63,10 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
 
             if (state is TeacherFetchedState) {
               return _viewBody(cubit!.teachers);
-              //print('object');
             }
             if (state is NoAuthState) {
-              Future.delayed(const Duration(seconds: 1), () {
-                Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-              });
+              AuthNavigator.of(context)!
+                  .pushConditionally(context, LoginPage.routeName);
             }
             return const Center(
               child: CircularProgressIndicator(),
@@ -231,7 +230,6 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
     );
   }
 }
-
 
 /**
  *  Padding(
