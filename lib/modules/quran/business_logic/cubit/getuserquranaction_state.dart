@@ -5,6 +5,8 @@ abstract class GetUserQuranActionState {
 }
 
 class GetUserQuranActionInitial extends GetUserQuranActionState {}
+class NoteSearched extends GetUserQuranActionState {}
+class NoteSearchError extends GetUserQuranActionState {}
 
 class GetUserQuranActionError extends GetUserQuranActionState {
   final String error;

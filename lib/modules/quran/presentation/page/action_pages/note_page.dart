@@ -26,11 +26,9 @@ class PagesNotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<VerseNote> notesList;
-    List<VerseNote> serchedList;
+
 
     BlocProvider.of<GetUserQuranActionCubit>(context).findAllVerseNotes();
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -45,20 +43,28 @@ class PagesNotePage extends StatelessWidget {
     );
   }
 
-  Widget _topView(
-    BuildContext context,
-  ) {
-    return SearchBarApp(
-        onSearch: (value) {
+  Widget _topView(BuildContext context,) {
+    return BlocConsumer<GetUserQuranActionCubit, GetUserQuranActionState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        var cubit =GetUserQuranActionCubit.get(context);
 
-        },
-        backIcon: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: translate('Note'));
+        return SearchBarApp(
+
+            onSearch: (value) {
+              cubit.search(value);
+            },
+            backIcon: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            title: translate('Note'));
+      },
+    );
   }
 
   Expanded _viewItems() {
@@ -67,26 +73,50 @@ class PagesNotePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<GetUserQuranActionCubit, GetUserQuranActionState>(
           builder: (context, state) {
-            if (state is GetUserQuranActionNotes) {
+            var cubit=GetUserQuranActionCubit.get(context);
+            if (state is GetUserQuranActionNotes||state is NoteSearchError) {
               return ListView.builder(
-                itemCount: state.verses.length,
+                itemCount: cubit.verseNote.length,
                 itemBuilder: (context, index) {
-                  var verse = state.verses[index];
+                  var verse =cubit. verseNote[index];
                   return _itemBuild(verse.textFristVerse ?? '', verse.noteText,
-                      () {
-                    Get.bottomSheet(
-                        NoteItemView(
-                            verseNote: verse,
-                            isNote: true,
-                            note: verse.noteText,
-                            verse: verse.textFristVerse,
-                            cubit: BlocProvider.of<GetUserQuranActionCubit>(
-                                context)),
-                        isScrollControlled: true);
-                  }, BlocProvider.of<GetUserQuranActionCubit>(context), verse);
+                          () {
+                        Get.bottomSheet(
+                            NoteItemView(
+                                verseNote: verse,
+                                isNote: true,
+                                note: verse.noteText,
+                                verse: verse.textFristVerse,
+                                cubit: BlocProvider.of<GetUserQuranActionCubit>(
+                                    context)),
+                            isScrollControlled: true);
+                      }, BlocProvider.of<GetUserQuranActionCubit>(context),
+                      verse);
                 },
               );
-            } else {
+            }
+            if (state is NoteSearched) {
+              return ListView.builder(
+                itemCount: cubit.searchedList.length,
+                itemBuilder: (context, index) {
+                  var verse =cubit. searchedList[index];
+                  return _itemBuild(verse.textFristVerse ?? '', verse.noteText,
+                          () {
+                        Get.bottomSheet(
+                            NoteItemView(
+                                verseNote: verse,
+                                isNote: true,
+                                note: verse.noteText,
+                                verse: verse.textFristVerse,
+                                cubit: BlocProvider.of<GetUserQuranActionCubit>(
+                                    context)),
+                            isScrollControlled: true);
+                      }, BlocProvider.of<GetUserQuranActionCubit>(context),
+                      verse);
+                },
+              );
+            }
+            else {
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

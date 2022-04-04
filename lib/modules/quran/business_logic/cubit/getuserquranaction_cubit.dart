@@ -17,10 +17,25 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
 
   static GetUserQuranActionCubit get(context) =>
       BlocProvider.of<GetUserQuranActionCubit>(context);
+  List<VerseNote> verseNote = [];
+  List<VerseNote> searchedList=[];
+
+  Future<void> search(value) async {
+    searchedList = verseNote.where((i) => i.noteText!.contains(value)|| i.textFristVerse!.contains(value)).toList();
+    if(searchedList.isNotEmpty){
+      print(searchedList);
+      emit(NoteSearched());
+    }else{
+      emit(NoteSearchError());
+
+    }
+  }
 
   Future findAllVerseNotes() async {
     databaseRepository.findAllVerseNotes()!.then((value) {
       if (value != null && value.isNotEmpty) {
+        verseNote = value;
+
         emit(GetUserQuranActionNotes(verses: value));
       } else {
         emit(const GetUserQuranActionError(error: 'Not Found Items'));
