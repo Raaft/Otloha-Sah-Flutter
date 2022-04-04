@@ -222,8 +222,7 @@ class MyApp extends StatelessWidget {
         // ),
       ],
       child: GetMaterialApp(
-        //showSemanticsDebugger: true,
-        //localizationsDelegates: context.localizationDelegates,
+
         localizationsDelegates: [
           FormBuilderLocalizations.delegate,
           ...context.localizationDelegates
@@ -235,9 +234,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         initialRoute: SplashScreen.routeName,
-        // (token.isNotEmpty || token == '')
-        //     ? HomePage.routeName
-        //     : OnBoardPage.routeName,
+
         onGenerateRoute: appRouter.generateRoute,
       ),
     );

@@ -7,10 +7,12 @@ import 'package:flutter_base/core/widgets/tool_bar_app.dart';
 import 'package:flutter_base/data_source/cache_helper.dart';
 import 'package:flutter_base/data_source/data_source.dart';
 import 'package:flutter_base/modules/auth_module/presentation/pages/login_page.dart';
+import 'package:flutter_base/modules/teachers/presentation/page/teacher_details.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_base/modules/teachers/business_logic/cubit/teacherviewtype_cubit.dart';
 import 'package:flutter_base/modules/teachers/presentation/widgets/item_teacher.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/exception_indicators/error_indicator.dart';
 import '../../../../data_source/models/database_model/teacher_response_entity.dart';
@@ -113,7 +115,9 @@ class _TeacherPageState extends State<TeacherPage> {
           rate: "${results.rate ?? ''}",
           userId: (results.teacherType ?? '') + ' Teacher',
           userbio: results.bio ?? '',
-          action: () {},
+          action: () {
+            Get.to(()=>TeacherDetails(results: results,));
+          },
           typeView: _type,
           isCertified: results.isCertified ?? false,
           isFav: results.isFavorite,
