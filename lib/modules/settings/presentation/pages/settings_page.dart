@@ -28,91 +28,103 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          shrinkWrap: true,
-          children: [
-            _topView(context),
-            _titleSection('Main Section'),
-            _mainSettings(context),
-            const Divider(),
-            _titleSection('Download Center'),
-            _downloadSettings(context),
-            const Divider(),
-            BlocBuilder<AuthCubit, AuthState>(
-              builder: (context, state) {
-                var cubit = AuthCubit.get(context);
-                return (cubit.isLogin)
-                    ? _titleSection('Settings')
-                    : const Text('');
-              },
-            ),
-            BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
-              var cubit = AuthCubit.get(context);
-              return (cubit.isLogin)
-                  ? TextViewIcon(
-                  icon: Icon(
-                    Icons.settings_outlined,
-                    color: AppColor.txtColor3,
-                  ),
-                      text: tr('Profile Settings'),
-                      textAlign: TextAlign.start,
-                      colorText: AppColor.txtColor3,
-                      sizeText: 17,
-                      weightText: FontWeight.bold,
-                      action: () {
-                        Get.to(() => ProfileSettings());
-                      },
-                    )
-                  : const Text('');
-            }),
-            TextViewIcon(
-              text: tr('Register up As Teacher'),
-              textAlign: TextAlign.start,
-              colorText: AppColor.txtColor3,
-              sizeText: 17,
-              weightText: FontWeight.w700,
-              icon: Icon(
-                Icons.person_add_alt,
-                color: AppColor.txtColor3,
-              ),
-              action: () {
-                Get.to(const RegisterAsTeacher());
-              },
-            ),
-            BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
-              if (state is LogOutSuccessState) {
-                var cubit = AuthCubit.get(context);
+          child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              shrinkWrap: true,
+              children: [
+                _topView(context),
+                _titleSection('Main Section'),
+                _mainSettings(context),
+                const Divider(),
+                _titleSection('Download Center'),
+                _downloadSettings(context),
+                const Divider(),
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    var cubit = AuthCubit.get(context);
+                    return (cubit.isLogin)
+                        ? _titleSection('Settings')
+                        : const Text('');
+                  },
+                ),
+                BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
+                  var cubit = AuthCubit.get(context);
+                  return (cubit.isLogin)
+                      ? TextViewIcon(
+                    icon: Icon(
+                      Icons.settings_outlined,
+                      color: AppColor.txtColor3,
+                    ),
+                    text: tr('Profile Settings'),
+                    textAlign: TextAlign.start,
+                    colorText: AppColor.txtColor3,
+                    sizeText: 17,
+                    weightText: FontWeight.bold,
+                    action: () {
+                      Get.to(() => ProfileSettings());
+                    },
+                  )
+                      : const Text('');
+                }),
 
-                cubit.changeIsLogin().then((value) {
-                  Get.to(() => const OnBoardPage());
-                });
-              }
-            }, builder: (context, state) {
-              var cubit = AuthCubit.get(context);
+                BlocConsumer<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    var cubit = AuthCubit.get(context);
 
-              return (cubit.isLogin)
-                  ? TextViewIcon(
-                      text:tr('Log Out'),
+                    return (cubit.isLogin)
+                        ?  TextViewIcon(
+                      text: tr('Register up As Teacher'),
                       textAlign: TextAlign.start,
                       colorText: AppColor.txtColor3,
                       sizeText: 17,
                       weightText: FontWeight.w700,
                       icon: Icon(
-                        Icons.logout,
+                        Icons.person_add_alt,
                         color: AppColor.txtColor3,
                       ),
                       action: () {
-                        cubit.userLogOut();
-                        if (state is LogOutSuccessState) {
-                          cubit.changeIsLogin();
-                        }
+                        Get.to(const RegisterAsTeacher());
                       },
-                    )
-                  : const Text('');
-            })
-          ]),
-    ));
+                    ): const Text('');
+                  },
+                ),
+                BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                  if (state is LogOutSuccessState) {
+                    var cubit = AuthCubit.get(context);
+
+                    cubit.changeIsLogin().then((value) {
+                      Get.to(() => const OnBoardPage());
+                    });
+                  }
+                }, builder: (context, state) {
+                  var cubit = AuthCubit.get(context);
+
+                  return (cubit.isLogin)
+                      ? TextViewIcon(
+                    text: tr('Log Out'),
+                    textAlign: TextAlign.start,
+                    colorText: AppColor.txtColor3,
+                    sizeText: 17,
+                    weightText: FontWeight.w700,
+                    icon: Icon(
+                      Icons.logout,
+                      color: AppColor.txtColor3,
+                    ),
+                    action: () {
+                      cubit.userLogOut();
+                      if (state is LogOutSuccessState) {
+                        cubit.changeIsLogin();
+                      }
+                    },
+                  )
+                      : const Text('');
+                })
+              ]),
+        ));
   }
 
   SizedBox _titleSection(String title) {
