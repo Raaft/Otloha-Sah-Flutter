@@ -6,7 +6,6 @@ import '../../../../../core/utils/themes/color.dart';
 import '../../../../../core/widgets/auth_navigator.dart';
 import '../../../../../core/widgets/indicator.dart';
 import '../../../../../core/widgets/text_view.dart';
-import '../../../../../data_source/cache_helper.dart';
 import '../../../../auth_module/business_logic/auth_cubit.dart';
 import '../../../business_logic/cubit/home_cubit.dart';
 import '../coming_soon/coming_soon_page.dart';

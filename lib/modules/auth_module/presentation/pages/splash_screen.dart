@@ -23,48 +23,45 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-setState(() {
-
-  token =  CacheHelper.getData(key: 'token') ??'';
-  print('token is =>>>>>>> $token');
-});
-    Future.delayed(const Duration(seconds: 5),() =>  Get.offAll(
-      ( token == ''||token==null) ? const OnBoardPage(): const HomePage(),
-    ));
+    setState(() {
+      token = CacheHelper.getData(key: 'token') ?? '';
+      print('token is =>>>>>>> $token');
+    });
+    Future.delayed(
+        const Duration(seconds: 5),
+        () => Get.offAll(
+              (token == '' || token == null)
+                  ? const OnBoardPage()
+                  : const HomePage(),
+            ));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: Stack(
-            alignment: Alignment.topCenter,
-            children: [
-
+        child: Stack(alignment: Alignment.topCenter, children: [
           Image.asset(
             Res.splash,
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height,
-
           ),
           Column(
-            children:  [
-               SizedBox(
-                height: MediaQuery.of(context).size.height*2.8/4
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 2.8 / 4),
+              LinearProgressIndicator(
+                minHeight: 10,
+                color: AppColor.lightYellow,
               ),
-
-              LinearProgressIndicator(minHeight: 10,color: AppColor.lightYellow,),
               const SizedBox(
                 height: 20,
               ),
-               Text(
+              Text(
                 tr('Dawnloading...'),
-                style: TextStyle(fontSize: 20,color: AppColor.lightYellow),
+                style: TextStyle(fontSize: 20, color: AppColor.lightYellow),
               ),
-
             ],
           )
         ]),

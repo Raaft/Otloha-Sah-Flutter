@@ -73,14 +73,14 @@ void main() async {
   await DataSource.initialApp(clientId: clientId, clientSecret: clientSecret);
 
   try {
-    myProFile = userProfileFromJson(
+    myProFile = UserProfile.fromJson(
         await otloha_shaerd.CacheHelper.getData(key: profile));
 
     print('my Profile => $myProFile');
     favTeacherId =
         await otloha_shaerd.CacheHelper.getData(key: favTeacherIdName);
 
-    favTeacherProFile = userProfileFromJson(
+    favTeacherProFile = UserProfile.fromJson(
         await otloha_shaerd.CacheHelper.getData(key: favTeacher));
 
     print('FAV ' + favTeacherProFile.toString());

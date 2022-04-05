@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/home/business_logic/cubit/profile_pic_cubit/profile_page_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utils/themes/color.dart';
 import '../../../../auth_module/presentation/pages/login_page.dart';
 import '../../widget/profile_pagw_widget.dart';
-import '../coming_soon/coming_soon_page.dart';
 
 class ProfileBNBPage extends StatelessWidget {
-  ProfileBNBPage({Key? key}) : super(key: key);
+  const ProfileBNBPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
