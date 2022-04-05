@@ -54,12 +54,13 @@ class RegisterAsTeacherSuccessState extends SettingsState {
 }
 
 class RegisterAsTeacherErrorState extends SettingsState {
-  final String error;
+  final Exception error;
 
   const RegisterAsTeacherErrorState(this.error);
 }
 
 class ChangePasswordLoadingState extends SettingsState {}
+class AuthErrorState extends SettingsState {}
 
 
 class ChangePasswordSuccessState extends SettingsState {

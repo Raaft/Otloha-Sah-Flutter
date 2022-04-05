@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/core/utils/constant/constants.dart';
 import 'package:quran_widget_flutter/helper/chash_helper.dart';
 import '../../modules/auth_module/presentation/pages/login_page.dart';
 

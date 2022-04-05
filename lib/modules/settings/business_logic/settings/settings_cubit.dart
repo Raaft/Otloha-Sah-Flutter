@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import '../../../../core/error/exceptions.dart';
 import '../../../../data_source/data_source.dart';
 import '../../../../data_source/models/setting_model/setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +45,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     });
   }
 
-  regiAsTeacher({required FormData data}) {
+  regiAsTeacher({required FormData data}) async{
     emit(RegisterAsTeacherLoadingState());
     AppDataSource().registerAsATeacher(data).then((value) {
       print('RegisterAsTeacher is ===========> $value');
@@ -52,6 +53,11 @@ class SettingsCubit extends Cubit<SettingsState> {
     }).catchError((error) {
       print('Error RegisterAsTeacher ' + error.toString());
       emit(RegisterAsTeacherErrorState(error));
+
+      if(error is AuthError){
+        emit(AuthErrorState());
+      }
+
     });
   }
 

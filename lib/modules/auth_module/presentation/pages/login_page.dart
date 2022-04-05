@@ -65,7 +65,9 @@ class LoginPage extends StatelessWidget {
               children: [
                 pageLayOutTextHead(tr('Log-in')),
                 loginForm(cubit),
-
+                /*     loginWith(
+                  tr('loginwith'),
+                ),    */
                 needHelpText(),
               ],
             ),
@@ -157,8 +159,8 @@ class LoginPage extends StatelessWidget {
                                           email: emailController.text,
                                           password: passwordController.text)
                                       .then((value) {
-
-                                        CacheHelper.saveData(key: 'token',value:'token' );
+cubit.saveUsers();
+                                       // CacheHelper.saveData(key: 'token',value:'token' );
                                   });
                                 }
                               },
