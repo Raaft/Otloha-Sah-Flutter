@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../data_source/cache_helper.dart';
 import '../../../../../core/utils/constant/constants.dart';
 import '../../../../../core/utils/themes/color.dart';
 import '../../../../../core/widgets/alert_dialog_full_screen.dart';
 import '../../../../../data_source/models/setting_model/init_data.dart';
+import '../../../business_logic/tafseer_cubit/tafsir_cubit.dart';
 import '../../widgets/item_download.dart';
 import '../../widgets/search_bar_app.dart';
 import 'package:get/get.dart';
@@ -53,36 +56,53 @@ class _TafseerPageState extends State<TafseerPage> {
 
   Expanded _viewItems() {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: 15,
-          itemBuilder: (context, index) {
-            return ItemDownload(
-              instance: null,
-              downloadType: DownloadTypes.page,
-              name: 'Tafseer ${index + 1}',
-              description: 'surah',
-              isDownloaded: true,
-              isSelect: _selected == index,
-              action: () {
-                Get.dialog(
-                  const AlertDialogFullScreen(),
-                  barrierColor: AppColor.backdone,
-                );
-                CacheHelper.saveData(key: tafseerSelectedId, value: index);
+      child: BlocConsumer<TafsirCubit, TafsirState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          if (state is TafsirFetched) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: state.Tafsir.length,
+                itemBuilder: (context, index) {
+                  return ItemDownload(
+                    instance: null,
+                    downloadType: DownloadTypes.page,
+                    name: 'Tafseer ${index + 1}',
+                    description: 'surah',
+                    isDownloaded: true,
+                    isSelect: _selected == index,
+                    action: () {
+                      Get.dialog(
+                        const AlertDialogFullScreen(),
+                        barrierColor: AppColor.backdone,
+                      );
+                      CacheHelper.saveData(
+                          key: tafseerSelectedId, value: index);
 
-                settings[4].subTitle = 'Tafseer ${index + 1}';
-                CacheHelper.saveData(
-                    key: tafseerSelectedName, value: 'Tafseer ${index + 1}');
+                      settings[4].subTitle = 'Tafseer ${index + 1}';
+                      CacheHelper.saveData(
+                          key: tafseerSelectedName,
+                          value: 'Tafseer ${index + 1}');
 
-                setState(() {
-                  _selected = index;
-                });
-              },
+                      setState(() {
+                        _selected = index;
+                      });
+                    },
+                  );
+                },
+              ),
             );
-          },
-        ),
+          }
+          if (state is TafsirError) {
+            return Center(child: Text(tr('No Data Found')));
+          } else {
+            return Center(child: Text(tr('someThing Error')));
+          }
+
+        },
       ),
     );
   }

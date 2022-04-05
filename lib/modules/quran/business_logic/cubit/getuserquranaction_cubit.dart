@@ -72,6 +72,17 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
       print('Entity Bloc ' + value.toString());
     });
   }
+  deleteVerseLiked(int id) {
+    databaseRepository.deleteVerseLiked(id)!.then((value) {
+      findAllVerseNotes();
+      if (value != null && value.isNotEmpty) {
+        emit(DeleteUserQuranActionLike());
+      } else {
+        emit(const GetUserQuranActionError(error: 'Not Found Items'));
+      }
+      print('Entity Bloc ' + value.toString());
+    });
+  }
 
   bool isUpdateNote = false;
 

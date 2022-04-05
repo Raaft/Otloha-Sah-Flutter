@@ -52,6 +52,7 @@ class PagesBookMarkPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   late PageMarked page = state.pages[index];
                   return ItemBookMark(
+                    index: index,
                       name: page.textVerse.toString(),
                       pageFrom: page.idPage!.toInt(),
                       pageId: page.id,

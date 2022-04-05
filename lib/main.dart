@@ -42,6 +42,8 @@ import 'core/utils/constant/constants.dart';
 import 'core/utils/themes/color.dart';
 import 'core/widgets/text_view.dart';
 import 'modules/home/business_logic/cubit/profile_pic_cubit/profile_page_cubit.dart';
+import 'modules/settings/business_logic/quraan_translation_cubit/quran_translation_cubit.dart';
+import 'modules/settings/business_logic/tafseer_cubit/tafsir_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -216,6 +218,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ProfilePageCubit(),
+        ),
+        BlocProvider(
+          create: (context) => QuranTranslationCubit(),
+        ),
+        BlocProvider(
+          create: (context) => TafsirCubit(),
+        ),
+        BlocProvider(
+          create: (context) => TajweedCubit(),
         ),
         // BlocProvider(
         //   create: (context) => PaginationCubit(),

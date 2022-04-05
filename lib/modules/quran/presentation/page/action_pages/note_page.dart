@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_base/data_source/models/database_model/verse_note.dart';
 import 'package:flutter_base/modules/quran/presentation/widget/note_item_view.dart';
@@ -26,8 +24,6 @@ class PagesNotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     BlocProvider.of<GetUserQuranActionCubit>(context).findAllVerseNotes();
     return Scaffold(
       body: SafeArea(
@@ -43,16 +39,17 @@ class PagesNotePage extends StatelessWidget {
     );
   }
 
-  Widget _topView(BuildContext context,) {
+  Widget _topView(
+    BuildContext context,
+  ) {
     return BlocConsumer<GetUserQuranActionCubit, GetUserQuranActionState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit =GetUserQuranActionCubit.get(context);
+        var cubit = GetUserQuranActionCubit.get(context);
 
         return SearchBarApp(
-
             onSearch: (value) {
               cubit.search(value);
             },
@@ -73,25 +70,25 @@ class PagesNotePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<GetUserQuranActionCubit, GetUserQuranActionState>(
           builder: (context, state) {
-            var cubit=GetUserQuranActionCubit.get(context);
-            if (state is GetUserQuranActionNotes||state is NoteSearchError) {
+            var cubit = GetUserQuranActionCubit.get(context);
+            if (state is GetUserQuranActionNotes || state is NoteSearchError) {
               return ListView.builder(
                 itemCount: cubit.verseNote.length,
                 itemBuilder: (context, index) {
-                  var verse =cubit. verseNote[index];
+                  var verse = cubit.verseNote[index];
                   return _itemBuild(verse.textFristVerse ?? '', verse.noteText,
-                          () {
-                        Get.bottomSheet(
-                            NoteItemView(
-                                verseNote: verse,
-                                isNote: true,
-                                note: verse.noteText,
-                                verse: verse.textFristVerse,
-                                cubit: BlocProvider.of<GetUserQuranActionCubit>(
-                                    context)),
-                            isScrollControlled: true);
-                      }, BlocProvider.of<GetUserQuranActionCubit>(context),
-                      verse);
+                      () {
+                    Get.bottomSheet(
+                        NoteItemView(
+                            verseNote: verse,
+                            isNote: true,
+                            note: verse.noteText,
+                            verse: verse.textFristVerse,
+                            cubit: BlocProvider.of<GetUserQuranActionCubit>(
+                                context)),
+                        isScrollControlled: true);
+                  }, BlocProvider.of<GetUserQuranActionCubit>(context), verse,
+                      index);
                 },
               );
             }
@@ -99,27 +96,26 @@ class PagesNotePage extends StatelessWidget {
               return ListView.builder(
                 itemCount: cubit.searchedList.length,
                 itemBuilder: (context, index) {
-                  var verse =cubit. searchedList[index];
+                  var verse = cubit.searchedList[index];
                   return _itemBuild(verse.textFristVerse ?? '', verse.noteText,
-                          () {
-                        Get.bottomSheet(
-                            NoteItemView(
-                                verseNote: verse,
-                                isNote: true,
-                                note: verse.noteText,
-                                verse: verse.textFristVerse,
-                                cubit: BlocProvider.of<GetUserQuranActionCubit>(
-                                    context)),
-                            isScrollControlled: true);
-                      }, BlocProvider.of<GetUserQuranActionCubit>(context),
-                      verse);
+                      () {
+                    Get.bottomSheet(
+                        NoteItemView(
+                            verseNote: verse,
+                            isNote: true,
+                            note: verse.noteText,
+                            verse: verse.textFristVerse,
+                            cubit: BlocProvider.of<GetUserQuranActionCubit>(
+                                context)),
+                        isScrollControlled: true);
+                  }, BlocProvider.of<GetUserQuranActionCubit>(context), verse,
+                      index);
                 },
               );
             }
             if (state is NoteSearchLoading) {
               return const Center(child: CircularProgressIndicator());
-            }
-            else {
+            } else {
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -141,21 +137,22 @@ class PagesNotePage extends StatelessWidget {
   }
 
   Widget _itemBuild(String name, String? note, Function() action,
-      GetUserQuranActionCubit cubit, VerseNote verseNote) {
+      GetUserQuranActionCubit cubit, VerseNote verseNote, int index) {
     return Stack(
       alignment: Alignment.topLeft,
       children: [
-        UserLiked(
-          userName: name,
-          userImage: AppIcons.quran2Icon,
-          note: note,
-          action: action,
+        Dismissible(
+          onDismissed: (v) {
+            cubit.deleteVerseNotes(verseNote.id ?? 1);
+          },
+          key: ValueKey<int>(index),
+          child: UserLiked(
+            userName: name,
+            userImage: AppIcons.quran2Icon,
+            note: note,
+            action: action,
+          ),
         ),
-        IconButton(
-            onPressed: () {
-              cubit.deleteVerseNotes(verseNote.id ?? 1);
-            },
-            icon: const Icon(Icons.delete_outline))
       ],
     );
   }

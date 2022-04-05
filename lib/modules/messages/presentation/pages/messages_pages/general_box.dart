@@ -60,20 +60,6 @@ class _GeneralMessagePageState extends State<GeneralMessagePage> {
     );
   }
 
-  _oldView() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: cubit?.generalResponses?.length,
-          itemBuilder: (context, index) {
-            return _getItem(index, cubit!.generalResponses![index]);
-            //return textView(cubit!.generalResponses![index]);
-          },
-        ),
-      ),
-    );
-  }
 
   Widget _showData(GenaralmessageCubit? cubit) {
     print(cubit!.generalResponses!.toString() +

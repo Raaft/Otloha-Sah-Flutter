@@ -1,10 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../data_source/cache_helper.dart';
 import '../../../../../core/utils/constant/constants.dart';
 import '../../../../../core/utils/themes/color.dart';
 import '../../../../../core/widgets/alert_dialog_full_screen.dart';
 import '../../../../../data_source/models/setting_model/init_data.dart';
 
+import '../../../business_logic/quraan_translation_cubit/quran_translation_cubit.dart';
+import '../../../business_logic/quraan_translation_cubit/quran_translation_state.dart';
 import '../../widgets/item_download.dart';
 import '../../widgets/search_bar_app.dart';
 import 'package:get/get.dart';
@@ -24,6 +28,13 @@ class QuranTranslationLanguagePage extends StatefulWidget {
 class _QuranTranslationLanguagePageState
     extends State<QuranTranslationLanguagePage> {
   int _selected = -1;
+
+  @override
+  void initState() {
+
+    BlocProvider.of<QuranTranslationCubit>(context).fetchTranslationList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,36 +67,52 @@ class _QuranTranslationLanguagePageState
 
   Expanded _viewItems() {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: 15,
-          itemBuilder: (context, index) {
-            return ItemDownload(
-              instance: null,
-              downloadType: DownloadTypes.page,
-              name: 'Quran Translation Language ${index + 1}',
-              description: 'surah',
-              isDownloaded: true,
-              isSelect: _selected == index,
-              action: () {
-                Get.dialog(
-                  const AlertDialogFullScreen(),
-                  barrierColor: AppColor.backdone,
-                );
-                CacheHelper.saveData(key: qtlSelectedId, value: index);
+      child: BlocBuilder<QuranTranslationCubit, QuranTranslationState>(
+        builder: (context, state) {
 
-                settings[3].subTitle = 'Quran Translation ${index + 1}';
-                CacheHelper.saveData(
-                    key: qtlSelectedName,
-                    value: 'Quran Translation ${index + 1}');
-                setState(() {
-                  _selected = index;
-                });
-              },
+          var cubit= BlocProvider.of<QuranTranslationCubit>(context);
+          if(state is QuranTranslationFetched)  {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: state.translation.length,
+                itemBuilder: (context, index) {
+                  return ItemDownload(
+                    instance: null,
+                    downloadType: DownloadTypes.page,
+                    name: 'Quran Translation Language ${index + 1}',
+                    description: 'surah',
+                    isDownloaded: true,
+                    isSelect: _selected == index,
+                    action: () {
+                      Get.dialog(
+                        const AlertDialogFullScreen(),
+                        barrierColor: AppColor.backdone,
+                      );
+                      CacheHelper.saveData(key: qtlSelectedId, value: index);
+
+                      settings[3].subTitle = 'Quran Translation ${index + 1}';
+                      CacheHelper.saveData(
+                          key: qtlSelectedName,
+                          value: 'Quran Translation ${index + 1}');
+                      setState(() {
+                        _selected = index;
+                      });
+                    },
+                  );
+                },
+              ),
             );
-          },
-        ),
+          }
+          if(state is QuranTranslationEmpty)  {
+            return          Center(child: Text(tr('No Data Found')));
+
+          }
+          else {
+            return Center(child: Text(tr('someThing Error')));
+
+          }
+        },
       ),
     );
   }

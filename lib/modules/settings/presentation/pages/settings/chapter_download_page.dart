@@ -84,11 +84,14 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
       builder: (context, state) {
         if (state is ChapterFetched) {
           return _viewData(state.chapters);
-        } else if (state is ChapterInitial) {
+        }
+        else if (state is ChapterInitial) {
           return const LoadingWidget();
-        } else if (state is ChapterEmpty) {
+        }
+        else if (state is ChapterEmpty) {
           return _viewEmpty(state, context);
-        } else {
+        }
+        else {
           String error = 'Not Found Data';
 
           if (state is ChapterError) {

@@ -51,8 +51,8 @@ class PagesLikedPage extends StatelessWidget {
       title: (arg == 2)
           ? translate('BookMarks')
           : (arg == 1)
-          ? translate('Note')
-          : translate('Likes'),
+              ? translate('Note')
+              : translate('Likes'),
     );
   }
 
@@ -64,7 +64,6 @@ class PagesLikedPage extends StatelessWidget {
           builder: (context, state) {
             if (state is GetUserQuranActionLikeds) {
               List<VerseLiked> verList = Set.of(state.verses).toList();
-
 
               // List<VerseLiked> ver= [...{...verList}];
               print(verList.length);
@@ -78,11 +77,10 @@ class PagesLikedPage extends StatelessWidget {
                       HomePage.routeName,
                       arguments: 1,
                     );
-                  });
+                  }, index,verse.id);
                 },
               );
-            }
-            else {
+            } else {
               return Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -103,10 +101,10 @@ class PagesLikedPage extends StatelessWidget {
     );
   }
 
-  Widget _itemBuild(String name,
-      String? note,
-      Function() action,) {
+  Widget _itemBuild(String name, String? note, Function() action, index,id) {
     return UserLiked(
+      id: id,
+      index: index,
       userName: name,
       userImage: AppIcons.quran2Icon,
       note: note,
@@ -115,7 +113,6 @@ class PagesLikedPage extends StatelessWidget {
   }
 }
 
-
 class ItemBookMark extends StatelessWidget {
   const ItemBookMark({
     Key? key,
@@ -123,11 +120,14 @@ class ItemBookMark extends StatelessWidget {
     required this.pageFrom,
     required this.onPress,
     this.action,
-    this.isSelect = false, this.pageId,
+    this.isSelect = false,
+    this.pageId,
+    this.index,
   }) : super(key: key);
 
   final String name;
   final int? pageId;
+  final int? index;
   final int pageFrom;
 
   final bool isSelect;
@@ -138,73 +138,50 @@ class ItemBookMark extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPress,
-      child: Container(
-        margin: const EdgeInsets.all(4),
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: isSelect ? AppColor.borderColor : AppColor.conColor2,
-            width: 1,
+      child: Dismissible(
+        key: ValueKey<int>(index!),
+        onDismissed: (value) {
+          var cubit = GetUserQuranActionCubit.get(context);
+
+          cubit.deleteVerseBookMark(pageId ?? 1);
+        },
+        child: Container(
+          margin: const EdgeInsets.all(4),
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: isSelect ? AppColor.borderColor : AppColor.conColor2,
+              width: 1,
+            ),
+            color: AppColor.conColor2,
           ),
-          color: AppColor.conColor2,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Image.asset(
-                  AppIcons.quran3Icon,
-                  width: 32,
-                  height: 32,
-                ),
-                TextView(
-                  text: name,
-                  colorText: AppColor.txtColor3,
-                  sizeText: 16,
-                  weightText: FontWeight.bold,
-                ),
-
-              ],
-            ),
-
-            TextView(
-              text: '${translate('Page')} $pageFrom ',
-              colorText: AppColor.txtColor4,
-              sizeText: 12,
-            ),
-            const Spacer(),
-            BlocBuilder<GetUserQuranActionCubit, GetUserQuranActionState>(
-              builder: (context, state) {
-                var cubit=GetUserQuranActionCubit.get(context);
-
-                return IconButton(
-                    onPressed: () {
-                      cubit.deleteVerseBookMark(pageId ?? 1);
-                    },
-                    icon: const Icon(Icons.delete_outline));
-              },
-            )
-
-
-/*             TextView(
-              text: '${translate('Verses')}  $verses',
-              colorText: AppColor.txtColor4,
-              sizeText: 12,
-            ),
-/* */            TextView(
-              text: partName,
-              colorText: AppColor.txtColor4,
-              sizeText: 12,
-            ),
-/* */            Image.asset(
-              isMakkah ? AppIcons.makkahIcon : AppIcons.medinaIcon,
-              width: 28,
-              height: 28,
-            ),
- */
-          ],
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Image.asset(
+                    AppIcons.quran3Icon,
+                    width: 32,
+                    height: 32,
+                  ),
+                  TextView(
+                    text: name,
+                    colorText: AppColor.txtColor3,
+                    sizeText: 16,
+                    weightText: FontWeight.bold,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              TextView(
+                text: '${translate('Page')} $pageFrom ',
+                colorText: AppColor.txtColor4,
+                sizeText: 12,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -102,7 +102,7 @@
   "Main Section":"الأقسام الرئيسيه",
 
 
-  "Update Phone":"تغيؤ ؤقم الموبيل الهاتف",
+  "Update Phone":"تغير رقم  الهاتف",
   "Update Email":"تعديل البريد الالكتروني ",
   "Update Profile":"تعديل الملف الشخصي",
   "Update":"تعديل",
@@ -122,6 +122,8 @@
   "Dawnloading...":"جاري التحميل ...",
   "Download Center":"مركز التنزيل",
   "empty":"فارغ",
+  "No Data Found":"لا توجد بيانات حاليه",
+  "someThing Error":"حدث شيء خطاء",
 
 
 
