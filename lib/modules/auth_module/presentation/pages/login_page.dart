@@ -18,7 +18,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 
 import '../../../../data_source/cache_helper.dart';
-import '../../../../core/utils/constant/constants.dart';
 import '../../../home/presentation/pages/home/home_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -66,9 +65,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 pageLayOutTextHead(tr('Log-in')),
                 loginForm(cubit),
-                /*     loginWith(
-                  tr('loginwith'),
-                ),    */
+
                 needHelpText(),
               ],
             ),

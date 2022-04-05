@@ -9,6 +9,7 @@ import 'package:flutter_base/res.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utils/constant/constants.dart';
+import '../../../../data_source/cache_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,24 +23,33 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+
+    setState(() {
+      token =  CacheHelper.getData(key: 'token') ;
+      print('token is =>>>>>>> $token');
+
+    });
     Future.delayed(const Duration(seconds: 5),() =>  Get.offAll(
-      (token.isNotEmpty || token == ''||token!=null) ? const OnBoardPage(): const HomePage(),
+      (token.isEmpty || token == ''||token==null) ? const OnBoardPage(): const HomePage(),
     ));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Stack(
             alignment: Alignment.topCenter,
             children: [
+
           Image.asset(
             Res.splash,
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height,
+
           ),
           Column(
             children:  [

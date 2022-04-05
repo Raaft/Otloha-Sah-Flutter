@@ -60,7 +60,7 @@ void main() async {
 
   await otloha_shaerd.CacheHelper.init();
   await CacheHelper.init();
-  token = await CacheHelper.getData(key: 'token') ?? '';
+  token = await CacheHelper.getData(key: 'token') ;
 
   var index = (CacheHelper.getData(key: languagesSelectedId) as int?) ?? 1;
 

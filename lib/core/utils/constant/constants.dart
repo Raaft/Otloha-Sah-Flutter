@@ -6,13 +6,11 @@ const String fontFamily2 = 'ElMessiri';
 const String baseUrl = 'http://otlohasah.noug.co';
 const String prefix = 'http://165.232.114.22';
 
-String token = '';
+var token = '';
 
 var isEn = false;
 
 const String clientId = '086mpNZlxBZycwaiCySXHbIhWNIGbsfToHMZxJhB';
-///////
-//const String clientSecret = '7VJuQ1DrwQzbMilum88be5tLCKx3QJOZ1Rjzp3dUTwNfo2yB8ir9qLWb5Y2xRGnfKcftZxkpVPflXaeP7KjteRFIZREp8WwOcr8Trvq5WVml84DKHoIHXjktBrzy3utk';
 const String clientSecret =
     'to4QsL2U6OdvOzAyuPahAWDlTWQgEEDAp7WyvD3fPp3OF6Zvts8X6OBVEOh58nDzWYmJ30DYWLANDNJtL9gvSgiNZ3pdsRwJoVoARekNuk6a1y6ejPIZxXiop4CFNRty';
 
