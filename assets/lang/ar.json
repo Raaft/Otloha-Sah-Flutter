@@ -99,9 +99,10 @@
   "Please Upload your files":"قم برفع الملفات من فضلك",
   "upload":"رفع",
   "Confirm Password":"تأكيد كلمه المرور",
+  "Main Section":"الأقسام الرئيسيه",
 
 
-  "Update Phone":"تعديل الموبيل",
+  "Update Phone":"تغيؤ ؤقم الموبيل الهاتف",
   "Update Email":"تعديل البريد الالكتروني ",
   "Update Profile":"تعديل الملف الشخصي",
   "Update":"تعديل",
@@ -114,11 +115,12 @@
   "Certifications": "شهادات",
   "New Phone": "رقم موبايل جديد",
   "Old Password":"كلمه السر القديمه",
-  "New Email":"البريد الالكترومي الجديد",
+  "New Email":"البريد الالكترنىي الجديد",
   "Password":"كلمه المرور",
   "New Password":"كلمه المرور الجديده",
   "Password":"كلمه المرور",
   "Dawnloading...":"جاري التحميل ...",
+  "Download Center":"مركز التنزيل",
 
 
 

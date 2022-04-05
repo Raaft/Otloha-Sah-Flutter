@@ -23,14 +23,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+setState(() {
 
-    setState(() {
-      token =  CacheHelper.getData(key: 'token') ;
-      print('token is =>>>>>>> $token');
-
-    });
+  token =  CacheHelper.getData(key: 'token') ??'';
+  print('token is =>>>>>>> $token');
+});
     Future.delayed(const Duration(seconds: 5),() =>  Get.offAll(
-      (token.isEmpty || token == ''||token==null) ? const OnBoardPage(): const HomePage(),
+      ( token == ''||token==null) ? const OnBoardPage(): const HomePage(),
     ));
     super.initState();
   }

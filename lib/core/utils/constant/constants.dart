@@ -6,7 +6,7 @@ const String fontFamily2 = 'ElMessiri';
 const String baseUrl = 'http://otlohasah.noug.co';
 const String prefix = 'http://165.232.114.22';
 
-var token = '';
+dynamic token = '';
 
 var isEn = false;
 

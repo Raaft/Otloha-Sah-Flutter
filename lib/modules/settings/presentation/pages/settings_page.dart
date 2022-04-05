@@ -33,10 +33,10 @@ class _SettingsPageState extends State<SettingsPage> {
               shrinkWrap: true,
               children: [
                 _topView(context),
-                _titleSection('Main Section'),
+                _titleSection(tr('Main Section')),
                 _mainSettings(context),
                 const Divider(),
-                _titleSection('Download Center'),
+                _titleSection(tr('Download Center')),
                 _downloadSettings(context),
                 const Divider(),
                 BlocBuilder<AuthCubit, AuthState>(
