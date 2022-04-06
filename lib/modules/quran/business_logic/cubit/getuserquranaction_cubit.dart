@@ -41,7 +41,7 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
       } else {
         emit(const GetUserQuranActionError(error: 'Not Found Items'));
       }
-      print('Entity Bloc ' + value.toString());
+      print('Entity Bloc findAllVerseNotes' + value.toString());
     });
   }
 
@@ -57,24 +57,25 @@ class GetUserQuranActionCubit extends Cubit<GetUserQuranActionState> {
       } else {
         emit(const GetUserQuranActionError(error: 'Not Found Items'));
       }
-      print('Entity Bloc ' + value.toString());
+      print('Entity Bloc updateVerseNotes' + value.toString());
     });
   }
 
   deleteVerseNotes(int id) {
     databaseRepository.deleteVerseNote(id)!.then((value) {
-      findAllVerseNotes();
       if (value != null && value.isNotEmpty) {
+        findAllVerseNotes();
+
         emit(DeleteUserQuranActionNotes());
       } else {
         emit(const GetUserQuranActionError(error: 'Not Found Items'));
       }
-      print('Entity Bloc ' + value.toString());
+      print('Entity Bloc deleteVerseNotes' + value.toString());
     });
   }
   deleteVerseLiked(int id) {
     databaseRepository.deleteVerseLiked(id)!.then((value) {
-      findAllVerseNotes();
+     findAllVerseLikeds();
       if (value != null && value.isNotEmpty) {
         emit(DeleteUserQuranActionLike());
       } else {

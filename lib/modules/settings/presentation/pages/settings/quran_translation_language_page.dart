@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/utils/res/icons_app.dart';
+import '../../../../../core/widgets/text_view.dart';
 import '../../../../../data_source/cache_helper.dart';
 import '../../../../../core/utils/constant/constants.dart';
 import '../../../../../core/utils/themes/color.dart';
@@ -105,11 +107,35 @@ class _QuranTranslationLanguagePageState
             );
           }
           if(state is QuranTranslationEmpty)  {
-            return          Center(child: Text(tr('No Data Found')));
+            return         Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    AppIcons.addIcon,
+                    height: 150,
+                    width: 150,
+                  ),
+                  const TextView(text: 'No Data go to Add First!'),
+                ],
+              ),
+            );
 
           }
           else {
-            return Center(child: Text(tr('someThing Error')));
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    AppIcons.addIcon,
+                    height: 150,
+                    width: 150,
+                  ),
+                  const TextView(text: 'No Data go to Add First!'),
+                ],
+              ),
+            );
 
           }
         },

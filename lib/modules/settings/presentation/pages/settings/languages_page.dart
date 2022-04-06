@@ -22,14 +22,14 @@ class LanguagesPage extends StatefulWidget {
 }
 
 class _LanguagesPageState extends State<LanguagesPage> {
-  int _selected = 1;
+  int? _selected;
+  @override
 
   @override
   Widget build(BuildContext context) {
     try {
-      setState(() async {
-        _selected =
-            (await CacheHelper.getData(key: 'LanguagesSelected') as int?) ?? 0;
+      setState(()  {
+        _selected =  CacheHelper.getData(key: languagesSelectedId)  ?? 1;
       });
       print('value===========> $_selected');
     } catch (e) {

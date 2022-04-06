@@ -3,7 +3,6 @@ import '../../../../core/widgets/auth_navigator.dart';
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
 import 'sub_section_item.dart';
-///////////commit
 
 class HomeSubMainSection extends StatelessWidget {
   const HomeSubMainSection({Key? key, required this.item}) : super(key: key);

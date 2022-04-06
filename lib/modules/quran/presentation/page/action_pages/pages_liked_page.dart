@@ -77,7 +77,7 @@ class PagesLikedPage extends StatelessWidget {
                       HomePage.routeName,
                       arguments: 1,
                     );
-                  }, index,verse.id);
+                  }, index,verse.id,context);
                 },
               );
             } else {
@@ -101,14 +101,21 @@ class PagesLikedPage extends StatelessWidget {
     );
   }
 
-  Widget _itemBuild(String name, String? note, Function() action, index,id) {
-    return UserLiked(
-      id: id,
-      index: index,
-      userName: name,
-      userImage: AppIcons.quran2Icon,
-      note: note,
-      action: action,
+  Widget _itemBuild(String name, String? note, Function() action, index,id,context) {
+    return Dismissible(
+      onDismissed: (value) {
+var cubit = GetUserQuranActionCubit.get(context);
+        cubit.deleteVerseLiked(id!);
+      },
+      key: ValueKey<int>(index!),
+      child: UserLiked(
+        id: id,
+        index: index,
+        userName: name,
+        userImage: AppIcons.quran2Icon,
+        note: note,
+        action: action,
+      ),
     );
   }
 }

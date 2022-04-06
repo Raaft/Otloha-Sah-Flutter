@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 import '../../cache_helper.dart';
 import '../../../core/utils/constant/constants.dart';
 import '../../../core/utils/constant/utils.dart';
@@ -19,6 +21,7 @@ final List<Settings> settings = [
     image: AppIcons.languageIcon,
     actionTo: NarrationPage.routeName,
     subTitle: CacheHelper.getData(key: narrationSelectedName),
+
   ),
   Settings(
     name: translate('Reciters'),
@@ -30,7 +33,7 @@ final List<Settings> settings = [
     name: translate('Languages'),
     image: AppIcons.languageIcon,
     actionTo: LanguagesPage.routeName,
-    subTitle: CacheHelper.getData(key: languagesSelectedName),
+    subTitle: CacheHelper.getData(key: languagesSelectedName)??tr('Arabic'),
   ),
   Settings(
     name: translate('QuranTranslationLanguage'),

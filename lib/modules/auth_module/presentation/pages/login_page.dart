@@ -17,6 +17,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:get/get.dart';
 
+import '../../../home/business_logic/cubit/profile_pic_cubit/profile_page_cubit.dart';
 import '../../../home/presentation/pages/home/home_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -47,7 +48,10 @@ class LoginPage extends StatelessWidget {
           var cubit = AuthCubit.get(context);
           cubit.changeIsLogin(islog: true).then((value) {
             cubit.saveProfile().then((value) {
-              Get.offAll(() => const HomePage());
+              ProfilePageCubit.get(context).userProfile().then((value){
+                Get.offAll(() => const HomePage());
+
+              });
             });
           });
         }

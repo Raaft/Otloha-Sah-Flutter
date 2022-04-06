@@ -88,7 +88,7 @@ class PagesNotePage extends StatelessWidget {
                                 context)),
                         isScrollControlled: true);
                   }, BlocProvider.of<GetUserQuranActionCubit>(context), verse,
-                      index);
+                      index,context,verse.id);
                 },
               );
             }
@@ -109,7 +109,7 @@ class PagesNotePage extends StatelessWidget {
                                 context)),
                         isScrollControlled: true);
                   }, BlocProvider.of<GetUserQuranActionCubit>(context), verse,
-                      index);
+                      index,context,verse.id);
                 },
               );
             }
@@ -137,23 +137,24 @@ class PagesNotePage extends StatelessWidget {
   }
 
   Widget _itemBuild(String name, String? note, Function() action,
-      GetUserQuranActionCubit cubit, VerseNote verseNote, int index) {
-    return Stack(
-      alignment: Alignment.topLeft,
-      children: [
-        Dismissible(
-          onDismissed: (v) {
-            cubit.deleteVerseNotes(verseNote.id ?? 1);
-          },
-          key: ValueKey<int>(index),
-          child: UserLiked(
-            userName: name,
-            userImage: AppIcons.quran2Icon,
-            note: note,
-            action: action,
-          ),
-        ),
-      ],
+      GetUserQuranActionCubit cubit, VerseNote verseNote, int index,context,id) {
+    return Dismissible(
+      key: UniqueKey(),
+      onDismissed: (value) {
+
+        var cubit = GetUserQuranActionCubit.get(context);
+        cubit.deleteVerseNotes(id);
+        cubit.findAllVerseNotes();
+      },
+      child: UserLiked(
+        id: verseNote.id,
+        index: index,
+        userName: name,
+        userImage: AppIcons.quran2Icon,
+        note: note,
+        action: action,
+
+      ),
     );
   }
 }

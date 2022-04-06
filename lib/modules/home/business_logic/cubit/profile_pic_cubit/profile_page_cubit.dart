@@ -10,6 +10,8 @@ part 'profile_page_state.dart';
 class ProfilePageCubit extends Cubit<ProfilePageState> {
   ProfilePageCubit() : super(ProfilePageInitial());
 
+
+
   static ProfilePageCubit get(context) =>
       BlocProvider.of<ProfilePageCubit>(context);
 

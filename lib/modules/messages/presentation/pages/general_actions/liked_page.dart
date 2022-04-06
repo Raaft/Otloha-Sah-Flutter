@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/constant/utils.dart';
 import '../../../../../core/utils/res/images_app.dart';
+import '../../../../quran/business_logic/cubit/getuserquranaction_cubit.dart';
 import '../../../../settings/presentation/widgets/search_bar_app.dart';
 import '../../../../settings/presentation/widgets/user_like.dart';
 
@@ -46,6 +47,7 @@ class LikedPage extends StatelessWidget {
           itemCount: 15,
           itemBuilder: (context, index) {
             return UserLiked(
+              ///dismissFun: GetUserQuranActionCubit.get(context).deleteVerseLiked(id),
               userName: 'User Name',
               userImage: AppImages.duserImage,
               note: (arg == 1) ? 'user note hir' : null,
