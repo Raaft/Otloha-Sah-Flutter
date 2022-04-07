@@ -116,7 +116,7 @@ class _QuranTranslationLanguagePageState
                     height: 150,
                     width: 150,
                   ),
-                  const TextView(text: 'No Data go to Add First!'),
+                   TextView(text: tr('No Data go to Add First')),
                 ],
               ),
             );

@@ -52,7 +52,7 @@ class _TafseerPageState extends State<TafseerPage> {
           Navigator.of(context).pop();
         },
       ),
-      title: 'Tafseer Center',
+      title: tr('Tafseer Center'),
     );
   }
 
@@ -72,8 +72,8 @@ class _TafseerPageState extends State<TafseerPage> {
                   return ItemDownload(
                     instance: null,
                     downloadType: DownloadTypes.page,
-                    name: 'Tafseer ${index + 1}',
-                    description: 'surah',
+                    name:  tr('Tafseer')+'${index + 1}',
+                    description: tr('Sourah'),
                     isDownloaded: true,
                     isSelect: _selected == index,
                     action: () {
@@ -108,7 +108,7 @@ class _TafseerPageState extends State<TafseerPage> {
                     height: 150,
                     width: 150,
                   ),
-                  const TextView(text: 'No Data go to Add First!'),
+                   TextView(text: tr('No Data go to Add First')),
                 ],
               ),
             );
@@ -122,7 +122,7 @@ class _TafseerPageState extends State<TafseerPage> {
                     height: 150,
                     width: 150,
                   ),
-                  const TextView(text: 'No Data go to Add First!'),
+                   TextView(text: tr('No Data go to Add First')),
                 ],
               ),
             );

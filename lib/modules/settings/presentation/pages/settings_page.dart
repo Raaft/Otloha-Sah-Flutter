@@ -43,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   builder: (context, state) {
                     var cubit = AuthCubit.get(context);
                     return (cubit.isLogin)
-                        ? _titleSection('Settings')
+                        ? _titleSection(tr('Settings'))
                         : const Text('');
                   },
                 ),

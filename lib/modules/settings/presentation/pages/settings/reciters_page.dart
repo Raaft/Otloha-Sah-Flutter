@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/themes/color.dart';
 import '../../../../../core/widgets/alert_dialog_full_screen.dart';
@@ -58,7 +59,7 @@ class _RecitersPageState extends State<RecitersPage> {
           Navigator.of(context).pop();
         },
       ),
-      title: 'Reciters Center',
+      title: tr('Reciters Center'),
     );
   }
 
@@ -71,7 +72,7 @@ class _RecitersPageState extends State<RecitersPage> {
         } else if (state is ReciterInitial) {
           return const LoadingWidget();
         } else {
-          String error = 'Not Found Data';
+          String error = tr('Not Found Data');
 
           if (state is ReciterError) {
             error = state.error;
@@ -93,7 +94,7 @@ class _RecitersPageState extends State<RecitersPage> {
             return ItemDownload(
               instance: null,
               downloadType: DownloadTypes.page,
-              name: isDemo ? 'reciters name' : reciters![index].name.toString(),
+              name: isDemo ? tr('reciters name') : reciters![index].name.toString(),
               isDownloaded: true,
               isSelect: _selected == index,
               action: () {

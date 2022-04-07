@@ -70,8 +70,8 @@ class _TajweedPageState extends State<TajweedPage> {
                   return ItemDownload(
                     instance: Null,
                     downloadType: DownloadTypes.page,
-                    name: 'Tajweed Name ${index + 1}',
-                    description: 'surah',
+                    name: tr('Tajweed Name')+'${index + 1}',
+                    description: tr('Sourah'),
                     isDownloaded: true,
                     isSelect: _selected == index,
                     action: () {
@@ -82,10 +82,10 @@ class _TajweedPageState extends State<TajweedPage> {
                       CacheHelper.saveData(
                           key: tafseerSelectedId, value: index);
 
-                      settings[5].subTitle = 'Tajweed ${index + 1}';
+                      settings[5].subTitle = tr('Tajweed')+' ${index + 1}';
                       CacheHelper.saveData(
                           key: tafseerSelectedId,
-                          value: 'Tajweed Name ${index + 1}');
+                          value: tr('Tajweed Name')+' ${index + 1}');
                       setState(() {
                         _selected = index;
                       });
@@ -105,7 +105,7 @@ class _TajweedPageState extends State<TajweedPage> {
                     height: 150,
                     width: 150,
                   ),
-                  const TextView(text: 'No Data go to Add First!'),
+                   TextView(text: tr('No Data go to Add First')),
                 ],
               ),
             );
@@ -119,7 +119,7 @@ class _TajweedPageState extends State<TajweedPage> {
                     height: 150,
                     width: 150,
                   ),
-                  const TextView(text: 'No Data go to Add First!'),
+                   TextView(text: tr('No Data go to Add First')),
                 ],
               ),
             );

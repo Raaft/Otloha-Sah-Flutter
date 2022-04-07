@@ -143,7 +143,7 @@
   "narrations name": "narrations name",
   "Quran Translation Language Center":"Quran Translation Language Center",
   "Quran Translation Language": "Quran Translation Language",
-
+"Settings": "Settings",
 
 
 
@@ -208,5 +208,16 @@
   "SendedToFav": "Sent to favorite teacher",
   "No Data go to Add First": "No Data go to Add First",
   "Sourah": "Sourah",
-  "Edite": "Edite"
+  "Edite": "Edite",
+  "Reciters Center": "Reciters Center",
+  "reciters name": "reciters name",
+  "Tafseer Center": "Tafseer Center",
+  "Tafseer": "Tafseer",
+  "Tajweed Name": "Tajweed Name",
+  "Tajweed": "Tajweed",
+
+
+
+
+
 }
