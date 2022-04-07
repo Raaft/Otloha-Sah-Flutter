@@ -17,6 +17,8 @@ class GeneralMessagePage extends StatefulWidget {
 
   @override
   State<GeneralMessagePage> createState() => _GeneralMessagePageState();
+
+
 }
 
 class _GeneralMessagePageState extends State<GeneralMessagePage> {

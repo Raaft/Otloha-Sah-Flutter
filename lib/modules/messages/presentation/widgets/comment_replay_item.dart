@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/message_widget.dart';
 import '../../../../core/utils/constant/constants.dart';
@@ -101,7 +102,7 @@ class CommentReplayItem extends StatelessWidget {
 
   TextView _viweName() {
     return TextView(
-      text: userName ?? 'Name',
+      text: userName ?? tr('Name'),
       weightText: FontWeight.w900,
       padding: EdgeInsets.zero,
       sizeText: 10,
@@ -123,7 +124,7 @@ class CommentReplayItem extends StatelessWidget {
             ),
             child: TextView(
               padding: EdgeInsets.zero,
-              text: 'نوع الخطاء : ' + (errorTypeActiv.value ?? 'تجويد'),
+              text:  tr('Error Type :') + (errorTypeActiv.value ?? tr('Tajweed')),
               sizeText: 8,
               colorText: AppColor.txtColor2,
               textAlign: TextAlign.start,
@@ -194,7 +195,7 @@ class CommentReplayItem extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: TextView(
-              text: 'رد',
+              text: tr('Reply'),
               padding: EdgeInsets.zero,
               sizeText: 14,
               weightText: FontWeight.w700,
@@ -295,7 +296,7 @@ class CommentReplayItem extends StatelessWidget {
                                 ),
                               TextView(
                                 padding: EdgeInsets.zero,
-                                text: userInfo ?? 'Paid Teacher',
+                                text: userInfo ?? tr('Paid Teacher'),
                                 sizeText: 11,
                                 colorText: AppColor.txtColor4,
                                 textAlign: TextAlign.start,
@@ -312,8 +313,8 @@ class CommentReplayItem extends StatelessWidget {
                               ),
                               child: TextView(
                                 padding: EdgeInsets.zero,
-                                text: 'نوع الخطاء : ' +
-                                    (errorTypeActiv.value ?? 'تجويد'),
+                                text:tr('Error Type :') +
+                                    (errorTypeActiv.value ?? tr('Tajweed')),
                                 sizeText: 11,
                                 colorText: AppColor.txtColor2,
                                 textAlign: TextAlign.start,
@@ -350,7 +351,7 @@ class CommentReplayItem extends StatelessWidget {
                         ),
                       if (actionReply != null)
                         TextView(
-                          text: 'رد',
+                          text: tr('Reply'),
                           padding: EdgeInsets.zero,
                           sizeText: 14,
                           weightText: FontWeight.w700,

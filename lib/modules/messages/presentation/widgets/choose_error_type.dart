@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
@@ -20,7 +21,7 @@ class ChooseErrorType extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TextView(
-            text: 'اختر نوع الخطأ',
+            text: tr('Choose a Error Type'),
             colorText: AppColor.txtColor1,
             textAlign: TextAlign.start,
           ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/constant/utils.dart';
 import '../../../../../core/utils/res/images_app.dart';
@@ -36,7 +37,7 @@ class NotifiactionsPage extends StatelessWidget {
     return BoxMessageItem(
       id: 1,
       isRead: ((index % 3) == 0),
-      ayah: 'Notifiaction contant',
+      ayah: tr('Notifiaction contant'),
       ayahInfo: '',
       userImage: AppImages.duserImage,
       userName: 'Mohamed Ahmed',

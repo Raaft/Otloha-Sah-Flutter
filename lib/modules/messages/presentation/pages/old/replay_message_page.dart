@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/widgets/text_view.dart';
 
@@ -157,8 +158,8 @@ class _ReplayMessagePageState extends State<ReplayMessagePage> {
             children: [
               TextView(
                 text: (replyCubit != null && replyCubit!.errorType != null)
-                    ? (replyCubit!.errorType!.value ?? 'اختر نوع الخطأ')
-                    : 'اختر نوع الخطأ',
+                    ? (replyCubit!.errorType!.value ?? tr('Choose a Error Type'))
+                    : tr('Choose a Error Type'),
                 sizeText: 16,
                 colorText: AppColor.txtColor4,
                 textAlign: TextAlign.start,

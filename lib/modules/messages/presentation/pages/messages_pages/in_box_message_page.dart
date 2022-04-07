@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/data_source/models/message_model/message_model.dart';
@@ -40,7 +41,8 @@ class InBoxMessagePage extends StatelessWidget {
         if (state is MessageRecieveErrorState) {
           return Expanded(child: ErrorIndicator(error: state.error));
         }
-        return const Expanded(child: Center(child: Text('No Message Yet')));
+
+        return  Expanded(child: Center(child: Text(tr('No Message Yet'))));
       },
     );
   }

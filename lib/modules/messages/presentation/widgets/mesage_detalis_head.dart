@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_base/core/utils/res/images_app.dart';
@@ -163,7 +164,7 @@ class MessageDetailsReplay extends StatelessWidget {
                       colorText: AppColor.darkBlue,
                     ),
                     TextView(
-                      text: 'Teacher',
+                      text: tr('Teacher'),
                       weightText: FontWeight.bold,
                       padding: const EdgeInsets.all(2),
                       sizeText: 13,

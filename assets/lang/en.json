@@ -66,6 +66,13 @@
   "Bio":  "Bio",
   "Arabic":  "Arabic",
 
+  "Name":  "Name",
+  "Error Type :":  "Error Type :",
+  "Tajweed":  "Tajweed",
+"Replay":  "Replay",
+  "Paid Teacher":  "Paid Teacher",
+  "Teacher": "Teacher",
+
 
 
 
@@ -110,7 +117,10 @@
   "Outbox":"Outbox",
   "Not Found Data":"Not Found Data",
   "Comment":"Comment",
-  "Add Replay":"Add Replay",
+  "No Message Yet":"No Message Yet",
+  "Notifiaction contant":"Notifiaction contant",
+  "Choose a Error Type":"Choose a Error Type",
+
 
 
 
