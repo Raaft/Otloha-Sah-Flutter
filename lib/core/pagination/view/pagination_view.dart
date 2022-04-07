@@ -96,9 +96,9 @@ class _PaginationDataState<T> extends State<PaginationData<T>> {
     );
   }
 
-  // @override
-  // void dispose() {
-  //   _pagingController.dispose();
-  //   super.dispose();
-  // }
+// @override
+// void dispose() {
+//   _pagingController.dispose();
+//   super.dispose();
+// }
 }

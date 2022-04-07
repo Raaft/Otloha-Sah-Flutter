@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/cached_image.dart';
 import '../../../../../core/utils/constant/utils.dart';
@@ -54,7 +55,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
                   SizedBox(
                     width: double.infinity,
                     child: Semantics(
-                      label: translate('PopularActions'),
+                      label: tr('PopularActions'),
                       child: TextView(
                         text: translate('PopularActions'),
                         colorText: AppColor.txtColor3,
@@ -119,13 +120,13 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
   Row _sectionMain(BuildContext context, AuthCubit authCubit) {
     return Row(
       children: [
-        _sections(context, translate('Khatema'), AppIcons.discussioncon,
+        _sections(context, tr('Khatema'), AppIcons.discussioncon,
             AppColor.gradient3, AppColor.gradient1,
             actionTo: ComingSoonPage.routeName, authCubit: authCubit),
-        _sections(context, translate('Recitations'), AppIcons.discussioncon,
+        _sections(context, tr('Recitations'), AppIcons.discussioncon,
             AppColor.gradient3, AppColor.gradient4,
             actionTo: RecitationsPage.routeName, authCubit: authCubit),
-        _sections(context, translate('Tajweed'), AppIcons.quran2Icon,
+        _sections(context, tr('Tajweed'), AppIcons.quran2Icon,
             AppColor.gradient1, AppColor.gradient2,
             actionTo: ComingSoonPage.routeName, authCubit: authCubit),
       ],
@@ -159,7 +160,7 @@ class _HomeBNBPageState extends State<HomeBNBPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextView(
-              text: translate('Hello'),
+              text: tr('Hello'),
               colorText: AppColor.txtColor4,
               sizeText: 18,
               padding: const EdgeInsets.all(2),

@@ -75,7 +75,7 @@ class MessageDetailsPage extends StatelessWidget {
                                 ),
                               );
                             }
-                            return const ViewError(error: 'Not Found Data');
+                            return  ViewError(error: tr('Not Found Data'));
                           },
                         ),
                       ],
@@ -138,7 +138,7 @@ class MessageDetailsPage extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: TextView(
-        text: 'التعليقات ...',
+        text: tr('Comment'),
         weightText: FontWeight.bold,
         padding: const EdgeInsets.all(16),
         sizeText: 15,
@@ -202,7 +202,7 @@ class MessageDetailsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           TextView(
-            text: 'Comment',
+            text: tr('Comment'),
             padding: const EdgeInsets.all(0),
             sizeText: 16,
             colorText: AppColor.txtColor4,
@@ -211,7 +211,7 @@ class MessageDetailsPage extends StatelessWidget {
             //overflow: TextOverflow.ellipsis,
           ),
           TextView(
-            text: 'Add Replay',
+            text: tr('Add Replay'),
             padding: const EdgeInsets.all(0),
             sizeText: 15,
             colorText: AppColor.darkBlue,

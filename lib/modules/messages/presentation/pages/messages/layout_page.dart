@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/genaralmessage_cubit.dart';
 import 'package:flutter_base/modules/messages/business_logic/cubit/messagerecieve_cubit.dart';
@@ -87,15 +88,15 @@ tabsView(context, selected, MessageTapCubit cubit) {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      tabItem(context, 'General', 0, isSelect: selected == 0, fetchData: () {
+      tabItem(context, tr('General'), 0, isSelect: selected == 0, fetchData: () {
         BlocProvider.of<GenaralmessageCubit>(context).getGeneraBoXMessage();
       }, cubit: cubit),
       _divider(),
-      tabItem(context, 'Inbox', 1, isSelect: selected == 1, fetchData: () {
+      tabItem(context, tr('Inbox'), 1, isSelect: selected == 1, fetchData: () {
         BlocProvider.of<MessagerecieveCubit>(context).getRecieveMessage();
       }, cubit: cubit),
       _divider(),
-      tabItem(context, 'Outbox', 2, isSelect: selected == 2, fetchData: () {
+      tabItem(context, tr('Outbox'), 2, isSelect: selected == 2, fetchData: () {
         BlocProvider.of<MessagesendCubit>(context).getSendMessage();
       }, cubit: cubit),
     ],
