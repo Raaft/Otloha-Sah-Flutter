@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../data_source/cache_helper.dart';
 import '../../../../../core/utils/constant/constants.dart';
@@ -71,7 +72,7 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
           Navigator.of(context).pop();
         },
       ),
-      title: 'Download Center',
+      title: tr('Download Center'),
       onSearch: (val) {
         BlocProvider.of<ChapterCubit>(context).fetchChaptersList(qurey: val);
         _selected = -1;
@@ -92,7 +93,7 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
           return _viewEmpty(state, context);
         }
         else {
-          String error = 'Not Found Data';
+          String error = tr('Not Found Data');
 
           if (state is ChapterError) {
             error = state.error;
@@ -132,7 +133,9 @@ class _ChapterDownloadPageState extends State<ChapterDownloadPage> {
             ),
             TextView(
                 text:
-                    'You must Choose ${state.isNarrtion ? 'Narrtation' : 'Reciter'} First'),
+                //    'You must Choose ${state.isNarrtion ? 'Narrtation' : 'Reciter'} First'
+
+            tr('You must Choose')+ ((state.isNarrtion)?tr('Narrtation') : tr('Reciter'))+tr('First')),
           ],
         ),
       ),

@@ -168,6 +168,10 @@ class _RecitationsPageState extends State<RecitationsPage> {
     });*/
 
     return (results.chapterName ?? '') +
-        ' من آية ${results.versesID![0]} الي أية ${results.versesID![results.versesID!.length - 1]}';
+        tr('from verse') +
+        results.versesID![0].toString() +
+        tr('to verse') +
+        results.versesID![results.versesID!.length - 1].toString();
+
   }
 }

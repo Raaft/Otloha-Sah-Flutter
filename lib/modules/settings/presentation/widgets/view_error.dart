@@ -20,7 +20,7 @@ class ViewError extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(32.0),
-            child: TextView(text: 'No Data to Fetch!\n Error is $error '),
+            child: TextView(text: 'No Data to Fetch!\n Error is'+error),
           ),
         ],
       ),

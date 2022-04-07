@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/widgets/auth_navigator.dart';
 import 'package:flutter_base/core/widgets/cached_image.dart';
@@ -58,7 +59,7 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
                 Get.back();
                 return Get.to(const TeacherPage());
               });
-              return const ViewError(error: 'No Data');
+              return  ViewError(error: tr('No Data Found'));
             }
 
             if (state is TeacherFetchedState) {
@@ -231,55 +232,3 @@ class _PopupChooseTeacherSendState extends State<PopupChooseTeacherSend> {
   }
 }
 
-/**
- *  Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextView(
-                    text: translate('SelectToSend'),
-                    colorText: AppColor.txtColor3,
-                    sizeText: 16,
-                    weightText: FontWeight.w700,
-                    padding: const EdgeInsets.all(4),
-                    textAlign: TextAlign.start,
-                  ),
-                  MaterialButton(
-                    onPressed: () async {
-                      List<int> users = [];
-                      for (var element in list) {
-                        users.add(teachers![element].id ?? 0);
-                      }
-                      if (widget.saveRecittion != null) {
-                        recitationId = await widget.saveRecittion!();
-                      } else {
-                        recitationId = widget.id;
-                      }
-                      _sendMessage(users);
-                    },
-                    color: Colors.blue,
-                    padding: const EdgeInsets.all(12),
-                    shape: const CircleBorder(),
-                    child: Transform(
-                      alignment: Alignment.center,
-                      transform:
-                          isEn ? Matrix4.rotationY(pi) : Matrix4.rotationY(0),
-                      child: const Icon(
-                        Icons.send,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: teachers!.length,
-              itemBuilder: (context, index) {
-                return _teachers(index, teachers[index]);
-              },
-            )
- */

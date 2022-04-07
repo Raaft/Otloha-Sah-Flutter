@@ -63,7 +63,7 @@ class _QuranTranslationLanguagePageState
           Navigator.of(context).pop();
         },
       ),
-      title: 'Quran Translation Language Center',
+      title: tr('Quran Translation Language Center'),
     );
   }
 
@@ -82,7 +82,7 @@ class _QuranTranslationLanguagePageState
                   return ItemDownload(
                     instance: null,
                     downloadType: DownloadTypes.page,
-                    name: 'Quran Translation Language ${index + 1}',
+                    name: tr('Quran Translation Language')+ '${index + 1}',
                     description: 'surah',
                     isDownloaded: true,
                     isSelect: _selected == index,

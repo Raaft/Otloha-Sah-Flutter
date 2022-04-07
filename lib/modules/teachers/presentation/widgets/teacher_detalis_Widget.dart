@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core/utils/constant/constants.dart';
 import '../../../../core/utils/themes/color.dart';

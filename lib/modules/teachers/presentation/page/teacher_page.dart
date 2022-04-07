@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/pagination/view/pagination_view.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
@@ -111,9 +112,9 @@ class _TeacherPageState extends State<TeacherPage> {
 
         return ItemTeacher(
           userName:
-              (results.firstName ?? 'Add') + ' ' + (results.lastName ?? 'add'),
+              (results.firstName ?? tr('Add')) + ' ' + (results.lastName ?? tr('Add')),
           rate: "${results.rate ?? ''}",
-          userId: (results.teacherType ?? '') + ' Teacher',
+          userId: (results.teacherType ?? '') + tr('Teacher'),
           userbio: results.bio ?? '',
           action: () {
             Get.to(()=>TeacherDetails(results: results,));

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../data_source/models/setting_model/init_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,7 +59,7 @@ class _NarrationPageState extends State<NarrationPage> {
           Navigator.of(context).pop();
         },
       ),
-      title: 'Narrations Center',
+      title: tr('Narrations Center'),
       onSearch: (val) {
         BlocProvider.of<NarrationCubit>(context).fetchNarration(qurey: val);
       },
@@ -101,10 +102,10 @@ class _NarrationPageState extends State<NarrationPage> {
               instance: narrations![index],
               downloadType: DownloadTypes.page,
               name: isDemo
-                  ? 'narrations name'
+                  ? tr('narrations name')
                   : narrations[index].name.toString(),
               description: isDemo
-                  ? 'narrations description'
+                  ? tr('narrations description')
                   : narrations[index].description.toString(),
               isDownloaded: true,
               isSelect: _selected == index,

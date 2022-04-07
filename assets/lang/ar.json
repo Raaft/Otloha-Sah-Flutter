@@ -124,6 +124,27 @@
   "empty":"فارغ",
   "No Data Found":"لا توجد بيانات حاليه",
   "someThing Error":"حدث شيء خطاء",
+  "Downloaded Books": "المصاحف المحمله",
+  "Books Available for download": "مصاحف متاحه للتحميل",
+  "books name": "أسم المصحف",
+"You must Choose": "يجب أن تختار",
+  "Narrtation":"روايه",
+  "Reciter": "القارئ",
+  "First": "أولا",
+  "Narrations Center": "مركز الروايات",
+  "narrations description": "وصف الروايه",
+  "narrations name": "أسم الروايه",
+  "Quran Translation Language Center": "مركز تحميل لغات القراءن الكريم",
+  "Quran Translation Language": "لغه تحميل القراءن الكريم",
+
+
+
+
+
+
+
+
+
 
   "First Name":  "الأسم الاول",
   "Last Name":  "الأسم الثانى",
@@ -148,6 +169,23 @@
   "Replay": "رد",
   "Paid Teacher":  "معلم مدفوع",
   "Teacher": "معلم",
+  "Mark as Accepted": "وضع علامة كمقبول",
+  "Mark as Remarkable": "وضع علامة لافت للنظر",
+  "send Message": "أرسل رساله",
+  "Click on the Quranic text to locate the error": "أضغط علي النص القرآني لتحديد موقع الخطأ",
+  "No Data go to Add First": "لا توجد بيانات قم باأضافه اولا",
+  "Sourah": "سورة",
+  "Edite": "تعديل",
+  "from verse": "من ايه",
+  "to verse": "الي أيه",
+  "Add": "أضافه",
+  "No Data to Fetch!\n Error is": "لا توجد أي بيانات الخطأ هو",
+  "Books Center": "مركز المصاحف",
+
+
+
+
+
 
 
 

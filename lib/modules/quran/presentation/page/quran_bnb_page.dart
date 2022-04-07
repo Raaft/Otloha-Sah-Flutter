@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/themes/color.dart';
 import '../../../../core/widgets/text_view.dart';
@@ -102,7 +103,7 @@ class QuranBNBPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextView(
-                    text: ' سورة ' + (cubit!.chapterName ?? 'الفاتحة'),
+                    text:  tr('Sourah') + (cubit!.chapterName ?? 'الفاتحة'),
                     textAlign: TextAlign.center,
                     colorText: AppColor.txtColor1,
                     sizeText: 17,
@@ -185,7 +186,7 @@ class QuranBNBPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextView(
-                text: ' سورة ' + (cubit!.chapterName ?? 'الفاتحة'),
+                text: tr('Sourah') + (cubit!.chapterName ?? 'الفاتحة'),
                 textAlign: TextAlign.center,
                 colorText: AppColor.txtColor2,
                 sizeText: 17,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/utils/themes/color.dart';
 import 'package:flutter_base/core/widgets/text_view.dart';
@@ -89,7 +90,7 @@ class ReplayMessageWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextView(
-                text: 'أضغط علي النص القرآني لتحديد موضع الخطأ',
+                text: tr('Click on the Quranic text to locate the error'),
                 padding:
                     const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
                 sizeText: 14,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/core/error/exceptions.dart';
 import 'package:flutter_base/core/exception_indicators/error_indicator.dart';
@@ -129,7 +130,7 @@ class _StudentsPageState extends State<StudentsPage> {
         return ItemTeacher(
           userName: results.firstName! + ' ' + results.lastName!,
           rate: "${results.rate ?? ''}",
-          userId: (results.level ?? '') + ' Student',
+          userId: (results.level ?? '') + tr('Student'),
           userbio: results.bio ?? '',
           action: () {},
           typeView: _type,

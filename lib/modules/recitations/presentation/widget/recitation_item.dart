@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/modules/messages/presentation/widgets/wave_view.dart';
 
@@ -91,7 +92,7 @@ class RecitationItem extends StatelessWidget {
 
   TextView _viwName() {
     return TextView(
-      text: userName ?? 'Name',
+      text: userName ?? tr('Name'),
       weightText: FontWeight.w900,
       padding: EdgeInsets.zero,
       sizeText: 10,

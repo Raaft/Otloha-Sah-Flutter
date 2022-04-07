@@ -72,6 +72,18 @@
 "Replay":  "Replay",
   "Paid Teacher":  "Paid Teacher",
   "Teacher": "Teacher",
+  "Mark as Accepted": "Mark as Accepted",
+  "Mark as Remarkable": "Mark as Remarkable",
+  "send Message": "send Message",
+  "Click on the Quranic text to locate the error": "Click on the Quranic text to locate the error",
+  "No Data to Fetch!\n Error is": "No Data to Fetch!\n Error is",
+  "Books Center": "Books Center",
+  "Downloaded Books": "Downloaded Books",
+  "Books Available for download": "Books Available for download",
+  "books name": "books name",
+
+
+
 
 
 
@@ -120,7 +132,17 @@
   "No Message Yet":"No Message Yet",
   "Notifiaction contant":"Notifiaction contant",
   "Choose a Error Type":"Choose a Error Type",
-
+"from verse": "from verse",
+"to verse": "to verse",
+  "You must Choose": "You must Choose",
+  "Narrtation": "Narrtation",
+  "Reciter": "Reciter",
+  "First":"First",
+  "Narrations Center": "Narrations Center",
+  "narrations description": "narrations description",
+  "narrations name": "narrations name",
+  "Quran Translation Language Center":"Quran Translation Language Center",
+  "Quran Translation Language": "Quran Translation Language",
 
 
 
@@ -158,6 +180,7 @@
   "Notifiactions":"Notifiactions",
   "ChapterDownloadCenter":"Chapter Download Center",
   "QuranTranslationLanguage":"Quran Translation Languages",
+  "Add": "Add",
 
   "Users":"Users",
   "Pages":"Pages",
@@ -182,5 +205,8 @@
 
   "SendTo": "Send to favorite teacher",
   "SelectToSend": "Select for sending message",
-  "SendedToFav": "Sent to favorite teacher"
+  "SendedToFav": "Sent to favorite teacher",
+  "No Data go to Add First": "No Data go to Add First",
+  "Sourah": "Sourah",
+  "Edite": "Edite"
 }

@@ -30,15 +30,6 @@ class FloatingMenu extends StatelessWidget {
   }
 }
 
-/*Widget floatMenu(BuildContext context, HomeCubit cubit) {
-  return Stack(
-    children: [
-      floatBackGround(cubit),
-      floatBall(context, cubit),
-    ],
-  );
-}
-*/
 
 Positioned floatBall(BuildContext context, QuranViewCubit cubit) {
   return Positioned(

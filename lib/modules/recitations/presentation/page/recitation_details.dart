@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/constant/utils.dart';
@@ -58,7 +59,7 @@ class _RecitationDetailsPageState extends State<RecitationDetailsPage> {
             child: CircularProgressIndicator(),
           );
         }
-        return const ViewError(error: 'Not Found Data');
+        return  ViewError(error: tr('Not Found Data'));
       },
     );
   }

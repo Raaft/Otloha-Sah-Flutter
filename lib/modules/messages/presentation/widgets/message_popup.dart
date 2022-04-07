@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/utils/constant/constants.dart';
 import '../../../../core/utils/res/icons_app.dart';
@@ -38,7 +39,7 @@ class PopupMessageDetails extends StatelessWidget {
                   cubit.markAsAccept(messageId: msgId, reciId: recitationId);
                 },
                 title: TextView(
-                  text: 'Mark as Accepted',
+                  text: tr('Mark as Accepted'),
                   textAlign: TextAlign.start,
                   sizeText: 16,
                   colorText: AppColor.txtColor3,
@@ -56,7 +57,7 @@ class PopupMessageDetails extends StatelessWidget {
                       messageId: msgId, reciId: recitationId);
                 },
                 title: TextView(
-                  text: 'Mark as Remarkable',
+                  text: tr('Mark as Remarkable'),
                   textAlign: TextAlign.start,
                   sizeText: 16,
                   colorText: AppColor.txtColor3,
@@ -80,7 +81,7 @@ class PopupMessageDetails extends StatelessWidget {
                   Get.back();
                 },
                 title: TextView(
-                  text: 'send Message',
+                  text: tr('send Message'),
                   textAlign: TextAlign.start,
                   sizeText: 16,
                   colorText: AppColor.txtColor3,

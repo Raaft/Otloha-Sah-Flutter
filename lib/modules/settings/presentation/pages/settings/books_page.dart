@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/utils/constant/constants.dart';
 import '../../../../../core/widgets/loading.dart';
@@ -58,7 +59,7 @@ class _BooksPageState extends State<BooksPage> {
           Navigator.of(context).pop();
         },
       ),
-      title: 'Books Center',
+      title: tr('Books Center'),
       onSearch: (val) {
         BlocProvider.of<BookCubit>(context).fetchBooksList(qurey: val);
       },
@@ -78,7 +79,7 @@ class _BooksPageState extends State<BooksPage> {
         } else if (state is BookInitial) {
           return const LoadingWidget();
         } else {
-          String error = 'Not Found Data';
+          String error = tr('No Data Found');
 
           if (state is BookError) {
             error = state.error;
@@ -107,8 +108,8 @@ class _BooksPageState extends State<BooksPage> {
         padding: const EdgeInsets.all(8.0),
         children: [
           if (booksDown.isNotEmpty)
-            const TextView(
-              text: 'Downloaded Books',
+             TextView(
+              text: tr('Downloaded Books'),
               textAlign: TextAlign.start,
             ),
           if (booksDown.isNotEmpty)
@@ -124,8 +125,8 @@ class _BooksPageState extends State<BooksPage> {
               ),
             ),
           if (booksUp.isNotEmpty)
-            const TextView(
-              text: 'Books Available for download ',
+             TextView(
+              text:tr('Books Available for download') ,
               textAlign: TextAlign.start,
             ),
           if (booksUp.isNotEmpty)
@@ -169,7 +170,7 @@ class _BooksPageState extends State<BooksPage> {
         return ItemDownload(
           instance: books![index],
           downloadType: DownloadTypes.page,
-          name: isDemo ? 'books name' : books[index].name.toString(),
+          name: isDemo ? tr('books name') : books[index].name.toString(),
           isDownloaded: _downloaded.contains(index),
           isSelect: false,
           onDownload: () {

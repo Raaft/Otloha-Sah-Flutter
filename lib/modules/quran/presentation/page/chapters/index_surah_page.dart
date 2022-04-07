@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../data_source/cache_helper.dart';
 import '../../../../../core/utils/constant/constants.dart';
@@ -82,7 +83,7 @@ class _IndexSurahPageState extends State<IndexSurahPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextView(
-                  text: ' سورة ' +
+                  text: tr('Sourah') +
                       (CacheHelper.getData(key: chapterSelectedName) ??
                           'الفاتحة'),
                   textAlign: TextAlign.center,
