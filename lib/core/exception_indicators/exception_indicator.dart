@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 /// Basic layout for indicating that an exception occurred.
@@ -54,9 +55,9 @@ class ExceptionIndicator extends StatelessWidget {
                       Icons.refresh,
                       color: Colors.white,
                     ),
-                    label: const Text(
-                      'Try Again',
-                      style: TextStyle(
+                    label:  Text(
+                      tr('Try Again'),
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
                       ),

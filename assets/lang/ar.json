@@ -143,6 +143,13 @@
   "Tajweed Name": "أسم التجويد",
   "Tajweed": "التجويد",
   "Settings": "الأعدادت",
+  "Try Again": "حاول مجددا",
+  "Something went wrong": "حدث شيئ خطأ",
+  "The application has encountered an unknown error":"واجه التطبيق خطأ غير معروف. \n الرجاء المحاولة مرة أخرى لاحقًا. ",
+  "No connection": "لا يوجد أتصال ب الأنترنت",
+  "Please check internet":"من فضلك تحقق من أتصالك بأنترنت و حاول مجددا",
+  "Something went wrong": "حدث شئ خطأ",
+  "Server Error": "خطأ من السرفر",
 
 
 
@@ -157,7 +164,19 @@
 
 
 
-  "First Name":  "الأسم الاول",
+
+
+
+
+
+
+
+
+
+
+
+
+  "First Name",:  "الأسم الاول",
   "Last Name":  "الأسم الثانى",
   "Mobile":  "الهاتف",
   "Type":  "النوع",

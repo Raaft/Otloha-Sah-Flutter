@@ -81,6 +81,23 @@
   "Downloaded Books": "Downloaded Books",
   "Books Available for download": "Books Available for download",
   "books name": "books name",
+"Try Again": "Try Again",
+  "Something went wrong": "Something went wrong",
+"The application has encountered an unknown error": "The application has encountered an unknown error.\n'Please try again later.",
+  "No connection": "No connection",
+  "Please check internet": "Please check internet connection and try again.",
+  "Something went wrong": "Something went wrong",
+
+  "Server Error": "Server Error",
+
+
+
+
+
+
+
+
+
 
 
 
@@ -214,7 +231,7 @@
   "Tafseer Center": "Tafseer Center",
   "Tafseer": "Tafseer",
   "Tajweed Name": "Tajweed Name",
-  "Tajweed": "Tajweed",
+  "Tajweed": "Tajweed"
 
 
 

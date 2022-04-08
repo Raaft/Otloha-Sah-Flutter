@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../error/exceptions.dart';
@@ -30,7 +31,7 @@ class ErrorIndicator extends StatelessWidget {
       return ExceptionIndicator(
         onTryAgain: onTryAgain,
         //assetName: AppIcons.emptyIcon,
-        title: 'no data found',
+        title: tr('No Data Found'),
       );
     } else {
       return GenericErrorIndicator(
